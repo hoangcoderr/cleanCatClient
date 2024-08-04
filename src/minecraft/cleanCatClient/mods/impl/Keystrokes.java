@@ -1,5 +1,6 @@
 package cleanCatClient.mods.impl;
 
+import cleanCatClient.constants.ModConstants;
 import cleanCatClient.gui.font.FontUtil;
 import cleanCatClient.gui.hud.ScreenPosition;
 import cleanCatClient.mods.ModDraggable;
@@ -135,8 +136,7 @@ public class Keystrokes extends ModDraggable {
     }
 
     public Keystrokes() {
-        super("Keystrokes", "Displays your key strokes", true);
-    }
+        super(ModConstants.KEYSTROKES, ModConstants.KEYSTROKES_DESC, false);}
 
     @Override
     public int getWidth() {

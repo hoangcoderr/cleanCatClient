@@ -1,10 +1,11 @@
 package cleanCatClient.mods.impl;
 
+import cleanCatClient.constants.ModConstants;
 import cleanCatClient.mods.Mod;
 
 public class FullBright extends Mod {
     public FullBright(boolean isEnabled) {
-        super("Full bright", "Make game full bright");
+        super(ModConstants.FULL_BRIGHT, ModConstants.FULL_BRIGHT_DESC);
         setEnabled(isEnabled);
     }
 

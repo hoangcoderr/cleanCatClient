@@ -1,30 +1,35 @@
 package cleanCatClient.mods.impl;
 
+import cleanCatClient.constants.ModConstants;
 import cleanCatClient.mods.Mod;
 
+import java.awt.*;
+
 public class BlockOverlay extends Mod {
-    private float lineWidth = 2.0F;
+    private float lineWidth = 7.0F;
     public BlockOverlay(boolean isEnabled) {
-        super("BlockOverlay", "Edit block overlay");
+        super(ModConstants.BLOCK_OVERLAY, ModConstants.BLOCK_OVERLAY_DESC);
         setEnabled(isEnabled);
     }
 
     public void setLineWidth(float lineWidth) {
         this.lineWidth = lineWidth;
     }
+    private static final Color DEFAULT_COLOR = new Color(0,0,0);
 
-    public float getLineWidth() {
-        return this.lineWidth;
+    private Color customColor = new Color(204,64,64);
+    private static final float DEFAULT_LINE_WIDTH = 2F;
+    public Color getColor(){
+        if (isEnabled()){
+            return customColor;
+        }
+        return DEFAULT_COLOR;
     }
 
-    @Override
-    public void setEnabled(boolean enabled) {
-        super.setEnabled(enabled);
-        if (enabled) {
-           lineWidth = 7.0F;
+    public float getLineWidth(){
+        if (isEnabled()){
+            return lineWidth;
         }
-        else {
-           lineWidth = 2.0F;
-        }
+        return DEFAULT_LINE_WIDTH;
     }
 }

@@ -1,5 +1,6 @@
 package cleanCatClient.mods.impl;
 
+import cleanCatClient.constants.ModConstants;
 import cleanCatClient.gui.hud.ScreenPosition;
 import cleanCatClient.mods.ModDraggable;
 import net.minecraft.client.renderer.RenderHelper;
@@ -9,8 +10,7 @@ import org.lwjgl.opengl.GL11;
 
 public class ArmorStatus extends ModDraggable {
     public ArmorStatus() {
-        super("ArmorStatus", "Displays your armor status", false);
-    }
+        super(ModConstants.ARMOR_STATUS, ModConstants.ARMOR_STATUS_DESC, false);}
     @Override
     public int getWidth() {
         return 16;

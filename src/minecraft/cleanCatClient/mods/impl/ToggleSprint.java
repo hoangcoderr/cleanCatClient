@@ -16,8 +16,7 @@ public class ToggleSprint extends ModDraggable {
     public boolean shiftToggled = false;
 
     public ToggleSprint() {
-        super("ToggleSprint", "Sprint without holding the key", false);
-    }
+        super(ModConstants.TOGGLE_SPRINT, ModConstants.TOGGLE_SPRINT_DESC, false);}
 
     public int getWidth()
     {

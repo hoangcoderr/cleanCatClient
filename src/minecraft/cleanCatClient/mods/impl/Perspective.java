@@ -1,5 +1,6 @@
 package cleanCatClient.mods.impl;
 
+import cleanCatClient.constants.ModConstants;
 import cleanCatClient.event.EventTarget;
 import cleanCatClient.event.impl.KeyEvent;
 import cleanCatClient.mods.Mod;
@@ -16,8 +17,7 @@ public class Perspective extends Mod {
     private int previousPerspective = 0; // pref f5 state
 
     public Perspective() {
-        super("Perspective", "Allows you to look from a different perspective");
-    }
+        super(ModConstants.PERSPECTIVE, ModConstants.PERSPECTIVE_DESC);}
     @EventTarget
     public void keyboardEvent(KeyEvent e) {
         if (e.getKey() == mc.gameSettings.CLIENT_PERSPECTIVE.getKeyCode()) {

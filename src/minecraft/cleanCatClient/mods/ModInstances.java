@@ -16,6 +16,7 @@ public class ModInstances {
     private static Perspective modPerspective;
     private static FullBright modFullBright;
     private static BlockOverlay modBlockOverlay;
+    private static GlintColor modGlintColor;
     public static void register(HUDManager api){
 
         modArmorStatus = new ArmorStatus();
@@ -35,6 +36,8 @@ public class ModInstances {
         modFullBright = new FullBright(false);
 
         modBlockOverlay = new BlockOverlay(false);
+
+        modGlintColor = new GlintColor(false);
     }
 
     public static ArmorStatus getArmorStatus(){
@@ -63,5 +66,9 @@ public class ModInstances {
 
     public static BlockOverlay getBlockOverlay(){
         return modBlockOverlay;
+    }
+
+    public static GlintColor getGlintColor(){
+        return modGlintColor;
     }
 }

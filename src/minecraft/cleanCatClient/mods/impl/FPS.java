@@ -1,5 +1,6 @@
 package cleanCatClient.mods.impl;
 
+import cleanCatClient.constants.ModConstants;
 import cleanCatClient.gui.font.FontUtil;
 import cleanCatClient.gui.hud.ScreenPosition;
 import cleanCatClient.mods.ModDraggable;
@@ -8,8 +9,7 @@ import net.minecraft.client.renderer.GlStateManager;
 public class FPS extends ModDraggable {
 
     public FPS() {
-        super("FPS", "Displays your FPS", true);
-    }
+        super(ModConstants.FPS, ModConstants.FPS_DESC, false);}
     @Override
     public int getWidth() {
        return 50;

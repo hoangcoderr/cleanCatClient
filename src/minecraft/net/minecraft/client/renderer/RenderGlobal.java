@@ -2566,11 +2566,9 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             GlStateManager.enableBlend();
             GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
 
-            if (ModInstances.getBlockOverlay().isEnabled()) {
-                GlStateManager.color(0.0F, 0.0F, 0.0F, 1F);
-            } else {
-                GlStateManager.color(0.0F, 0.0F, 0.0F, 0.4F);
-            }
+            float[] customGlint = ModInstances.getBlockOverlay().getColor().getRGBColorComponents(null);
+            //GlStateManager.color(0.0F, 0.0F, 0.0F, 0.4F);
+            GlStateManager.color(customGlint[0], customGlint[1], customGlint[2], 1F);
 
             GL11.glLineWidth(ModInstances.getBlockOverlay().getLineWidth());
             GlStateManager.disableTexture2D();
