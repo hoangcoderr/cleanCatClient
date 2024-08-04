@@ -1,0 +1,81 @@
+---- Minecraft Crash Report ----
+// Shall we play a game?
+
+Time: 14:35 01/08/2024
+Description: Initializing game
+
+java.lang.ExceptionInInitializerError
+	at net.minecraft.client.renderer.texture.AbstractTexture.getGlTextureId(AbstractTexture.java:56)
+	at net.minecraft.client.renderer.texture.DynamicTexture.<init>(DynamicTexture.java:25)
+	at net.minecraft.client.renderer.texture.DynamicTexture.<init>(DynamicTexture.java:15)
+	at cleanCatClient.gui.font.CFont.setupTexture(CFont.java:29)
+	at cleanCatClient.gui.font.CFont.<init>(CFont.java:22)
+	at cleanCatClient.gui.font.MinecraftFontRenderer.<init>(MinecraftFontRenderer.java:20)
+	at cleanCatClient.gui.font.FontUtil.bootstrap(FontUtil.java:70)
+	at cleanCatClient.Client.init(ClientConstants.java:30)
+	at cleanCatClient.Client.init(Client.java:12)
+	at net.minecraft.client.Minecraft.startGame(Minecraft.java:383)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:336)
+	at net.minecraft.client.main.Main.main(Main.java:113)
+	at Start.main(Start.java:11)
+Caused by: java.lang.RuntimeException: No OpenGL context found in the current thread.
+	at org.lwjgl.opengl.GLContext.getCapabilities(GLContext.java:124)
+	at org.lwjgl.opengl.GL11.glGenTextures(GL11.java:1403)
+	at net.minecraft.client.renderer.GlStateManager.generateTexture(GlStateManager.java:435)
+	at net.minecraft.client.renderer.texture.TextureUtil.glGenTextures(TextureUtil.java:34)
+	at net.minecraft.client.renderer.texture.AbstractTexture.getGlTextureId(AbstractTexture.java:56)
+	at net.minecraft.client.renderer.texture.DynamicTexture.<init>(DynamicTexture.java:25)
+	at net.minecraft.client.renderer.texture.TextureUtil.<clinit>(TextureUtil.java:27)
+	... 13 more
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Stacktrace:
+	at net.minecraft.client.renderer.texture.AbstractTexture.getGlTextureId(AbstractTexture.java:56)
+	at net.minecraft.client.renderer.texture.DynamicTexture.<init>(DynamicTexture.java:25)
+	at net.minecraft.client.renderer.texture.DynamicTexture.<init>(DynamicTexture.java:15)
+	at cleanCatClient.gui.font.CFont.setupTexture(CFont.java:29)
+	at cleanCatClient.gui.font.CFont.<init>(CFont.java:22)
+	at cleanCatClient.gui.font.MinecraftFontRenderer.<init>(MinecraftFontRenderer.java:20)
+	at cleanCatClient.gui.font.FontUtil.bootstrap(FontUtil.java:70)
+	at cleanCatClient.Client.init(ClientConstants.java:30)
+	at cleanCatClient.Client.init(Client.java:12)
+	at net.minecraft.client.Minecraft.startGame(Minecraft.java:383)
+
+-- Initialization --
+Details:
+Stacktrace:
+	at net.minecraft.client.Minecraft.run(Minecraft.java:336)
+	at net.minecraft.client.main.Main.main(Main.java:113)
+	at Start.main(Start.java:11)
+
+-- System Details --
+Details:
+	Minecraft Version: 1.8.9
+	Operating System: Windows 11 (amd64) version 10.0
+	Java Version: 1.8.0_422, Temurin
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode), Temurin
+	Memory: 185706640 bytes (177 MB) / 270008320 bytes (257 MB) up to 3676307456 bytes (3506 MB)
+	JVM Flags: 0 total; 
+	IntCache: cache: 0, tcache: 0, allocated: 0, tallocated: 0
+	Launched Version: mcp
+	LWJGL: 2.9.4
+	OpenGL: ~~ERROR~~ RuntimeException: No OpenGL context found in the current thread.
+	GL Caps: 
+	Using VBOs: ~~ERROR~~ NullPointerException: null
+	Is Modded: Very likely; Jar signature invalidated
+	Type: Client (map_client.txt)
+	Resource Packs: ~~ERROR~~ NullPointerException: null
+	Current Language: ~~ERROR~~ NullPointerException: null
+	Profiler Position: N/A (disabled)
+	CPU: <unknown>
+	OptiFine Version: OptiFine_1.8.9_HD_U_M6_pre2
+	OptiFine Build: ~~NULL~~
+	Shaders: null
+	OpenGlVersion: null
+	OpenGlRenderer: null
+	OpenGlVendor: null
+	CpuCount: 0

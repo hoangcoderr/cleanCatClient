@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="cleanCatClient:jar">
+    <output-path>$MCP_LOC$/export/jar</output-path>
+    <root id="archive" name="cleanCatClient.jar">
+      <element id="module-output" name="Client" />
+    </root>
+  </artifact>
+</component>
