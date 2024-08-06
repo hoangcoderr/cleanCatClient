@@ -6,11 +6,11 @@ saturation:0.0
 renderDistance:8
 guiScale:2
 particles:2
-bobView:false
+bobView:true
 anaglyph3d:false
 maxFps:260
 fboEnable:true
-difficulty:0
+difficulty:1
 fancyGraphics:false
 ao:0
 renderClouds:false
@@ -24,9 +24,9 @@ chatLinks:true
 chatLinksPrompt:true
 chatOpacity:1.0
 snooperEnabled:true
-fullscreen:true
+fullscreen:false
 enableVsync:false
-useVbo:false
+useVbo:true
 hideServerAddress:false
 advancedItemTooltips:false
 pauseOnLostFocus:true
@@ -95,7 +95,7 @@ key_Edit HUD:20
 key_Toggle Perspective:45
 key_Mod Menu:54
 soundCategory_master:1.0
-soundCategory_music:1.0
+soundCategory_music:0.0
 soundCategory_record:1.0
 soundCategory_weather:1.0
 soundCategory_block:1.0

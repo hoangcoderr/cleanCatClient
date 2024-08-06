@@ -1,6 +1,7 @@
 package cleanCatClient.utils;
 
 import com.google.gson.Gson;
+import org.lwjgl.Sys;
 
 import java.io.*;
 
@@ -34,8 +35,10 @@ public class FileManager {
 
     public static boolean writeJsonToFile(File file, final Object obj) {
         try {
+            System.out.println("Writing to file: " + file.getName());
             if (!file.exists()) {
                 file.createNewFile();
+                System.out.println("File created: " + file.getName());
             }
             FileOutputStream outputStream = new FileOutputStream(file);
             outputStream.write(FileManager.gson.toJson(obj).getBytes());

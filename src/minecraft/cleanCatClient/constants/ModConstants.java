@@ -26,5 +26,11 @@ public class ModConstants {
     public static String GLINT_COLOR = "Glint Color";
     public static String GLINT_COLOR_DESC = "Changes the color of enchanted items glint.";
 
+    public static String NO_HURT_CAM = "No Hurt Cam";
+    public static String NO_HURT_CAM_DESC = "Disables the hurt camera effect.";
+
+    public static String OLD_ANIMATIONS = "Old Animations";
+    public static String OLD_ANIMATIONS_DESC = "Reverts to the 1.7 animation system";
+
 
 }

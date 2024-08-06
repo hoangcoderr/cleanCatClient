@@ -4,9 +4,8 @@ import cleanCatClient.constants.ModConstants;
 import cleanCatClient.mods.Mod;
 
 public class FullBright extends Mod {
-    public FullBright(boolean isEnabled) {
+    public FullBright() {
         super(ModConstants.FULL_BRIGHT, ModConstants.FULL_BRIGHT_DESC);
-        setEnabled(isEnabled);
     }
 
     @Override

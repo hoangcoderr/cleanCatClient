@@ -82,7 +82,7 @@ public class Gui
 
     public static void drawRect(int left, int top, int right, int bottom, int color)
     {
-        if (true) return;
+        //if (true) return;
         if (left < right)
         {
             int i = left;

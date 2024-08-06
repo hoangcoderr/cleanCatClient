@@ -7,9 +7,8 @@ import java.awt.*;
 
 public class BlockOverlay extends Mod {
     private float lineWidth = 7.0F;
-    public BlockOverlay(boolean isEnabled) {
+    public BlockOverlay() {
         super(ModConstants.BLOCK_OVERLAY, ModConstants.BLOCK_OVERLAY_DESC);
-        setEnabled(isEnabled);
     }
 
     public void setLineWidth(float lineWidth) {

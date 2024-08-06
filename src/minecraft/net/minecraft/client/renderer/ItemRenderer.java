@@ -1,5 +1,6 @@
 package net.minecraft.client.renderer;
 
+import cleanCatClient.mods.ModInstances;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -344,8 +345,15 @@ public class ItemRenderer
                             break;
 
                         case BLOCK:
-                            this.transformFirstPersonItem(f, 0.0F);
-                            this.doBlockTransformations();
+                            if (ModInstances.getSwordAniamtion().isEnabled()){
+                                this.transformFirstPersonItem(0.2f, f1);
+                                this.doBlockTransformations();
+                                GlStateManager.translate(-0.5F, 0.2F, 0.0F);
+                            }
+                            else {
+                                this.transformFirstPersonItem(f, 0.0F);
+                                this.doBlockTransformations();
+                            }
                             break;
 
                         case BOW:

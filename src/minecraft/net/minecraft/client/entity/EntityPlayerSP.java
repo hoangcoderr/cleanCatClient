@@ -1,5 +1,6 @@
 package net.minecraft.client.entity;
 
+import cleanCatClient.mods.ModInstances;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.MovingSoundMinecartRiding;
 import net.minecraft.client.audio.PositionedSoundRecord;
@@ -87,7 +88,10 @@ public class EntityPlayerSP extends AbstractClientPlayer
         this.mc = mcIn;
         this.dimension = 0;
     }
-
+//    @Override
+//    public float getEyeHeight() {
+//        return ModInstances.getSmoothSneaking().getEyeHeight(5);
+//    }
     public boolean attackEntityFrom(DamageSource source, float amount)
     {
         return false;

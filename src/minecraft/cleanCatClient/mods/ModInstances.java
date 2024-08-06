@@ -1,11 +1,9 @@
 package cleanCatClient.mods;
 
-import cleanCatClient.event.EventManager;
 import cleanCatClient.gui.hud.HUDManager;
-import cleanCatClient.gui.hud.IRenderer;
 import cleanCatClient.mods.impl.*;
-import com.sun.media.sound.ModelPerformer;
-import net.minecraft.client.Minecraft;
+import cleanCatClient.mods.impl.oldanimations.SmoothSneaking;
+import cleanCatClient.mods.impl.oldanimations.SwordAnimation;
 
 
 public class ModInstances {
@@ -17,6 +15,9 @@ public class ModInstances {
     private static FullBright modFullBright;
     private static BlockOverlay modBlockOverlay;
     private static GlintColor modGlintColor;
+    private static NoHurtCam modNoHurtCam;
+    private static SwordAnimation swordAnimation;
+    private static SmoothSneaking smoothSneaking;
     public static void register(HUDManager api){
 
         modArmorStatus = new ArmorStatus();
@@ -33,11 +34,17 @@ public class ModInstances {
 
         modPerspective = new Perspective();
 
-        modFullBright = new FullBright(false);
+        modFullBright = new FullBright();
 
-        modBlockOverlay = new BlockOverlay(false);
+        modBlockOverlay = new BlockOverlay();
 
-        modGlintColor = new GlintColor(false);
+        modGlintColor = new GlintColor();
+
+        modNoHurtCam = new NoHurtCam();
+
+        swordAnimation = new SwordAnimation();
+
+        smoothSneaking = new SmoothSneaking();
     }
 
     public static ArmorStatus getArmorStatus(){
@@ -70,5 +77,17 @@ public class ModInstances {
 
     public static GlintColor getGlintColor(){
         return modGlintColor;
+    }
+
+    public static NoHurtCam getNoHurtCam(){
+        return modNoHurtCam;
+    }
+
+    public static SwordAnimation getSwordAniamtion(){
+        return swordAnimation;
+    }
+
+    public static SmoothSneaking getSmoothSneaking(){
+        return smoothSneaking;
     }
 }

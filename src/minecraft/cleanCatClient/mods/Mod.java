@@ -36,7 +36,7 @@ public class Mod {
         return state != null ? state : false;
     }
 
-    private void saveModState(boolean state) {
+    protected void saveModState(boolean state) {
         FileManager.writeJsonToFile(new File(getFolder(), "state.json"), state);
     }
 
@@ -49,6 +49,7 @@ public class Mod {
             EventManager.unregister(this);
         }
         saveModState(enabled);
+        System.out.println("Saved mod " + getFolder());
     }
     public boolean isEnabled() {
         return isEnabled;

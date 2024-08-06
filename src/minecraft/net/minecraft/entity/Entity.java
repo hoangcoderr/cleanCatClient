@@ -1535,6 +1535,7 @@ public abstract class Entity implements ICommandSender {
 
 	public void setSneaking(boolean sneaking) {
 		this.setFlag(1, sneaking);
+
 	}
 
 	public boolean isSprinting() {

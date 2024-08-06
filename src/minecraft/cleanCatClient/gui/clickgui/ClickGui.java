@@ -57,6 +57,10 @@ public class ClickGui extends GuiScreen{
 		this.modButtonToRender.add(new ModButton(centerW,centerH + 2*spaceBetween, modButtonW, modButtonH, ModInstances.getArmorStatus(),0));
 		this.modButtonToRender.add(new ModButton(centerW,centerH + 3*spaceBetween, modButtonW, modButtonH, ModInstances.getFPS(),0));
 		this.modButtonToRender.add(new ModButton(centerW,centerH + 4*spaceBetween, modButtonW, modButtonH, ModInstances.getPerspective(),0));
+		this.modButtonToRender.add(new ModButton(centerW,centerH + 5*spaceBetween, modButtonW, modButtonH, ModInstances.getNoHurtCam(),0));
+		this.modButtonToRender.add(new ModButton(centerW,centerH + 6*spaceBetween, modButtonW, modButtonH, ModInstances.getSwordAniamtion(),0));
+		this.modButtonToRender.add(new ModButton(centerW,centerH + 7*spaceBetween, modButtonW, modButtonH, ModInstances.getSmoothSneaking(),0));
+		this.modButtonToRender.add(new ModButton(centerW,centerH + 8*spaceBetween, modButtonW, modButtonH, ModInstances.getSwordAniamtion(),0));
 		//world
 		//this.modButtonToRender.add(new ModButton(centerW,centerH, modButtonW, modButtonH, ModInstances.getModXYZ(),1));
 		
