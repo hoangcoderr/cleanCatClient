@@ -27,6 +27,7 @@ import javax.imageio.ImageIO;
 import cleanCatClient.event.impl.ClientTickEvent;
 import cleanCatClient.event.impl.KeyEvent;
 import cleanCatClient.gui.mainmenu.MainMenu;
+import cleanCatClient.mods.ModInstances;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.logging.log4j.LogManager;
@@ -1255,12 +1256,15 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 		if (!leftClick) {
 			this.leftClickCounter = 0;
 		}
-
+		if (ModInstances.getSwingAnimation().isEnabled() && Minecraft.getMinecraft().gameSettings.keyBindUseItem.isKeyDown()) {
+			// Stop block breaking
+			this.playerController.resetBlockRemoving();
+			return;
+		}
 		if (this.leftClickCounter <= 0 && !this.thePlayer.isUsingItem()) {
 			if (leftClick && this.objectMouseOver != null
 					&& this.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
 				BlockPos blockpos = this.objectMouseOver.getBlockPos();
-
 				if (this.theWorld.getBlockState(blockpos).getBlock().getMaterial() != Material.air
 						&& this.playerController.onPlayerDamageBlock(blockpos, this.objectMouseOver.sideHit)) {
 					this.effectRenderer.addBlockHitEffects(blockpos, this.objectMouseOver.sideHit);
@@ -1280,7 +1284,8 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 				logger.error("Null returned as \'hitResult\', this shouldn\'t happen!");
 
 				if (this.playerController.isNotCreative()) {
-					this.leftClickCounter = 10;
+					//this.leftClickCounter = 10;
+					this.leftClickCounter = 0;
 				}
 			} else {
 				switch (this.objectMouseOver.typeOfHit) {
@@ -1299,7 +1304,8 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 				case MISS:
 				default:
 					if (this.playerController.isNotCreative()) {
-						this.leftClickCounter = 10;
+						//this.leftClickCounter = 10;
+						this.leftClickCounter = 0;
 					}
 				}
 			}
@@ -1563,12 +1569,12 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 				if (Keyboard.getEventKeyState()) {
 					KeyBinding.onTick(k);
 				}
-
 				KeyEvent event = new KeyEvent(k);
 				event.call();
 				if (event.isCanceled()){
 					return;
 				}
+
 
 				if (this.debugCrashKeyPressTime > 0L) {
 					if (getSystemTime() - this.debugCrashKeyPressTime >= 6000L) {

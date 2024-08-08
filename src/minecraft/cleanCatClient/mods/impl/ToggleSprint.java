@@ -7,6 +7,7 @@ import cleanCatClient.gui.font.FontUtil;
 import cleanCatClient.gui.hud.ScreenPosition;
 import cleanCatClient.mods.ModDraggable;
 import net.minecraft.client.Minecraft;
+import net.minecraft.potion.Potion;
 import net.minecraft.world.MinecraftException;
 
 public class ToggleSprint extends ModDraggable {
@@ -31,18 +32,15 @@ public class ToggleSprint extends ModDraggable {
 
     @Override
     public void render(ScreenPosition pos) {
-
         FontUtil.normal.drawString(ModConstants.TOGGLE_SPRINT_ENABLED, pos.getAbsoluteX(), pos.getAbsoluteY() , -1);
     }
 
     @EventTarget
     public void onEvent(ClientTickEvent c){
-        if(mc.thePlayer == null){
-            return;
-        }
-        //if player is moving then enable sprint else not
-        if(mc.gameSettings.keyBindForward.isKeyDown()){
-                mc.thePlayer.setSprinting(true);
+        if (isEnabled() && mc.thePlayer != null && !mc.thePlayer.isSneaking() &&
+                (mc.thePlayer.motionX != 0.0D || mc.thePlayer.motionZ != 0.0D)
+                 &&!mc.thePlayer.isCollidedHorizontally && !mc.thePlayer.isPotionActive(Potion.moveSlowdown) && !mc.thePlayer.isPotionActive(Potion.confusion) && !mc.gameSettings.keyBindBack.isKeyDown()) {
+            mc.thePlayer.setSprinting(true);
         }
     }
 

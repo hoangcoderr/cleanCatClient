@@ -248,6 +248,8 @@ public abstract class GuiSlot
             GlStateManager.shadeModel(7424);
             GlStateManager.enableAlpha();
             GlStateManager.disableBlend();
+
+
         }
     }
 

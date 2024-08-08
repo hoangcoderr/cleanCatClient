@@ -264,8 +264,8 @@ public class GameSettings
     public KeyBinding ofKeyBindZoom;
     private File optionsFileOF;
 
-    public KeyBinding CLIENT_GUI_MOD_POS = new KeyBinding("Edit HUD", Keyboard.KEY_T, Client.CLIENT_NAME);
-    public KeyBinding CLIENT_PERSPECTIVE = new KeyBinding("Toggle Perspective", Keyboard.KEY_X, Client.CLIENT_NAME);
+    public KeyBinding CLIENT_GUI_MOD_POS = new KeyBinding("Edit HUD", Keyboard.KEY_M, Client.CLIENT_NAME);
+    public KeyBinding CLIENT_PERSPECTIVE = new KeyBinding("Mod Perspective", Keyboard.KEY_X, Client.CLIENT_NAME);
     public KeyBinding CLIENT_GUI_MOD_TOGGLE = new KeyBinding("Mod Menu", Keyboard.KEY_RSHIFT, Client.CLIENT_NAME);
     public GameSettings(Minecraft mcIn, File optionsFileIn)
     {
@@ -341,7 +341,21 @@ public class GameSettings
         key.setKeyCode(keyCode);
         this.saveOptions();
     }
-
+    public void handleMultipleKeyBindings(int keyCode) {
+        for (KeyBinding keyBinding : this.keyBindings) {
+            if (keyBinding.getKeyCode() == keyCode && isKeyDown(keyBinding)) {
+                // Perform the action associated with the key binding
+                // This might involve calling methods or setting states
+                // Example:
+                if (keyBinding == this.keyBindAttack) {
+                    // Call the method to attack
+                } else if (keyBinding == this.keyBindInventory) {
+                    // Call the method to open inventory
+                }
+                // Add more conditions for other key bindings as needed
+            }
+        }
+    }
     public void setOptionFloatValue(GameSettings.Options settingsOption, float value)
     {
         this.setOptionFloatValueOF(settingsOption, value);

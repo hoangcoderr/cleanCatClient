@@ -32,5 +32,13 @@ public class ModConstants {
     public static String OLD_ANIMATIONS = "Old Animations";
     public static String OLD_ANIMATIONS_DESC = "Reverts to the 1.7 animation system";
 
+    public static String SWING_ANIMATION = "Swing Animation";
+    public static String SWING_ANIMATION_DESC = "Reverts to the 1.7 swing animation system";
+
+    public static String SMOOTH_SNEAKING = "Smooth Sneaking";
+    public static String SMOOTH_SNEAKING_DESC = "Reverts to the 1.7 sneaking system";
+
+    public static String LEFT_HAND = "Left Hand";
+    public static String LEFT_HAND_DESC = "Reverts to the 1.7 left hand system";
 
 }

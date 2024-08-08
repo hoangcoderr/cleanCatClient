@@ -33,7 +33,7 @@ ofAutoSaveTicks:4000
 ofBetterGrass:3
 ofConnectedTextures:2
 ofWeather:true
-ofSky:true
+ofSky:false
 ofStars:true
 ofSunMoon:true
 ofVignette:0

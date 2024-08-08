@@ -565,22 +565,19 @@ public class EntityPlayerSP extends AbstractClientPlayer
         return flag && !this.sleeping;
     }
 
-    public void updateEntityActionState()
-    {
+    public void updateEntityActionState() {
         super.updateEntityActionState();
 
-        if (this.isCurrentViewEntity())
-        {
+        if (this.isCurrentViewEntity()) {
             this.moveStrafing = this.movementInput.moveStrafe;
             this.moveForward = this.movementInput.moveForward;
             this.isJumping = this.movementInput.jump;
             this.prevRenderArmYaw = this.renderArmYaw;
             this.prevRenderArmPitch = this.renderArmPitch;
-            this.renderArmPitch = (float)((double)this.renderArmPitch + (double)(this.rotationPitch - this.renderArmPitch) * 0.5D);
-            this.renderArmYaw = (float)((double)this.renderArmYaw + (double)(this.rotationYaw - this.renderArmYaw) * 0.5D);
+            this.renderArmPitch = (float) ((double) this.renderArmPitch + (double) (this.rotationPitch - this.renderArmPitch) * 0.5D);
+            this.renderArmYaw = (float) ((double) this.renderArmYaw + (double) (this.rotationYaw - this.renderArmYaw) * 0.5D);
         }
     }
-
     protected boolean isCurrentViewEntity()
     {
         return this.mc.getRenderViewEntity() == this;

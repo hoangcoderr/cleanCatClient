@@ -1,6 +1,7 @@
 package net.minecraft.client.settings;
 
-import com.google.common.collect.Lists;
+import cleanCatClient.event.impl.KeyEvent;
+    import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import java.util.List;
 import java.util.Set;
@@ -30,6 +31,10 @@ public class KeyBinding implements Comparable<KeyBinding>
                 ++keybinding.pressTime;
             }
         }
+//        KeyEvent event = new KeyEvent(keyCode);
+//        event.call();
+//        if (event.isCanceled())
+//            return;
     }
 
     public static void setKeyBindState(int keyCode, boolean pressed)

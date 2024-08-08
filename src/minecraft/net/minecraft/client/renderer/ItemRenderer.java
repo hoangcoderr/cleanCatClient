@@ -311,6 +311,7 @@ public class ItemRenderer
     {
         if (!Config.isShaders() || !Shaders.isSkipRenderHand())
         {
+
             float f = 1.0F - (this.prevEquippedProgress + (this.equippedProgress - this.prevEquippedProgress) * partialTicks);
             AbstractClientPlayer abstractclientplayer = this.mc.thePlayer;
             float f1 = abstractclientplayer.getSwingProgress(partialTicks);
@@ -341,12 +342,13 @@ public class ItemRenderer
                         case EAT:
                         case DRINK:
                             this.performDrinking(abstractclientplayer, partialTicks);
-                            this.transformFirstPersonItem(f, 0.0F);
+                            this.transformFirstPersonItem(f, ModInstances.getSwingAnimation().getSwingProgress(partialTicks));
+
                             break;
 
                         case BLOCK:
-                            if (ModInstances.getSwordAniamtion().isEnabled()){
-                                this.transformFirstPersonItem(0.2f, f1);
+                            if (ModInstances.getSwingAnimation().isEnabled()){
+                                this.transformFirstPersonItem(0.2f, ModInstances.getSwingAnimation().getSwingProgress(partialTicks));
                                 this.doBlockTransformations();
                                 GlStateManager.translate(-0.5F, 0.2F, 0.0F);
                             }

@@ -30,7 +30,7 @@ public class MinecraftFontRenderer extends CFont {
     }
 
     public int drawString(String text, double x2, float y2, int color) {
-        return (int) this.drawString(text, x2, y2, color, false, 8.3f);
+        return (int) this.drawString(text, x2, y2, color, false, 8.4f);
     }
 
     public int drawPassword(String text, double x2, float y2, int color) {

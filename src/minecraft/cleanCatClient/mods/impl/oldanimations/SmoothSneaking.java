@@ -1,15 +1,17 @@
 package cleanCatClient.mods.impl.oldanimations;
 
+import cleanCatClient.constants.ModConstants;
 import cleanCatClient.event.EventManager;
 import cleanCatClient.event.EventTarget;
 import cleanCatClient.event.impl.ClientTickEvent;
 import cleanCatClient.mods.Mod;
+import cleanCatClient.mods.ModInstances;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 
 public class SmoothSneaking extends Mod {
     public SmoothSneaking() {
-        super("SmoothSneaking", "Smoothly sneaks when you press the sneak key.");
+        super(ModConstants.SMOOTH_SNEAKING, ModConstants.SMOOTH_SNEAKING_DESC);
         setEnabled(true);
         if (this.isEnabled()) {
             EventManager.unregister(this);

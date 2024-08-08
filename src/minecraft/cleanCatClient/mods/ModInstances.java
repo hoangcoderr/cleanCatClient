@@ -2,8 +2,9 @@ package cleanCatClient.mods;
 
 import cleanCatClient.gui.hud.HUDManager;
 import cleanCatClient.mods.impl.*;
+import cleanCatClient.mods.impl.oldanimations.LeftHand;
 import cleanCatClient.mods.impl.oldanimations.SmoothSneaking;
-import cleanCatClient.mods.impl.oldanimations.SwordAnimation;
+import cleanCatClient.mods.impl.oldanimations.SwingAnimation;
 
 
 public class ModInstances {
@@ -16,9 +17,11 @@ public class ModInstances {
     private static BlockOverlay modBlockOverlay;
     private static GlintColor modGlintColor;
     private static NoHurtCam modNoHurtCam;
-    private static SwordAnimation swordAnimation;
+    private static SwingAnimation swingAnimation;
     private static SmoothSneaking smoothSneaking;
-    public static void register(HUDManager api){
+    private static LeftHand leftHand;
+
+    public static void register(HUDManager api) {
 
         modArmorStatus = new ArmorStatus();
         api.register(modArmorStatus);
@@ -42,52 +45,58 @@ public class ModInstances {
 
         modNoHurtCam = new NoHurtCam();
 
-        swordAnimation = new SwordAnimation();
+        swingAnimation = new SwingAnimation();
 
         smoothSneaking = new SmoothSneaking();
+
+        leftHand = new LeftHand();
     }
 
-    public static ArmorStatus getArmorStatus(){
+    public static ArmorStatus getArmorStatus() {
         return modArmorStatus;
     }
 
-    public static FPS getFPS(){
+    public static FPS getFPS() {
         return modFPS;
     }
 
-    public static ToggleSprint getToggleSprint(){
+    public static ToggleSprint getToggleSprint() {
         return toggleSprint;
     }
 
-    public static Keystrokes getKeystrokes(){
+    public static Keystrokes getKeystrokes() {
         return modKeystrokes;
     }
 
-    public static Perspective getPerspective(){
+    public static Perspective getPerspective() {
         return modPerspective;
     }
 
-    public static FullBright getFullBright(){
+    public static FullBright getFullBright() {
         return modFullBright;
     }
 
-    public static BlockOverlay getBlockOverlay(){
+    public static BlockOverlay getBlockOverlay() {
         return modBlockOverlay;
     }
 
-    public static GlintColor getGlintColor(){
+    public static GlintColor getGlintColor() {
         return modGlintColor;
     }
 
-    public static NoHurtCam getNoHurtCam(){
+    public static NoHurtCam getNoHurtCam() {
         return modNoHurtCam;
     }
 
-    public static SwordAnimation getSwordAniamtion(){
-        return swordAnimation;
+    public static SwingAnimation getSwingAnimation() {
+        return swingAnimation;
     }
 
-    public static SmoothSneaking getSmoothSneaking(){
+    public static SmoothSneaking getSmoothSneaking() {
         return smoothSneaking;
+    }
+
+    public static LeftHand getLeftHand() {
+        return leftHand;
     }
 }

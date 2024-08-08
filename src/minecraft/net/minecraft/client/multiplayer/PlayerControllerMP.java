@@ -204,7 +204,7 @@ public class PlayerControllerMP {
 
 	public boolean onPlayerDamageBlock(BlockPos posBlock, EnumFacing directionFacing) {
 		this.syncCurrentPlayItem();
-
+		//System.out.println("Breaking block");
 		if (this.blockHitDelay > 0) {
 			--this.blockHitDelay;
 			return true;
