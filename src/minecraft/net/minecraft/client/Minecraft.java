@@ -379,7 +379,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 	}
 
 	private void startGame() throws LWJGLException, IOException {
-
+		Client.getDiscordRPC().start();
 		this.gameSettings = new GameSettings(this, this.mcDataDir);
 		this.defaultResourcePacks.add(this.mcDefaultResourcePack);
 		this.startTimerHackThread();
@@ -566,9 +566,11 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 
 			try {
 				inputstream = this.mcDefaultResourcePack
-						.getInputStreamAssets(new ResourceLocation("icons/icon_16x16.png"));
+						.getInputStreamAssets(new ResourceLocation("minecraft","cleanCatClient/icon_16x16.png"));
 				inputstream1 = this.mcDefaultResourcePack
-						.getInputStreamAssets(new ResourceLocation("icons/icon_32x32.png"));
+						.getInputStreamAssets(new ResourceLocation("minecraft","cleanCatClient/icon_32x32.png"));
+
+
 
 				if (inputstream != null && inputstream1 != null) {
 					Display.setIcon(new ByteBuffer[] { this.readImageToBuffer(inputstream),
@@ -1912,6 +1914,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 		networkmanager.sendPacket(new C00Handshake(47, socketaddress.toString(), 0, EnumConnectionState.LOGIN));
 		networkmanager.sendPacket(new C00PacketLoginStart(this.getSession().getProfile()));
 		this.myNetworkManager = networkmanager;
+		Client.getDiscordRPC().update("Playing Singleplayer", "");
 	}
 
 	public void loadWorld(WorldClient worldClientIn) {

@@ -10,7 +10,7 @@ import org.lwjgl.opengl.GL11;
 
 public class ArmorStatus extends ModDraggable {
     public ArmorStatus() {
-        super(ModConstants.ARMOR_STATUS, ModConstants.ARMOR_STATUS_DESC, false);}
+        super(ModConstants.ARMOR_STATUS, ModConstants.ARMOR_STATUS_DESC);}
     @Override
     public int getWidth() {
         return 16;

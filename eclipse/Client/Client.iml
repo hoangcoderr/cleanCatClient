@@ -75,6 +75,15 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
+          <root url="jar://$MCP_LOC$/lib/discord-rpc.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
           <root url="jar://$MCP_LOC$/lib/asm-5.1.5.jar!/" />
         </CLASSES>
         <JAVADOC />

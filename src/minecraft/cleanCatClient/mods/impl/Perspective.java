@@ -2,10 +2,13 @@ package cleanCatClient.mods.impl;
 
 import cleanCatClient.constants.ModConstants;
 import cleanCatClient.event.EventTarget;
+import cleanCatClient.event.impl.ClientTickEvent;
 import cleanCatClient.event.impl.KeyEvent;
 import cleanCatClient.mods.Mod;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
+
+import java.security.Key;
 
 public class Perspective extends Mod {
     private boolean returnOnRelease = true; // hold down the key = true
@@ -20,7 +23,7 @@ public class Perspective extends Mod {
         super(ModConstants.PERSPECTIVE, ModConstants.PERSPECTIVE_DESC);}
     @EventTarget
     public void keyboardEvent(KeyEvent e) {
-        if (e.getKey() == mc.gameSettings.CLIENT_PERSPECTIVE.getKeyCode()) {
+        if (e.getKey() == keyBind) {
             if (Keyboard.getEventKeyState()) {
                 if (!perspectiveToggled) {
                     perspectiveToggled = true;
@@ -42,12 +45,44 @@ public class Perspective extends Mod {
         }
     }
 
+//    @EventTarget
+//    public void keyboardEvent(ClientTickEvent e) {
+//        if (Keyboard.isKeyDown( mc.gameSettings.CLIENT_PERSPECTIVE.getKeyCode())) {
+//            if (Keyboard.getEventKeyState()) {
+//                if (!perspectiveToggled) {
+//                    perspectiveToggled = true;
+//                    cameraYaw = mc.thePlayer.rotationYaw;
+//                    cameraPitch = mc.thePlayer.rotationPitch;
+//                    previousPerspective = mc.gameSettings.thirdPersonView;
+//                    mc.gameSettings.thirdPersonView = 1;
+//                } else if (!returnOnRelease) {
+//                    perspectiveToggled = false;
+//                    mc.gameSettings.thirdPersonView = previousPerspective;
+//                }
+//            } else if (returnOnRelease) {
+//                perspectiveToggled = false;
+//                mc.gameSettings.thirdPersonView = previousPerspective;
+//            }
+//        }
+//        if (Keyboard.isKeyDown( mc.gameSettings.CLIENT_PERSPECTIVE.getKeyCode())) {
+//            perspectiveToggled = false;
+//        }
+//    }
+
     public float getCameraYaw() {
         return perspectiveToggled ? cameraYaw : mc.thePlayer.rotationYaw;
     }
 
     public float getCameraPitch() {
         return perspectiveToggled ? cameraPitch : mc.thePlayer.rotationPitch;
+    }
+
+    public float getCameraYawForTag(){
+        return cameraYaw;
+    }
+
+    public float getCameraPitchForTag(){
+        return cameraPitch;
     }
 
     public boolean overrideMouse() {

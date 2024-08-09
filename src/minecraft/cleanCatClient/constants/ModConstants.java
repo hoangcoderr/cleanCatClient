@@ -41,4 +41,7 @@ public class ModConstants {
     public static String LEFT_HAND = "Left Hand";
     public static String LEFT_HAND_DESC = "Reverts to the 1.7 left hand system";
 
+    public static String POSION_STATUS = "Potion Status";
+    public static String POSION_STATUS_DESC = "Show your potion status";
+
 }

@@ -1,5 +1,6 @@
 package net.minecraft.client.gui;
 
+import cleanCatClient.Client;
 import cleanCatClient.gui.button.ClientButton;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
@@ -162,6 +163,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
 
     public void initGui()
     {
+        Client.getDiscordRPC().update("Idle", "Main Menu");
         this.viewportTexture = new DynamicTexture(256, 256);
         this.backgroundTexture = this.mc.getTextureManager().getDynamicTextureLocation("background", this.viewportTexture);
         Calendar calendar = Calendar.getInstance();

@@ -17,7 +17,7 @@ public class ToggleSprint extends ModDraggable {
     public boolean shiftToggled = false;
 
     public ToggleSprint() {
-        super(ModConstants.TOGGLE_SPRINT, ModConstants.TOGGLE_SPRINT_DESC, false);}
+        super(ModConstants.TOGGLE_SPRINT, ModConstants.TOGGLE_SPRINT_DESC);}
 
     public int getWidth()
     {
@@ -37,9 +37,10 @@ public class ToggleSprint extends ModDraggable {
 
     @EventTarget
     public void onEvent(ClientTickEvent c){
-        if (isEnabled() && mc.thePlayer != null && !mc.thePlayer.isSneaking() &&
-                (mc.thePlayer.motionX != 0.0D || mc.thePlayer.motionZ != 0.0D)
-                 &&!mc.thePlayer.isCollidedHorizontally && !mc.thePlayer.isPotionActive(Potion.moveSlowdown) && !mc.thePlayer.isPotionActive(Potion.confusion) && !mc.gameSettings.keyBindBack.isKeyDown()) {
+        if (isEnabled() && mc.thePlayer != null && !mc.thePlayer.isSprinting()
+            && mc.thePlayer.moveForward > 0.0F && !mc.thePlayer.isUsingItem()
+            && !mc.thePlayer.isCollidedHorizontally && !mc.thePlayer.isSneaking()
+            && !mc.thePlayer.isPotionActive(Potion.blindness)) {
             mc.thePlayer.setSprinting(true);
         }
     }

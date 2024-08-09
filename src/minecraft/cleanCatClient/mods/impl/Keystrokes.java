@@ -136,7 +136,7 @@ public class Keystrokes extends ModDraggable {
     }
 
     public Keystrokes() {
-        super(ModConstants.KEYSTROKES, ModConstants.KEYSTROKES_DESC, false);}
+        super(ModConstants.KEYSTROKES, ModConstants.KEYSTROKES_DESC);}
 
     @Override
     public int getWidth() {

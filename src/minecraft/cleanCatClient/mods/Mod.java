@@ -5,6 +5,7 @@ import cleanCatClient.event.EventManager;
 import cleanCatClient.utils.FileManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
+import org.lwjgl.input.Keyboard;
 
 import java.io.File;
 
@@ -15,7 +16,7 @@ public class Mod {
     protected final Minecraft mc;
     protected final FontRenderer font;
     protected final Client client;
-
+    protected int keyBind = Keyboard.KEY_NONE;
     public Mod(String name, String description) {
         this.name = name;
         this.description = description;
@@ -23,7 +24,22 @@ public class Mod {
         this.font = mc.fontRendererObj;
         this.client = Client.getInstance();
         this.isEnabled = loadModState();
+        this.keyBind = loadKeyBind();
         setEnabled(isEnabled);
+    }
+
+    private int loadKeyBind() {
+        File keyBindFile = new File(getFolder(), "keybind.json");
+        if (!keyBindFile.exists()) {
+            saveKeyBind(Keyboard.KEY_NONE);
+            return Keyboard.KEY_NONE;
+        }
+        Integer keyBind = FileManager.readFromJson(keyBindFile, Integer.class);
+        return keyBind != null ? keyBind : Keyboard.KEY_NONE;
+    }
+
+    protected void saveKeyBind(int keyBind) {
+        FileManager.writeJsonToFile(new File(getFolder(), "keybind.json"), keyBind);
     }
 
     private boolean loadModState() {

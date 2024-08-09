@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.GlStateManager;
 public class FPS extends ModDraggable {
 
     public FPS() {
-        super(ModConstants.FPS, ModConstants.FPS_DESC, false);}
+        super(ModConstants.FPS, ModConstants.FPS_DESC);}
     @Override
     public int getWidth() {
        return 50;

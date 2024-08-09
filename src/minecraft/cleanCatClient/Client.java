@@ -1,5 +1,6 @@
 package cleanCatClient;
 
+import cleanCatClient.discordrpc.DiscordRP;
 import cleanCatClient.event.EventManager;
 import cleanCatClient.event.EventTarget;
 import cleanCatClient.event.impl.ClientTickEvent;
@@ -9,6 +10,7 @@ import cleanCatClient.gui.hud.HUDManager;
 import cleanCatClient.mods.ModInstances;
 import cleanCatClient.utils.FileManager;
 import cleanCatClient.utils.SessionChanger;
+import net.arikia.dev.drpc.DiscordRPC;
 import net.minecraft.client.Minecraft;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,10 +22,10 @@ public class Client {
 		return INSTANCE;
 	}
 	public static final Logger logger = LogManager.getLogger(Client.class);
-	public static final String CLIENT_NAME = "cleanCat Client", CLIENT_VERSION = "1.0.0 - 1.8.9",
+	public static final String CLIENT_NAME = "cleanCat Client", CLIENT_VERSION = "1.1.1 - 1.8.9",
 			CLIENT_BUILD = "2024.06.02", CLIENT_AUTHOR = "hoangcoderr",
 			WINDOW_TITLE = CLIENT_NAME + " (" + CLIENT_VERSION + ")";
-
+	private static DiscordRP discordRPC = new DiscordRP();
 	public void init() {
 		logger.info("Starting " + CLIENT_NAME + " " + CLIENT_VERSION + "");
 		FileManager.init();
@@ -31,7 +33,9 @@ public class Client {
 		FontUtil.bootstrap();
 		start();
 	}
-
+	public static DiscordRP getDiscordRPC() {
+		return discordRPC;
+	}
 	public static HUDManager hudManager;
 
 	private ClickGui clickGui = new ClickGui();
@@ -60,5 +64,6 @@ public class Client {
 
 	public void shutdown() {
 		logger.info("Shutting down " + CLIENT_NAME + " " + CLIENT_VERSION + "");
+		discordRPC.shutdown();
 	}
 }

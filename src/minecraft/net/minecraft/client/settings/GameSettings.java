@@ -265,7 +265,7 @@ public class GameSettings
     private File optionsFileOF;
 
     public KeyBinding CLIENT_GUI_MOD_POS = new KeyBinding("Edit HUD", Keyboard.KEY_M, Client.CLIENT_NAME);
-    public KeyBinding CLIENT_PERSPECTIVE = new KeyBinding("Mod Perspective", Keyboard.KEY_X, Client.CLIENT_NAME);
+    //public KeyBinding CLIENT_PERSPECTIVE = new KeyBinding("Mod Perspective", Keyboard.KEY_X, Client.CLIENT_NAME);
     public KeyBinding CLIENT_GUI_MOD_TOGGLE = new KeyBinding("Mod Menu", Keyboard.KEY_RSHIFT, Client.CLIENT_NAME);
     public GameSettings(Minecraft mcIn, File optionsFileIn)
     {
@@ -312,7 +312,7 @@ public class GameSettings
 
     private void addClientKeybinds() {
         this.keyBindings = (KeyBinding[])ArrayUtils.add(this.keyBindings, this.CLIENT_GUI_MOD_POS);
-        this.keyBindings = (KeyBinding[])ArrayUtils.add(this.keyBindings, this.CLIENT_PERSPECTIVE);
+        //this.keyBindings = (KeyBinding[])ArrayUtils.add(this.keyBindings, this.CLIENT_PERSPECTIVE);
         this.keyBindings = (KeyBinding[])ArrayUtils.add(this.keyBindings, this.CLIENT_GUI_MOD_TOGGLE);
     }
 

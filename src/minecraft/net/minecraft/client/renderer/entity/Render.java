@@ -1,5 +1,6 @@
 package net.minecraft.client.renderer.entity;
 
+import cleanCatClient.mods.ModInstances;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -329,6 +330,7 @@ public abstract class Render<T extends Entity> implements IEntityRenderer
 
     protected void renderLivingLabel(T entityIn, String str, double x, double y, double z, int maxDistance)
     {
+        //if (true) return;
         double d0 = entityIn.getDistanceSqToEntity(this.renderManager.livingPlayer);
 
         if (d0 <= (double)(maxDistance * maxDistance))
@@ -339,8 +341,8 @@ public abstract class Render<T extends Entity> implements IEntityRenderer
             GlStateManager.pushMatrix();
             GlStateManager.translate((float)x + 0.0F, (float)y + entityIn.height + 0.5F, (float)z);
             GL11.glNormal3f(0.0F, 1.0F, 0.0F);
-            GlStateManager.rotate(-this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
-            GlStateManager.rotate(this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
+            GlStateManager.rotate(ModInstances.getPerspective().perspectiveToggled ? -ModInstances.getPerspective().getCameraYawForTag() : (-this.renderManager.playerViewY), 0.0F, 1.0F, 0.0F);
+            GlStateManager.rotate(ModInstances.getPerspective().perspectiveToggled ? ModInstances.getPerspective().getCameraPitchForTag() : (this.renderManager.playerViewX), 1.0F, 0.0F, 0.0F);
             GlStateManager.scale(-f1, -f1, f1);
             GlStateManager.disableLighting();
             GlStateManager.depthMask(false);

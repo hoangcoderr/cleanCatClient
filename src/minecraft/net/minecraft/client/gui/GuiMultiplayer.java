@@ -1,5 +1,6 @@
 package net.minecraft.client.gui;
 
+import cleanCatClient.Client;
 import cleanCatClient.gui.button.ClientButton;
 import cleanCatClient.gui.font.FontUtil;
 import com.google.common.base.Splitter;
@@ -43,6 +44,7 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback
 
     public void initGui()
     {
+        Client.getDiscordRPC().update("Idle", "Multiplayer Menu");
         Keyboard.enableRepeatEvents(true);
         this.buttonList.clear();
 
