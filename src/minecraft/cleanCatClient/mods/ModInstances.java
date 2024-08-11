@@ -21,7 +21,7 @@ public class ModInstances {
     private static SmoothSneaking smoothSneaking;
     private static LeftHand leftHand;
     private static PotionStatus modPotionStatus;
-
+    private static Scoreboard modScoreboard;
     public static void register(HUDManager api) {
 
         modArmorStatus = new ArmorStatus();
@@ -54,6 +54,9 @@ public class ModInstances {
 
         modPotionStatus = new PotionStatus();
         api.register(modPotionStatus);
+
+        modScoreboard = new Scoreboard();
+        api.register(modScoreboard);
     }
 
     public static ArmorStatus getArmorStatus() {
@@ -100,6 +103,9 @@ public class ModInstances {
         return smoothSneaking;
     }
 
+    public static Scoreboard getScoreboard() {
+        return modScoreboard;
+    }
     public static LeftHand getLeftHand() {
         return leftHand;
     }

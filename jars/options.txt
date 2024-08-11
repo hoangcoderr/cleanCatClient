@@ -14,7 +14,7 @@ difficulty:0
 fancyGraphics:false
 ao:2
 renderClouds:false
-resourcePacks:["!    §b Dewier §f20k.zip"]
+resourcePacks:["§bGleam §8[§3128x§8].zip"]
 incompatibleResourcePacks:[]
 lastServer:
 lang:en_US

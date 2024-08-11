@@ -824,6 +824,8 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 	}
 
 	public void displayGuiScreen(GuiScreen guiScreenIn) {
+
+
 		if (this.currentScreen != null) {
 			this.currentScreen.onGuiClosed();
 		}
@@ -842,6 +844,9 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 		this.currentScreen = (GuiScreen) guiScreenIn;
 
 		if (guiScreenIn != null) {
+			this.gameSettings.thirdPersonView = 0;
+			if (ModInstances.getPerspective() != null)
+				ModInstances.getPerspective().perspectiveToggled = false;
 			this.setIngameNotInFocus();
 			ScaledResolution scaledresolution = new ScaledResolution(this);
 			int i = scaledresolution.getScaledWidth();
@@ -852,6 +857,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 			this.mcSoundHandler.resumeSounds();
 			this.setIngameFocus();
 		}
+
 	}
 
 	private void checkGLError(String message) {

@@ -44,4 +44,7 @@ public class ModConstants {
     public static String POSION_STATUS = "Potion Status";
     public static String POSION_STATUS_DESC = "Show your potion status";
 
+    public static String SCOREBOARD = "Scoreboard";
+    public static String SCOREBOARD_DESC = "Edit scoreboard";
+
 }

@@ -36,7 +36,7 @@ public class Perspective extends Mod {
                     mc.gameSettings.thirdPersonView = previousPerspective;
                 }
             } else if (returnOnRelease) {
-                perspectiveToggled = false;
+                    perspectiveToggled = false;
                 mc.gameSettings.thirdPersonView = previousPerspective;
             }
         }
