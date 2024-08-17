@@ -64,7 +64,7 @@ public class ClickGui extends GuiScreen{
 		this.modButtonToRender.add(new ModButton(centerW,centerH + 9*spaceBetween, modButtonW, modButtonH, ModInstances.getPotionStatus(),0));
 		//world
 		//this.modButtonToRender.add(new ModButton(centerW,centerH, modButtonW, modButtonH, ModInstances.getModXYZ(),1));
-		
+		this.modButtonToRender.add(new ModButton(centerW,centerH + 1*spaceBetween, modButtonW, modButtonH, ModInstances.getLazyChunkLoading(),1));
 		//render
 		this.modButtonToRender.add(new ModButton(centerW,centerH, modButtonW, modButtonH, ModInstances.getFullBright(),2));
 		this.modButtonToRender.add(new ModButton(centerW,centerH + 1*spaceBetween, modButtonW, modButtonH, ModInstances.getBlockOverlay(),2));

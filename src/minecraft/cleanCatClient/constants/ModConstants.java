@@ -4,6 +4,14 @@ public class ModConstants {
     public static String TOGGLE_SPRINT = "Toggle Sprint";
     public static String TOGGLE_SPRINT_DESC = "Auto sprint when you press W";
     public static String TOGGLE_SPRINT_ENABLED = "[Sprinting (Key Toggled)]";
+//    public static String TOGGLE_SPRINT_ENABLED =  "AĂÂÀẢÃÁẠẰẲẴẮẶẦẨẪẤẬẢẠÃÁB" +
+//            "CĐDĐEÊÈẺẼÉẸỀỂỄẾỆF" +
+//            "GHIKLMNOÔƠÒỎÕÓỌỒỔỖỐỘ" +
+//            "ỜỞỠỚỢPQRSTUƯÙỦŨÚỤỪỬỮỨỰVXY" +
+//            "aăâàảãáạằẳẵắặầẩẫấậảạãá" +
+//            "bcdđeêèẻẽéẹềểễếệfghiklmn" +
+//            "oôơòỏõóọồổỗốộờởỡớợpqrstu" +
+//            "ưùủũúụừửữứựvxy";
 
     public static String PERSPECTIVE = "Perspective";
     public static String PERSPECTIVE_DESC = "Change your perspective";
@@ -47,4 +55,6 @@ public class ModConstants {
     public static String SCOREBOARD = "Scoreboard";
     public static String SCOREBOARD_DESC = "Edit scoreboard";
 
+    public static String LAZY_CHUNK_LOADING = "Lazy Chunk Loading";
+    public static String LAZY_CHUNK_LOADING_DESC = "Load chunks lazily";
 }

@@ -8,8 +8,8 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 public class CFont {
-    float imgSize = 512;
-    CharData[] charData = new CharData[256];
+    float imgSize = 4096;
+    CharData[] charData = new CharData[131072];
     Font font;
     boolean antiAlias, fractionalMetrics;
     int fontHeight = -1, charOffset = 0;
@@ -23,6 +23,7 @@ public class CFont {
     }
 
     protected DynamicTexture setupTexture(Font font, boolean antiAlias, boolean fractionalMetrics, CharData[] chars) {
+
         BufferedImage img = this.generateFontImage(font, antiAlias, fractionalMetrics, chars);
 
         try {
@@ -35,7 +36,7 @@ public class CFont {
 
     protected BufferedImage generateFontImage(Font font, boolean antiAlias, boolean fractionalMetrics, CharData[] chars) {
         int imgSize = (int) this.imgSize;
-        BufferedImage bufferedImage = new BufferedImage(imgSize, imgSize, 2);
+        BufferedImage bufferedImage = new BufferedImage(imgSize, imgSize, BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphics = (Graphics2D) bufferedImage.getGraphics();
         graphics.setFont(font);
         graphics.setColor(new Color(255, 255, 255, 0));
@@ -83,9 +84,9 @@ public class CFont {
 
     public void drawChar(CharData[] chars, char c, float x, float y) throws ArrayIndexOutOfBoundsException {
         try {
-            this.drawQuad(x, y, chars[c].width, chars[c].height, chars[c].storedX, chars[c].storedY, chars[c].width, chars[c].height);
+           this.drawQuad(x, y, chars[c].width, chars[c].height, chars[c].storedX, chars[c].storedY, chars[c].width, chars[c].height);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("CFONT error" +e.getMessage());
         }
     }
 

@@ -22,6 +22,7 @@ public class ModInstances {
     private static LeftHand leftHand;
     private static PotionStatus modPotionStatus;
     private static Scoreboard modScoreboard;
+    private static LazyChunkLoading lazyChunkLoading;
     public static void register(HUDManager api) {
 
         modArmorStatus = new ArmorStatus();
@@ -57,6 +58,8 @@ public class ModInstances {
 
         modScoreboard = new Scoreboard();
         api.register(modScoreboard);
+
+        lazyChunkLoading = new LazyChunkLoading();
     }
 
     public static ArmorStatus getArmorStatus() {
@@ -112,5 +115,9 @@ public class ModInstances {
 
     public static PotionStatus getPotionStatus() {
         return modPotionStatus;
+    }
+
+    public static LazyChunkLoading getLazyChunkLoading() {
+        return lazyChunkLoading;
     }
 }
