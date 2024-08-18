@@ -23,6 +23,8 @@ public class ModInstances {
     private static PotionStatus modPotionStatus;
     private static Scoreboard modScoreboard;
     private static LazyChunkLoading lazyChunkLoading;
+    private static CustomCrosshair customCrosshair;
+    private static DisableBlockParticles disableBlockParticles;
     public static void register(HUDManager api) {
 
         modArmorStatus = new ArmorStatus();
@@ -60,6 +62,11 @@ public class ModInstances {
         api.register(modScoreboard);
 
         lazyChunkLoading = new LazyChunkLoading();
+
+        customCrosshair = new CustomCrosshair();
+        api.register(customCrosshair);
+
+        disableBlockParticles = new DisableBlockParticles();
     }
 
     public static ArmorStatus getArmorStatus() {
@@ -120,4 +127,13 @@ public class ModInstances {
     public static LazyChunkLoading getLazyChunkLoading() {
         return lazyChunkLoading;
     }
+
+    public static CustomCrosshair getCustomCrosshair() {
+        return customCrosshair;
+    }
+
+    public static DisableBlockParticles getDisableBlockParticles() {
+        return disableBlockParticles;
+    }
+
 }

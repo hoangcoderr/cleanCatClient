@@ -54,8 +54,8 @@ public class ScreenPosition {
 
     public void setRelative(double x, double y) {
         ScaledResolution sr = new ScaledResolution(mc);
-        this.x = (int) (sr.getScaledWidth() / x);
-        this.y = (int) (sr.getScaledHeight() / y);
+        this.x = (int) (x * sr.getScaledWidth());
+        this.y = (int) (y * sr.getScaledHeight());
     }
 
 }

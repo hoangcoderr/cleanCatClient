@@ -65,11 +65,13 @@ public class ClickGui extends GuiScreen{
 		//world
 		//this.modButtonToRender.add(new ModButton(centerW,centerH, modButtonW, modButtonH, ModInstances.getModXYZ(),1));
 		this.modButtonToRender.add(new ModButton(centerW,centerH + 1*spaceBetween, modButtonW, modButtonH, ModInstances.getLazyChunkLoading(),1));
+		this.modButtonToRender.add(new ModButton(centerW,centerH + 2*spaceBetween, modButtonW, modButtonH, ModInstances.getDisableBlockParticles(),1));
 		//render
 		this.modButtonToRender.add(new ModButton(centerW,centerH, modButtonW, modButtonH, ModInstances.getFullBright(),2));
 		this.modButtonToRender.add(new ModButton(centerW,centerH + 1*spaceBetween, modButtonW, modButtonH, ModInstances.getBlockOverlay(),2));
 		this.modButtonToRender.add(new ModButton(centerW,centerH + 2*spaceBetween, modButtonW, modButtonH, ModInstances.getGlintColor(),2));
 		this.modButtonToRender.add(new ModButton(centerW,centerH + 3*spaceBetween, modButtonW, modButtonH, ModInstances.getScoreboard(),2));
+		this.modButtonToRender.add(new ModButton(centerW,centerH + 4*spaceBetween, modButtonW, modButtonH, ModInstances.getCustomCrosshair(),2));
 		//this.modButtonToRender.add(new ModButton(centerW,centerH, modButtonW, modButtonH, ModInstances.getModHelloWorld(),2));
 		//this.modButtonToRender.add(new ModButton(centerW,centerH + 1*spaceBetween, modButtonW, modButtonH, ModInstances.getModAnimations(),2));
 		//this.modButtonToRender.add(new ModButton(centerW,centerH + 2*spaceBetween, modButtonW, modButtonH, ModInstances.getModMotionBlur(),2));

@@ -433,7 +433,7 @@ public class GuiIngame extends Gui {
     }
 
     protected boolean showCrosshair() {
-        if (ModInstances.getPerspective().perspectiveToggled) return false;
+        if (ModInstances.getPerspective().perspectiveToggled || ModInstances.getCustomCrosshair().isEnabled()) return false;
         if (this.mc.gameSettings.showDebugInfo && !this.mc.thePlayer.hasReducedDebug() && !this.mc.gameSettings.reducedDebugInfo) {
             return false;
         } else if (this.mc.playerController.isSpectator()) {

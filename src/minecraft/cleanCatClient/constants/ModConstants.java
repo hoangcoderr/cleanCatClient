@@ -57,4 +57,10 @@ public class ModConstants {
 
     public static String LAZY_CHUNK_LOADING = "Lazy Chunk Loading";
     public static String LAZY_CHUNK_LOADING_DESC = "Load chunks lazily";
+
+    public static String CROSSHAIR = "Custom Crosshair";
+    public static String CROSSHAIR_DESC = "Edit your crosshair";
+
+    public static String DISABLE_BLOCK_PARTICLES = "Disable Block Particles";
+    public static String DISABLE_BLOCK_PARTICLES_DESC = "Disable block particles";
 }

@@ -1,5 +1,6 @@
 package net.minecraft.client.particle;
 
+import cleanCatClient.mods.ModInstances;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
@@ -387,6 +388,7 @@ public class EffectRenderer
 
     public void addBlockDestroyEffects(BlockPos pos, IBlockState state)
     {
+        if (ModInstances.getDisableBlockParticles().isEnabled()) return;
         boolean flag;
 
         if (Reflector.ForgeBlock_addDestroyEffects.exists() && Reflector.ForgeBlock_isAir.exists())
@@ -422,6 +424,7 @@ public class EffectRenderer
 
     public void addBlockHitEffects(BlockPos pos, EnumFacing side)
     {
+
         IBlockState iblockstate = this.worldObj.getBlockState(pos);
         Block block = iblockstate.getBlock();
 
