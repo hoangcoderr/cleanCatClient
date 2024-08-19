@@ -424,7 +424,7 @@ public class EffectRenderer
 
     public void addBlockHitEffects(BlockPos pos, EnumFacing side)
     {
-
+        if (ModInstances.getDisableBlockParticles().isEnabled()) return;
         IBlockState iblockstate = this.worldObj.getBlockState(pos);
         Block block = iblockstate.getBlock();
 

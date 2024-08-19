@@ -3,72 +3,47 @@ package cleanCatClient.cosmetic;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 
-public class CosmeticBoolean
-{
-    public static boolean cape1;
-    public static boolean haloblue;
-    public static boolean halogreen;
+public class CosmeticBoolean {
+
     public static boolean snowcape;
-    public static boolean skycape;
-    public static boolean rickcape;
-    public static boolean dragonWings;
-    public static boolean retrowaveCape;
-    public static boolean lightningCape;
     public static boolean nornalCape;
+    public static boolean thuderCape;
+    public static boolean badWolfCape;
+    public static boolean starrySunsetCape;
     static {
-        CosmeticBoolean.cape1 = true;
-        CosmeticBoolean.haloblue = false;
-        CosmeticBoolean.halogreen = false;
-        CosmeticBoolean.snowcape = true;
-        CosmeticBoolean.skycape = false;
-        CosmeticBoolean.rickcape = false;
-        CosmeticBoolean.dragonWings = false;
-        CosmeticBoolean.retrowaveCape = false;
-        CosmeticBoolean.lightningCape = false;
+        CosmeticBoolean.snowcape = false;
         CosmeticBoolean.nornalCape = false;
+        CosmeticBoolean.thuderCape = false;
+        CosmeticBoolean.badWolfCape = true;
+        CosmeticBoolean.starrySunsetCape = false;
     }
-    
-    
-    public static boolean Cape1() {
-        return CosmeticBoolean.cape1;
-    }
-    
-    public static boolean LightningCape() {
-        return CosmeticBoolean.lightningCape;
-    }
-    
-    public static boolean isHaloblue() {
-        return CosmeticBoolean.haloblue;
-    }
-    
-    
-    public static boolean DragonWings() {
-        return CosmeticBoolean.dragonWings;
-    }
-    
+
+
     public static boolean shouldRenderTopHat(final AbstractClientPlayer player) {
         return player.getName().contains(Minecraft.getMinecraft().getSession().getUsername());
     }
-    
+
     public static float[] getHaloColor(final AbstractClientPlayer player) {
-        return new float[] { 0.0f, 51.0f, 153.0f, 255.0f };
+        return new float[]{0.0f, 51.0f, 153.0f, 255.0f};
     }
-    
-    public static boolean RickCape() {
-        return CosmeticBoolean.rickcape;
-    }
-    
+
     public static boolean SnowCape() {
         return CosmeticBoolean.snowcape;
     }
+
     public static boolean NornalCape() {
         return CosmeticBoolean.nornalCape;
     }
-    
-    public static boolean SkyCape() {
-        return CosmeticBoolean.skycape;
+
+    public static boolean ThuderCape() {
+        return CosmeticBoolean.thuderCape;
     }
-    public static boolean RetrowaveCape() {
-        return CosmeticBoolean.retrowaveCape;
+
+    public static boolean BadWolfCape() {
+        return CosmeticBoolean.badWolfCape;
+    }
+
+    public static boolean StarrySunsetCape() {
+        return CosmeticBoolean.starrySunsetCape;
     }
 }

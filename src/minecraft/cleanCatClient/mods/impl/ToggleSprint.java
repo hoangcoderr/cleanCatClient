@@ -35,16 +35,6 @@ public class ToggleSprint extends ModDraggable {
         FontUtil.normal.drawString(ModConstants.TOGGLE_SPRINT_ENABLED, pos.getAbsoluteX(), pos.getAbsoluteY() , -1);
     }
 
-    @EventTarget
-    public void onEvent(ClientTickEvent c){
-        if (isEnabled() && mc.thePlayer != null && !mc.thePlayer.isSprinting()
-            && mc.thePlayer.moveForward > 0.0F && !mc.thePlayer.isUsingItem()
-            && !mc.thePlayer.isCollidedHorizontally && !mc.thePlayer.isSneaking()
-            && !mc.thePlayer.isPotionActive(Potion.blindness)) {
-            mc.thePlayer.setSprinting(true);
-        }
-    }
-
     @Override
     public void renderDummy(ScreenPosition pos) {
         FontUtil.normal.drawString(ModConstants.TOGGLE_SPRINT_ENABLED, pos.getAbsoluteX()+1, pos.getAbsoluteY()+1 , -1);

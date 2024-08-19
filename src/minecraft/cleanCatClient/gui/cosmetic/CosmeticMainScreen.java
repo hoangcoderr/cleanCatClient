@@ -57,8 +57,6 @@ public class CosmeticMainScreen extends GuiScreen {
                 if (mc.theWorld != null && mc.getNetHandler() != null) {
                     player = new EntityPlayerSP(mc, mc.theWorld, mc.getNetHandler(), new StatFileWriter());
                 } else {
-                    // Handle the case where mc.theWorld or mc.getNetHandler() is null
-                    // For example, you can log an error or create a dummy world/net handler
                     System.err.println("World or NetHandler is null");
                     return;
                 }

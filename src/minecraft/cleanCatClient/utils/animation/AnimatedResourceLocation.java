@@ -30,7 +30,7 @@ public class AnimatedResourceLocation {
     }
 
     public void update() {
-        if(currentTick > 150) {
+        if(currentTick > 100) {
             currentTick = 0;
             currentFrame++;
             if(currentFrame > textures.length - 1) {

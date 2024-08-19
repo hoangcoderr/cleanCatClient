@@ -62,6 +62,7 @@ public class ClickGui extends GuiScreen{
 		this.modButtonToRender.add(new ModButton(centerW,centerH + 7*spaceBetween, modButtonW, modButtonH, ModInstances.getSmoothSneaking(),0));
 		this.modButtonToRender.add(new ModButton(centerW,centerH + 8*spaceBetween, modButtonW, modButtonH, ModInstances.getLeftHand(),0));
 		this.modButtonToRender.add(new ModButton(centerW,centerH + 9*spaceBetween, modButtonW, modButtonH, ModInstances.getPotionStatus(),0));
+		this.modButtonToRender.add(new ModButton(centerW,centerH + 10*spaceBetween, modButtonW, modButtonH, ModInstances.getHitColor(),0));
 		//world
 		//this.modButtonToRender.add(new ModButton(centerW,centerH, modButtonW, modButtonH, ModInstances.getModXYZ(),1));
 		this.modButtonToRender.add(new ModButton(centerW,centerH + 1*spaceBetween, modButtonW, modButtonH, ModInstances.getLazyChunkLoading(),1));
@@ -72,6 +73,8 @@ public class ClickGui extends GuiScreen{
 		this.modButtonToRender.add(new ModButton(centerW,centerH + 2*spaceBetween, modButtonW, modButtonH, ModInstances.getGlintColor(),2));
 		this.modButtonToRender.add(new ModButton(centerW,centerH + 3*spaceBetween, modButtonW, modButtonH, ModInstances.getScoreboard(),2));
 		this.modButtonToRender.add(new ModButton(centerW,centerH + 4*spaceBetween, modButtonW, modButtonH, ModInstances.getCustomCrosshair(),2));
+		this.modButtonToRender.add(new ModButton(centerW,centerH + 5*spaceBetween, modButtonW, modButtonH, ModInstances.getPingDisplay(),2));
+		this.modButtonToRender.add(new ModButton(centerW,centerH + 6*spaceBetween, modButtonW, modButtonH, ModInstances.getBossBar(),2));
 		//this.modButtonToRender.add(new ModButton(centerW,centerH, modButtonW, modButtonH, ModInstances.getModHelloWorld(),2));
 		//this.modButtonToRender.add(new ModButton(centerW,centerH + 1*spaceBetween, modButtonW, modButtonH, ModInstances.getModAnimations(),2));
 		//this.modButtonToRender.add(new ModButton(centerW,centerH + 2*spaceBetween, modButtonW, modButtonH, ModInstances.getModMotionBlur(),2));

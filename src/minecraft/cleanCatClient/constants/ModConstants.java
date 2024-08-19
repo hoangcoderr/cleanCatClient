@@ -63,4 +63,13 @@ public class ModConstants {
 
     public static String DISABLE_BLOCK_PARTICLES = "Disable Block Particles";
     public static String DISABLE_BLOCK_PARTICLES_DESC = "Disable block particles";
+
+    public static String PING_DISPLAY = "Ping Display";
+    public static String PING_DISPLAY_DESC = "Show your ping";
+
+    public static String HIT_COLOR = "Hit Color";
+    public static String HIT_COLOR_DESC = "Change the color of the hit effect";
+
+    public static String BOSS_BAR = "Boss Bar";
+    public static String BOSS_BAR_DESC = "Edit boss bar";
 }

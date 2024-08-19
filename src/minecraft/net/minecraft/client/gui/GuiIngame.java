@@ -750,6 +750,9 @@ public class GuiIngame extends Gui {
     }
 
     private void renderBossHealth() {
+        if (ModInstances.getBossBar().isEnabled()){
+            return;
+        }
         if (BossStatus.bossName != null && BossStatus.statusBarTime > 0) {
             --BossStatus.statusBarTime;
             FontRenderer fontrenderer = this.mc.fontRendererObj;

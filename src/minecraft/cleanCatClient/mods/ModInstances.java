@@ -25,6 +25,9 @@ public class ModInstances {
     private static LazyChunkLoading lazyChunkLoading;
     private static CustomCrosshair customCrosshair;
     private static DisableBlockParticles disableBlockParticles;
+    private static PingDisplay pingDisplay;
+    private static BossBar modBossBar;
+    private static HitColor hitColor;
     public static void register(HUDManager api) {
 
         modArmorStatus = new ArmorStatus();
@@ -67,6 +70,13 @@ public class ModInstances {
         api.register(customCrosshair);
 
         disableBlockParticles = new DisableBlockParticles();
+
+        pingDisplay = new PingDisplay();
+        api.register(pingDisplay);
+
+        modBossBar = new BossBar();
+
+        hitColor = new HitColor();
     }
 
     public static ArmorStatus getArmorStatus() {
@@ -136,4 +146,15 @@ public class ModInstances {
         return disableBlockParticles;
     }
 
+    public static PingDisplay getPingDisplay() {
+        return pingDisplay;
+    }
+
+    public static BossBar getBossBar() {
+        return modBossBar;
+    }
+
+    public static HitColor getHitColor() {
+        return hitColor;
+    }
 }
