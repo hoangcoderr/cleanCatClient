@@ -3,6 +3,7 @@ package cleanCatClient.mods.impl;
 import cleanCatClient.constants.ModConstants;
 import cleanCatClient.gui.font.FontUtil;
 import cleanCatClient.gui.hud.ScreenPosition;
+import cleanCatClient.mods.ModCategory;
 import cleanCatClient.mods.ModDraggable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ServerAddress;
@@ -17,7 +18,7 @@ public class PingDisplay extends ModDraggable {
     private long lastPingTime = 0;
 
     public PingDisplay() {
-        super(ModConstants.PING_DISPLAY, ModConstants.PING_DISPLAY_DESC);
+        super(ModConstants.PING_DISPLAY, ModConstants.PING_DISPLAY_DESC, ModCategory.RENDER);
     }
 
     @Override

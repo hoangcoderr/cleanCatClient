@@ -2,13 +2,14 @@ package cleanCatClient.mods.impl;
 
 import cleanCatClient.constants.ModConstants;
 import cleanCatClient.mods.Mod;
+import cleanCatClient.mods.ModCategory;
 
 import java.awt.*;
 
 public class BlockOverlay extends Mod {
     private float lineWidth = 7.0F;
     public BlockOverlay() {
-        super(ModConstants.BLOCK_OVERLAY, ModConstants.BLOCK_OVERLAY_DESC);
+        super(ModConstants.BLOCK_OVERLAY, ModConstants.BLOCK_OVERLAY_DESC, ModCategory.RENDER);
     }
 
     public void setLineWidth(float lineWidth) {

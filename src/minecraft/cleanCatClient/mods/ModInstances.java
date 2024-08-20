@@ -6,6 +6,9 @@ import cleanCatClient.mods.impl.oldanimations.LeftHand;
 import cleanCatClient.mods.impl.oldanimations.SmoothSneaking;
 import cleanCatClient.mods.impl.oldanimations.SwingAnimation;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class ModInstances {
     private static ArmorStatus modArmorStatus;
@@ -28,6 +31,8 @@ public class ModInstances {
     private static PingDisplay pingDisplay;
     private static BossBar modBossBar;
     private static HitColor hitColor;
+    private static List<Mod> allMods = new ArrayList<>();
+
     public static void register(HUDManager api) {
 
         modArmorStatus = new ArmorStatus();
@@ -77,8 +82,33 @@ public class ModInstances {
         modBossBar = new BossBar();
 
         hitColor = new HitColor();
+
+        allMods.add(modArmorStatus);
+        allMods.add(modFPS);
+        allMods.add(modKeystrokes);
+        allMods.add(toggleSprint);
+        allMods.add(modPerspective);
+        allMods.add(modFullBright);
+        allMods.add(modBlockOverlay);
+        allMods.add(modGlintColor);
+        allMods.add(modNoHurtCam);
+        allMods.add(swingAnimation);
+        allMods.add(smoothSneaking);
+        allMods.add(leftHand);
+        allMods.add(modPotionStatus);
+        allMods.add(modScoreboard);
+        allMods.add(lazyChunkLoading);
+        allMods.add(customCrosshair);
+        allMods.add(disableBlockParticles);
+        allMods.add(pingDisplay);
+        allMods.add(modBossBar);
+        allMods.add(hitColor);
+
     }
 
+    public static List<Mod> getAllMods() {
+        return allMods;
+    }
     public static ArmorStatus getArmorStatus() {
         return modArmorStatus;
     }

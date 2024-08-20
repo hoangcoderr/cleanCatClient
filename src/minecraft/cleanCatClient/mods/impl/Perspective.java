@@ -5,6 +5,7 @@ import cleanCatClient.event.EventTarget;
 import cleanCatClient.event.impl.ClientTickEvent;
 import cleanCatClient.event.impl.KeyEvent;
 import cleanCatClient.mods.Mod;
+import cleanCatClient.mods.ModCategory;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 
@@ -20,7 +21,7 @@ public class Perspective extends Mod {
     private int previousPerspective = 0; // pref f5 state
 
     public Perspective() {
-        super(ModConstants.PERSPECTIVE, ModConstants.PERSPECTIVE_DESC);}
+        super(ModConstants.PERSPECTIVE, ModConstants.PERSPECTIVE_DESC, ModCategory.PLAYER);}
     @EventTarget
     public void keyboardEvent(KeyEvent e) {
         if (e.getKey() == keyBind) {

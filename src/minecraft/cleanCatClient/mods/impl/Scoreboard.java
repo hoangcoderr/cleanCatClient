@@ -3,11 +3,12 @@ package cleanCatClient.mods.impl;
 import cleanCatClient.constants.ModConstants;
 import cleanCatClient.gui.hud.ScreenPosition;
 import cleanCatClient.mods.Mod;
+import cleanCatClient.mods.ModCategory;
 import cleanCatClient.mods.ModDraggable;
 
 public class Scoreboard extends ModDraggable {
     public Scoreboard() {
-        super(ModConstants.SCOREBOARD, ModConstants.SCOREBOARD_DESC);
+        super(ModConstants.SCOREBOARD, ModConstants.SCOREBOARD_DESC, ModCategory.RENDER);
     }
 
     private boolean isHideRedNumbers = true;

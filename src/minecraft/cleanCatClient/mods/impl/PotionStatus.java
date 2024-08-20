@@ -3,6 +3,7 @@ package cleanCatClient.mods.impl;
 import cleanCatClient.constants.ModConstants;
 import cleanCatClient.gui.font.FontUtil;
 import cleanCatClient.gui.hud.ScreenPosition;
+import cleanCatClient.mods.ModCategory;
 import cleanCatClient.mods.ModDraggable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
@@ -20,7 +21,7 @@ public class PotionStatus extends ModDraggable {
 
 
     public PotionStatus() {
-        super(ModConstants.POSION_STATUS, ModConstants.POSION_STATUS_DESC);
+        super(ModConstants.POSION_STATUS, ModConstants.POSION_STATUS_DESC, ModCategory.RENDER);
     }
 
     @Override

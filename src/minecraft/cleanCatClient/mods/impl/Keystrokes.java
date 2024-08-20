@@ -3,6 +3,7 @@ package cleanCatClient.mods.impl;
 import cleanCatClient.constants.ModConstants;
 import cleanCatClient.gui.font.FontUtil;
 import cleanCatClient.gui.hud.ScreenPosition;
+import cleanCatClient.mods.ModCategory;
 import cleanCatClient.mods.ModDraggable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
@@ -136,7 +137,7 @@ public class Keystrokes extends ModDraggable {
     }
 
     public Keystrokes() {
-        super(ModConstants.KEYSTROKES, ModConstants.KEYSTROKES_DESC);}
+        super(ModConstants.KEYSTROKES, ModConstants.KEYSTROKES_DESC, ModCategory.RENDER);}
 
     @Override
     public int getWidth() {

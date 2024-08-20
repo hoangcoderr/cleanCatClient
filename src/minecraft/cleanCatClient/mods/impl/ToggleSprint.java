@@ -5,6 +5,7 @@ import cleanCatClient.event.EventTarget;
 import cleanCatClient.event.impl.ClientTickEvent;
 import cleanCatClient.gui.font.FontUtil;
 import cleanCatClient.gui.hud.ScreenPosition;
+import cleanCatClient.mods.ModCategory;
 import cleanCatClient.mods.ModDraggable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.potion.Potion;
@@ -17,7 +18,7 @@ public class ToggleSprint extends ModDraggable {
     public boolean shiftToggled = false;
 
     public ToggleSprint() {
-        super(ModConstants.TOGGLE_SPRINT, ModConstants.TOGGLE_SPRINT_DESC);}
+        super(ModConstants.TOGGLE_SPRINT, ModConstants.TOGGLE_SPRINT_DESC, ModCategory.PLAYER);}
 
     public int getWidth()
     {

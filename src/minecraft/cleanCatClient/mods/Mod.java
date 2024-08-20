@@ -17,7 +17,10 @@ public class Mod {
     protected final FontRenderer font;
     protected final Client client;
     protected int keyBind = Keyboard.KEY_NONE;
-    public Mod(String name, String description) {
+    private ModCategory category;
+
+
+    public Mod(String name, String description, ModCategory category) {
         this.name = name;
         this.description = description;
         this.mc = Minecraft.getMinecraft();
@@ -25,7 +28,17 @@ public class Mod {
         this.client = Client.getInstance();
         this.isEnabled = loadModState();
         this.keyBind = loadKeyBind();
+        this.category = category;
         setEnabled(isEnabled);
+    }
+
+
+    public ModCategory getCategory() {
+        return category;
+    }
+
+    public int getCategoryId() {
+        return category.getId();
     }
 
     private int loadKeyBind() {

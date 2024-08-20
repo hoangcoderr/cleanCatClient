@@ -1380,6 +1380,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 
 	public void toggleFullscreen() {
 		try {
+
 			this.fullscreen = !this.fullscreen;
 			this.gameSettings.fullScreen = this.fullscreen;
 
@@ -1395,6 +1396,9 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 				if (this.displayHeight <= 0) {
 					this.displayHeight = 1;
 				}
+				ScaledResolution scaledresolution = new ScaledResolution(this);
+				centerX = scaledresolution.getScaledWidth() / 2;
+				centerY = scaledresolution.getScaledHeight() / 2;
 			} else {
 				Display.setDisplayMode(new DisplayMode(this.tempDisplayWidth, this.tempDisplayHeight));
 				this.displayWidth = this.tempDisplayWidth;
@@ -1407,6 +1411,9 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 				if (this.displayHeight <= 0) {
 					this.displayHeight = 1;
 				}
+				ScaledResolution scaledresolution = new ScaledResolution(this);
+				centerX = scaledresolution.getScaledWidth() / 2;
+				centerY = scaledresolution.getScaledHeight() / 2;
 			}
 
 			if (this.currentScreen != null) {
@@ -1422,13 +1429,16 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 			logger.error((String) "Couldn\'t toggle fullscreen", (Throwable) exception);
 		}
 	}
-
+	public static int centerX;
+	public static int centerY;
 	private void resize(int width, int height) {
 		this.displayWidth = Math.max(1, width);
 		this.displayHeight = Math.max(1, height);
 
 		if (this.currentScreen != null) {
 			ScaledResolution scaledresolution = new ScaledResolution(this);
+			centerX = scaledresolution.getScaledWidth() / 2;
+			centerY = scaledresolution.getScaledHeight() / 2;
 			this.currentScreen.onResize(this, scaledresolution.getScaledWidth(), scaledresolution.getScaledHeight());
 		}
 

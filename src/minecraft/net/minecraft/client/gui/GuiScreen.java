@@ -538,5 +538,6 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 
 	public void onResize(Minecraft mcIn, int w, int h) {
 		this.setWorldAndResolution(mcIn, w, h);
+
 	}
 }

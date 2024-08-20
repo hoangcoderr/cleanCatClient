@@ -5,13 +5,14 @@ import cleanCatClient.event.EventManager;
 import cleanCatClient.event.EventTarget;
 import cleanCatClient.event.impl.ClientTickEvent;
 import cleanCatClient.mods.Mod;
+import cleanCatClient.mods.ModCategory;
 import cleanCatClient.mods.ModInstances;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 
 public class SmoothSneaking extends Mod {
     public SmoothSneaking() {
-        super(ModConstants.SMOOTH_SNEAKING, ModConstants.SMOOTH_SNEAKING_DESC);
+        super(ModConstants.SMOOTH_SNEAKING, ModConstants.SMOOTH_SNEAKING_DESC, ModCategory.PLAYER);
         setEnabled(true);
         if (this.isEnabled()) {
             EventManager.unregister(this);

@@ -4,6 +4,7 @@ import cleanCatClient.constants.ModConstants;
 import cleanCatClient.event.EventTarget;
 import cleanCatClient.event.impl.ClientTickEvent;
 import cleanCatClient.mods.Mod;
+import cleanCatClient.mods.ModCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.potion.Potion;
@@ -11,7 +12,7 @@ import net.minecraft.util.MovingObjectPosition;
 
 public class SwingAnimation extends Mod {
     public SwingAnimation() {
-        super(ModConstants.SWING_ANIMATION, ModConstants.SWING_ANIMATION_DESC);
+        super(ModConstants.SWING_ANIMATION, ModConstants.SWING_ANIMATION_DESC, ModCategory.PLAYER);
     }
     private final Minecraft mc = Minecraft.getMinecraft();
     public float prevSwingProgress;

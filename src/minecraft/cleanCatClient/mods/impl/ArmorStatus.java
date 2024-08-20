@@ -2,6 +2,7 @@ package cleanCatClient.mods.impl;
 
 import cleanCatClient.constants.ModConstants;
 import cleanCatClient.gui.hud.ScreenPosition;
+import cleanCatClient.mods.ModCategory;
 import cleanCatClient.mods.ModDraggable;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.init.Items;
@@ -10,7 +11,7 @@ import org.lwjgl.opengl.GL11;
 
 public class ArmorStatus extends ModDraggable {
     public ArmorStatus() {
-        super(ModConstants.ARMOR_STATUS, ModConstants.ARMOR_STATUS_DESC);}
+        super(ModConstants.ARMOR_STATUS, ModConstants.ARMOR_STATUS_DESC, ModCategory.RENDER);}
     @Override
     public int getWidth() {
         return 16;
