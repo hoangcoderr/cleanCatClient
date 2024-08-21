@@ -14,7 +14,6 @@ import org.lwjgl.opengl.GL11;
 import cleanCatClient.gui.clickgui.comp.CategoryManager;
 import cleanCatClient.gui.clickgui.comp.ClickGuiCategoryButton;
 import cleanCatClient.gui.clickgui.comp.ModButton;
-import cleanCatClient.gui.clickgui.modSetting.ModSettingManager;
 import cleanCatClient.mods.ModInstances;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
@@ -29,7 +28,6 @@ public class ClickGui extends GuiScreen {
     public static ArrayList<ModButton> modButtonToRender = new ArrayList<>();
 
     ScaledResolution sr;
-    private ModSettingManager msManager;
 
     int backgroundW = 200;
     int centerW;
@@ -68,7 +66,6 @@ public class ClickGui extends GuiScreen {
             categoryIndices.put(categoryID, index + 1);
         }
 
-        msManager = new ModSettingManager(centerW, centerH);
     }
 
     private void addModButton(int categoryID, Mod mod, int index, int size, int spaceBetween, int buttonsPerRow) {
@@ -95,7 +92,6 @@ public class ClickGui extends GuiScreen {
         Gui.drawRoundedRect(centerW - backgroundW + 480, centerH - 125, centerW + backgroundW, centerH + 125, 8, new Color(24, 23, 23, 192).getRGB());
 
         GlStateManager.popMatrix();
-        msManager.render();
 
         for (ClickGuiCategoryButton clickGuiCategoryButton : clickGuiCategoryButton) {
             clickGuiCategoryButton.renderButton();
