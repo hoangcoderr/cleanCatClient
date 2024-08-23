@@ -43,8 +43,8 @@ public class CustomCrosshair extends ModDraggable {
 
     private void drawCrosshair(ScreenPosition pos, int gap, int length, int thickness) {
         //drawArrowCrossHair(4, thickness);
-        //drawPlusCrossHair(2, 3, 2);
-        drawDotCrossHair(10);
+        drawPlusCrossHair(1, 2, 2);
+        //drawDotCrossHair(10);
     }
 
     private void drawPlusCrossHair(int gap, int length, int thickness) {

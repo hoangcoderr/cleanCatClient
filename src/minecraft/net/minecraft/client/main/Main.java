@@ -84,8 +84,10 @@ public class Main
             });
         }
 
-        int i = ((Integer)optionset.valueOf(optionspec13)).intValue();
-        int j = ((Integer)optionset.valueOf(optionspec14)).intValue();
+//        int i = ((Integer)optionset.valueOf(optionspec13)).intValue();
+//        int j = ((Integer)optionset.valueOf(optionspec14)).intValue();
+        int i = 1366;
+        int j = 768;
         boolean flag = optionset.has("fullscreen");
         boolean flag1 = optionset.has("checkGlErrors");
         boolean flag2 = optionset.has("demo");

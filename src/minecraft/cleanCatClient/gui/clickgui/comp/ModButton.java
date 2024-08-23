@@ -1,12 +1,14 @@
 package cleanCatClient.gui.clickgui.comp;
 
-import java.awt.Color;
+import java.awt.*;
 
-import cleanCatClient.gui.clickgui.settings.impl.CrossHairSetting;
+import cleanCatClient.gui.clickgui.settings.ModSettings;
+import cleanCatClient.gui.clickgui.settings.impl.CustomCrossHairSettings;
 import cleanCatClient.gui.font.FontUtil;
 import cleanCatClient.mods.Mod;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
+import cleanCatClient.gui.clickgui.components.CheckBox;
 
 public class ModButton {
 
@@ -14,11 +16,12 @@ public class ModButton {
     public int originalY; // Thêm thuộc tính này
     public Mod mod;
     public int id;
+    public ModSettings modSettings;
 
     public ModButton(int x, int y, int w, int h, Mod mod, int id) {
         this.x = x - 85;
         this.y = y - 80;
-        this.originalY = this.y; // Lưu vị trí ban đầu
+        this.originalY = this.y;
         this.w = w;
         this.h = h;
         this.mod = mod;
@@ -69,9 +72,8 @@ public class ModButton {
                 } else {
                     mod.setEnabled(true);
                 }
-            } else {
-                // Open mod settings GUI
-                Minecraft.getMinecraft().displayGuiScreen(new CrossHairSetting());
+            } else if (isMouseOver(mouseX, mouseY)) {
+                Minecraft.getMinecraft().displayGuiScreen(new CustomCrossHairSettings());
             }
         }
     }

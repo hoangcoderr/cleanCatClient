@@ -12,6 +12,7 @@ import cleanCatClient.utils.FileManager;
 import cleanCatClient.utils.SessionChanger;
 import net.arikia.dev.drpc.DiscordRPC;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScaledResolution;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Keyboard;
@@ -38,13 +39,13 @@ public class Client {
 	}
 	public static HUDManager hudManager;
 
-	private ClickGui clickGui = new ClickGui();
-
+	public ClickGui clickGui = new ClickGui();
 	public void start() {
 		hudManager = HUDManager.getInstance();
 		ModInstances.register(hudManager);
 		SessionChanger.getInstance().setUser("hi", "hi");
-
+		Minecraft.centerX = new ScaledResolution(Minecraft.getMinecraft()).getScaledWidth() / 2;
+		Minecraft.centerY = new ScaledResolution(Minecraft.getMinecraft()).getScaledHeight() / 2;
 	}
 
 	@EventTarget

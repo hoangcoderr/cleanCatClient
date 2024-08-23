@@ -3,6 +3,8 @@ package net.minecraft.util;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 
+import org. lwjgl. input. Cursor;
+
 public class MouseHelper
 {
     public int deltaX;
@@ -26,4 +28,5 @@ public class MouseHelper
         this.deltaX = Mouse.getDX();
         this.deltaY = Mouse.getDY();
     }
+
 }

@@ -28,7 +28,13 @@ public class ClickGui extends GuiScreen {
     public static ArrayList<ModButton> modButtonToRender = new ArrayList<>();
 
     ScaledResolution sr;
+    public int getWidth() {
+        return (centerW + backgroundW) - (centerW - backgroundW);
+    }
 
+    public int getHeight() {
+        return 250; // Assuming the height is fixed as 250 based on the initGui method
+    }
     int backgroundW = 200;
     int centerW;
     int centerH;
@@ -85,13 +91,12 @@ public class ClickGui extends GuiScreen {
         centerW = sr.getScaledWidth() / 2;
         centerH = sr.getScaledHeight() / 2;
 
-        GlStateManager.pushAttrib();
-        GlStateManager.pushMatrix();
+
 
         Gui.drawRoundedRect(centerW - backgroundW, centerH - 125, centerW + backgroundW, centerH + 125, 8, new Color(77, 76, 76, 218).getRGB());
         Gui.drawRoundedRect(centerW - backgroundW + 480, centerH - 125, centerW + backgroundW, centerH + 125, 8, new Color(24, 23, 23, 192).getRGB());
 
-        GlStateManager.popMatrix();
+
 
         for (ClickGuiCategoryButton clickGuiCategoryButton : clickGuiCategoryButton) {
             clickGuiCategoryButton.renderButton();
@@ -123,7 +128,6 @@ public class ClickGui extends GuiScreen {
 
         drawScrollbar();
 
-        GlStateManager.popAttrib();
     }
 
     private void drawScrollbar() {
