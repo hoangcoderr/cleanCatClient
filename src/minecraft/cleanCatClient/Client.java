@@ -5,6 +5,7 @@ import cleanCatClient.event.EventManager;
 import cleanCatClient.event.EventTarget;
 import cleanCatClient.event.impl.ClientTickEvent;
 import cleanCatClient.gui.clickgui.ClickGui;
+import cleanCatClient.gui.clickgui.settings.ModSettingsInstance;
 import cleanCatClient.gui.font.FontUtil;
 import cleanCatClient.gui.hud.HUDManager;
 import cleanCatClient.mods.ModInstances;
@@ -43,6 +44,7 @@ public class Client {
 	public void start() {
 		hudManager = HUDManager.getInstance();
 		ModInstances.register(hudManager);
+		ModSettingsInstance.register();
 		SessionChanger.getInstance().setUser("hi", "hi");
 		Minecraft.centerX = new ScaledResolution(Minecraft.getMinecraft()).getScaledWidth() / 2;
 		Minecraft.centerY = new ScaledResolution(Minecraft.getMinecraft()).getScaledHeight() / 2;

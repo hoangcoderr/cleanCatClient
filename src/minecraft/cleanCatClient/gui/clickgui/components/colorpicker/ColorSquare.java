@@ -40,6 +40,9 @@ public class ColorSquare {
     public int getSelectedColor() {
         return selectedColor;
     }
+    public void setSelectedColor(int color) {
+        this.selectedColor = color;
+    }
 
     private int blendColors(int color1, int color2, float ratio) {
         int r = (int)(((color1 >> 16) & 0xFF) * (1 - ratio) + ((color2 >> 16) & 0xFF) * ratio);

@@ -1,6 +1,7 @@
 package cleanCatClient.mods.impl;
 
 import cleanCatClient.constants.ModConstants;
+import cleanCatClient.gui.clickgui.settings.impl.ArmorStatusSetting;
 import cleanCatClient.gui.hud.ScreenPosition;
 import cleanCatClient.mods.ModCategory;
 import cleanCatClient.mods.ModDraggable;

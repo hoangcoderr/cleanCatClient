@@ -1,5 +1,6 @@
 package cleanCatClient.mods;
 
+import cleanCatClient.gui.clickgui.settings.ModSettings;
 import cleanCatClient.utils.FileManager;
 import cleanCatClient.gui.hud.IRenderer;
 import cleanCatClient.gui.hud.ScreenPosition;

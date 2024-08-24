@@ -5,9 +5,8 @@ import cleanCatClient.gui.clickgui.settings.impl.OldAnimationSetting;
 import cleanCatClient.mods.Mod;
 import cleanCatClient.mods.ModCategory;
 
-public class LeftHand extends Mod {
-    public LeftHand() {
-        super(ModConstants.LEFT_HAND, ModConstants.LEFT_HAND_DESC, ModCategory.PLAYER);
+public class OldAnimation extends Mod {
+    public OldAnimation() {
+        super(ModConstants.OLD_ANIMATIONS,ModConstants.OLD_ANIMATIONS_DESC, ModCategory.PLAYER);
     }
-
 }

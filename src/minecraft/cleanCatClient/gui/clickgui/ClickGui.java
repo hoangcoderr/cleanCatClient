@@ -6,8 +6,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import cleanCatClient.gui.clickgui.settings.ModSettings;
+import cleanCatClient.gui.clickgui.settings.ModSettingsInstance;
+import cleanCatClient.gui.clickgui.settings.impl.CustomCrossHairSettings;
 import cleanCatClient.mods.Mod;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.Sys;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
@@ -60,27 +64,26 @@ public class ClickGui extends GuiScreen {
         int buttonsPerRow = 3;
 
         Map<Integer, Integer> categoryIndices = new HashMap<>();
-
         for (int i = 0; i < ModInstances.getAllMods().size(); i++) {
             Mod mod = ModInstances.getAllMods().get(i);
             int categoryID = mod.getCategoryId();
 
             int index = categoryIndices.getOrDefault(categoryID, 0);
-
-            addModButton(categoryID, mod, index, modButtonSize, spaceBetween, buttonsPerRow);
-
+            System.out.println("Category ID: " + categoryID + " Index: " + index + "Mod name: " + mod.name);
+         //   addModButton(categoryID, mod, index, modButtonSize, spaceBetween, buttonsPerRow, new CustomCrossHairSettings());
+            addModButton(categoryID, mod, index, modButtonSize, spaceBetween, buttonsPerRow, ModSettingsInstance.getAllSettings().get(i));
             categoryIndices.put(categoryID, index + 1);
         }
 
     }
 
-    private void addModButton(int categoryID, Mod mod, int index, int size, int spaceBetween, int buttonsPerRow) {
+    private void addModButton(int categoryID, Mod mod, int index, int size, int spaceBetween, int buttonsPerRow, ModSettings settings) {
         int row = index / buttonsPerRow;
         int col = index % buttonsPerRow;
         int x = centerW + col * (size + spaceBetween);
         int y = centerH + row * (size + spaceBetween);
 
-        this.modButtonToRender.add(new ModButton(x, y, size, size, mod, categoryID));
+        this.modButtonToRender.add(new ModButton(x, y, size, size, mod, categoryID, settings));
     }
     private int currentScroll = 0;
 

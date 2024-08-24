@@ -1,8 +1,10 @@
 package cleanCatClient.mods;
 
+import cleanCatClient.gui.clickgui.settings.ModSettings;
 import cleanCatClient.gui.hud.HUDManager;
 import cleanCatClient.mods.impl.*;
 import cleanCatClient.mods.impl.oldanimations.LeftHand;
+import cleanCatClient.mods.impl.oldanimations.OldAnimation;
 import cleanCatClient.mods.impl.oldanimations.SmoothSneaking;
 import cleanCatClient.mods.impl.oldanimations.SwingAnimation;
 
@@ -31,6 +33,7 @@ public class ModInstances {
     private static PingDisplay pingDisplay;
     private static BossBar modBossBar;
     private static HitColor hitColor;
+    private static OldAnimation oldAnimation;
     private static List<Mod> allMods = new ArrayList<>();
 
     public static void register(HUDManager api) {
@@ -83,27 +86,24 @@ public class ModInstances {
 
         hitColor = new HitColor();
 
+        oldAnimation = new OldAnimation();
+
         allMods.add(modArmorStatus);
-        allMods.add(modFPS);
-        allMods.add(modKeystrokes);
-        allMods.add(toggleSprint);
-        allMods.add(modPerspective);
-        allMods.add(modFullBright);
         allMods.add(modBlockOverlay);
+        allMods.add(modBossBar);
+        allMods.add(customCrosshair);
+        allMods.add(modFPS);
         allMods.add(modGlintColor);
+        allMods.add(hitColor);
+        allMods.add(modKeystrokes);
+        allMods.add(lazyChunkLoading);
         allMods.add(modNoHurtCam);
-        allMods.add(swingAnimation);
-        allMods.add(smoothSneaking);
-        allMods.add(leftHand);
+        allMods.add(oldAnimation);
+        allMods.add(modPerspective);
+        allMods.add(pingDisplay);
         allMods.add(modPotionStatus);
         allMods.add(modScoreboard);
-        allMods.add(lazyChunkLoading);
-        allMods.add(customCrosshair);
-        allMods.add(disableBlockParticles);
-        allMods.add(pingDisplay);
-        allMods.add(modBossBar);
-        allMods.add(hitColor);
-
+        allMods.add(toggleSprint);
     }
 
     public static List<Mod> getAllMods() {
@@ -111,6 +111,10 @@ public class ModInstances {
     }
     public static ArmorStatus getArmorStatus() {
         return modArmorStatus;
+    }
+
+    public static OldAnimation getOldAnimation() {
+        return oldAnimation;
     }
 
     public static FPS getFPS() {

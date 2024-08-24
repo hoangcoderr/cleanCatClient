@@ -3,51 +3,49 @@ package cleanCatClient.gui.clickgui.settings.impl;
 import cleanCatClient.gui.clickgui.components.CheckBox;
 import cleanCatClient.gui.clickgui.components.colorpicker.ColorPicker;
 import cleanCatClient.gui.clickgui.settings.ModSettings;
+import cleanCatClient.gui.font.FontUtil;
 import cleanCatClient.mods.ModInstances;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.GlStateManager;
 
 import java.io.IOException;
 
-public class CustomCrossHairSettings extends ModSettings {
-    private CheckBox customCrosshairCheckBox;
-    public static ColorPicker colorPicker;
-
-    public CustomCrossHairSettings() {
-        super(ModInstances.getCustomCrosshair());
+public class FPSSetting extends ModSettings {
+    private ColorPicker colorPicker;
+    private int colorPickerX;
+    private int colorPickerY;
+    public FPSSetting() {
+        super(ModInstances.getFPS());
+        colorPickerX = Minecraft.centerX - 20;
+        colorPickerY = Minecraft.centerY - 50;
+        this.colorPicker = new ColorPicker(colorPickerX, colorPickerY, 150, 100);
     }
 
     @Override
     public void initGui() {
         super.initGui();
-        // Initialize settings GUI components here
-        int centerW = width / 2;
-        int centerH = height / 2;
-        colorPicker = new ColorPicker(centerW - 75, centerH + 20, 150, 100);
-        customCrosshairCheckBox = new CheckBox(centerW - 75, centerH - 10, 150, 20, "Enable Custom Crosshair", false);
+        colorPickerX = Minecraft.centerX - 20;
+        colorPickerY = Minecraft.centerY - 50;
+        colorPicker.reloadPosition(colorPickerX, colorPickerY);
     }
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         super.drawScreen(mouseX, mouseY, partialTicks);
-        // Draw settings GUI components here
+        mc.fontRendererObj.drawString("FPS Color: ", Minecraft.centerX - 180, Minecraft.centerY - 30 , 0xFFFFFF);
         colorPicker.drawPicker(Minecraft.getMinecraft(), mouseX, mouseY);
-        //FontUtil.normal.drawString(colorSlider.getColorString(), rectX + rectWidth + 10, rectY, 0xFFFFFF);
-        //FontUtil.normal.drawString(transparencySlider.getTransparencyString(), rectX + rectWidth + 10, rectY + 10, 0xFFFFFF);
 
-        customCrosshairCheckBox.drawCheckBox(Minecraft.getMinecraft(), mouseX, mouseY);
     }
-
     @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         super.mouseClicked(mouseX, mouseY, mouseButton);
-        customCrosshairCheckBox.mouseClicked(mouseX, mouseY, mouseButton);
         colorPicker.mouseClicked(mouseX, mouseY, mouseButton);
     }
-
     @Override
     protected void mouseReleased(int mouseX, int mouseY, int state) {
         super.mouseReleased(mouseX, mouseY, state);
         colorPicker.mouseReleased(mouseX, mouseY, state);
+        ModInstances.getFPS().setColor(colorPicker.getColor());
     }
-
 }

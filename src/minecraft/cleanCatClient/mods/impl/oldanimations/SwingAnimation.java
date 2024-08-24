@@ -3,6 +3,7 @@ package cleanCatClient.mods.impl.oldanimations;
 import cleanCatClient.constants.ModConstants;
 import cleanCatClient.event.EventTarget;
 import cleanCatClient.event.impl.ClientTickEvent;
+import cleanCatClient.gui.clickgui.settings.impl.OldAnimationSetting;
 import cleanCatClient.mods.Mod;
 import cleanCatClient.mods.ModCategory;
 import net.minecraft.client.Minecraft;

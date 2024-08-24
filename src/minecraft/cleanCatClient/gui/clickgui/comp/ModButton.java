@@ -18,7 +18,7 @@ public class ModButton {
     public int id;
     public ModSettings modSettings;
 
-    public ModButton(int x, int y, int w, int h, Mod mod, int id) {
+    public ModButton(int x, int y, int w, int h, Mod mod, int id, ModSettings modSettings) {
         this.x = x - 85;
         this.y = y - 80;
         this.originalY = this.y;
@@ -26,6 +26,7 @@ public class ModButton {
         this.h = h;
         this.mod = mod;
         this.id = id;
+        this.modSettings = modSettings;
     }
 
     public void render() {
@@ -73,7 +74,7 @@ public class ModButton {
                     mod.setEnabled(true);
                 }
             } else if (isMouseOver(mouseX, mouseY)) {
-                Minecraft.getMinecraft().displayGuiScreen(new CustomCrossHairSettings());
+                Minecraft.getMinecraft().displayGuiScreen(modSettings);
             }
         }
     }

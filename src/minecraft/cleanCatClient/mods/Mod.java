@@ -2,6 +2,7 @@ package cleanCatClient.mods;
 
 import cleanCatClient.Client;
 import cleanCatClient.event.EventManager;
+import cleanCatClient.gui.clickgui.settings.ModSettings;
 import cleanCatClient.utils.FileManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -18,8 +19,6 @@ public class Mod {
     protected final Client client;
     protected int keyBind = Keyboard.KEY_NONE;
     private ModCategory category;
-
-
     public Mod(String name, String description, ModCategory category) {
         this.name = name;
         this.description = description;
@@ -31,6 +30,7 @@ public class Mod {
         this.category = category;
         setEnabled(isEnabled);
     }
+
 
 
     public ModCategory getCategory() {

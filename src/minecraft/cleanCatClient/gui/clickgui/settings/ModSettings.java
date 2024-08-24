@@ -5,6 +5,7 @@ import cleanCatClient.gui.button.ClientButton;
 import cleanCatClient.gui.clickgui.ClickGui;
 import cleanCatClient.gui.font.FontUtil;
 import cleanCatClient.mods.Mod;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -74,7 +75,6 @@ public class ModSettings extends GuiScreen {
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         GL11.glEnable(GL11.GL_TEXTURE_2D);
         GL11.glColor4f((modNameColor >> 16 & 255) / 255.0f, (modNameColor >> 8 & 255) / 255.0f, (modNameColor & 255) / 255.0f, (modNameColor >> 24 & 255) / 255.0f);
-
         FontUtil.normal.drawString(mod.name, 0, 0, modNameColor);
 
         GL11.glDisable(GL11.GL_BLEND);
