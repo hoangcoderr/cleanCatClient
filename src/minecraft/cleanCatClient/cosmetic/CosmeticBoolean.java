@@ -14,8 +14,8 @@ public class CosmeticBoolean {
         CosmeticBoolean.snowcape = false;
         CosmeticBoolean.nornalCape = false;
         CosmeticBoolean.thuderCape = false;
-        CosmeticBoolean.badWolfCape = true;
-        CosmeticBoolean.starrySunsetCape = false;
+        CosmeticBoolean.badWolfCape = false;
+        CosmeticBoolean.starrySunsetCape = true;
     }
 
 

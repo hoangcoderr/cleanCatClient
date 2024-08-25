@@ -19,6 +19,7 @@ public class ColorSquare {
 
     public void drawSquare(Minecraft mc, int mouseX, int mouseY, int baseColor) {
         this.baseColor = baseColor;
+        // Draw color gradient square
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 int color = blendColors(baseColor, 0xFFFFFFFF, (float)i / width);

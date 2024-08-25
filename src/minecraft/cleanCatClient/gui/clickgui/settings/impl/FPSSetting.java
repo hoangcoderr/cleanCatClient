@@ -1,6 +1,7 @@
 package cleanCatClient.gui.clickgui.settings.impl;
 
 import cleanCatClient.gui.clickgui.components.CheckBox;
+import cleanCatClient.gui.clickgui.components.Slider;
 import cleanCatClient.gui.clickgui.components.colorpicker.ColorPicker;
 import cleanCatClient.gui.clickgui.settings.ModSettings;
 import cleanCatClient.gui.font.FontUtil;
@@ -13,6 +14,7 @@ import java.io.IOException;
 
 public class FPSSetting extends ModSettings {
     private ColorPicker colorPicker;
+    private Slider slider;
     private int colorPickerX;
     private int colorPickerY;
     public FPSSetting() {
@@ -20,6 +22,9 @@ public class FPSSetting extends ModSettings {
         colorPickerX = Minecraft.centerX - 20;
         colorPickerY = Minecraft.centerY - 50;
         this.colorPicker = new ColorPicker(colorPickerX, colorPickerY, 150, 100);
+        this.colorPicker.setColor(ModInstances.getFPS().getColor());
+        //this.slider = new Slider(Minecraft.centerX - 75, Minecraft.centerY + 20, 150, 20, 0, 100, 50);
+
     }
 
     @Override
@@ -28,6 +33,7 @@ public class FPSSetting extends ModSettings {
         colorPickerX = Minecraft.centerX - 20;
         colorPickerY = Minecraft.centerY - 50;
         colorPicker.reloadPosition(colorPickerX, colorPickerY);
+
     }
 
     @Override
@@ -35,17 +41,22 @@ public class FPSSetting extends ModSettings {
         super.drawScreen(mouseX, mouseY, partialTicks);
         mc.fontRendererObj.drawString("FPS Color: ", Minecraft.centerX - 180, Minecraft.centerY - 30 , 0xFFFFFF);
         colorPicker.drawPicker(Minecraft.getMinecraft(), mouseX, mouseY);
+        //slider.drawSlider(Minecraft.getMinecraft(), mouseX, mouseY);
 
     }
     @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         super.mouseClicked(mouseX, mouseY, mouseButton);
         colorPicker.mouseClicked(mouseX, mouseY, mouseButton);
+        //slider.mouseClicked(mouseX, mouseY, mouseButton);
+
     }
     @Override
     protected void mouseReleased(int mouseX, int mouseY, int state) {
         super.mouseReleased(mouseX, mouseY, state);
         colorPicker.mouseReleased(mouseX, mouseY, state);
         ModInstances.getFPS().setColor(colorPicker.getColor());
+        //slider.mouseReleased(mouseX, mouseY, state);
+
     }
 }

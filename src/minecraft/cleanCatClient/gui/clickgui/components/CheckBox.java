@@ -32,7 +32,7 @@ public class CheckBox {
             // doi chuot sang ban tay
         }
         Gui.drawRoundedRect(x, y, x + width, y + height,15, checked ? checkedColor.getRGB() : uncheckedColor.getRGB());
-        mc.fontRendererObj.drawString(label, x + width + 5, y + (height / 2) - (mc.fontRendererObj.FONT_HEIGHT / 2), 0xFFFFFFFF);
+        mc.fontRendererObj.drawString(label, x - mc.fontRendererObj.getStringWidth(label) - 5, y + (height / 2) - (mc.fontRendererObj.FONT_HEIGHT / 2), 0xFFFFFFFF);
     }
 
     public void mouseClicked(int mouseX, int mouseY, int mouseButton) {
@@ -51,5 +51,10 @@ public class CheckBox {
 
     public void setChecked(boolean checked) {
         this.checked = checked;
+    }
+
+    public void reloadPosition(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 }

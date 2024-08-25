@@ -8,7 +8,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import org.lwjgl.input.Keyboard;
 
-import java.io.File;
+import java.io.*;
 
 public class Mod {
     public String name;
@@ -19,6 +19,7 @@ public class Mod {
     protected final Client client;
     protected int keyBind = Keyboard.KEY_NONE;
     private ModCategory category;
+
     public Mod(String name, String description, ModCategory category) {
         this.name = name;
         this.description = description;
@@ -31,14 +32,58 @@ public class Mod {
         setEnabled(isEnabled);
     }
 
-
-
     public ModCategory getCategory() {
         return category;
     }
 
     public int getCategoryId() {
         return category.getId();
+    }
+
+    public String[] loadDataConfig() {
+        File configFile = new File(getFolder(), "config.json");
+        if (!configFile.exists()) {
+            System.out.println("Config file does not exist. Creating a new one.");
+            try {
+                configFile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(configFile))) {
+            String line = reader.readLine();
+            if (line != null) {
+                String[] configParts = line.split("\\|");
+                return configParts;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void saveDataConfig(String[] data) {
+        StringBuilder configData = new StringBuilder();
+        for (int i = 0; i < data.length; i++) {
+            configData.append(data[i]);
+            if (i < data.length - 1) {
+                configData.append("|");
+            }
+        }
+        File configFile = new File(getFolder(), "config.json");
+        try (FileWriter writer = new FileWriter(configFile)) {
+            writer.write(configData.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void loadConfig() {
+    }
+
+    public void saveConfig() {
     }
 
     private int loadKeyBind() {
@@ -73,13 +118,14 @@ public class Mod {
         this.isEnabled = enabled;
 
         if (enabled) {
-            EventManager.register(this);}
-        else {
+            EventManager.register(this);
+        } else {
             EventManager.unregister(this);
         }
         saveModState(enabled);
         System.out.println("Saved mod " + getFolder());
     }
+
     public boolean isEnabled() {
         return isEnabled;
     }

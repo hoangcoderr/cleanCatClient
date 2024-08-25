@@ -8,6 +8,8 @@ import java.awt.*;
 
 public class BlockOverlay extends Mod {
     private float lineWidth = 7.0F;
+    private boolean outline = true;
+    private boolean fill = true;
     public BlockOverlay() {
         super(ModConstants.BLOCK_OVERLAY, ModConstants.BLOCK_OVERLAY_DESC, ModCategory.RENDER);
     }
@@ -15,24 +17,30 @@ public class BlockOverlay extends Mod {
     public void setLineWidth(float lineWidth) {
         this.lineWidth = lineWidth;
     }
-    private static final Color DEFAULT_COLOR_OUTLINE = new Color(0,0,0);
+    private static final int DEFAULT_COLOR_OUTLINE = new Color(0,0,0).getRGB();
 
-    private Color customColorOutline = new Color(204,64,64);
+    private int customColorOutline = new Color(204,64,64).getRGB();
 
-    private static final Color DEFAULT_COLOR_INLINE = new Color(0,0,0);
+    private static final int DEFAULT_COLOR_INLINE = new Color(0,0,0, 0).getRGB();
 
-    private Color customColorInline = new Color(0, 0, 0, 45);
+    private int customColorInline = new Color(184, 49, 49, 110).getRGB();
     private static final float DEFAULT_LINE_WIDTH = 2F;
-    public Color getColorOutline(){
-        if (isEnabled()){
+    public int getColorOutline(){
+        if (isEnabled() && outline){
             return customColorOutline;
         }
         return DEFAULT_COLOR_OUTLINE;
     }
 
+    public void setCustomColorOutline(int customColorOutline) {
+        this.customColorOutline = customColorOutline;
+    }
 
-    public Color getColorInline(){
-        if (isEnabled()){
+    public void setCustomColorInline(int customColorInline) {
+        this.customColorInline = customColorInline;
+    }
+    public int getColorInline(){
+        if (isEnabled() && fill){
             return customColorInline;
         }
         return DEFAULT_COLOR_INLINE;
@@ -42,5 +50,21 @@ public class BlockOverlay extends Mod {
             return lineWidth;
         }
         return DEFAULT_LINE_WIDTH;
+    }
+
+    public void setOutline(boolean outline) {
+        this.outline = outline;
+    }
+
+    public void setFill(boolean fill) {
+        this.fill = fill;
+    }
+
+    public boolean isOutline() {
+        return outline;
+    }
+
+    public boolean isFill() {
+        return fill;
     }
 }

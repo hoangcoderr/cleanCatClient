@@ -4,11 +4,16 @@ import cleanCatClient.gui.font.FontUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 
+import java.awt.*;
+
 public class ColorPicker {
     private ColorSlider colorSlider;
     private ColorSlider transparencySlider;
     private ColorSquare colorSquare;
     private boolean isPickerVisible = false;
+
+    // Define rectangle's position and dimensions as class variables
+    private int rectX, rectY, rectWidth, rectHeight, newRectWidth, newRectHeight, newRectX, newRectY;
 
     public ColorSquare getColorSquare() {
         return colorSquare;
@@ -22,6 +27,16 @@ public class ColorPicker {
         colorSquare = new ColorSquare(x + 60, y, width - 60, height);
         colorSlider = new ColorSlider(x, y, 20, height, "Color");
         transparencySlider = new ColorSlider(x + 30, y, 20, height, "Transparency");
+
+        // Initialize rectangle's position and dimensions
+        rectX = colorSquare.x - 150;
+        rectY = colorSquare.y;
+        rectWidth = 50;
+        rectHeight = 50;
+        newRectWidth = rectWidth / 2;
+        newRectHeight = rectHeight / 2;
+        newRectX = rectX + (rectWidth - newRectWidth) / 2;
+        newRectY = rectY + (rectHeight - newRectHeight) / 2;
     }
 
     public int getColor() {
@@ -31,12 +46,7 @@ public class ColorPicker {
     }
 
     public void drawPicker(Minecraft mc, int mouseX, int mouseY) {
-        int rectX = colorSquare.x - 150; // Move the rectangle to the left of the color square
-        int rectY = colorSquare.y;
-        int rectWidth = 50;
-        int rectHeight = 50;
-        Gui.drawRoundedRect(rectX, rectY, rectX + rectWidth, rectY + rectHeight, 15, getColor());
-
+        Gui.drawRoundedRect(newRectX, newRectY, newRectX + newRectWidth, newRectY + newRectHeight, 15, getColor());
         if (isPickerVisible) {
             colorSlider.drawSlider(mc, mouseX, mouseY);
             transparencySlider.drawSlider(mc, mouseX, mouseY);
@@ -47,13 +57,21 @@ public class ColorPicker {
         }
     }
 
-    public void mouseClicked(int mouseX, int mouseY, int mouseButton) {
-        int rectX = colorSquare.x - 150; // Move the rectangle to the left of the color square
-        int rectY = colorSquare.y;
-        int rectWidth = 50;
-        int rectHeight = 50;
+    public void setColor(int color) {
+        int r = (color >> 16) & 0xFF;
+        int g = (color >> 8) & 0xFF;
+        int b = color & 0xFF;
+        int a = (color >> 24) & 0xFF;
 
-        if (mouseX >= rectX && mouseX <= rectX + rectWidth && mouseY >= rectY && mouseY <= rectY + rectHeight) {
+        colorSquare.setSelectedColor((r << 16) | (g << 8) | b);
+        transparencySlider.setSliderValue(a / 255.0f);
+
+        float[] hsbValues = Color.RGBtoHSB(r, g, b, null);
+        colorSlider.setSliderValue(hsbValues[0]);
+    }
+
+    public void mouseClicked(int mouseX, int mouseY, int mouseButton) {
+        if (mouseX >= newRectX && mouseX <= newRectX + newRectWidth && mouseY >= newRectY && mouseY <= newRectY + newRectHeight) {
             isPickerVisible = !isPickerVisible;
         }
 
@@ -102,5 +120,11 @@ public class ColorPicker {
         setYColorSlider(y);
         setXTransparencySlider(x + 30);
         setYTransparencySlider(y);
+
+        // Update rectangle's position and dimensions
+        rectX = colorSquare.x - 150;
+        rectY = colorSquare.y;
+        newRectX = rectX + (rectWidth - newRectWidth) / 2;
+        newRectY = rectY + (rectHeight - newRectHeight) / 2;
     }
 }

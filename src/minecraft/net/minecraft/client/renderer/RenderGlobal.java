@@ -2215,10 +2215,13 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             GlStateManager.enableBlend();
             GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
 
-            float[] outlineColor = ModInstances.getBlockOverlay().getColorOutline().getRGBColorComponents(null);
+            int outlineColor = ModInstances.getBlockOverlay().getColorOutline();
             //GlStateManager.color(0.0F, 0.0F, 0.0F, 0.4F);
-            GlStateManager.color(outlineColor[0], outlineColor[1], outlineColor[2], 1F);
-
+            float alpha = ((outlineColor >> 24) & 0xFF) / 255.0f;
+            float red = ((outlineColor >> 16) & 0xFF) / 255.0f;
+            float green = ((outlineColor >> 8) & 0xFF) / 255.0f;
+            float blue = (outlineColor & 0xFF) / 255.0f;
+            GlStateManager.color(red, green, blue, alpha);
             GL11.glLineWidth(ModInstances.getBlockOverlay().getLineWidth());
             GlStateManager.disableTexture2D();
 
@@ -2247,8 +2250,14 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 drawSelectionBoundingBox(axisalignedbb.expand(0.0020000000949949026D, 0.0020000000949949026D, 0.0020000000949949026D).offset(-d0, -d1, -d2));
 
                 // Draw black overlay
-                float inlineColor[] = ModInstances.getBlockOverlay().getColorInline().getRGBColorComponents(null);
-                GlStateManager.color(inlineColor[0], inlineColor[1], inlineColor[2], 0.2F);
+//                float inlineColor[] = ModInstances.getBlockOverlay().getColorInline().getRGBColorComponents(null);
+//                GlStateManager.color(inlineColor[0], inlineColor[1], inlineColor[2], 0.2F);
+                int color = ModInstances.getBlockOverlay().getColorInline();
+                float alphaI = ((color >> 24) & 0xFF) / 255.0f;
+                float redI = ((color >> 16) & 0xFF) / 255.0f;
+                float greenI = ((color >> 8) & 0xFF) / 255.0f;
+                float blueI = (color & 0xFF) / 255.0f;
+                GlStateManager.color(redI, greenI, blueI, alphaI);
                 drawFilledBoundingBox(axisalignedbb.expand(0.0020000000949949026D, 0.0020000000949949026D, 0.0020000000949949026D).offset(-d0, -d1, -d2));
 
             }
