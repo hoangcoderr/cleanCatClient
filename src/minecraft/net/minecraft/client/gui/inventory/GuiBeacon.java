@@ -1,6 +1,6 @@
 package net.minecraft.client.gui.inventory;
 
-import cleanCatClient.gui.button.ClientButton;
+import cleanCatClient.gui.mainmenu.button.ClientButton;
 import io.netty.buffer.Unpooled;
 import java.io.IOException;
 import net.minecraft.client.Minecraft;

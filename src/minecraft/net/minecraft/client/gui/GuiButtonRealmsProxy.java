@@ -1,6 +1,6 @@
 package net.minecraft.client.gui;
 
-import cleanCatClient.gui.button.ClientButton;
+import cleanCatClient.gui.mainmenu.button.ClientButton;
 import net.minecraft.client.Minecraft;
 import net.minecraft.realms.RealmsButton;
 

@@ -3,7 +3,7 @@ package net.minecraft.client.gui;
 import java.io.IOException;
 import java.util.Random;
 
-import cleanCatClient.gui.button.ClientButton;
+import cleanCatClient.gui.mainmenu.button.ClientButton;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ChatAllowedCharacters;
 import net.minecraft.world.WorldSettings;

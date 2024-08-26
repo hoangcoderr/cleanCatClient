@@ -2,7 +2,7 @@ package net.minecraft.client.gui.inventory;
 
 import java.io.IOException;
 
-import cleanCatClient.gui.button.ClientButton;
+import cleanCatClient.gui.mainmenu.button.ClientButton;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.achievement.GuiAchievements;
 import net.minecraft.client.gui.achievement.GuiStats;

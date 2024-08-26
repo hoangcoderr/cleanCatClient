@@ -15,7 +15,11 @@ import java.util.Map;
 public class FontUtil {
     public static volatile int completed;
     public static MinecraftFontRenderer normal;
+    public static MinecraftFontRenderer customSize;
     private static Font normal_;
+    private static Font customSize_;
+    private static Map<Integer, MinecraftFontRenderer> fontRenderers = new HashMap<>();
+    private static Font baseFont;
 
     private static Font getFont(Map<String, Font> locationMap, String location, int size) {
         Font font = null;
@@ -40,15 +44,15 @@ public class FontUtil {
     }
 
     public static boolean hasLoaded() {
-        return completed >= 3;
+        return completed >= 1;
     }
 
     public static void bootstrap() {
         new Thread(() -> {
             Map<String, Font> locationMap = new HashMap<>();
             normal_ = getFont(locationMap, "font.ttf", 19);
-            completed++;
-            completed++;
+            customSize_ = getFont(locationMap, "font.ttf", 35);
+
             completed++;
         }).start();
 
@@ -60,7 +64,18 @@ public class FontUtil {
                 e.printStackTrace();
             }
         }
-
         normal = new MinecraftFontRenderer(normal_, true, true);
+        customSize = new MinecraftFontRenderer(customSize_, true, true);
+        getFontRenderer(19);
+        getFontRenderer(30);
+    }
+    public static MinecraftFontRenderer getFontRenderer(int fontSize) {
+        if (!fontRenderers.containsKey(fontSize)) {
+            Map<String, Font> locationMap = new HashMap<>();
+            Font customFont = getFont(locationMap, "font.ttf", (int) fontSize);
+            MinecraftFontRenderer customFontRenderer = new MinecraftFontRenderer(customFont, true, true);
+            fontRenderers.put(fontSize, customFontRenderer);
+        }
+        return fontRenderers.get(fontSize);
     }
 }

@@ -23,6 +23,8 @@ public class MinecraftFontRenderer extends CFont {
     }
 
 
+
+
     public int drawStringWithShadow(String text, double x2, float y2, int color) {
 
         float shadowWidth = this.drawString(text, x2 + 0.9f, (double) y2 + 0.5f, color, true, 8.3f);

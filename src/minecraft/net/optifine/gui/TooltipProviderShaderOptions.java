@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import cleanCatClient.gui.button.ClientButton;
+import cleanCatClient.gui.mainmenu.button.ClientButton;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.src.Config;

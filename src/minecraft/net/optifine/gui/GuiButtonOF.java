@@ -1,6 +1,6 @@
 package net.optifine.gui;
 
-import cleanCatClient.gui.button.ClientButton;
+import cleanCatClient.gui.mainmenu.button.ClientButton;
 
 public class GuiButtonOF extends ClientButton
 {

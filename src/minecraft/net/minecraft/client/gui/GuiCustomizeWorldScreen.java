@@ -1,6 +1,6 @@
 package net.minecraft.client.gui;
 
-import cleanCatClient.gui.button.ClientButton;
+import cleanCatClient.gui.mainmenu.button.ClientButton;
 import com.google.common.base.Predicate;
 import com.google.common.primitives.Floats;
 import java.io.IOException;

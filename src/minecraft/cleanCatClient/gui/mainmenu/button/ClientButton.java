@@ -1,4 +1,4 @@
-package cleanCatClient.gui.button;
+package cleanCatClient.gui.mainmenu.button;
 
 import cleanCatClient.gui.font.FontUtil;
 import net.minecraft.client.Minecraft;
@@ -46,5 +46,4 @@ public class ClientButton extends GuiButton {
             FontUtil.normal.drawCenteredString(this.displayString, this.xPosition + this.width / 2, this.yPosition + (this.height - 8) / 2, textColor);
         }
     }
-
 }

@@ -1,6 +1,6 @@
 package net.optifine.gui;
 
-import cleanCatClient.gui.button.ClientButton;
+import cleanCatClient.gui.mainmenu.button.ClientButton;
 import com.google.common.collect.Lists;
 import java.io.IOException;
 import java.util.List;

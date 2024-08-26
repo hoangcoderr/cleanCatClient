@@ -3,17 +3,15 @@ package cleanCatClient.gui.clickgui.comp;
 import java.awt.*;
 
 import cleanCatClient.gui.clickgui.settings.ModSettings;
-import cleanCatClient.gui.clickgui.settings.impl.CustomCrossHairSettings;
 import cleanCatClient.gui.font.FontUtil;
 import cleanCatClient.mods.Mod;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
-import cleanCatClient.gui.clickgui.components.CheckBox;
 
 public class ModButton {
 
     public int x, y, w, h;
-    public int originalY; // Thêm thuộc tính này
+    public int originalY;
     public Mod mod;
     public int id;
     public ModSettings modSettings;
@@ -29,8 +27,16 @@ public class ModButton {
         this.modSettings = modSettings;
     }
 
-    public void render() {
-        Gui.drawRoundedRect(x, y, x + w, y + h, 8, new Color(224, 214, 214, 255).getRGB());
+    public void render(int mouseX, int mouseY) {
+        // Determine the color based on hover state
+        Color borderColor = isMouseOver(mouseX, mouseY) ? new Color(255, 255, 255, 150) : new Color(255, 255, 255, 50);
+        Color innerBorderColor = isMouseOver(mouseX, mouseY) ? new Color(77, 76, 76, 150) : new Color(77, 76, 76, 97);
+
+        // Draw the light white border (outer border)
+        Gui.drawRoundedRect(x - 2, y - 2, x + w + 2, y + h + 2, 10, borderColor.getRGB());
+
+        // Draw the dark border (inner border)
+        Gui.drawRoundedRect(x, y, x + w, y + h, 8, innerBorderColor.getRGB());
 
         // Adjust the width of the rounded rectangle to be nearly the same as the width of the ModButton
         int rectWidth = w - 10; // Adjust this value as needed
@@ -45,7 +51,7 @@ public class ModButton {
         int textY = y + (h - textHeight) / 2 - 30;
 
         // Draw the mod name text with a smaller font size
-        FontUtil.normal.drawString(mod.name, textX, textY, new Color(0, 0, 0, 255).getRGB());
+        FontUtil.normal.drawString(mod.name, textX, textY, new Color(243, 236, 236, 255).getRGB());
     }
 
     private int getColor() {

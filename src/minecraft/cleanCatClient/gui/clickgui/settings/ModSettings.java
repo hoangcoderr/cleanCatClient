@@ -1,17 +1,12 @@
 package cleanCatClient.gui.clickgui.settings;
 
 import cleanCatClient.Client;
-import cleanCatClient.gui.button.ClientButton;
-import cleanCatClient.gui.clickgui.ClickGui;
+import cleanCatClient.gui.mainmenu.button.ClientButton;
 import cleanCatClient.gui.font.FontUtil;
 import cleanCatClient.mods.Mod;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.GlStateManager;
-import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 
@@ -58,7 +53,7 @@ public class ModSettings extends GuiScreen {
         int rectX = centerW - backgroundW / 2;
         int rectY = centerH - backgroundH / 2;
         Gui.drawRoundedRect(rectX, rectY, centerW + backgroundW / 2, centerH + backgroundH / 2, 8, new Color(77, 76, 76, 218).getRGB());
-        Gui.drawRoundedRect(rectX, rectY + 30, centerW + backgroundW / 2, centerH + backgroundH / 2, 8, new Color(255, 255, 255, 195).getRGB());
+        Gui.drawRoundedRect(rectX, rectY + 30, centerW + backgroundW / 2, centerH + backgroundH / 2, 8, new Color(55, 52, 52, 58).getRGB());
 
         backButton.drawButton(mc, mouseX, mouseY);
         exitButton.drawButton(mc, mouseX, mouseY);
@@ -66,19 +61,8 @@ public class ModSettings extends GuiScreen {
         int modNameX = rectX + 10;
         int modNameY = rectY + 10;
         int modNameColor = new Color(255, 255, 255, 255).getRGB();
-        float scale = 2.0f;
-
-        GL11.glPushMatrix();
-        GL11.glTranslatef(modNameX, modNameY, 0);
-        GL11.glScalef(scale, scale, 1.0f);
-        GL11.glEnable(GL11.GL_BLEND);
-        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        GL11.glEnable(GL11.GL_TEXTURE_2D);
-        GL11.glColor4f((modNameColor >> 16 & 255) / 255.0f, (modNameColor >> 8 & 255) / 255.0f, (modNameColor & 255) / 255.0f, (modNameColor >> 24 & 255) / 255.0f);
-        FontUtil.normal.drawString(mod.name, 0, 0, modNameColor);
-
-        GL11.glDisable(GL11.GL_BLEND);
-        GL11.glPopMatrix();
+        FontUtil.getFontRenderer(30).drawString(mod.name, modNameX, modNameY, modNameColor);
+        //FontUtil.normal.drawCustomSizeString(mod.name, modNameX, modNameY, modNameColor, 30);
     }
 
 

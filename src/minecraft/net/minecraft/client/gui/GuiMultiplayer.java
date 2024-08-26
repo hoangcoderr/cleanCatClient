@@ -1,7 +1,7 @@
 package net.minecraft.client.gui;
 
 import cleanCatClient.Client;
-import cleanCatClient.gui.button.ClientButton;
+import cleanCatClient.gui.mainmenu.button.ClientButton;
 import cleanCatClient.gui.font.FontUtil;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;

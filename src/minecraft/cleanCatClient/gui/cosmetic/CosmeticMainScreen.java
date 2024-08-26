@@ -1,8 +1,7 @@
 package cleanCatClient.gui.cosmetic;
 
-import cleanCatClient.gui.button.ClientButton;
+import cleanCatClient.gui.mainmenu.button.ClientButton;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.Minecraft;

@@ -3,7 +3,7 @@ package net.minecraft.client.gui.achievement;
 import java.io.IOException;
 import java.util.Random;
 
-import cleanCatClient.gui.button.ClientButton;
+import cleanCatClient.gui.mainmenu.button.ClientButton;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiOptionButton;

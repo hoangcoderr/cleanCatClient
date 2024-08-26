@@ -1,6 +1,6 @@
 package net.minecraft.realms;
 
-import cleanCatClient.gui.button.ClientButton;
+import cleanCatClient.gui.mainmenu.button.ClientButton;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButtonRealmsProxy;
 import net.minecraft.util.ResourceLocation;

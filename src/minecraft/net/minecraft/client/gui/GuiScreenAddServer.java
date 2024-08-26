@@ -1,6 +1,6 @@
 package net.minecraft.client.gui;
 
-import cleanCatClient.gui.button.ClientButton;
+import cleanCatClient.gui.mainmenu.button.ClientButton;
 import cleanCatClient.gui.font.FontUtil;
 import com.google.common.base.Predicate;
 import java.io.IOException;

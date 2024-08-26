@@ -1,6 +1,6 @@
 package net.optifine.gui;
 
-import cleanCatClient.gui.button.ClientButton;
+import cleanCatClient.gui.mainmenu.button.ClientButton;
 import com.mojang.authlib.exceptions.InvalidCredentialsException;
 import java.math.BigInteger;
 import java.net.URI;

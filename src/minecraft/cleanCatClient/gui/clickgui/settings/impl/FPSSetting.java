@@ -30,8 +30,8 @@ public class FPSSetting extends ModSettings {
     @Override
     public void initGui() {
         super.initGui();
-        colorPickerX = Minecraft.centerX - 20;
-        colorPickerY = Minecraft.centerY - 50;
+        colorPickerX = Minecraft.centerX - 90;
+        colorPickerY = Minecraft.centerY - 35;
         colorPicker.reloadPosition(colorPickerX, colorPickerY);
 
     }

@@ -1,6 +1,6 @@
 package net.optifine.shaders.gui;
 
-import cleanCatClient.gui.button.ClientButton;
+import cleanCatClient.gui.mainmenu.button.ClientButton;
 import net.optifine.shaders.config.ShaderOption;
 
 public class GuiButtonShaderOption extends ClientButton

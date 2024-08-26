@@ -9,6 +9,7 @@ import java.util.Map;
 import cleanCatClient.gui.clickgui.settings.ModSettings;
 import cleanCatClient.gui.clickgui.settings.ModSettingsInstance;
 import cleanCatClient.gui.clickgui.settings.impl.CustomCrossHairSettings;
+import cleanCatClient.gui.font.FontUtil;
 import cleanCatClient.mods.Mod;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.Sys;
@@ -90,16 +91,14 @@ public class ClickGui extends GuiScreen {
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         super.drawScreen(mouseX, mouseY, partialTicks);
-
+        FontUtil.getFontRenderer(30).drawStringWithShadow("cleanCat Client", centerW - backgroundW + 10, centerH - 125 + 10, new Color(255, 255, 255, 255).getRGB());
         centerW = sr.getScaledWidth() / 2;
         centerH = sr.getScaledHeight() / 2;
 
-
-
-        Gui.drawRoundedRect(centerW - backgroundW, centerH - 125, centerW + backgroundW, centerH + 125, 8, new Color(77, 76, 76, 218).getRGB());
+        Gui.drawRoundedRect(centerW - backgroundW, centerH - 125, centerW + backgroundW, centerH + 125, 8, new Color(77, 76, 76, 97).getRGB());
         Gui.drawRoundedRect(centerW - backgroundW + 480, centerH - 125, centerW + backgroundW, centerH + 125, 8, new Color(24, 23, 23, 192).getRGB());
 
-
+        // Draw "cleanCat" at the top-left corner
 
         for (ClickGuiCategoryButton clickGuiCategoryButton : clickGuiCategoryButton) {
             clickGuiCategoryButton.renderButton();
@@ -124,13 +123,12 @@ public class ClickGui extends GuiScreen {
                 GL11.glEnable(GL11.GL_SCISSOR_TEST);
                 this.glScissor(centerW - backgroundW, centerH - 115, centerW + backgroundW, 230);
                 modButton.y = modButton.originalY - currentScroll;
-                modButton.render();
+                modButton.render(mouseX, mouseY); // Pass mouse coordinates here
                 GL11.glDisable(GL11.GL_SCISSOR_TEST);
             }
         }
 
         drawScrollbar();
-
     }
 
     private void drawScrollbar() {

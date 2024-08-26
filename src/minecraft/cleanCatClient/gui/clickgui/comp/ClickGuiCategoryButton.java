@@ -7,6 +7,7 @@ import cleanCatClient.gui.font.FontUtil;
 import cleanCatClient.utils.animation.AnimationEngine;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
+import net.minecraft.client.renderer.GlStateManager;
 
 public class ClickGuiCategoryButton extends CategoryManager{
 	public int x,y,w,h,r;
@@ -34,34 +35,29 @@ public class ClickGuiCategoryButton extends CategoryManager{
 		return number;
 	}
 
-	public void renderButton(){
-		
-		//System.out.println(name + ": " + animation.getAnimationValue());
-		if(animation.getAnimationValue() >=x+1) {
-			Gui.drawRoundedRect(x, y, animation.getAnimationValue(), y+h, 5, new Color(191,226,246,255).getRGB());
-			FontUtil.normal.drawString(name, x + w/2 - Minecraft.getMinecraft().fontRendererObj.getStringWidth(name)/2,
-					y + h/2 - Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT/2, new Color(
-							20, 23, 34,255).getRGB());
+
+	public void renderButton() {
+		// Ensure the correct color is set before rendering
+		//GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f); // Reset color to white
+
+		if (animation.getAnimationValue() >= x + 1) {
+			Gui.drawRoundedRect(x, y, animation.getAnimationValue(), y + h, 5, new Color(191, 226, 246, 255).getRGB());
+			FontUtil.normal.drawString(name, x + w / 2 - Minecraft.getMinecraft().fontRendererObj.getStringWidth(name) / 2,
+					y + h / 2 - Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT / 2, new Color(20, 23, 34, 255).getRGB());
+		} else {
+			FontUtil.normal.drawString(name, x + w / 2 - Minecraft.getMinecraft().fontRendererObj.getStringWidth(name) / 2,
+					y + h / 2 - Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT / 2, new Color(20, 23, 34, 255).getRGB());
 		}
-		else {
-			FontUtil.normal.drawString(name, x + w/2 - Minecraft.getMinecraft().fontRendererObj.getStringWidth(name)/2,
-					y + h/2 - Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT/2, new Color(
-							20, 23, 34,255).getRGB());
-		}
-		//Gui.drawRoundedRect(x, y, x+w, y+h, 5, new Color(226,240,240,255).getRGB());
-		if(CategoryManager.currentPage == number) {
+
+		if (CategoryManager.currentPage == number) {
 			isOnThisPage = true;
 			animation.setIsDrawAnimation(true);
-			//animation.setIsDrawBackWardsAnimation(false);
-		}
-			
-		else if(!isOnThisPage) {
+		} else if (!isOnThisPage) {
 			animation.resetUsingBackWardsAnimation();
-			}
-			
-
+		}
 	}
-	
+
+
 	public void onClick(int mouseX, int mouseY, int button) {
 		if(mouseX >= x && mouseX <= x + w && mouseY >= y && mouseY <= y + h) {
 			animation.setIsDrawAnimation(true);

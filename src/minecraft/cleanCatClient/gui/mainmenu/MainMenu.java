@@ -1,7 +1,7 @@
 package cleanCatClient.gui.mainmenu;
 
 import cleanCatClient.Client;
-import cleanCatClient.gui.button.ClientButton;
+import cleanCatClient.gui.mainmenu.button.ClientButton;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;

@@ -6,8 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
 
-import cleanCatClient.gui.button.ClientButton;
-import cleanCatClient.gui.font.FontUtil;
+import cleanCatClient.gui.mainmenu.button.ClientButton;
 import net.minecraft.client.AnvilConverterException;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
@@ -220,8 +219,8 @@ public class GuiSelectWorld extends GuiScreen implements GuiYesNoCallback
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
         this.availableWorlds.drawScreen(mouseX, mouseY, partialTicks);
-        //this.drawCenteredString(this.fontRendererObj, this.screenTitle, this.width / 2, 20, 16777215);
-        FontUtil.normal.drawCenteredString(this.screenTitle, this.width / 2, 20, 16777215);
+        this.drawCenteredString(this.fontRendererObj, this.screenTitle, this.width / 2, 20, 16777215);
+       //FontUtil.normal.drawCenteredString(this.screenTitle, this.width / 2, 20, 16777215);
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 
@@ -311,12 +310,12 @@ public class GuiSelectWorld extends GuiScreen implements GuiYesNoCallback
                 }
             }
 
-//            GuiSelectWorld.this.drawString(GuiSelectWorld.this.fontRendererObj, s, p_180791_2_ + 2, p_180791_3_ + 1, 16777215);
-//            GuiSelectWorld.this.drawString(GuiSelectWorld.this.fontRendererObj, s1, p_180791_2_ + 2, p_180791_3_ + 12, 8421504);
-//            GuiSelectWorld.this.drawString(GuiSelectWorld.this.fontRendererObj, s2, p_180791_2_ + 2, p_180791_3_ + 12 + 10, 8421504);
-            FontUtil.normal.drawString(s, p_180791_2_ + 2, p_180791_3_ + 1, 16777215);
-            FontUtil.normal.drawString(s1, p_180791_2_ + 2, p_180791_3_ + 14, 8421504);
-            FontUtil.normal.drawString(s2, p_180791_2_ + 2, p_180791_3_ + 14 + 13, 8421504);
+            GuiSelectWorld.this.drawString(GuiSelectWorld.this.fontRendererObj, s, p_180791_2_ + 2, p_180791_3_ + 1, 16777215);
+            GuiSelectWorld.this.drawString(GuiSelectWorld.this.fontRendererObj, s1, p_180791_2_ + 2, p_180791_3_ + 12, 8421504);
+            GuiSelectWorld.this.drawString(GuiSelectWorld.this.fontRendererObj, s2, p_180791_2_ + 2, p_180791_3_ + 12 + 10, 8421504);
+//            FontUtil.normal.drawString(s, p_180791_2_ + 2, p_180791_3_ + 1, 16777215);
+//            FontUtil.normal.drawString(s1, p_180791_2_ + 2, p_180791_3_ + 14, 8421504);
+//            FontUtil.normal.drawString(s2, p_180791_2_ + 2, p_180791_3_ + 14 + 13, 8421504);
         }
     }
 }

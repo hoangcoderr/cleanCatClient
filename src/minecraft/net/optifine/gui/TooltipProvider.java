@@ -2,7 +2,7 @@ package net.optifine.gui;
 
 import java.awt.Rectangle;
 
-import cleanCatClient.gui.button.ClientButton;
+import cleanCatClient.gui.mainmenu.button.ClientButton;
 import net.minecraft.client.gui.GuiScreen;
 
 public interface TooltipProvider

@@ -1,6 +1,6 @@
 package cleanCatClient.gui.hud;
 
-import cleanCatClient.gui.button.ClientButton;
+import cleanCatClient.gui.mainmenu.button.ClientButton;
 import net.minecraft.client.gui.GuiMultiplayer;
 
 import java.io.IOException;
