@@ -9,6 +9,31 @@ import cleanCatClient.mods.ModDraggable;
 public class Scoreboard extends ModDraggable {
     public Scoreboard() {
         super(ModConstants.SCOREBOARD, ModConstants.SCOREBOARD_DESC, ModCategory.RENDER);
+        loadConfig();
+    }
+
+    @Override
+    public void loadConfig() {
+        String[] dataConfig = loadDataConfig();
+        if (dataConfig == null) {
+            pos = ScreenPosition.fromRelativePosition(0.915, 0.43); // Set position to the middle right of the screen
+            savePositionToFile();
+            return;
+        }
+        try {
+            setHideRedNumbers(Boolean.parseBoolean(dataConfig[0]));
+            setHideRect(Boolean.parseBoolean(dataConfig[1]));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void saveConfig() {
+        saveDataConfig(new String[]{
+            String.valueOf(isHideRedNumbers()),
+            String.valueOf(isHideRect())
+        });
     }
 
     private boolean isHideRedNumbers = true;
@@ -20,6 +45,7 @@ public class Scoreboard extends ModDraggable {
 
     public void setHideRedNumbers(boolean isHideRedNumbers) {
         this.isHideRedNumbers = isHideRedNumbers;
+        this.saveConfig();
     }
 
     public boolean isHideRect() {
@@ -28,6 +54,7 @@ public class Scoreboard extends ModDraggable {
 
     public void setHideRect(boolean isHideRect) {
         this.isHideRect = isHideRect;
+        this.saveConfig();
     }
 
     @Override
@@ -50,7 +77,7 @@ public class Scoreboard extends ModDraggable {
         super.renderDummy(pos);
     }
 
-    public ScreenPosition getPos(){
+    public ScreenPosition getPos() {
         return pos;
     }
 }

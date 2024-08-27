@@ -32,7 +32,7 @@ public abstract class ModDraggable extends Mod implements IRenderer {
         return (font.FONT_HEIGHT + 3) * lineNum;
     }
 
-    private void savePositionToFile() {
+    protected void savePositionToFile() {
         FileManager.writeJsonToFile(new File(this.getFolder(), "pos.json"), this.pos);
     }
     private ScreenPosition loadPositionFromFile() {

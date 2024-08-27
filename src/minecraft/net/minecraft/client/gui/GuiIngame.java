@@ -7,6 +7,7 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
+import java.awt.*;
 import java.util.Collection;
 import java.util.List;
 import java.util.Random;
@@ -497,19 +498,19 @@ public class GuiIngame extends Gui {
             int k = j1 + j * this.getFontRenderer().FONT_HEIGHT;
             int l = l1 + i + k1;
 
-            if (!ModInstances.getScoreboard().isEnabled() && !ModInstances.getScoreboard().isHideRect())
+            if (!ModInstances.getScoreboard().isHideRect())
                 drawRect(l1 - 2, k, l, k + this.getFontRenderer().FONT_HEIGHT, 1342177280);
-            FontUtil.normal.drawString(s1, l1, k, 553648127);
+            mc.fontRendererObj.drawString(s1, l1, k, new Color(255, 255, 255).getRGB());
             if (!ModInstances.getScoreboard().isHideRedNumbers())
                 this.getFontRenderer().drawString(s2, l - this.getFontRenderer().getStringWidth(s2), k, 553648127);
 
             if (j == collection.size()) {
                 String s3 = objective.getDisplayName();
                 if (!ModInstances.getScoreboard().isHideRect()) {
-                    drawRect(l1 - 2, k - this.getFontRenderer().FONT_HEIGHT - 1, l, k - 1, 1610612736);
-                    drawRect(l1 - 2, k - 1, l, k, 1342177280);
+                    drawRect(l1 - 2, k - this.getFontRenderer().FONT_HEIGHT - 20, l, k - 18, 1610612736);
+                    drawRect(l1 - 2, k - this.getFontRenderer().FONT_HEIGHT - 20, l, k - 18, 1342177280);
                 }
-                FontUtil.normal.drawString(s3, l1 + i / 2 - this.getFontRenderer().getStringWidth(s3) / 2, k - j * this.getFontRenderer().FONT_HEIGHT, 553648127);
+                mc.fontRendererObj.drawString(s3, l1 + i / 2 - this.getFontRenderer().getStringWidth(s3) / 2, k - j * this.getFontRenderer().FONT_HEIGHT,  new Color(255, 255, 255).getRGB());
             }
         }
     }
