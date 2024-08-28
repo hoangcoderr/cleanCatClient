@@ -16,9 +16,77 @@ public class CustomCrosshair extends ModDraggable {
     private int thickness = 5;  // Thickness of the crosshair lines
     private int length = 8;     // Length of the crosshair lines
     private int gap = 4;
+    private int color = 0xFFFFFFFF; // White color
+
     public CustomCrosshair() {
         super(ModConstants.CROSSHAIR, ModConstants.CROSSHAIR_DESC, ModCategory.RENDER);
         pos = ScreenPosition.fromRelativePosition(0.5, 0.5);
+        loadConfig();
+    }
+
+    @Override
+    public void loadConfig() {
+        String[] dataConfig = loadDataConfig();
+        if (dataConfig == null) {
+            return;
+        }
+
+        try {
+            thickness = Integer.parseInt(dataConfig[0]);
+            length = Integer.parseInt(dataConfig[1]);
+            gap = Integer.parseInt(dataConfig[2]);
+            color = Integer.parseInt(dataConfig[3]);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void saveConfig() {
+        String[] dataConfig = new String[4];
+        dataConfig[0] = String.valueOf(thickness);
+        dataConfig[1] = String.valueOf(length);
+        dataConfig[2] = String.valueOf(gap);
+        dataConfig[3] = String.valueOf(color);
+        saveDataConfig(dataConfig);
+    }
+
+    public void setColor(int color) {
+        this.color = color;
+        saveConfig();
+    }
+
+    public int getColor() {
+        return color;
+    }
+
+    public void setThickness(int thickness) {
+        this.thickness = thickness;
+        saveConfig();
+    }
+
+    public void setLength(int length) {
+        this.length = length;
+        saveConfig();
+
+    }
+
+    public void setGap(int gap) {
+        this.gap = gap;
+        saveConfig();
+
+    }
+
+    public int getThickness() {
+        return thickness;
+    }
+
+    public int getLength() {
+        return length;
+    }
+
+    public int getGap() {
+        return gap;
     }
 
     @Override
@@ -38,18 +106,17 @@ public class CustomCrosshair extends ModDraggable {
 
     @Override
     public void renderDummy(ScreenPosition pos) {
-        //drawCrosshair(pos);
     }
 
     private void drawCrosshair(ScreenPosition pos, int gap, int length, int thickness) {
         //drawArrowCrossHair(4, thickness);
-        drawPlusCrossHair(1, 2, 2);
-        //drawDotCrossHair(10);
+        drawPlusCrossHair(gap, length, thickness, color);
+        drawDotCrossHair(10, color);
     }
 
-    private void drawPlusCrossHair(int gap, int length, int thickness) {
+    private void drawPlusCrossHair(int gap, int length, int thickness, int color) {
         GL11.glPushMatrix();
-        GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f); // Set color to white
+        GL11.glColor4f(((color >> 16) & 0xFF) / 255.0f, ((color >> 8) & 0xFF) / 255.0f, (color & 0xFF) / 255.0f, 1.0f); // Set color
         GL11.glDisable(GL11.GL_TEXTURE_2D); // Disable textures to draw pure shapes
         GL11.glLineWidth(thickness); // Set the thickness of the lines
 
@@ -73,9 +140,9 @@ public class CustomCrosshair extends ModDraggable {
         GL11.glPopMatrix();
     }
 
-    private void drawDotCrossHair(int size) {
+    private void drawDotCrossHair(int size, int color) {
         GL11.glPushMatrix();
-        GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f); // Set color to white
+        GL11.glColor4f(((color >> 16) & 0xFF) / 255.0f, ((color >> 8) & 0xFF) / 255.0f, (color & 0xFF) / 255.0f, 1.0f); // Set color
         GL11.glDisable(GL11.GL_TEXTURE_2D);
 
         GL11.glPointSize(size); // Set the size of the point
@@ -88,11 +155,9 @@ public class CustomCrosshair extends ModDraggable {
         GL11.glPopMatrix();
     }
 
-
-    private void drawArrowCrossHair(int size, int thickness) {
-
+    private void drawArrowCrossHair(int size, int thickness, int color) {
         GL11.glPushMatrix();
-        GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f); // Set color to white
+        GL11.glColor4f(((color >> 16) & 0xFF) / 255.0f, ((color >> 8) & 0xFF) / 255.0f, (color & 0xFF) / 255.0f, 1.0f); // Set color
         GL11.glDisable(GL11.GL_TEXTURE_2D); // Disable textures to draw pure shapes
         GL11.glLineWidth(thickness); // Set the thickness of the lines
 

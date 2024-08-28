@@ -8,6 +8,7 @@ public class ColorSquare {
     public int x, y, width, height;
     private int selectedColor;
     private int baseColor;
+    private boolean dragging;
 
     public ColorSquare(int x, int y, int width, int height) {
         this.x = x;
@@ -15,32 +16,50 @@ public class ColorSquare {
         this.width = width;
         this.height = height;
         this.selectedColor = 0xFFFFFFFF; // Default white color
+        this.dragging = false;
     }
 
     public void drawSquare(Minecraft mc, int mouseX, int mouseY, int baseColor) {
         this.baseColor = baseColor;
-        // Draw color gradient square
+        // Draw color gradient square with increased white and black
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                int color = blendColors(baseColor, 0xFFFFFFFF, (float)i / width);
-                color = blendColors(color, 0xFF000000, (float)j / height);
+                float ratioX = (float) i / width;
+                float ratioY = (float) j / height;
+                int color = blendColors(baseColor, 0xFFFFFFFF, ratioX); // Use white
+                color = blendColors(color, 0xFF000000, ratioY); // Use black
                 Gui.drawRect(x + i, y + j, x + i + 1, y + j + 1, color);
             }
+        }
+        if (dragging) {
+            updateColor(mouseX, mouseY);
         }
     }
 
     public void mouseClicked(int mouseX, int mouseY, int mouseButton) {
         if (mouseX >= x && mouseX <= x + width && mouseY >= y && mouseY <= y + height) {
-            int localX = mouseX - x;
-            int localY = mouseY - y;
-            selectedColor = blendColors(baseColor, 0xFFFFFFFF, (float)localX / width);
-            selectedColor = blendColors(selectedColor, 0xFF000000, (float)localY / height);
+            dragging = true;
+            updateColor(mouseX, mouseY);
         }
+    }
+
+    public void mouseReleased(int mouseX, int mouseY, int mouseButton) {
+        dragging = false;
+    }
+
+    private void updateColor(int mouseX, int mouseY) {
+        int localX = mouseX - x;
+        int localY = mouseY - y;
+        float ratioX = (float) localX / width;
+        float ratioY = (float) localY / height;
+        selectedColor = blendColors(baseColor, 0xFFFFFFFF, ratioX); // Use white
+        selectedColor = blendColors(selectedColor, 0xFF000000, ratioY); // Use black
     }
 
     public int getSelectedColor() {
         return selectedColor;
     }
+
     public void setSelectedColor(int color) {
         this.selectedColor = color;
     }

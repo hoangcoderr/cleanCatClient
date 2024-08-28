@@ -84,6 +84,7 @@ public class ColorPicker {
         if (isPickerVisible) {
             colorSlider.mouseReleased(mouseX, mouseY, state);
             transparencySlider.mouseReleased(mouseX, mouseY, state);
+            colorSquare.mouseReleased(mouseX, mouseY, state);
         }
     }
 

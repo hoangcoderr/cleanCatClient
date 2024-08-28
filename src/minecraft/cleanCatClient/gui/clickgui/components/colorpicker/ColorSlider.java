@@ -27,7 +27,7 @@ public class ColorSlider {
         }
 
         int sliderPos = (int)(sliderValue * height);
-        Gui.drawRect(x, y, x + width, y + height, 0xFFAAAAAA);
+        Gui.drawRoundedRect(x, y, x + width, y + height, 15,0xFFAAAAAA);
         Gui.drawRect(x, y + height - sliderPos - 1, x + width, y + height - sliderPos + 1, 0xFF000000);
     }
 

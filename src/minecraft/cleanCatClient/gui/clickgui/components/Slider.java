@@ -1,5 +1,6 @@
 package cleanCatClient.gui.clickgui.components;
 
+import cleanCatClient.gui.font.FontUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 
@@ -23,12 +24,18 @@ public class Slider {
 
     public void drawSlider(Minecraft mc, int mouseX, int mouseY) {
         int sliderPos = x + (int) ((currentValue - minValue) / (maxValue - minValue) * width);
-        Gui.drawRect(x, y, x + width, y + height, 0xFFAAAAAA); // Background
-        Gui.drawRect(sliderPos - 2, y, sliderPos + 2, y + height, 0xFF555555); // Slider knob
+        Gui.drawRoundedRect(x, y, x + width, y + height, 15,0xFFAAAAAA); // Background
+        Gui.drawRect(sliderPos - 2, y, sliderPos + 2, y + height,0xFF555555); // Slider knob
 
         if (dragging) {
             updateValue(mouseX);
         }
+
+        // Draw the current value to the right of the slider
+        String valueText = String.format("%.2f", currentValue);
+        int textX = x + width + 5; // 5 pixels to the right of the slider
+        int textY = y + (height / 2) - (mc.fontRendererObj.FONT_HEIGHT / 2); // Center vertically
+        FontUtil.normal.drawString(valueText, textX, textY, 0xFFFFFFFF); // White color
     }
 
     public void mouseClicked(int mouseX, int mouseY, int mouseButton) {

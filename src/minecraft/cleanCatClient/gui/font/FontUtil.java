@@ -66,7 +66,7 @@ public class FontUtil {
         }
         normal = new MinecraftFontRenderer(normal_, true, true);
         customSize = new MinecraftFontRenderer(customSize_, true, true);
-        getFontRenderer(19);
+        //getFontRenderer(19);
         getFontRenderer(30);
     }
     public static MinecraftFontRenderer getFontRenderer(int fontSize) {
