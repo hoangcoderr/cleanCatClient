@@ -58,8 +58,8 @@ public class PotionStatus extends ModDraggable {
             int i1 = potion.getStatusIconIndex();
             Minecraft.getMinecraft().getTextureManager().bindTexture(GuiContainer.inventoryBackground);
             Gui.drawModalRectWithCustomSizedTexture(pos.getAbsoluteX() - 20, y, i1 % 8 * 18, 198 + i1 / 8 * 18, 18, 18, 256, 256);
-            FontUtil.normal.drawString(name, pos.getAbsoluteX(), y, 0xFFFFFF);
-            FontUtil.normal.drawString(durationString, pos.getAbsoluteX(), y + 10, 0xFFFFFF);
+            FontUtil.normal.drawStringWithShadow(name, pos.getAbsoluteX(), y, 0xFFFFFF);
+            FontUtil.normal.drawStringWithShadow(durationString, pos.getAbsoluteX(), y + 10, 0xFFFFFF);
             y += 20;
             GL11.glPopMatrix();
         }
@@ -73,8 +73,8 @@ public class PotionStatus extends ModDraggable {
             int i1 = i;
             Minecraft.getMinecraft().getTextureManager().bindTexture(GuiContainer.inventoryBackground);
             Gui.drawModalRectWithCustomSizedTexture(pos.getAbsoluteX() - 20, y, i1 % 8 * 18, 198 + i1 / 8 * 18, 18, 18, 256, 256);
-            FontUtil.normal.drawString("Potion Name ", pos.getAbsoluteX(), y, 0xFFFFFF);
-            FontUtil.normal.drawString("99:99", pos.getAbsoluteX(), y + 10, 0xFFFFFF);
+            FontUtil.normal.drawStringWithShadow("Potion Name ", pos.getAbsoluteX(), y, 0xFFFFFF);
+            FontUtil.normal.drawStringWithShadow("99:99", pos.getAbsoluteX(), y + 10, 0xFFFFFF);
             y += 20;
             GL11.glPopMatrix();
         }

@@ -51,7 +51,7 @@ public class FPS extends ModDraggable {
     @Override
     public void render(ScreenPosition pos) {
         GlStateManager.pushMatrix();
-        FontUtil.normal.drawString("FPS: " + mc.getDebugFPS(), pos.getAbsoluteX(), pos.getAbsoluteY(), color);
+        FontUtil.normal.drawStringWithShadow("FPS: " + mc.getDebugFPS(), pos.getAbsoluteX(), pos.getAbsoluteY(), color);
         GlStateManager.popMatrix();
     }
 

@@ -3,6 +3,7 @@ package net.minecraft.client.gui;
 import java.io.IOException;
 
 import cleanCatClient.gui.mainmenu.button.ClientButton;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.src.Config;
@@ -83,6 +84,7 @@ public class GuiVideoSettings extends GuiScreenOF
         this.actionPerformed(button, 1);
     }
 
+
     protected void actionPerformedRightClick(ClientButton p_actionPerformedRightClick_1_)
     {
         if (p_actionPerformedRightClick_1_.id == GameSettings.Options.GUI_SCALE.ordinal())
@@ -95,6 +97,9 @@ public class GuiVideoSettings extends GuiScreenOF
     {
         if (p_actionPerformed_1_.enabled)
         {
+            ScaledResolution sr = new ScaledResolution(this.mc);
+            Minecraft.centerX = sr.getScaledWidth() / 2;
+            Minecraft.centerY = sr.getScaledHeight() / 2;
             int i = this.guiGameSettings.guiScale;
 
             if (p_actionPerformed_1_.id < 200 && p_actionPerformed_1_ instanceof GuiOptionButton)

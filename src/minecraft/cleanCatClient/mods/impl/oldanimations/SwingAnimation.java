@@ -6,6 +6,7 @@ import cleanCatClient.event.impl.ClientTickEvent;
 import cleanCatClient.gui.clickgui.settings.impl.OldAnimationSetting;
 import cleanCatClient.mods.Mod;
 import cleanCatClient.mods.ModCategory;
+import cleanCatClient.mods.ModInstances;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.potion.Potion;
@@ -15,6 +16,7 @@ public class SwingAnimation extends Mod {
     public SwingAnimation() {
         super(ModConstants.SWING_ANIMATION, ModConstants.SWING_ANIMATION_DESC, ModCategory.PLAYER);
     }
+
     private final Minecraft mc = Minecraft.getMinecraft();
     public float prevSwingProgress;
     public float swingProgress;
@@ -75,7 +77,8 @@ public class SwingAnimation extends Mod {
 
     @EventTarget
     public void onRender(ClientTickEvent event) {
-        updateSwingProgress();
+        if (ModInstances.getOldAnimation().isEnabled())
+            updateSwingProgress();
     }
 
 }

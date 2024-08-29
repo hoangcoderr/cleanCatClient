@@ -17,10 +17,11 @@ public class CustomCrosshair extends ModDraggable {
     private int length = 8;     // Length of the crosshair lines
     private int gap = 4;
     private int color = 0xFFFFFFFF; // White color
-
+    private boolean isDot = false;
+    private boolean isPlus = true;
+    private boolean isArrow = false;
     public CustomCrosshair() {
         super(ModConstants.CROSSHAIR, ModConstants.CROSSHAIR_DESC, ModCategory.RENDER);
-        pos = ScreenPosition.fromRelativePosition(0.5, 0.5);
         loadConfig();
     }
 
@@ -36,6 +37,9 @@ public class CustomCrosshair extends ModDraggable {
             length = Integer.parseInt(dataConfig[1]);
             gap = Integer.parseInt(dataConfig[2]);
             color = Integer.parseInt(dataConfig[3]);
+            isDot = Boolean.parseBoolean(dataConfig[4]);
+            isPlus = Boolean.parseBoolean(dataConfig[5]);
+            isArrow = Boolean.parseBoolean(dataConfig[6]);
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
@@ -43,11 +47,14 @@ public class CustomCrosshair extends ModDraggable {
 
     @Override
     public void saveConfig() {
-        String[] dataConfig = new String[4];
+        String[] dataConfig = new String[7];
         dataConfig[0] = String.valueOf(thickness);
         dataConfig[1] = String.valueOf(length);
         dataConfig[2] = String.valueOf(gap);
         dataConfig[3] = String.valueOf(color);
+        dataConfig[4] = String.valueOf(isDot);
+        dataConfig[5] = String.valueOf(isPlus);
+        dataConfig[6] = String.valueOf(isArrow);
         saveDataConfig(dataConfig);
     }
 
@@ -77,6 +84,33 @@ public class CustomCrosshair extends ModDraggable {
 
     }
 
+    public void setDot(boolean isDot) {
+        this.isDot = isDot;
+        saveConfig();
+    }
+
+    public void setPlus(boolean isPlus) {
+        this.isPlus = isPlus;
+        saveConfig();
+    }
+
+    public void setArrow(boolean isArrow) {
+        this.isArrow = isArrow;
+        saveConfig();
+    }
+
+    public boolean isDot() {
+        return isDot;
+    }
+
+    public boolean isPlus() {
+        return isPlus;
+    }
+
+    public boolean isArrow() {
+        return isArrow;
+    }
+
     public int getThickness() {
         return thickness;
     }
@@ -101,20 +135,27 @@ public class CustomCrosshair extends ModDraggable {
 
     @Override
     public void render(ScreenPosition pos) {
-        drawCrosshair(pos, gap, length, thickness);
+        drawCrosshair(Minecraft.centerX, Minecraft.centerY, gap, length, thickness);
     }
 
     @Override
     public void renderDummy(ScreenPosition pos) {
     }
 
-    private void drawCrosshair(ScreenPosition pos, int gap, int length, int thickness) {
-        //drawArrowCrossHair(4, thickness);
-        drawPlusCrossHair(gap, length, thickness, color);
-        drawDotCrossHair(10, color);
+    public void drawCrosshair(int x, int y, int gap, int length, int thickness) {
+        if (isDot) {
+            drawDotCrossHair(x, y, length, color);
+        }
+        if (isPlus) {
+            drawPlusCrossHair(x, y, gap, length, thickness, color);
+        }
+        if (isArrow) {
+            drawArrowCrossHair(x, y, length, thickness, color);
+        }
     }
 
-    private void drawPlusCrossHair(int gap, int length, int thickness, int color) {
+
+    private void drawPlusCrossHair(int x, int y, int gap, int length, int thickness, int color) {
         GL11.glPushMatrix();
         GL11.glColor4f(((color >> 16) & 0xFF) / 255.0f, ((color >> 8) & 0xFF) / 255.0f, (color & 0xFF) / 255.0f, 1.0f); // Set color
         GL11.glDisable(GL11.GL_TEXTURE_2D); // Disable textures to draw pure shapes
@@ -122,25 +163,25 @@ public class CustomCrosshair extends ModDraggable {
 
         // Draw horizontal line
         GL11.glBegin(GL11.GL_LINES);
-        GL11.glVertex2i(Minecraft.centerX - (gap + length), Minecraft.centerY);
-        GL11.glVertex2i(Minecraft.centerX - gap, Minecraft.centerY);
-        GL11.glVertex2i(Minecraft.centerX + gap, Minecraft.centerY);
-        GL11.glVertex2i(Minecraft.centerX + (gap + length), Minecraft.centerY);
+        GL11.glVertex2i(x - (gap + length), y);
+        GL11.glVertex2i(x - gap, y);
+        GL11.glVertex2i(x + gap, y);
+        GL11.glVertex2i(x + (gap + length), y);
         GL11.glEnd();
 
         // Draw vertical line
         GL11.glBegin(GL11.GL_LINES);
-        GL11.glVertex2i(Minecraft.centerX, Minecraft.centerY - (gap + length));
-        GL11.glVertex2i(Minecraft.centerX, Minecraft.centerY - gap);
-        GL11.glVertex2i(Minecraft.centerX, Minecraft.centerY + gap);
-        GL11.glVertex2i(Minecraft.centerX, Minecraft.centerY + (gap + length));
+        GL11.glVertex2i(x, y - (gap + length));
+        GL11.glVertex2i(x, y - gap);
+        GL11.glVertex2i(x, y + gap);
+        GL11.glVertex2i(x, y + (gap + length));
         GL11.glEnd();
 
         GL11.glEnable(GL11.GL_TEXTURE_2D); // Re-enable textures
         GL11.glPopMatrix();
     }
 
-    private void drawDotCrossHair(int size, int color) {
+    private void drawDotCrossHair(int x, int y, int size, int color) {
         GL11.glPushMatrix();
         GL11.glColor4f(((color >> 16) & 0xFF) / 255.0f, ((color >> 8) & 0xFF) / 255.0f, (color & 0xFF) / 255.0f, 1.0f); // Set color
         GL11.glDisable(GL11.GL_TEXTURE_2D);
@@ -148,14 +189,14 @@ public class CustomCrosshair extends ModDraggable {
         GL11.glPointSize(size); // Set the size of the point
 
         GL11.glBegin(GL11.GL_POINTS);
-        GL11.glVertex2i(Minecraft.centerX, Minecraft.centerY);
+        GL11.glVertex2i(x, y);
         GL11.glEnd();
 
         GL11.glEnable(GL11.GL_TEXTURE_2D);
         GL11.glPopMatrix();
     }
 
-    private void drawArrowCrossHair(int size, int thickness, int color) {
+    private void drawArrowCrossHair(int x, int y, int size, int thickness, int color) {
         GL11.glPushMatrix();
         GL11.glColor4f(((color >> 16) & 0xFF) / 255.0f, ((color >> 8) & 0xFF) / 255.0f, (color & 0xFF) / 255.0f, 1.0f); // Set color
         GL11.glDisable(GL11.GL_TEXTURE_2D); // Disable textures to draw pure shapes
@@ -164,17 +205,16 @@ public class CustomCrosshair extends ModDraggable {
         GL11.glBegin(GL11.GL_LINES);
 
         // Draw left downward line (45 degrees to the left)
-        GL11.glVertex2i(Minecraft.centerX, Minecraft.centerY); // center point
-        GL11.glVertex2i(Minecraft.centerX - size, Minecraft.centerY + size); // left-down point
+        GL11.glVertex2i(x, y); // center point
+        GL11.glVertex2i(x - size, y + size); // left-down point
 
         // Draw right downward line (45 degrees to the right)
-        GL11.glVertex2i(Minecraft.centerX, Minecraft.centerY); // center point
-        GL11.glVertex2i(Minecraft.centerX + size, Minecraft.centerY + size); // right-down point
+        GL11.glVertex2i(x, y); // center point
+        GL11.glVertex2i(x + size, y + size); // right-down point
 
         GL11.glEnd();
 
         GL11.glEnable(GL11.GL_TEXTURE_2D); // Re-enable textures
         GL11.glPopMatrix();
     }
-
 }

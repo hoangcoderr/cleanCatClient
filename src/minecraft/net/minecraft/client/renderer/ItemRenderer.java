@@ -347,7 +347,7 @@ public class ItemRenderer
                             break;
 
                         case BLOCK:
-                            if (ModInstances.getSwingAnimation().isEnabled()){
+                            if (ModInstances.getOldAnimation().isEnabled() && ModInstances.getSwingAnimation().isEnabled()){
                                 this.transformFirstPersonItem(0.2f, ModInstances.getSwingAnimation().getSwingProgress(partialTicks));
                                 this.doBlockTransformations();
                                 GlStateManager.translate(-0.5F, 0.2F, 0.0F);

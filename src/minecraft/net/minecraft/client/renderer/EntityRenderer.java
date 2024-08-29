@@ -805,7 +805,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                     if (Config.isShaders()) {
                         ShadersRender.renderItemFP(this.itemRenderer, p_renderHand_1_, p_renderHand_5_);
                     } else {
-                        if (ModInstances.getLeftHand().isEnabled()) {
+                        if (ModInstances.getOldAnimation().isEnabled() && ModInstances.getLeftHand().isEnabled() ) {
                             Entity entity = this.mc.getRenderViewEntity();
                             ItemStack itemToRender = ((EntityPlayer) entity).getCurrentEquippedItem();
                             GlStateManager.scale(-1F, 1F, 1F);
