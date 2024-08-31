@@ -14,7 +14,6 @@ import java.io.IOException;
 
 public class FPSSetting extends ModSettings {
     private ColorPicker colorPicker;
-    private Slider slider;
     private int colorPickerX;
     private int colorPickerY;
     public FPSSetting() {

@@ -214,7 +214,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 	public int displayWidth;
 	public int displayHeight;
 	private boolean connectedToRealms = false;
-	private Timer timer = new Timer(20.0F);
+	public Timer timer = new Timer(20.0F);
 	private PlayerUsageSnooper usageSnooper = new PlayerUsageSnooper("client", this,
 			MinecraftServer.getCurrentTimeMillis());
 	public WorldClient theWorld;
@@ -1292,8 +1292,8 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 				logger.error("Null returned as \'hitResult\', this shouldn\'t happen!");
 
 				if (this.playerController.isNotCreative()) {
-					this.leftClickCounter = 10;
-					//this.leftClickCounter = 0;
+					//this.leftClickCounter = 10;
+					this.leftClickCounter = 0;
 				}
 			} else {
 				switch (this.objectMouseOver.typeOfHit) {
@@ -1312,8 +1312,8 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 				case MISS:
 				default:
 					if (this.playerController.isNotCreative()) {
-						this.leftClickCounter = 10;
-						//this.leftClickCounter = 0;
+						//this.leftClickCounter = 10;
+						this.leftClickCounter = 0;
 					}
 				}
 			}

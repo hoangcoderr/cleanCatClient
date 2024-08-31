@@ -71,7 +71,7 @@ public abstract class Entity implements ICommandSender {
 	public float rotationPitch;
 	public float prevRotationYaw;
 	public float prevRotationPitch;
-	private AxisAlignedBB boundingBox;
+	public AxisAlignedBB boundingBox;
 	public boolean onGround;
 	public boolean isCollidedHorizontally;
 	public boolean isCollidedVertically;

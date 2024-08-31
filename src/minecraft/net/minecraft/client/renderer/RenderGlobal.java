@@ -1,6 +1,7 @@
 package net.minecraft.client.renderer;
 
 import cleanCatClient.mods.ModInstances;
+import cleanCatClient.mods.impl.PlayerDistance;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
@@ -840,6 +841,19 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             --renderEntitiesCounter;
             this.mc.entityRenderer.disableLightmap();
             this.mc.mcProfiler.endSection();
+        }
+        for (Entity entity : this.theWorld.loadedEntityList) {
+            if (entity != renderViewEntity) {
+                // Existing code for rendering entities...
+
+                // Gọi hàm entityESPBox
+
+                if (entity instanceof EntityPlayer) {
+                    PlayerDistance.entityESPBox(entity, 0);
+                    PlayerDistance.drawLineToPlayer(Minecraft.centerX, Minecraft.centerY, (EntityPlayer) entity);
+                }
+                // mode 0 là ví dụ, bạn có thể thay đổi mode tùy theo nhu cầu
+            }
         }
     }
 

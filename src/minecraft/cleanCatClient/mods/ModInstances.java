@@ -35,8 +35,11 @@ public class ModInstances {
     private static HitColor hitColor;
     private static OldAnimation oldAnimation;
     private static List<Mod> allMods = new ArrayList<>();
+    private static PlayerDistance playerDistanceMod;
 
     public static void register(HUDManager api) {
+        playerDistanceMod = new PlayerDistance();
+        api.register(playerDistanceMod);
 
         modArmorStatus = new ArmorStatus();
         api.register(modArmorStatus);

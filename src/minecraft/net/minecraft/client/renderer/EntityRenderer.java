@@ -3,6 +3,7 @@ package net.minecraft.client.renderer;
 import cleanCatClient.event.impl.RenderEvent;
 import cleanCatClient.gui.mainmenu.MainMenu;
 import cleanCatClient.mods.ModInstances;
+import cleanCatClient.mods.impl.PlayerDistance;
 import cleanCatClient.mods.impl.oldanimations.SmoothSneaking;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
@@ -805,7 +806,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                     if (Config.isShaders()) {
                         ShadersRender.renderItemFP(this.itemRenderer, p_renderHand_1_, p_renderHand_5_);
                     } else {
-                        if (ModInstances.getOldAnimation().isEnabled() && ModInstances.getLeftHand().isEnabled() ) {
+                        if (ModInstances.getOldAnimation().isEnabled() && ModInstances.getLeftHand().isEnabled()) {
                             Entity entity = this.mc.getRenderViewEntity();
                             ItemStack itemToRender = ((EntityPlayer) entity).getCurrentEquippedItem();
                             GlStateManager.scale(-1F, 1F, 1F);
@@ -1416,7 +1417,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             }
 
             renderglobal.renderEntities(entity, icamera, partialTicks);
-
             if (Reflector.ForgeHooksClient_setRenderPass.exists()) {
                 Reflector.callVoid(Reflector.ForgeHooksClient_setRenderPass, new Object[]{Integer.valueOf(-1)});
             }

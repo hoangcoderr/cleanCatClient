@@ -9,7 +9,11 @@ public class Util
     public static Util.EnumOS getOSType()
     {
         String s = System.getProperty("os.name").toLowerCase();
-        return s.contains("win") ? Util.EnumOS.WINDOWS : (s.contains("mac") ? Util.EnumOS.OSX : (s.contains("solaris") ? Util.EnumOS.SOLARIS : (s.contains("sunos") ? Util.EnumOS.SOLARIS : (s.contains("linux") ? Util.EnumOS.LINUX : (s.contains("unix") ? Util.EnumOS.LINUX : Util.EnumOS.UNKNOWN)))));
+        if (s.contains("win")) return Util.EnumOS.WINDOWS;
+        if (s.contains("mac")) return Util.EnumOS.OSX;
+        if (s.contains("solaris") || s.contains("sunos")) return Util.EnumOS.SOLARIS;
+        if (s.contains("linux") || s.contains("unix")) return Util.EnumOS.LINUX;
+        return Util.EnumOS.UNKNOWN;
     }
 
     public static <V> V runTask(FutureTask<V> task, Logger logger)
@@ -21,20 +25,25 @@ public class Util
         }
         catch (ExecutionException executionexception)
         {
-            logger.fatal((String)"Error executing task", (Throwable)executionexception);
-
-            if (executionexception.getCause() instanceof OutOfMemoryError)
-            {
-                OutOfMemoryError outofmemoryerror = (OutOfMemoryError)executionexception.getCause();
-                throw outofmemoryerror;
-            }
+            handleExecutionException(executionexception, logger);
         }
         catch (InterruptedException interruptedexception)
         {
-            logger.fatal((String)"Error executing task", (Throwable)interruptedexception);
+            logger.error("Error executing task", interruptedexception);
+            Thread.currentThread().interrupt(); // Restore interrupted status
         }
 
-        return (V)((Object)null);
+        return null; // Or return a default value
+    }
+
+    private static void handleExecutionException(ExecutionException executionexception, Logger logger)
+    {
+        logger.error("Error executing task", executionexception);
+
+        if (executionexception.getCause() instanceof OutOfMemoryError)
+        {
+            throw (OutOfMemoryError) executionexception.getCause();
+        }
     }
 
     public static enum EnumOS
