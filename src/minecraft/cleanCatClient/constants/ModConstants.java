@@ -72,4 +72,7 @@ public class ModConstants {
 
     public static String BOSS_BAR = "Boss Bar";
     public static String BOSS_BAR_DESC = "Edit boss bar";
+
+    public static String TIME_CHANGER = "Time Changer";
+    public static String TIME_CHANGER_DESC = "Change the time of the world";
 }

@@ -8,7 +8,6 @@ import cleanCatClient.gui.font.FontUtil;
 import cleanCatClient.mods.ModInstances;
 import net.minecraft.client.Minecraft;
 
-import java.awt.*;
 import java.io.IOException;
 
 public class BlockOverlaySettings extends ModSettings {

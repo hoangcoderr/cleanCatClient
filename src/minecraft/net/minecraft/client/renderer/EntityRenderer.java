@@ -8,8 +8,10 @@ import cleanCatClient.mods.impl.oldanimations.SmoothSneaking;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.gson.JsonSyntaxException;
+
 import static org.lwjgl.opengl.GL11.GL_BACK;
 import static org.lwjgl.opengl.GL11.GL_FRONT;
+
 import java.io.IOException;
 import java.nio.FloatBuffer;
 import java.util.Calendar;
@@ -546,7 +548,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         }
     }
 
-        private void setupViewBobbing(float partialTicks) {
+    private void setupViewBobbing(float partialTicks) {
         if (this.mc.getRenderViewEntity() instanceof EntityPlayer) {
             EntityPlayer entityplayer = (EntityPlayer) this.mc.getRenderViewEntity();
             float f = entityplayer.distanceWalkedModified - entityplayer.prevDistanceWalkedModified;
@@ -816,8 +818,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                                 GlStateManager.cullFace(GL_BACK);
                             }
                             this.itemRenderer.renderItemInFirstPerson(p_renderHand_1_);
-                            GlStateManager.cullFace(GL_BACK);}
-                        else
+                            GlStateManager.cullFace(GL_BACK);
+                        } else
                             this.itemRenderer.renderItemInFirstPerson(p_renderHand_1_);
                     }
                     this.disableLightmap();

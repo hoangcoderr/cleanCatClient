@@ -36,8 +36,10 @@ public class ModInstances {
     private static OldAnimation oldAnimation;
     private static List<Mod> allMods = new ArrayList<>();
     private static PlayerDistance playerDistanceMod;
-
+    private static TimeChanger timeChangerMod;
     public static void register(HUDManager api) {
+        timeChangerMod = new TimeChanger();
+
         playerDistanceMod = new PlayerDistance();
         api.register(playerDistanceMod);
 
@@ -107,6 +109,7 @@ public class ModInstances {
         allMods.add(modPotionStatus);
         allMods.add(modScoreboard);
         allMods.add(toggleSprint);
+        allMods.add(timeChangerMod);
     }
 
     public static List<Mod> getAllMods() {
@@ -193,5 +196,13 @@ public class ModInstances {
 
     public static HitColor getHitColor() {
         return hitColor;
+    }
+
+    public static PlayerDistance getPlayerDistanceMod() {
+        return playerDistanceMod;
+    }
+
+    public static TimeChanger getTimeChangerMod() {
+        return timeChangerMod;
     }
 }

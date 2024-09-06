@@ -5,6 +5,7 @@ import cleanCatClient.gui.hud.ScreenPosition;
 import cleanCatClient.mods.ModCategory;
 import cleanCatClient.mods.ModDraggable;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -26,18 +27,12 @@ public class PlayerDistance extends ModDraggable {
             if (player != mc.thePlayer) {
                 double distance = mc.thePlayer.getDistanceToEntity(player);
                 String text = player.getName() + ": " + String.format("%.1f", distance) + " blocks";
-                mc.fontRendererObj.drawStringWithShadow(text, pos.getAbsoluteX(), pos.getAbsoluteY() + yOffset, 0xFF0000);
+                mc.fontRendererObj.drawStringWithShadow(text, pos.getAbsoluteX(), pos.getAbsoluteY() + yOffset, 0XFFFFFF);
                 yOffset += mc.fontRendererObj.FONT_HEIGHT + 2; // Move to the next line
             }
         }
-//        for (Object entity : mc.theWorld.loadedEntityList) {
-//            if (entity instanceof EntityPlayer) {
-//
-//                    entityESPBox((Entity) entity, 0);
-//
-//            }
-//        }
     }
+
     public static void drawLineToPlayer(int centerX, int centerY, EntityPlayer player) {
         Minecraft mc = Minecraft.getMinecraft();
         double playerX = player.posX - mc.getRenderManager().renderPosX;
