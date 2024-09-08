@@ -1,5 +1,6 @@
 package net.minecraft.client.renderer.entity;
 
+import cleanCatClient.mods.ModInstances;
 import com.google.common.collect.Lists;
 import java.nio.FloatBuffer;
 import java.util.List;
@@ -405,10 +406,17 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
 
             if (flag1)
             {
-                this.brightnessBuffer.put(1.0F);
-                this.brightnessBuffer.put(0.0F);
-                this.brightnessBuffer.put(0.0F);
-                this.brightnessBuffer.put(0.3F);
+                if (ModInstances.getHitColor().isEnabled()){
+                    this.brightnessBuffer.put(ModInstances.getHitColor().getColorRed());
+                    this.brightnessBuffer.put(ModInstances.getHitColor().getColorGreen());
+                    this.brightnessBuffer.put(ModInstances.getHitColor().getColorBlue());
+                    this.brightnessBuffer.put(ModInstances.getHitColor().getColorAqua());
+                } else {
+                    this.brightnessBuffer.put(1.0F);
+                    this.brightnessBuffer.put(0.0F);
+                    this.brightnessBuffer.put(0.0F);
+                    this.brightnessBuffer.put(0.3F);
+                }
 
                 if (Config.isShaders())
                 {

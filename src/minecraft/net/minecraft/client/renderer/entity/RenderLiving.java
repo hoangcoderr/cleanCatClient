@@ -37,13 +37,6 @@ public abstract class RenderLiving<T extends EntityLiving> extends RendererLivin
     }
 
     public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks) {
-        if (ModInstances.getHitColor().isEnabled()) {
-            GL11.glPushMatrix();
-            if (entity.hurtTime > 0) {
-                GL11.glColor4f(ModInstances.getHitColor().getColorRed(), ModInstances.getHitColor().getColorGreen(), ModInstances.getHitColor().getColorBlue(), ModInstances.getHitColor().getColorAqua());
-            }
-            GL11.glPopMatrix();
-        }
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
         this.renderLeash(entity, x, y, z, entityYaw, partialTicks);
     }
