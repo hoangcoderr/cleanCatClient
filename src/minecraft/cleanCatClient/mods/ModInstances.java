@@ -37,9 +37,15 @@ public class ModInstances {
     private static List<Mod> allMods = new ArrayList<>();
     private static PlayerDistance playerDistanceMod;
     private static TimeChanger timeChangerMod;
+    private static ColorSaturation colorSaturation;
+    private static MinimalViewBobbing minimalViewBobbing;
     public static void register(HUDManager api) {
         timeChangerMod = new TimeChanger();
 
+        minimalViewBobbing = new MinimalViewBobbing();
+
+        colorSaturation = new ColorSaturation();
+        api.register(colorSaturation);
         playerDistanceMod = new PlayerDistance();
         api.register(playerDistanceMod);
 
@@ -110,6 +116,7 @@ public class ModInstances {
         allMods.add(modScoreboard);
         allMods.add(toggleSprint);
         allMods.add(timeChangerMod);
+        allMods.add(colorSaturation);
     }
 
     public static List<Mod> getAllMods() {
@@ -117,6 +124,10 @@ public class ModInstances {
     }
     public static ArmorStatus getArmorStatus() {
         return modArmorStatus;
+    }
+
+    public static MinimalViewBobbing getMinimalViewBobbing() {
+        return minimalViewBobbing;
     }
 
     public static OldAnimation getOldAnimation() {
@@ -204,5 +215,9 @@ public class ModInstances {
 
     public static TimeChanger getTimeChangerMod() {
         return timeChangerMod;
+    }
+
+    public static ColorSaturation getColorSaturation() {
+        return colorSaturation;
     }
 }

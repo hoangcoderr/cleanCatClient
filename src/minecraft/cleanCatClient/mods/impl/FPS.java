@@ -5,6 +5,7 @@ import cleanCatClient.gui.font.FontUtil;
 import cleanCatClient.gui.hud.ScreenPosition;
 import cleanCatClient.mods.ModCategory;
 import cleanCatClient.mods.ModDraggable;
+import cleanCatClient.mods.ModInstances;
 import net.minecraft.client.renderer.GlStateManager;
 
 import java.awt.*;

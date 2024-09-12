@@ -549,7 +549,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
     }
 
     private void setupViewBobbing(float partialTicks) {
-        if (this.mc.getRenderViewEntity() instanceof EntityPlayer) {
+        //if (true) return;
+        if (this.mc.getRenderViewEntity() instanceof EntityPlayer ) {
             EntityPlayer entityplayer = (EntityPlayer) this.mc.getRenderViewEntity();
             float f = entityplayer.distanceWalkedModified - entityplayer.prevDistanceWalkedModified;
             float f1 = -(entityplayer.distanceWalkedModified + f * partialTicks);
@@ -718,7 +719,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         this.hurtCameraEffect(partialTicks);
 
         if (this.mc.gameSettings.viewBobbing) {
-            this.setupViewBobbing(partialTicks);
+            if (!ModInstances.getMinimalViewBobbing().isEnabled())
+                this.setupViewBobbing(partialTicks);
         }
 
         float f1 = this.mc.thePlayer.prevTimeInPortal + (this.mc.thePlayer.timeInPortal - this.mc.thePlayer.prevTimeInPortal) * partialTicks;

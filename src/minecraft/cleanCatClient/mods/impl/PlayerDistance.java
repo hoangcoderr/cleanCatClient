@@ -34,24 +34,25 @@ public class PlayerDistance extends ModDraggable {
     }
 
     public static void drawLineToPlayer(int centerX, int centerY, EntityPlayer player) {
-        Minecraft mc = Minecraft.getMinecraft();
-        double playerX = player.posX - mc.getRenderManager().renderPosX;
-        double playerY = player.posY - mc.getRenderManager().renderPosY;
-        double playerZ = player.posZ - mc.getRenderManager().renderPosZ;
 
-        GL11.glPushMatrix();
-        GL11.glDisable(GL11.GL_TEXTURE_2D);
-        GL11.glEnable(GL11.GL_BLEND);
-        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        GL11.glLineWidth(4.0F);
-        GL11.glBegin(GL11.GL_LINES);
-        GL11.glColor4f(2.0F, 0.0F, 0.0F, 0.5F); // Red color with 50% transparency
-        GL11.glVertex2d(centerX, centerY);
-        GL11.glVertex3d(playerX, playerY, playerZ);
-        GL11.glEnd();
-        GL11.glDisable(GL11.GL_BLEND);
-        GL11.glEnable(GL11.GL_TEXTURE_2D);
-        GL11.glPopMatrix();
+//        Minecraft mc = Minecraft.getMinecraft();
+//        double playerX = player.posX - mc.getRenderManager().renderPosX;
+//        double playerY = player.posY - mc.getRenderManager().renderPosY;
+//        double playerZ = player.posZ - mc.getRenderManager().renderPosZ;
+//
+//        GL11.glPushMatrix();
+//        GL11.glDisable(GL11.GL_TEXTURE_2D);
+//        GL11.glEnable(GL11.GL_BLEND);
+//        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+//        GL11.glLineWidth(4.0F);
+//        GL11.glBegin(GL11.GL_LINES);
+//        GL11.glColor4f(2.0F, 0.0F, 0.0F, 0.5F); // Red color with 50% transparency
+//        GL11.glVertex2d(centerX, centerY);
+//        GL11.glVertex3d(playerX, playerY, playerZ);
+//        GL11.glEnd();
+//        GL11.glDisable(GL11.GL_BLEND);
+//        GL11.glEnable(GL11.GL_TEXTURE_2D);
+//        GL11.glPopMatrix();
     }
     public static void entityESPBox(Entity entity, int mode) {
         GL11.glPushMatrix();

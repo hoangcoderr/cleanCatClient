@@ -13,11 +13,7 @@ import java.io.Closeable;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.locks.ReentrantLock;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreenWorking;
@@ -39,6 +35,21 @@ import org.apache.logging.log4j.Logger;
 
 public class ResourcePackRepository
 {
+    private List<ResourcePackRepository.Entry> resourcePackCache = null;
+
+    // Method to save the cache
+    private void saveCache() {
+        this.resourcePackCache = new ArrayList<>(this.repositoryEntriesAll);
+    }
+
+    // Method to load the cache
+    private boolean loadCache() {
+        if (this.resourcePackCache != null) {
+            this.repositoryEntriesAll = new ArrayList<>(this.resourcePackCache);
+            return true;
+        }
+        return false;
+    }
     private static final Logger logger = LogManager.getLogger();
     private static final FileFilter resourcePackFilter = new FileFilter()
     {
@@ -110,32 +121,59 @@ public class ResourcePackRepository
         return this.dirResourcepacks.isDirectory() ? Arrays.asList(this.dirResourcepacks.listFiles(resourcePackFilter)) : Collections.<File>emptyList();
     }
 
-    public void updateRepositoryEntriesAll()
-    {
-        List<ResourcePackRepository.Entry> list = Lists.<ResourcePackRepository.Entry>newArrayList();
+    public void updateRepositoryEntriesAll() {
+        // Load the cache if available
+        if (loadCache()) {
+//            List<File> currentFiles = this.getResourcePackFiles();
+//            List<ResourcePackRepository.Entry> updatedList = Lists.newArrayList();
+//
+//            // Add or update entries from current folder
+//            for (File file : currentFiles) {
+//                ResourcePackRepository.Entry newEntry = new ResourcePackRepository.Entry(file);
+//                int existingIndex = this.repositoryEntriesAll.indexOf(newEntry);
+//
+//                if (existingIndex != -1) { // Already exists in cache
+//                    updatedList.add(this.repositoryEntriesAll.get(existingIndex));
+//                } else { // New entry not in cache
+//                    try {
+//                        newEntry.updateResourcePack();
+//                        updatedList.add(newEntry);
+//                    } catch (Exception e) {
+//                        logger.warn("Failed to load resource pack from file: " + file, e);
+//                    }
+//                }
+//            }
+//
+//            // Remove entries in cache that do not exist in the current folder
+//            for (ResourcePackRepository.Entry cachedEntry : new ArrayList<>(this.repositoryEntriesAll)) {
+//                if (!updatedList.contains(cachedEntry)) {
+//                    cachedEntry.closeResourcePack();
+//                    logger.info("Removed resource pack from cache: " + cachedEntry.getResourcePackName());
+//                }
+//            }
+//
+//            // Update the cache and repository entries
+//            this.repositoryEntriesAll = updatedList;
+//            saveCache();
+            return;
+        }
 
-        for (File file1 : this.getResourcePackFiles())
-        {
+        // If cache is not loaded, proceed with normal loading
+        List<ResourcePackRepository.Entry> list = Lists.<ResourcePackRepository.Entry>newArrayList();
+        for (File file1 : this.getResourcePackFiles()) {
             ResourcePackRepository.Entry resourcepackrepository$entry = new ResourcePackRepository.Entry(file1);
 
-            if (!this.repositoryEntriesAll.contains(resourcepackrepository$entry))
-            {
-                try
-                {
+            if (!this.repositoryEntriesAll.contains(resourcepackrepository$entry)) {
+                try {
                     resourcepackrepository$entry.updateResourcePack();
                     list.add(resourcepackrepository$entry);
-                }
-                catch (Exception var61)
-                {
+                } catch (Exception var61) {
                     list.remove(resourcepackrepository$entry);
                 }
-            }
-            else
-            {
+            } else {
                 int i = this.repositoryEntriesAll.indexOf(resourcepackrepository$entry);
 
-                if (i > -1 && i < this.repositoryEntriesAll.size())
-                {
+                if (i > -1 && i < this.repositoryEntriesAll.size()) {
                     list.add(this.repositoryEntriesAll.get(i));
                 }
             }
@@ -143,14 +181,13 @@ public class ResourcePackRepository
 
         this.repositoryEntriesAll.removeAll(list);
 
-        for (ResourcePackRepository.Entry resourcepackrepository$entry1 : this.repositoryEntriesAll)
-        {
+        for (ResourcePackRepository.Entry resourcepackrepository$entry1 : this.repositoryEntriesAll) {
             resourcepackrepository$entry1.closeResourcePack();
         }
 
         this.repositoryEntriesAll = list;
+        saveCache();
     }
-
     public List<ResourcePackRepository.Entry> getRepositoryEntriesAll()
     {
         return ImmutableList.copyOf(this.repositoryEntriesAll);

@@ -75,4 +75,10 @@ public class ModConstants {
 
     public static String TIME_CHANGER = "Time Changer";
     public static String TIME_CHANGER_DESC = "Change the time of the world";
+
+    public static String COLOR_SATURATION = "Color Saturation";
+    public static String COLOR_SATURATION_DESC = "Change the color saturation of the world";
+
+    public static String MINIMAL_VIEW_BOBBING = "Minimal View Bobbing";
+    public static String MINIMAL_VIEW_BOBBING_DESC = "Minimal view bobbing";
 }
