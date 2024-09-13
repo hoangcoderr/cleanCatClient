@@ -26,35 +26,54 @@ public class PlayerDistance extends ModDraggable {
         for (EntityPlayer player : mc.theWorld.playerEntities) {
             if (player != mc.thePlayer) {
                 double distance = mc.thePlayer.getDistanceToEntity(player);
-                String text = player.getName() + ": " + String.format("%.1f", distance) + " blocks";
+                String relativePosition = getRelativePosition(mc.thePlayer, player);
+                String text = player.getDisplayName().getFormattedText() + ": " + String.format("%.1f", distance) + " blocks (" + relativePosition + ")";
                 mc.fontRendererObj.drawStringWithShadow(text, pos.getAbsoluteX(), pos.getAbsoluteY() + yOffset, 0XFFFFFF);
                 yOffset += mc.fontRendererObj.FONT_HEIGHT + 2; // Move to the next line
             }
         }
     }
 
-    public static void drawLineToPlayer(int centerX, int centerY, EntityPlayer player) {
+    private String getRelativePosition(EntityPlayer mainPlayer, EntityPlayer otherPlayer) {
+        double angle = Math.toDegrees(Math.atan2(otherPlayer.posZ - mainPlayer.posZ, otherPlayer.posX - mainPlayer.posX)) - mainPlayer.rotationYaw;
+        angle = (angle + 360) % 360;
 
-//        Minecraft mc = Minecraft.getMinecraft();
-//        double playerX = player.posX - mc.getRenderManager().renderPosX;
-//        double playerY = player.posY - mc.getRenderManager().renderPosY;
-//        double playerZ = player.posZ - mc.getRenderManager().renderPosZ;
-//
-//        GL11.glPushMatrix();
-//        GL11.glDisable(GL11.GL_TEXTURE_2D);
-//        GL11.glEnable(GL11.GL_BLEND);
-//        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-//        GL11.glLineWidth(4.0F);
-//        GL11.glBegin(GL11.GL_LINES);
-//        GL11.glColor4f(2.0F, 0.0F, 0.0F, 0.5F); // Red color with 50% transparency
-//        GL11.glVertex2d(centerX, centerY);
-//        GL11.glVertex3d(playerX, playerY, playerZ);
-//        GL11.glEnd();
-//        GL11.glDisable(GL11.GL_BLEND);
-//        GL11.glEnable(GL11.GL_TEXTURE_2D);
-//        GL11.glPopMatrix();
+        if (angle >= 45 && angle < 135) {
+            return "trước mặt";
+        } else if (angle >= 135 && angle < 225) {
+            return "bên phải";
+        } else if (angle >= 225 && angle < 315) {
+            return "sau lưng";
+        } else {
+            return "bên trái";
+        }
+    }
+
+    public static void drawLineToPlayer(int centerX, int centerY, EntityPlayer player) {
+        Minecraft mc = Minecraft.getMinecraft();
+        double playerX = player.posX - mc.getRenderManager().renderPosX;
+        double playerY = player.posY - mc.getRenderManager().renderPosY;
+        double playerZ = player.posZ - mc.getRenderManager().renderPosZ;
+        GL11.glPushAttrib(GL11.GL_ALL_ATTRIB_BITS); // Save all OpenGL attributes
+
+        GL11.glPushMatrix();
+        GL11.glDisable(GL11.GL_TEXTURE_2D);
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        GL11.glLineWidth(4.0F);
+        GL11.glBegin(GL11.GL_LINES);
+        GL11.glColor4f(2.0F, 0.0F, 0.0F, 0.5F); // Red color with 50% transparency
+        GL11.glVertex2d(centerX, centerY);
+        GL11.glVertex3d(playerX, playerY, playerZ);
+        GL11.glEnd();
+        GL11.glDisable(GL11.GL_BLEND);
+        GL11.glEnable(GL11.GL_TEXTURE_2D);
+        GL11.glPopMatrix();
+        GL11.glPopAttrib(); // Restore all OpenGL attributes
+
     }
     public static void entityESPBox(Entity entity, int mode) {
+        GL11.glPushAttrib(GL11.GL_ALL_ATTRIB_BITS); // Save all OpenGL attributes
         GL11.glPushMatrix();
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         GL11.glEnable(GL11.GL_BLEND);
@@ -62,24 +81,7 @@ public class PlayerDistance extends ModDraggable {
         GL11.glDisable(GL11.GL_TEXTURE_2D);
         GL11.glDisable(GL11.GL_DEPTH_TEST);
         GL11.glDepthMask(false);
-
-        // Set color based on mode
-        if (mode == 0) { // Enemy
-            GL11.glColor4d(1 - Minecraft.getMinecraft().thePlayer.getDistanceToEntity(entity) / 40,
-                    Minecraft.getMinecraft().thePlayer.getDistanceToEntity(entity) / 40,
-                    0, 0.5F);
-        } else if (mode == 1) { // Friend
-            GL11.glColor4d(0, 1, 0, 0.5F);
-
-        } else if (mode == 2) { // Other
-            GL11.glColor4d(0, 1, 0, 0.5F);
-
-        } else if (mode == 3) { // Target
-            GL11.glColor4d(0, 1, 0, 0.5F);
-
-        } else if (mode == 4) { // Team
-            GL11.glColor4d(0, 1, 0, 0.5F);
-        }
+        GL11.glColor4d(0, 1, 0, 0.3);
 
         // Calculate bounding box coordinates
         double minX = entity.boundingBox.minX - entity.posX + (entity.posX - Minecraft.getMinecraft().getRenderManager().renderPosX);
@@ -92,11 +94,8 @@ public class PlayerDistance extends ModDraggable {
         // Draw bounding box
         RenderGlobal.drawSelectionBoundingBox(new AxisAlignedBB(minX, minY, minZ, maxX, maxY, maxZ));
 
-        GL11.glEnable(GL11.GL_TEXTURE_2D);
-        GL11.glEnable(GL11.GL_DEPTH_TEST);
-        GL11.glDepthMask(true);
-        GL11.glDisable(GL11.GL_BLEND);
         GL11.glPopMatrix();
+        GL11.glPopAttrib(); // Restore all OpenGL attributes
     }
 
     @Override

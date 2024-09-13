@@ -844,17 +844,13 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         }
         for (Entity entity : this.theWorld.loadedEntityList) {
             if (entity != renderViewEntity) {
-                // Existing code for rendering entities...
-
-                // Gọi hàm entityESPBox
-
                 if (entity instanceof EntityPlayer) {
                     PlayerDistance.entityESPBox(entity, 0);
                     PlayerDistance.drawLineToPlayer(Minecraft.centerX, Minecraft.centerY, (EntityPlayer) entity);
                 }
-                // mode 0 là ví dụ, bạn có thể thay đổi mode tùy theo nhu cầu
             }
         }
+
     }
 
     public String getDebugInfoRenders() {

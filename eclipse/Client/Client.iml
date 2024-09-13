@@ -75,7 +75,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MCP_LOC$/lib/discord-rpc.jar!/" />
+          <root url="jar://$MCP_LOC$/lib/jnativehook-2.1.0_beta1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -396,6 +396,15 @@
       <library>
         <CLASSES>
           <root url="jar://$MCP_LOC$/lib/meowrapper-1.3.1-cmd.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MCP_LOC$/lib/discord-rpc.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

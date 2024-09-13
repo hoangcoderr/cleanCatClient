@@ -31,7 +31,7 @@ public class KeyBinding implements Comparable<KeyBinding>
                 ++keybinding.pressTime;
             }
         }
-        //System.out.println("Holding" + keyCode);
+        System.out.println("Holding" + keyCode);
 //        KeyEvent event = new KeyEvent(keyCode);
 //        event.call();
 //        if (event.isCanceled())

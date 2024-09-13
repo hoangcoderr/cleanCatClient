@@ -22,6 +22,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
 
+
 import javax.imageio.ImageIO;
 
 import cleanCatClient.event.impl.ClientTickEvent;
@@ -1582,6 +1583,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 
 			while (Keyboard.next()) {
 				int k = Keyboard.getEventKey() == 0 ? Keyboard.getEventCharacter() + 256 : Keyboard.getEventKey();
+
 				KeyBinding.setKeyBindState(k, Keyboard.getEventKeyState());
 
 				if (Keyboard.getEventKeyState()) {
@@ -1790,6 +1792,10 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 					&& !this.thePlayer.isUsingItem()) {
 				this.rightClickMouse();
 			}
+//			if (this.gameSettings.keySecret.isKeyDown()  && this.leftClickCounter == 0) {
+//				this.clickMouse();
+//			}
+//
 
 			this.sendClickBlockToController(
 					this.currentScreen == null && this.gameSettings.keyBindAttack.isKeyDown() && this.inGameHasFocus);

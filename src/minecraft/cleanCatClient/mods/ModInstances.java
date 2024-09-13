@@ -1,6 +1,5 @@
 package cleanCatClient.mods;
 
-import cleanCatClient.gui.clickgui.settings.ModSettings;
 import cleanCatClient.gui.hud.HUDManager;
 import cleanCatClient.mods.impl.*;
 import cleanCatClient.mods.impl.oldanimations.LeftHand;

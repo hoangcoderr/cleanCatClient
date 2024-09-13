@@ -19,7 +19,7 @@ public class ColorSaturation extends ModDraggable {
     }
     private static boolean lastEnabled = false;
 
-    private static   ResourceLocation phosphorBlur = new ResourceLocation("color_convolve.json");
+    private static ResourceLocation phosphorBlur = new ResourceLocation("minecraft:shaders/post/color_convolve.json");
 
 
     @Override

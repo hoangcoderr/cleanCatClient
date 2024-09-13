@@ -328,7 +328,7 @@ public abstract class Render<T extends Entity> implements IEntityRenderer
         return this.renderManager.getFontRenderer();
     }
 
-    protected void renderLivingLabel(T entityIn, String str, double x, double y, double z, int maxDistance)
+    public void renderLivingLabel(T entityIn, String str, double x, double y, double z, int maxDistance)
     {
         //if (true) return;
         double d0 = entityIn.getDistanceSqToEntity(this.renderManager.livingPlayer);
