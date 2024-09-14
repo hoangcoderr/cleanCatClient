@@ -2,7 +2,7 @@
 
 cleanCatClient is an open-source Minecraft PvP client for version 1.8.9. It includes various features to enhance your gameplay experience.
 
-## Features
+## Features## Features
 
 - **ArmorStatus**: Displays the status of your armor.
 - **BlockOverlay**: Adds an overlay to the blocks you are looking at.
@@ -14,7 +14,13 @@ cleanCatClient is an open-source Minecraft PvP client for version 1.8.9. It incl
 - **ToggleSprint**: Allows you to toggle sprinting.
 - **CustomFont**: Enables the use of custom fonts.
 - **ClickGui**: Provides a graphical user interface for configuring the client.
-
+- **DisableBossBar**: Disables the boss bar display.
+- **ColorSaturation**: Adjusts the color saturation of the game.
+- **CustomCrosshair**: Allows customization of the crosshair.
+- **GlintColor**: Changes the color of item glint.
+- **HitColor**: Changes the color when hitting an entity.
+- **PoisonStatus**: Displays the status of poison effects.
+- **FPSBoost**: Optimizes settings to increase FPS.
 ## Installation
 
 1. Download the latest release from the [releases page](https://github.com/hoangcoderr/cleanCatClient/releases).
