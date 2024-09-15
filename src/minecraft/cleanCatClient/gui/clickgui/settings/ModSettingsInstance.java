@@ -1,7 +1,6 @@
 package cleanCatClient.gui.clickgui.settings;
 
 import cleanCatClient.gui.clickgui.settings.impl.*;
-import cleanCatClient.mods.impl.BlockOverlay;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,7 +24,7 @@ public class ModSettingsInstance {
     private static ScoreboardSetting scoreboardSettings;
     private static ToggleSprintSetting toggleSprintSettings;
     private static TimeChangerSettings timeChangerSettings;
-    private static ColoSaturationSettings colorSaturationSettings;
+    private static ColorSaturationSettings colorSaturationSettings;
     private static List<ModSettings> allSettings = new ArrayList<>();
     public static void register(){
         armorStatusSetting = new ArmorStatusSetting();
@@ -45,7 +44,7 @@ public class ModSettingsInstance {
         scoreboardSettings = new ScoreboardSetting();
         toggleSprintSettings = new ToggleSprintSetting();
         timeChangerSettings = new TimeChangerSettings();
-        colorSaturationSettings = new ColoSaturationSettings();
+        colorSaturationSettings = new ColorSaturationSettings();
 //        allSettings.add(armorStatusSetting);
 //        allSettings.add(blockOverlaySettings);
 //        allSettings.add(bossBarSettings);

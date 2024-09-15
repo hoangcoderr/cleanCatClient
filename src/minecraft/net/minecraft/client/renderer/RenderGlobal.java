@@ -846,7 +846,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             if (entity != renderViewEntity) {
                 if (entity instanceof EntityPlayer) {
                     PlayerDistance.entityESPBox(entity, 0);
-                    PlayerDistance.drawLineToPlayer(Minecraft.centerX, Minecraft.centerY, (EntityPlayer) entity);
+                    //PlayerDistance.drawLineToPlayer(Minecraft.centerX, Minecraft.centerY, (EntityPlayer) entity);
                 }
             }
         }

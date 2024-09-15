@@ -62,7 +62,7 @@ public class ClickGuiCategoryButton extends CategoryManager{
 		if(mouseX >= x && mouseX <= x + w && mouseY >= y && mouseY <= y + h) {
 			animation.setIsDrawAnimation(true);
 			this.isOnThisPage = true;
-			if (number == 4){
+			if (number == 5){
 				Client.hudManager.openConfigScreen();
 			}
 			else

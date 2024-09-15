@@ -5,6 +5,8 @@ import cleanCatClient.event.impl.KeyEvent;
 import com.google.common.collect.Sets;
 import java.util.List;
 import java.util.Set;
+
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.IntHashMap;
 
@@ -31,7 +33,7 @@ public class KeyBinding implements Comparable<KeyBinding>
                 ++keybinding.pressTime;
             }
         }
-        System.out.println("Holding" + keyCode);
+//        System.out.println("Holding" + keyCode);
 //        KeyEvent event = new KeyEvent(keyCode);
 //        event.call();
 //        if (event.isCanceled())

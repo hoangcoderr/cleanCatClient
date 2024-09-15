@@ -58,7 +58,8 @@ public class ClickGui extends GuiScreen {
         this.clickGuiCategoryButton.add(new ClickGuiCategoryButton(centerW - 250, centerH - 55, 120, 25, "World", 1));
         this.clickGuiCategoryButton.add(new ClickGuiCategoryButton(centerW - 250, centerH - 25, 120, 25, "Render", 2));
         this.clickGuiCategoryButton.add(new ClickGuiCategoryButton(centerW - 250, centerH + 5, 120, 25, "Util", 3));
-        this.clickGuiCategoryButton.add(new ClickGuiCategoryButton(centerW - 250, centerH + 35, 120, 25, "HudManager", 4));
+        this.clickGuiCategoryButton.add(new ClickGuiCategoryButton(centerW - 250, centerH + 35, 120, 25, "Settings", 4));
+        this.clickGuiCategoryButton.add(new ClickGuiCategoryButton(centerW - 250, centerH + 65, 120, 25, "HudManager", 5));
 
         int modButtonSize = 90;
         int spaceBetween = 10;

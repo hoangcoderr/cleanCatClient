@@ -6,25 +6,65 @@ import cleanCatClient.mods.Mod;
 import cleanCatClient.mods.ModCategory;
 import cleanCatClient.constants.ModConstants;
 import cleanCatClient.mods.ModDraggable;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.EntityRenderer;
+import net.minecraft.client.shader.Shader;
+import net.minecraft.client.shader.ShaderUniform;
 import net.minecraft.util.ResourceLocation;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
+
+import net.minecraft.client.shader.ShaderGroup;
+
 public class ColorSaturation extends ModDraggable {
+    public float s = 1.0F;
+    @Override
+    public void setEnabled(boolean enabled) {
+        super.setEnabled(enabled);
+        if (!enabled && isShaderActive() && mc.theWorld != null) {
+            s = 1.0F;
+            reloadSaturation();
+        }
+    }
+
     public ColorSaturation() {
         super(ModConstants.COLOR_SATURATION, ModConstants.COLOR_SATURATION_DESC, ModCategory.RENDER);
+        loadConfig();
     }
     private static boolean lastEnabled = false;
 
-    private static ResourceLocation phosphorBlur = new ResourceLocation("minecraft:shaders/post/color_convolve.json");
-
-
+    private static final ResourceLocation phosphorBlur = new ResourceLocation("minecraft:shaders/post/color_convolve.json");
     @Override
     public int getWidth() {
         return -1;
+    }
+
+    @Override
+    public void loadConfig(){
+        String[] dataConfig = loadDataConfig();
+        if (dataConfig == null) {
+            return;
+        }
+        try {
+            this.s = Float.parseFloat(dataConfig[0]);
+            //setSaturation(this.s);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            this.s = 1.0F;
+        }
+    }
+
+    @Override
+    public void saveConfig(){
+        String[] dataConfig = new String[1];
+        dataConfig[0] = String.valueOf(this.s);
+        saveDataConfig(dataConfig);
     }
 
     @Override
@@ -34,56 +74,65 @@ public class ColorSaturation extends ModDraggable {
 
     @Override
     public void render(ScreenPosition pos) {
-        if (isEnabled()) {
-            if (!lastEnabled) {
-                lastEnabled = true;
-                mc.entityRenderer.loadShader(phosphorBlur);
-            }
-        } else {
-            if (lastEnabled) {
-                lastEnabled = false;
-                mc.entityRenderer.getShaderGroup().deleteShaderGroup();
-            }
-        }
-    }
-    public void setSaturation(float saturation) {
-        // Cập nhật giá trị saturation trong file color_convolve.json
-        // (Giả sử bạn có một phương thức để cập nhật file JSON)
-        updateSaturationInJson(saturation);
-    }
-
-    private void updateSaturationInJson(float saturation) {
-        try {
-            // Đọc tệp JSON
-            FileReader reader = new FileReader("color_convolve.json");
-
-            // Sử dụng JsonParser để đọc file JSON
-            JsonParser parser = new JsonParser();
-            JsonObject json = parser.parse(reader).getAsJsonObject();
-            reader.close();
-
-            // Cập nhật giá trị saturation
-            JsonObject colorConvolvePass = json.getAsJsonArray("passes").get(0).getAsJsonObject();
-            JsonObject uniforms = colorConvolvePass.getAsJsonArray("uniforms").get(0).getAsJsonObject();
-            uniforms.add("values", new JsonPrimitive(saturation));
-
-            // Ghi lại tệp JSON
-            FileWriter writer = new FileWriter("color_convolve.json");
-            writer.write(json.toString());
-            writer.close();
-
-            // Tải lại shader
+        if (!isShaderActive() || lastEnabled != isEnabled()) {
+            lastEnabled = isEnabled();
             reloadShader();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
+
+    public void setSaturation(float saturation) {
+        s = saturation;
+        reloadSaturation();
+        saveConfig();
+    }
+
     public void reloadShader() {
-        if (isEnabled()) {
-            mc.entityRenderer.getShaderGroup().deleteShaderGroup();
-            phosphorBlur = new ResourceLocation("minecraft:shaders/post/color_convolve.json");
-            System.out.println("Reloading shader");
-            mc.entityRenderer.loadShader(phosphorBlur);
+        if (Minecraft.getMinecraft().theWorld == null) {
+            return;
         }
+
+        if (!isShaderActive() && isEnabled()) {
+            try {
+                final ShaderGroup saturationShader = new ShaderGroup(Minecraft.getMinecraft().getTextureManager(), Minecraft.getMinecraft().getResourceManager(), Minecraft.getMinecraft().getFramebuffer(), phosphorBlur);
+                saturationShader.createBindFramebuffers(Minecraft.getMinecraft().displayWidth, Minecraft.getMinecraft().displayHeight);
+                Minecraft.getMinecraft().entityRenderer.colorSaturation$setSaturationShader(saturationShader);
+                reloadSaturation();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else if (isShaderActive() && !isEnabled()) {
+            EntityRenderer entityRenderer = Minecraft.getMinecraft().entityRenderer;
+            if (entityRenderer.colorSaturation$getSaturationShader() != null) {
+                entityRenderer.colorSaturation$getSaturationShader().deleteShaderGroup();
+            }
+
+            entityRenderer.colorSaturation$setSaturationShader(null);
+        }
+    }
+
+    public void reloadSaturation() {
+        try {
+            final List<Shader> listShaders = (Minecraft.getMinecraft().entityRenderer.colorSaturation$getSaturationShader()).getListShaders();
+
+            if (listShaders == null) {
+                return;
+            }
+
+            for (Shader shader : listShaders) {
+                ShaderUniform su = shader.getShaderManager().getShaderUniform("Saturation");
+
+                if (su == null) {
+                    continue;
+                }
+
+                su.set(s);
+            }
+        } catch (IllegalArgumentException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private boolean isShaderActive() {
+        return Minecraft.getMinecraft().entityRenderer.colorSaturation$getSaturationShader() != null && net.minecraft.client.renderer.OpenGlHelper.shadersSupported;
     }
 }

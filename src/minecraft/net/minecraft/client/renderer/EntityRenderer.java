@@ -159,6 +159,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
     private double cameraYaw;
     private double cameraPitch;
     private ShaderGroup theShaderGroup;
+    private ShaderGroup colorSaturation$saturationShader;
     private static final ResourceLocation[] shaderResourceLocations = new ResourceLocation[]{new ResourceLocation("shaders/post/notch.json"), new ResourceLocation("shaders/post/fxaa.json"), new ResourceLocation("shaders/post/art.json"), new ResourceLocation("shaders/post/bumpy.json"), new ResourceLocation("shaders/post/blobs2.json"), new ResourceLocation("shaders/post/pencil.json"), new ResourceLocation("shaders/post/color_convolve.json"), new ResourceLocation("shaders/post/deconverge.json"), new ResourceLocation("shaders/post/flip.json"), new ResourceLocation("shaders/post/invert.json"), new ResourceLocation("shaders/post/ntsc.json"), new ResourceLocation("shaders/post/outline.json"), new ResourceLocation("shaders/post/phosphor.json"), new ResourceLocation("shaders/post/scan_pincushion.json"), new ResourceLocation("shaders/post/sobel.json"), new ResourceLocation("shaders/post/bits.json"), new ResourceLocation("shaders/post/desaturate.json"), new ResourceLocation("shaders/post/green.json"), new ResourceLocation("shaders/post/blur.json"), new ResourceLocation("shaders/post/wobble.json"), new ResourceLocation("shaders/post/blobs.json"), new ResourceLocation("shaders/post/antialias.json"), new ResourceLocation("shaders/post/creeper.json"), new ResourceLocation("shaders/post/spider.json")};
     public static final int shaderCount = shaderResourceLocations.length;
     private int shaderIndex;
@@ -203,6 +204,9 @@ public class EntityRenderer implements IResourceManagerReloadListener {
     }
 
     public boolean isShaderActive() {
+        if (colorSaturation$saturationShader != null && OpenGlHelper.shadersSupported) {
+            return true;
+        }
         return OpenGlHelper.shadersSupported && this.theShaderGroup != null;
     }
 
@@ -344,6 +348,9 @@ public class EntityRenderer implements IResourceManagerReloadListener {
     }
 
     public ShaderGroup getShaderGroup() {
+        if (colorSaturation$saturationShader != null && OpenGlHelper.shadersSupported && this.theShaderGroup == null) {
+            return colorSaturation$saturationShader;
+        }
         return this.theShaderGroup;
     }
 
@@ -352,7 +359,9 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             if (this.theShaderGroup != null) {
                 this.theShaderGroup.createBindFramebuffers(width, height);
             }
-
+            if (colorSaturation$saturationShader != null) {
+                colorSaturation$saturationShader.createBindFramebuffers(width, height);
+            }
             this.mc.renderGlobal.createBindEntityOutlineFbs(width, height);
         }
     }
@@ -1089,7 +1098,13 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
                 if (OpenGlHelper.shadersSupported) {
                     this.mc.renderGlobal.renderEntityOutlineFramebuffer();
-
+                    if (this.colorSaturation$saturationShader != null) {
+                        GlStateManager.matrixMode(5890);
+                        GlStateManager.pushMatrix();
+                        GlStateManager.loadIdentity();
+                        this.colorSaturation$saturationShader.loadShaderGroup(partialTicks);
+                        GlStateManager.popMatrix();
+                    }
                     if (this.theShaderGroup != null && this.useShader) {
                         GlStateManager.matrixMode(5890);
                         GlStateManager.pushMatrix();
@@ -1173,7 +1188,14 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         }
 
     }
+    public ShaderGroup colorSaturation$getSaturationShader() {
+        return colorSaturation$saturationShader;
+    }
 
+
+    public void colorSaturation$setSaturationShader(ShaderGroup saturationShader) {
+        this.colorSaturation$saturationShader = saturationShader;
+    }
     public void renderStreamIndicator(float partialTicks) {
         this.setupOverlayRendering();
         this.mc.ingameGUI.renderStreamIndicator(new ScaledResolution(this.mc));
@@ -1301,6 +1323,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         this.mc.mcProfiler.endStartSection("culling");
         clippinghelper.disabled = Config.isShaders() && !Shaders.isFrustumCulling();
         ICamera icamera = new Frustum(clippinghelper);
+
         Entity entity = this.mc.getRenderViewEntity();
         double d0 = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * (double) partialTicks;
         double d1 = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * (double) partialTicks;
@@ -1589,6 +1612,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         if (flag) {
             Shaders.endRender();
         }
+
+
     }
 
     private void renderCloudsCheck(RenderGlobal renderGlobalIn, float partialTicks, int pass) {

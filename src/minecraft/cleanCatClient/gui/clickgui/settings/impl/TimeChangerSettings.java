@@ -12,7 +12,7 @@ public class TimeChangerSettings extends ModSettings {
 
     public TimeChangerSettings() {
         super(ModInstances.getTimeChangerMod());
-        timeSlider = new Slider(Minecraft.centerX - 100, Minecraft.centerY + 20, 150, 20, 1, 15000, 1, 100);
+        timeSlider = new Slider(Minecraft.centerX - 100, Minecraft.centerY + 20, 150, 20, 1, 20000, 1, 100);
     }
 
     @Override
@@ -39,5 +39,7 @@ public class TimeChangerSettings extends ModSettings {
     public void mouseReleased(int mouseX, int mouseY, int state) {
         super.mouseReleased(mouseX, mouseY, state);
         timeSlider.mouseReleased(mouseX, mouseY, state);
+        ModInstances.getTimeChangerMod().setTime((long) timeSlider.getCurrentValue());
+
     }
 }

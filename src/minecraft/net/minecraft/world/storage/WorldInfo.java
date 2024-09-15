@@ -1,6 +1,8 @@
 package net.minecraft.world.storage;
 
 import java.util.concurrent.Callable;
+
+import cleanCatClient.mods.ModInstances;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
@@ -354,6 +356,9 @@ public class WorldInfo
 
     public long getWorldTime()
     {
+        if (ModInstances.getTimeChangerMod().isEnabled()){
+            return ModInstances.getTimeChangerMod().getTime();
+        }
         return this.worldTime;
     }
 

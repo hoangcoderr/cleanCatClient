@@ -6,6 +6,8 @@ import cleanCatClient.event.impl.ClientTickEvent;
 import cleanCatClient.event.impl.KeyEvent;
 import cleanCatClient.mods.Mod;
 import cleanCatClient.mods.ModCategory;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.settings.KeyBinding;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 
@@ -44,6 +46,7 @@ public class Perspective extends Mod {
         if (e.getKey() == mc.gameSettings.keyBindTogglePerspective.getKeyCode()) {
             perspectiveToggled = false;
         }
+
     }
 
 //    @EventTarget

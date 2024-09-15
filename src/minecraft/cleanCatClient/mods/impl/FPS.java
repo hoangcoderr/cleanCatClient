@@ -24,10 +24,10 @@ public class FPS extends ModDraggable {
         }
         try {
             this.color = Integer.parseInt(dataConfig[0]);
-            setColor(this.color); // Apply the color and transparency to the sliders and square
+            setColor(this.color);
         } catch (NumberFormatException e) {
             e.printStackTrace();
-            this.color = -1; // Default color if parsing fails
+            this.color = -1;
         }
     }
     @Override

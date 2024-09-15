@@ -20,11 +20,4 @@ public class TimeChanger extends Mod {
     public long getTime() {
         return time;
     }
-    @EventTarget
-    public void onUpdate(RenderEvent e){
-        World world = Minecraft.getMinecraft().theWorld;
-        if (world != null) {
-            world.setWorldTime(time);
-        }
-    }
 }
