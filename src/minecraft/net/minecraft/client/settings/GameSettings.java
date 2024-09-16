@@ -145,7 +145,7 @@ public class GameSettings
     public KeyBinding keyBindUseItem = new KeyBinding("key.use", -99, "key.categories.gameplay");
     public KeyBinding keyBindDrop = new KeyBinding("key.drop", 16, "key.categories.gameplay");
     public KeyBinding keyBindAttack = new KeyBinding("key.attack", -100, "key.categories.gameplay");
-    public KeyBinding keySecret = new KeyBinding("key.secret", 3 , "key.categories.gameplay");
+    public KeyBinding keySecret = new KeyBinding("key.secret", -96 , "key.categories.gameplay");
     public KeyBinding keySecretRight = new KeyBinding("key.secretRight", -97 , "key.categories.gameplay");
     public KeyBinding keyBindPickBlock = new KeyBinding("key.pickItem", -98, "key.categories.gameplay");
     public KeyBinding keyBindChat = new KeyBinding("key.chat", 20, "key.categories.multiplayer");

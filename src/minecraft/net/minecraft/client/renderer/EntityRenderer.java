@@ -1,5 +1,6 @@
 package net.minecraft.client.renderer;
 
+import cleanCatClient.event.impl.Render2D;
 import cleanCatClient.event.impl.RenderEvent;
 import cleanCatClient.gui.mainmenu.MainMenu;
 import cleanCatClient.mods.ModInstances;
@@ -559,7 +560,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
     private void setupViewBobbing(float partialTicks) {
         //if (true) return;
-        if (this.mc.getRenderViewEntity() instanceof EntityPlayer ) {
+        if (this.mc.getRenderViewEntity() instanceof EntityPlayer) {
             EntityPlayer entityplayer = (EntityPlayer) this.mc.getRenderViewEntity();
             float f = entityplayer.distanceWalkedModified - entityplayer.prevDistanceWalkedModified;
             float f1 = -(entityplayer.distanceWalkedModified + f * partialTicks);
@@ -1188,6 +1189,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         }
 
     }
+
     public ShaderGroup colorSaturation$getSaturationShader() {
         return colorSaturation$saturationShader;
     }
@@ -1196,6 +1198,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
     public void colorSaturation$setSaturationShader(ShaderGroup saturationShader) {
         this.colorSaturation$saturationShader = saturationShader;
     }
+
     public void renderStreamIndicator(float partialTicks) {
         this.setupOverlayRendering();
         this.mc.ingameGUI.renderStreamIndicator(new ScaledResolution(this.mc));
@@ -1591,7 +1594,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         }
 
         this.mc.mcProfiler.endStartSection("hand");
-
+        new Render2D().call();
         if (this.renderHand && !Shaders.isShadowPass) {
             if (flag) {
                 ShadersRender.renderHand1(this, partialTicks, pass);

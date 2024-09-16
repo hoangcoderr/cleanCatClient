@@ -1,10 +1,13 @@
 // src/minecraft/cleanCatClient/mods/impl/PlayerDistance.java
 package cleanCatClient.mods.impl;
 
+import cleanCatClient.event.EventTarget;
+import cleanCatClient.event.impl.Render2D;
 import cleanCatClient.gui.font.FontUtil;
 import cleanCatClient.gui.hud.ScreenPosition;
 import cleanCatClient.mods.ModCategory;
 import cleanCatClient.mods.ModDraggable;
+import cleanCatClient.utils.RenderUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.network.NetworkPlayerInfo;
@@ -45,7 +48,15 @@ public class PlayerDistance extends ModDraggable {
             return "bên trái";
         }
     }
-
+    @EventTarget
+    public void drawLine(Render2D event){
+        for (EntityLivingBase entitylivingbase : this.mc.theWorld.playerEntities) {
+            if (entitylivingbase instanceof EntityPlayer) {
+                if (entitylivingbase != mc.thePlayer)
+                    PlayerDistance.drawTracerLine(entitylivingbase);
+            }
+        }
+    }
     public void render(ScreenPosition pos) {
         Minecraft mc = Minecraft.getMinecraft();
         int yOffset = 0;
@@ -58,6 +69,13 @@ public class PlayerDistance extends ModDraggable {
                 yOffset += mc.fontRendererObj.FONT_HEIGHT + 2; // Move to the next line
             }
         }
+    }
+
+    public static void drawTracerLine(EntityLivingBase entity) {
+        double xPos = (entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * Minecraft.getMinecraft().timer.renderPartialTicks) - Minecraft.getMinecraft().getRenderManager().renderPosX;
+        double yPos = (entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * Minecraft.getMinecraft().timer.renderPartialTicks) - Minecraft.getMinecraft().getRenderManager().renderPosY;
+        double zPos = (entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * Minecraft.getMinecraft().timer.renderPartialTicks) - Minecraft.getMinecraft().getRenderManager().renderPosZ;
+        RenderUtils.drawTracerLine(xPos, yPos, zPos, 1, 0, 0, 1, 2);
     }
 
     public static void entityESPBox(Entity entity, int mode) {

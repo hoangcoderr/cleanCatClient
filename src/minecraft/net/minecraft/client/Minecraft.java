@@ -1287,6 +1287,8 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
     }
 
     public void clickMouse() {
+        this.leftClickCounter = 0;
+
         if (this.leftClickCounter <= 0) {
             this.thePlayer.swingItem();
 
@@ -1294,8 +1296,8 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
                 logger.error("Null returned as \'hitResult\', this shouldn\'t happen!");
 
                 if (this.playerController.isNotCreative()) {
-                    this.leftClickCounter = 10;
-                    //this.leftClickCounter = 0;
+                    //this.leftClickCounter = 10;
+                    this.leftClickCounter = 0;
                 }
             } else {
                 switch (this.objectMouseOver.typeOfHit) {
@@ -1537,9 +1539,17 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 
             while (Mouse.next()) {
                 int i = Mouse.getEventButton();
+                boolean isShiftPressed = Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT);
+
+                if (i == 4) {
+                    if (isShiftPressed) {
+                        i = 3;
+                        System.out.println("Shift + Mouse Back Side Button");
+                    } else {
+                        System.out.println("Mouse Back Side Button");
+                    }
+                }
                 KeyBinding.setKeyBindState(i - 100, Mouse.getEventButtonState());
-                if (i != -1)
-                    System.out.println(i);
                 if (Mouse.getEventButtonState()) {
                     if (this.thePlayer.isSpectator() && i == 2) {
                         this.ingameGUI.getSpectatorGui().func_175261_b();
@@ -1796,7 +1806,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
                     && !this.thePlayer.isUsingItem()) {
                 this.rightClickMouse();
             }
-//			if (this.gameSettings.keySecret.isKeyDown()  && this.leftClickCounter == 0) {
+//			if (this.gameSettings.keySecretRight.isKeyDown()  && this.leftClickCounter == 0) {
 //				this.clickMouse();
 //			}
 //
