@@ -1,0 +1,70 @@
+package cleanCatClient.gui.clickgui.comp;
+
+import java.awt.*;
+
+import cleanCatClient.gui.font.FontUtil;
+import cleanCatClient.mods.Mod;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
+
+public class SettingsModButton {
+
+    public int x, y, w, h;
+    public Mod mod;
+
+    public SettingsModButton(int x, int y, int w, int h, Mod mod) {
+        this.x = x;
+        this.y = y;
+        this.w = w;
+        this.h = h;
+        this.mod = mod;
+    }
+
+    public void render(int mouseX, int mouseY) {
+        // Determine the color based on hover state
+        Color borderColor = isMouseOver(mouseX, mouseY) ? new Color(255, 255, 255, 150) : new Color(255, 255, 255, 50);
+        Color innerBorderColor = isMouseOver(mouseX, mouseY) ? new Color(77, 76, 76, 150) : new Color(77, 76, 76, 97);
+
+        // Draw the light white border (outer border)
+        Gui.drawRoundedRect(x - 2, y - 2, x + w + 2, y + h + 2, 10, borderColor.getRGB());
+
+        // Draw the dark border (inner border)
+        Gui.drawRoundedRect(x, y, x + w, y + h, 8, innerBorderColor.getRGB());
+
+        // Draw the toggle switch on the right
+        int toggleX = x + w - 35; // Adjusted position to accommodate larger size
+        int toggleY = y + (h / 2) - 7; // Adjusted position to accommodate larger size
+        int toggleWidth = 30; // Increased width
+        int toggleHeight = 14; // Height remains the same
+        Color toggleColor = mod.isEnabled() ? new Color(131, 255, 92, 255) : new Color(255, 64, 59, 255);
+        Gui.drawRoundedRect(toggleX, toggleY, toggleX + toggleWidth, toggleY + toggleHeight, 7, toggleColor.getRGB());
+
+        // Calculate the width and height of the mod name text
+        double textWidth = FontUtil.normal.getStringWidth(mod.name);
+        int textHeight = 12;
+
+        // Calculate the position to align the text to the left
+        double textX = x + 5; // Adjusted to add some padding from the left edge
+        int textY = y + (h - textHeight) / 2;
+
+        // Draw the mod name text
+        FontUtil.normal.drawString(mod.name, textX, textY, new Color(243, 236, 236, 255).getRGB());
+    }
+
+    public boolean isMouseOver(int mouseX, int mouseY) {
+        return mouseX >= x && mouseX <= x + w && mouseY >= y && mouseY <= y + h;
+    }
+
+    public void onClick(int mouseX, int mouseY, int button) {
+        int toggleX1 = x + w - 35; // Adjusted position to accommodate larger size
+        int toggleY1 = y + (h / 2) - 7; // Adjusted position to accommodate larger size
+        int toggleX2 = toggleX1 + 30; // Increased width
+        int toggleY2 = toggleY1 + 14; // Height remains the same
+
+        if (button == 0) {
+            if (mouseX >= toggleX1 && mouseX <= toggleX2 && mouseY >= toggleY1 && mouseY <= toggleY2) {
+                mod.setEnabled(!mod.isEnabled());
+            }
+        }
+    }
+}

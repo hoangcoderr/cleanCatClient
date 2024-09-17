@@ -6,7 +6,7 @@ import cleanCatClient.mods.ModCategory;
 
 public class FullBright extends Mod {
     public FullBright() {
-        super(ModConstants.FULL_BRIGHT, ModConstants.FULL_BRIGHT_DESC, ModCategory.RENDER);
+        super(ModConstants.FULL_BRIGHT, ModConstants.FULL_BRIGHT_DESC, ModCategory.SETTINGS);
     }
 
     @Override

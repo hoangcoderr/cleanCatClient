@@ -6,7 +6,7 @@ import cleanCatClient.mods.ModCategory;
 
 public class MinimalViewBobbing extends Mod {
     public MinimalViewBobbing(){
-        super(ModConstants.MINIMAL_VIEW_BOBBING, ModConstants.MINIMAL_VIEW_BOBBING_DESC, ModCategory.PLAYER);
+        super(ModConstants.MINIMAL_VIEW_BOBBING, ModConstants.MINIMAL_VIEW_BOBBING_DESC, ModCategory.SETTINGS);
         setEnabled(true);
     }
 }

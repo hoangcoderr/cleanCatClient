@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import cleanCatClient.gui.clickgui.comp.SettingsModButton;
 import cleanCatClient.gui.clickgui.settings.ModSettings;
 import cleanCatClient.gui.clickgui.settings.ModSettingsInstance;
 import cleanCatClient.gui.clickgui.settings.impl.CustomCrossHairSettings;
@@ -32,7 +33,9 @@ public class ClickGui extends GuiScreen {
 
     public static ArrayList<ModButton> modButtonToRender = new ArrayList<>();
 
+    public static ArrayList<SettingsModButton> settingsModButton = new ArrayList<>();
     ScaledResolution sr;
+
     public int getWidth() {
         return (centerW + backgroundW) - (centerW - backgroundW);
     }
@@ -40,6 +43,7 @@ public class ClickGui extends GuiScreen {
     public int getHeight() {
         return 250; // Assuming the height is fixed as 250 based on the initGui method
     }
+
     int backgroundW = 200;
     int centerW;
     int centerH;
@@ -58,8 +62,7 @@ public class ClickGui extends GuiScreen {
         this.clickGuiCategoryButton.add(new ClickGuiCategoryButton(centerW - 250, centerH - 55, 120, 25, "World", 1));
         this.clickGuiCategoryButton.add(new ClickGuiCategoryButton(centerW - 250, centerH - 25, 120, 25, "Render", 2));
         this.clickGuiCategoryButton.add(new ClickGuiCategoryButton(centerW - 250, centerH + 5, 120, 25, "Util", 3));
-        this.clickGuiCategoryButton.add(new ClickGuiCategoryButton(centerW - 250, centerH + 35, 120, 25, "Settings", 4));
-        this.clickGuiCategoryButton.add(new ClickGuiCategoryButton(centerW - 250, centerH + 65, 120, 25, "HudManager", 5));
+        this.clickGuiCategoryButton.add(new ClickGuiCategoryButton(centerW - 250, centerH + 35, 120, 25, "HudManager", 4));
 
         int modButtonSize = 90;
         int spaceBetween = 10;
@@ -72,11 +75,13 @@ public class ClickGui extends GuiScreen {
 
             int index = categoryIndices.getOrDefault(categoryID, 0);
             System.out.println("Category ID: " + categoryID + " Index: " + index + "Mod name: " + mod.name);
-         //   addModButton(categoryID, mod, index, modButtonSize, spaceBetween, buttonsPerRow, new CustomCrossHairSettings());
+            //   addModButton(categoryID, mod, index, modButtonSize, spaceBetween, buttonsPerRow, new CustomCrossHairSettings());
             addModButton(categoryID, mod, index, modButtonSize, spaceBetween, buttonsPerRow, ModSettingsInstance.getAllSettings().get(i));
             categoryIndices.put(categoryID, index + 1);
         }
-
+        addSettingsModButton(ModInstances.getFullBright(), 0, 340,20, spaceBetween);
+        addSettingsModButton(ModInstances.getMinimalViewBobbing(), 1, 340,20, spaceBetween);
+        addSettingsModButton(ModInstances.getLazyChunkLoading(), 2, 340,20, spaceBetween);
     }
 
     private void addModButton(int categoryID, Mod mod, int index, int size, int spaceBetween, int buttonsPerRow, ModSettings settings) {
@@ -86,6 +91,14 @@ public class ClickGui extends GuiScreen {
         int y = centerH + row * (size + spaceBetween);
 
         this.modButtonToRender.add(new ModButton(x, y, size, size, mod, categoryID, settings));
+    }
+
+    // Add this method to the ClickGui class
+    private void addSettingsModButton(Mod mod, int index, int width, int height, int spaceBetween) {
+        int y = centerH - 90 + index * (height + spaceBetween);
+        int x = centerW - backgroundW + 130; // Adjust x position to avoid overlapping with category buttons
+
+        this.settingsModButton.add(new SettingsModButton(x, y, width, height, mod));
     }
     private int currentScroll = 0;
 
@@ -128,6 +141,14 @@ public class ClickGui extends GuiScreen {
                 GL11.glDisable(GL11.GL_SCISSOR_TEST);
             }
         }
+        if (CategoryManager.currentPage == 3) {
+            for (SettingsModButton settingsModButton : settingsModButton) {
+                GL11.glEnable(GL11.GL_SCISSOR_TEST);
+                this.glScissor(centerW - backgroundW, centerH - 115, centerW + backgroundW, 230);
+                settingsModButton.render(mouseX, mouseY);
+                GL11.glDisable(GL11.GL_SCISSOR_TEST);
+            }
+        }
 
         drawScrollbar();
     }
@@ -160,6 +181,9 @@ public class ClickGui extends GuiScreen {
                 if (modButton.id == CategoryManager.currentPage) {
                     modButton.onClick(mouseX, mouseY, mouseButton);
                 }
+            }
+            for (SettingsModButton settingsModButton : settingsModButton) {
+                settingsModButton.onClick(mouseX, mouseY, mouseButton);
             }
         }
         for (ClickGuiCategoryButton clickGuiCategoryButton : clickGuiCategoryButton) {
