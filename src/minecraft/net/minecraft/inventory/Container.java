@@ -365,6 +365,9 @@ public abstract class Container
         }
         else if (mode == 2 && clickedButton >= 0 && clickedButton < 9)
         {
+            if (slotId < 0 || slotId >= this.inventorySlots.size()) {
+                return null; // or handle the error as needed
+            }
             Slot slot5 = (Slot)this.inventorySlots.get(slotId);
 
             if (slot5.canTakeStack(playerIn))
