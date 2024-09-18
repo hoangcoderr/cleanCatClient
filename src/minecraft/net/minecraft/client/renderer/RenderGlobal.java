@@ -842,14 +842,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             this.mc.entityRenderer.disableLightmap();
             this.mc.mcProfiler.endSection();
         }
-        for (Entity entity : this.theWorld.loadedEntityList) {
-            if (entity != renderViewEntity) {
-                if (entity instanceof EntityPlayer) {
-                    PlayerDistance.entityESPBox(entity, 0);
-                    //PlayerDistance.drawLineToPlayer(Minecraft.centerX, Minecraft.centerY, (EntityPlayer) entity);
-                }
-            }
-        }
+
 
     }
 

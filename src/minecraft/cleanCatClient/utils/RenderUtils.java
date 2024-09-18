@@ -1,14 +1,16 @@
 package cleanCatClient.utils;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.entity.Entity;
 
 import org.lwjgl.opengl.GL11;
 
 public class RenderUtils {
-	
+
 
 	public static void drawTracerLine(double x, double y, double z, float red, float green, float blue, float alpha, float lineWdith) {
 		GL11.glPushMatrix();

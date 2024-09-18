@@ -34,6 +34,7 @@ public class PlayerDistance extends ModDraggable {
         super("Player Distance Mod", "Displays the distance between you and other players", ModCategory.RENDER);
         setEnabled(true);
     }
+
     private String getRelativePosition(EntityPlayer mainPlayer, EntityPlayer otherPlayer) {
         double angle = Math.toDegrees(Math.atan2(otherPlayer.posZ - mainPlayer.posZ, otherPlayer.posX - mainPlayer.posX)) - mainPlayer.rotationYaw;
         angle = (angle + 360) % 360;
@@ -48,15 +49,19 @@ public class PlayerDistance extends ModDraggable {
             return "bên trái";
         }
     }
+
     @EventTarget
-    public void drawLine(Render2D event){
+    public void drawLine(Render2D event) {
         for (EntityLivingBase entitylivingbase : this.mc.theWorld.playerEntities) {
             if (entitylivingbase instanceof EntityPlayer) {
-                if (entitylivingbase != mc.thePlayer)
+                if (entitylivingbase != mc.thePlayer) {
                     PlayerDistance.drawTracerLine(entitylivingbase);
+                    PlayerDistance.entityESPBox(entitylivingbase);
+                }
             }
         }
     }
+
     public void render(ScreenPosition pos) {
         Minecraft mc = Minecraft.getMinecraft();
         int yOffset = 0;
@@ -75,19 +80,20 @@ public class PlayerDistance extends ModDraggable {
         double xPos = (entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * Minecraft.getMinecraft().timer.renderPartialTicks) - Minecraft.getMinecraft().getRenderManager().renderPosX;
         double yPos = (entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * Minecraft.getMinecraft().timer.renderPartialTicks) - Minecraft.getMinecraft().getRenderManager().renderPosY;
         double zPos = (entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * Minecraft.getMinecraft().timer.renderPartialTicks) - Minecraft.getMinecraft().getRenderManager().renderPosZ;
-        RenderUtils.drawTracerLine(xPos, yPos, zPos, 1, 0, 0, 1, 2);
+        RenderUtils.drawTracerLine(xPos, yPos, zPos, 1, 1, 1, 0.3F, 1.1F);
     }
 
-    public static void entityESPBox(Entity entity, int mode) {
+
+    public static void entityESPBox(Entity entity) {
         GL11.glPushAttrib(GL11.GL_ALL_ATTRIB_BITS); // Save all OpenGL attributes
         GL11.glPushMatrix();
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         GL11.glEnable(GL11.GL_BLEND);
-        GL11.glLineWidth(4.0F);
+        GL11.glLineWidth(1.0F);
         GL11.glDisable(GL11.GL_TEXTURE_2D);
         GL11.glDisable(GL11.GL_DEPTH_TEST);
         GL11.glDepthMask(false);
-        GL11.glColor4d(0, 1, 0, 0.3);
+        GL11.glColor4d(0, 1, 0, 0.5);
 
         // Calculate bounding box coordinates
         double minX = entity.boundingBox.minX - entity.posX + (entity.posX - Minecraft.getMinecraft().getRenderManager().renderPosX);
@@ -102,6 +108,8 @@ public class PlayerDistance extends ModDraggable {
 
         GL11.glPopMatrix();
         GL11.glPopAttrib(); // Restore all OpenGL attributes
+
+        //RenderUtils.renderGlowingEffect(entity, Minecraft.getMinecraft().timer.renderPartialTicks);
     }
 
     @Override

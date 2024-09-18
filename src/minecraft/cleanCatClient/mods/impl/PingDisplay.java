@@ -12,10 +12,14 @@ import net.minecraft.client.multiplayer.ServerData;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class PingDisplay extends ModDraggable {
-    private int ping = -1;
+    private final AtomicInteger ping = new AtomicInteger(-1);
     private long lastPingTime = 0;
+    private final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     public PingDisplay() {
         super(ModConstants.PING_DISPLAY, ModConstants.PING_DISPLAY_DESC, ModCategory.RENDER);
@@ -37,22 +41,25 @@ public class PingDisplay extends ModDraggable {
         ServerData server = Minecraft.getMinecraft().getCurrentServerData();
 
         // Kiểm tra nếu đã qua 10 giây kể từ lần cập nhật ping cuối cùng
-        if (server != null && currentTime - lastPingTime >= 10000) {
-            try {
-                ping = sendPing(server);
-                lastPingTime = currentTime; // Cập nhật thời gian ping cuối cùng
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        if (server != null && currentTime - lastPingTime >= 3000) {
+            lastPingTime = currentTime; // Cập nhật thời gian ping cuối cùng
+            executorService.submit(() -> {
+                try {
+                    int newPing = sendPing(server);
+                    ping.set(newPing);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
         }
 
         // Vẽ ping
-        FontUtil.normal.drawString(ping + " ms", pos.getAbsoluteX(), pos.getAbsoluteY(), -1);
+        FontUtil.normal.drawStringWithShadow(ping.get() + " ms", pos.getAbsoluteX(), pos.getAbsoluteY(), -1);
     }
 
     @Override
     public void renderDummy(ScreenPosition pos) {
-        FontUtil.normal.drawString("1000 ms", pos.getAbsoluteX(), pos.getAbsoluteY(), -1);
+        FontUtil.normal.drawStringWithShadow("1000 ms", pos.getAbsoluteX(), pos.getAbsoluteY(), -1);
     }
 
     private int sendPing(ServerData server) throws IOException {
