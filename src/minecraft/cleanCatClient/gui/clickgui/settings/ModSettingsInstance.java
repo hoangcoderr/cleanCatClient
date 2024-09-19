@@ -25,6 +25,7 @@ public class ModSettingsInstance {
     private static ToggleSprintSetting toggleSprintSettings;
     private static TimeChangerSettings timeChangerSettings;
     private static ColorSaturationSettings colorSaturationSettings;
+    private static ItemPhysicsSetting itemPhysicsSetting;
     private static List<ModSettings> allSettings = new ArrayList<>();
     public static void register(){
         armorStatusSetting = new ArmorStatusSetting();
@@ -45,6 +46,7 @@ public class ModSettingsInstance {
         toggleSprintSettings = new ToggleSprintSetting();
         timeChangerSettings = new TimeChangerSettings();
         colorSaturationSettings = new ColorSaturationSettings();
+        itemPhysicsSetting = new ItemPhysicsSetting();
 //        allSettings.add(armorStatusSetting);
 //        allSettings.add(blockOverlaySettings);
 //        allSettings.add(bossBarSettings);
@@ -65,7 +67,7 @@ public class ModSettingsInstance {
                 armorStatusSetting, blockOverlaySettings, bossBarSettings, customCrosshairSettings, fpsSettings,
                 glintColorSettings, hitColorSettings, keystrokesSettings, lazyChunkLoadingSettings, noHurtCamSettings,
                 oldAnimationSettings, perspectiveSettings, pingDisplaySettings, potionStatusSettings,
-                scoreboardSettings, toggleSprintSettings, timeChangerSettings, colorSaturationSettings
+                scoreboardSettings, toggleSprintSettings, timeChangerSettings, colorSaturationSettings, itemPhysicsSetting
         );
     }
     public static List<ModSettings> getAllSettings(){

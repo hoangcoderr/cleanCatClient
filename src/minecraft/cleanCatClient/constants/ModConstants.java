@@ -81,4 +81,7 @@ public class ModConstants {
 
     public static String MINIMAL_VIEW_BOBBING = "Minimal View Bobbing";
     public static String MINIMAL_VIEW_BOBBING_DESC = "Minimal view bobbing";
+
+    public static String ITEM_PHYSICS = "Item Physics";
+    public static String ITEM_PHYSICS_DESC = "Change the physics of items";
 }

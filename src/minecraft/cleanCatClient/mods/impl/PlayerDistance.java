@@ -89,7 +89,7 @@ public class PlayerDistance extends ModDraggable {
         GL11.glPushMatrix();
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         GL11.glEnable(GL11.GL_BLEND);
-        GL11.glLineWidth(1.0F);
+        GL11.glLineWidth(3.0F);
         GL11.glDisable(GL11.GL_TEXTURE_2D);
         GL11.glDisable(GL11.GL_DEPTH_TEST);
         GL11.glDepthMask(false);

@@ -38,7 +38,9 @@ public class ModInstances {
     private static TimeChanger timeChangerMod;
     private static ColorSaturation colorSaturation;
     private static MinimalViewBobbing minimalViewBobbing;
+    private static ItemPhysics itemPhysics;
     public static void register(HUDManager api) {
+        itemPhysics = new ItemPhysics();
         timeChangerMod = new TimeChanger();
 
         minimalViewBobbing = new MinimalViewBobbing();
@@ -116,8 +118,11 @@ public class ModInstances {
         allMods.add(toggleSprint);
         allMods.add(timeChangerMod);
         allMods.add(colorSaturation);
+        allMods.add(itemPhysics);
     }
-
+    public static ItemPhysics getItemPhysics() {
+        return itemPhysics;
+    }
     public static List<Mod> getAllMods() {
         return allMods;
     }

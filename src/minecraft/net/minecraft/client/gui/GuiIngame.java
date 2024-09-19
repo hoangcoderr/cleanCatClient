@@ -507,8 +507,9 @@ public class GuiIngame extends Gui {
             if (j == collection.size()) {
                 String s3 = objective.getDisplayName();
                 if (!ModInstances.getScoreboard().isHideRect()) {
-                    drawRect(l1 - 2, k - this.getFontRenderer().FONT_HEIGHT - 1, l, k - 1, 1610612736);
-                    drawRect(l1 - 2, k - 1, l, k, 1342177280);
+                    int firstRowPosition = j1 + this.getFontRenderer().FONT_HEIGHT; // Calculate the position for the first row
+                    drawRect(l1 - 2, firstRowPosition - this.getFontRenderer().FONT_HEIGHT - 1, l, firstRowPosition - 1, 1610612736);
+                    drawRect(l1 - 2, firstRowPosition - 1, l, firstRowPosition, 1342177280);
                 }
                 mc.fontRendererObj.drawString(s3, l1 + i / 2 - this.getFontRenderer().getStringWidth(s3) / 2, k - j * this.getFontRenderer().FONT_HEIGHT,  new Color(255, 255, 255).getRGB());
             }
