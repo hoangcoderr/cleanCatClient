@@ -89,11 +89,11 @@ public class PlayerDistance extends ModDraggable {
         GL11.glPushMatrix();
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         GL11.glEnable(GL11.GL_BLEND);
-        GL11.glLineWidth(3.0F);
+        GL11.glLineWidth(0.1F);
         GL11.glDisable(GL11.GL_TEXTURE_2D);
         GL11.glDisable(GL11.GL_DEPTH_TEST);
         GL11.glDepthMask(false);
-        GL11.glColor4d(0, 1, 0, 0.5);
+        GL11.glColor4d(0, 1, 0, 0.2);
 
         // Calculate bounding box coordinates
         double minX = entity.boundingBox.minX - entity.posX + (entity.posX - Minecraft.getMinecraft().getRenderManager().renderPosX);
