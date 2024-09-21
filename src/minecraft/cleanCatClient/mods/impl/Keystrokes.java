@@ -9,13 +9,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.settings.KeyBinding;
 import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 import java.util.ArrayList;
 
 public class Keystrokes extends ModDraggable {
-
 
     private static final Key W = new Key("W", Minecraft.getMinecraft().gameSettings.keyBindForward, 21, 1, 18, 18);
     private static final Key A = new Key("A", Minecraft.getMinecraft().gameSettings.keyBindLeft, 1, 21, 18, 18);
@@ -27,9 +25,10 @@ public class Keystrokes extends ModDraggable {
 
     public static enum KeystrokesMode {
         WASD(new Key[]{W, A, S, D}, new MouseKey[]{}),
-        WASD_MOUSE(new Key[]{W, A, S, D}, new MouseKey[]{LMB, RMB}),
+        WASD_MOUSE(new Key[]{W, A, S, D}, new MouseKey[]{new MouseKey("LMB", Minecraft.getMinecraft().gameSettings.keyBindAttack, 1, 41, 28, 18), new MouseKey("RMB", Minecraft.getMinecraft().gameSettings.keyBindUseItem, 31, 41, 28, 18)}),
         WASD_JUMP(new Key[]{W, A, S, D, SPACE}, new MouseKey[]{}),
         WASD_JUMP_MOUSE(new Key[]{W, A, S, D, SPACE}, new MouseKey[]{LMB, RMB});
+
         private final Key[] keys;
         private final MouseKey[] mouseKeys;
         private int width;
@@ -49,7 +48,6 @@ public class Keystrokes extends ModDraggable {
             }
         }
 
-
         public int getHeight() {
             return height;
         }
@@ -57,10 +55,7 @@ public class Keystrokes extends ModDraggable {
         public int getWidth() {
             return width;
         }
-
-
     }
-
 
     private static class Key {
         private final String name;
@@ -109,25 +104,27 @@ public class Keystrokes extends ModDraggable {
         private ArrayList<Long> clicks = new ArrayList<Long>();
         private long lastPressed;
         private boolean wasPressed;
+
         public MouseKey(String name, KeyBinding keyBinding, int x, int y, int width, int height) {
             super(name, keyBinding, x, y, width, height);
         }
 
-        public int getCPS(){
-            final long time  = System.currentTimeMillis();
+        public int getCPS() {
+            final long time = System.currentTimeMillis();
             this.clicks.removeIf(aLong -> aLong + 1000 < time);
             return this.clicks.size();
         }
 
-        public void updateCPS(){
+        public void updateCPS() {
             final boolean pressed = Mouse.isButtonDown(getName().equals("LMB") ? 0 : 1);
-            if(pressed != this.wasPressed){
+            if (pressed != this.wasPressed) {
                 this.wasPressed = pressed;
-                if(pressed){
+                if (pressed) {
                     this.clicks.add(this.lastPressed = System.currentTimeMillis());
                 }
             }
         }
+
     }
 
     private KeystrokesMode mode = KeystrokesMode.WASD_JUMP_MOUSE;
@@ -137,7 +134,8 @@ public class Keystrokes extends ModDraggable {
     }
 
     public Keystrokes() {
-        super(ModConstants.KEYSTROKES, ModConstants.KEYSTROKES_DESC, ModCategory.RENDER);}
+        super(ModConstants.KEYSTROKES, ModConstants.KEYSTROKES_DESC, ModCategory.RENDER);
+    }
 
     @Override
     public int getWidth() {
@@ -149,10 +147,8 @@ public class Keystrokes extends ModDraggable {
         return mode.getHeight();
     }
 
-    @Override
-    public void render(ScreenPosition pos) {
-
-        for (Key key : mode.keys) {
+    private void renderKeys(ScreenPosition pos, Key[] keys) {
+        for (Key key : keys) {
             int textWidth = font.getStringWidth(key.getName());
             Gui.drawRect(pos.getAbsoluteX() + key.getX(),
                     pos.getAbsoluteY() + key.getY(),
@@ -166,10 +162,10 @@ public class Keystrokes extends ModDraggable {
                     key.isDown() ? Color.BLACK.getRGB() : Color.WHITE.getRGB()
             );
         }
+    }
 
-
-        for (MouseKey key : mode.mouseKeys) {
-            key.updateCPS();
+    private void renderMouseKeys(ScreenPosition pos, MouseKey[] mouseKeys) {
+        for (MouseKey key : mouseKeys) {
             int textWidth = font.getStringWidth(key.getName());
             Gui.drawRect(pos.getAbsoluteX() + key.getX(),
                     pos.getAbsoluteY() + key.getY(),
@@ -177,15 +173,17 @@ public class Keystrokes extends ModDraggable {
                     pos.getAbsoluteY() + key.getY() + key.getHeight(),
                     key.isDown() ? new Color(255, 255, 255, 102).getRGB() : new Color(0, 0, 0, 102).getRGB());
             FontUtil.normal.drawString(
-                    "" + key.getCPS(),
+                    key.getName().equals("LMB") ? "" + mc.getCPS() : "" + mc.getRightCps(),
                     pos.getAbsoluteX() + key.getX() + key.getWidth() / 2 - textWidth / 2,
                     pos.getAbsoluteY() + key.getY() + (key.getHeight() - 10) / 2,
                     key.isDown() ? Color.BLACK.getRGB() : Color.WHITE.getRGB()
             );
         }
-
     }
 
-
-
+    @Override
+    public void render(ScreenPosition pos) {
+        renderKeys(pos, mode.keys);
+        renderMouseKeys(pos, mode.mouseKeys);
+    }
 }

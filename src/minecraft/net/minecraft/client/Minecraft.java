@@ -10,14 +10,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
@@ -294,6 +287,11 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
     int fpsCounter;
     long prevFrameTime = -1L;
     private String debugProfilerName = "root";
+    private List<Long> clickTimes = new ArrayList<>();
+    private List<Long> rightClickTimes = new ArrayList<>();
+
+    private int cps = 0;
+    private int rightCps = 0;
 
     public Minecraft(GameConfiguration gameConfig) {
         theMinecraft = this;
@@ -328,6 +326,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 
         ImageIO.setUseCache(false);
         Bootstrap.register();
+
     }
 
     public void run() {
@@ -1285,10 +1284,14 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
             }
         }
     }
-
+    
     public void clickMouse() {
         this.leftClickCounter = 0;
-
+        // Lưu thời gian nhấp chuột
+        if (ModInstances.getKeystrokes().isEnabled()) {
+            long currentTime = System.currentTimeMillis();
+            clickTimes.add(currentTime);
+        }
         if (this.leftClickCounter <= 0) {
             this.thePlayer.swingItem();
 
@@ -1296,7 +1299,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
                 logger.error("Null returned as \'hitResult\', this shouldn\'t happen!");
 
                 if (this.playerController.isNotCreative()) {
-                    //this.leftClickCounter = 10;
+                   // this.leftClickCounter = 10;
                     this.leftClickCounter = 0;
                 }
             } else {
@@ -1324,10 +1327,30 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         }
     }
 
+
+    public int getCPS() {
+        long currentTime = System.currentTimeMillis();
+        clickTimes.removeIf(time -> time + 1000 < currentTime);
+        cps = clickTimes.size();
+        return cps;
+    }
+
+    public int getRightCps() {
+        long currentTime = System.currentTimeMillis();
+        rightClickTimes.removeIf(time -> time + 1000 < currentTime);
+        rightCps = rightClickTimes.size();
+        return rightCps;
+    }
+
     @SuppressWarnings("incomplete-switch")
     private void rightClickMouse() {
         if (!this.playerController.getIsHittingBlock()) {
             this.rightClickDelayTimer = 4;
+            rightMouseClicked = true;
+            if (ModInstances.getKeystrokes().isEnabled()) {
+                long currentTime = System.currentTimeMillis();
+                rightClickTimes.add(currentTime);
+            }
             boolean flag = true;
             ItemStack itemstack = this.thePlayer.inventory.getCurrentItem();
 

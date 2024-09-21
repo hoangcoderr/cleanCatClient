@@ -79,9 +79,10 @@ public class ClickGui extends GuiScreen {
             addModButton(categoryID, mod, index, modButtonSize, spaceBetween, buttonsPerRow, ModSettingsInstance.getAllSettings().get(i));
             categoryIndices.put(categoryID, index + 1);
         }
-        addSettingsModButton(ModInstances.getFullBright(), 0, 340,20, spaceBetween);
-        addSettingsModButton(ModInstances.getMinimalViewBobbing(), 1, 340,20, spaceBetween);
-        addSettingsModButton(ModInstances.getLazyChunkLoading(), 2, 340,20, spaceBetween);
+        addSettingsModButton(ModInstances.getFullBright(), 0, 340, 20, spaceBetween);
+        addSettingsModButton(ModInstances.getMinimalViewBobbing(), 1, 340, 20, spaceBetween);
+        addSettingsModButton(ModInstances.getLazyChunkLoading(), 2, 340, 20, spaceBetween);
+        addSettingsModButton(ModInstances.getDisableBlockParticles(), 3, 340, 20, spaceBetween);
     }
 
     private void addModButton(int categoryID, Mod mod, int index, int size, int spaceBetween, int buttonsPerRow, ModSettings settings) {
@@ -100,6 +101,7 @@ public class ClickGui extends GuiScreen {
 
         this.settingsModButton.add(new SettingsModButton(x, y, width, height, mod));
     }
+
     private int currentScroll = 0;
 
     @Override

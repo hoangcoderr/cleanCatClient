@@ -11,10 +11,10 @@ public class CosmeticBoolean {
     public static boolean badWolfCape;
     public static boolean starrySunsetCape;
     static {
-        CosmeticBoolean.snowcape = false;
+        CosmeticBoolean.snowcape = true;
         CosmeticBoolean.nornalCape = false;
         CosmeticBoolean.thuderCape = false;
-        CosmeticBoolean.badWolfCape = true;
+        CosmeticBoolean.badWolfCape = false;
         CosmeticBoolean.starrySunsetCape = false;
     }
 
