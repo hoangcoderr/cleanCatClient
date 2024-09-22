@@ -7,6 +7,7 @@ import cleanCatClient.gui.font.FontUtil;
 import cleanCatClient.gui.hud.ScreenPosition;
 import cleanCatClient.mods.ModCategory;
 import cleanCatClient.mods.ModDraggable;
+import cleanCatClient.utils.RenderUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.potion.Potion;
 import net.minecraft.world.MinecraftException;
@@ -22,7 +23,7 @@ public class ToggleSprint extends ModDraggable {
 
     public int getWidth()
     {
-        return mc.fontRendererObj.getStringWidth("[Sprinting (Key Toggled)]");
+        return (int)FontUtil.normal.getStringWidth("[Sprinting (Key Toggled)]");
     }
 
     public int getHeight()
@@ -33,6 +34,7 @@ public class ToggleSprint extends ModDraggable {
 
     @Override
     public void render(ScreenPosition pos) {
+        RenderUtils.drawRect(pos.getAbsoluteX(), pos.getAbsoluteY(), getWidth(), getHeight());
         FontUtil.normal.drawStringWithShadow(ModConstants.TOGGLE_SPRINT_ENABLED, pos.getAbsoluteX(), pos.getAbsoluteY() , -1);
     }
 

@@ -1284,7 +1284,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
             }
         }
     }
-    
+
     public void clickMouse() {
         this.leftClickCounter = 0;
         // Lưu thời gian nhấp chuột
@@ -1342,11 +1342,12 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         return rightCps;
     }
 
+
+
     @SuppressWarnings("incomplete-switch")
     private void rightClickMouse() {
         if (!this.playerController.getIsHittingBlock()) {
             this.rightClickDelayTimer = 4;
-            rightMouseClicked = true;
             if (ModInstances.getKeystrokes().isEnabled()) {
                 long currentTime = System.currentTimeMillis();
                 rightClickTimes.add(currentTime);

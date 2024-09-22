@@ -2,11 +2,13 @@ package net.minecraft.client.gui;
 
 import cleanCatClient.gui.mainmenu.button.ClientButton;
 import com.google.common.collect.Lists;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.util.Collections;
 import java.util.List;
+
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.resources.ResourcePackListEntry;
 import net.minecraft.client.resources.ResourcePackListEntryDefault;
@@ -17,8 +19,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.Sys;
 
-public class GuiScreenResourcePacks extends GuiScreen
-{
+public class GuiScreenResourcePacks extends GuiScreen {
     private static final Logger logger = LogManager.getLogger();
     private final GuiScreen parentScreen;
     private List<ResourcePackListEntry> availableResourcePacks;
@@ -26,19 +27,17 @@ public class GuiScreenResourcePacks extends GuiScreen
     private GuiResourcePackAvailable availableResourcePacksList;
     private GuiResourcePackSelected selectedResourcePacksList;
     private boolean changed = false;
+    private GuiTextField searchField;
 
-    public GuiScreenResourcePacks(GuiScreen parentScreenIn)
-    {
+    public GuiScreenResourcePacks(GuiScreen parentScreenIn) {
         this.parentScreen = parentScreenIn;
     }
 
-    public void initGui()
-    {
+    public void initGui() {
         this.buttonList.add(new GuiOptionButton(2, this.width / 2 - 154, this.height - 48, I18n.format("resourcePack.openFolder", new Object[0])));
         this.buttonList.add(new GuiOptionButton(1, this.width / 2 + 4, this.height - 48, I18n.format("gui.done", new Object[0])));
 
-        if (!this.changed)
-        {
+        if (!this.changed) {
             this.availableResourcePacks = Lists.<ResourcePackListEntry>newArrayList();
             this.selectedResourcePacks = Lists.<ResourcePackListEntry>newArrayList();
             ResourcePackRepository resourcepackrepository = this.mc.getResourcePackRepository();
@@ -46,122 +45,113 @@ public class GuiScreenResourcePacks extends GuiScreen
             List<ResourcePackRepository.Entry> list = Lists.newArrayList(resourcepackrepository.getRepositoryEntriesAll());
             list.removeAll(resourcepackrepository.getRepositoryEntries());
 
-            for (ResourcePackRepository.Entry resourcepackrepository$entry : list)
-            {
+            for (ResourcePackRepository.Entry resourcepackrepository$entry : list) {
                 this.availableResourcePacks.add(new ResourcePackListEntryFound(this, resourcepackrepository$entry));
             }
 
-            for (ResourcePackRepository.Entry resourcepackrepository$entry1 : Lists.reverse(resourcepackrepository.getRepositoryEntries()))
-            {
+            for (ResourcePackRepository.Entry resourcepackrepository$entry1 : Lists.reverse(resourcepackrepository.getRepositoryEntries())) {
                 this.selectedResourcePacks.add(new ResourcePackListEntryFound(this, resourcepackrepository$entry1));
             }
 
             this.selectedResourcePacks.add(new ResourcePackListEntryDefault(this));
         }
 
-        this.availableResourcePacksList = new GuiResourcePackAvailable(this.mc, 200, this.height, this.availableResourcePacks);
+        this.availableResourcePacksList = new GuiResourcePackAvailable(this.mc, 200, this.height - 25, this.availableResourcePacks);
         this.availableResourcePacksList.setSlotXBoundsFromLeft(this.width / 2 - 4 - 200);
         this.availableResourcePacksList.registerScrollButtons(7, 8);
         this.selectedResourcePacksList = new GuiResourcePackSelected(this.mc, 200, this.height, this.selectedResourcePacks);
         this.selectedResourcePacksList.setSlotXBoundsFromLeft(this.width / 2 + 4);
         this.selectedResourcePacksList.registerScrollButtons(7, 8);
+        int searchFieldY = this.height - 70; // Điều chỉnh giá trị này để đặt vị trí y của searchField
+        this.searchField = new GuiTextField(0, this.fontRendererObj, this.width / 2 - 4 - 200, searchFieldY, 200, 20);
+        this.searchField.setMaxStringLength(50); // Đặt độ dài tối đa cho trường tìm kiếm
+        this.searchField.setFocused(false); // Bắt đầu không tập trung vào trường tìm kiếm
+        this.searchField.setCanLoseFocus(true);
+
+    }
+    private void filterResourcePacks(String searchText) {
+        ResourcePackRepository resourcePackRepository = this.mc.getResourcePackRepository();
+        List<ResourcePackRepository.Entry> allPacks = resourcePackRepository.getResourcePackCache();
+        this.availableResourcePacks.clear();
+
+        for (ResourcePackRepository.Entry entry : allPacks) {
+            if (entry.getResourcePackName().toLowerCase().contains(searchText.toLowerCase())) {
+                this.availableResourcePacks.add(new ResourcePackListEntryFound(this, entry));
+            }
+        }
+
+        this.availableResourcePacksList.updateList(this.availableResourcePacks);
     }
 
-    public void handleMouseInput() throws IOException
-    {
+    public void handleMouseInput() throws IOException {
         super.handleMouseInput();
         this.selectedResourcePacksList.handleMouseInput();
         this.availableResourcePacksList.handleMouseInput();
     }
 
-    public boolean hasResourcePackEntry(ResourcePackListEntry p_146961_1_)
-    {
+    public boolean hasResourcePackEntry(ResourcePackListEntry p_146961_1_) {
         return this.selectedResourcePacks.contains(p_146961_1_);
     }
 
-    public List<ResourcePackListEntry> getListContaining(ResourcePackListEntry p_146962_1_)
-    {
+    public List<ResourcePackListEntry> getListContaining(ResourcePackListEntry p_146962_1_) {
         return this.hasResourcePackEntry(p_146962_1_) ? this.selectedResourcePacks : this.availableResourcePacks;
     }
 
-    public List<ResourcePackListEntry> getAvailableResourcePacks()
-    {
+    public List<ResourcePackListEntry> getAvailableResourcePacks() {
         return this.availableResourcePacks;
     }
 
-    public List<ResourcePackListEntry> getSelectedResourcePacks()
-    {
+    public List<ResourcePackListEntry> getSelectedResourcePacks() {
         return this.selectedResourcePacks;
     }
 
-    protected void actionPerformed(ClientButton button) throws IOException
-    {
-        if (button.enabled)
-        {
-            if (button.id == 2)
-            {
+    protected void actionPerformed(ClientButton button) throws IOException {
+        if (button.enabled) {
+            if (button.id == 2) {
                 File file1 = this.mc.getResourcePackRepository().getDirResourcepacks();
                 String s = file1.getAbsolutePath();
 
-                if (Util.getOSType() == Util.EnumOS.OSX)
-                {
-                    try
-                    {
+                if (Util.getOSType() == Util.EnumOS.OSX) {
+                    try {
                         logger.info(s);
-                        Runtime.getRuntime().exec(new String[] {"/usr/bin/open", s});
+                        Runtime.getRuntime().exec(new String[]{"/usr/bin/open", s});
                         return;
+                    } catch (IOException ioexception1) {
+                        logger.error((String) "Couldn\'t open file", (Throwable) ioexception1);
                     }
-                    catch (IOException ioexception1)
-                    {
-                        logger.error((String)"Couldn\'t open file", (Throwable)ioexception1);
-                    }
-                }
-                else if (Util.getOSType() == Util.EnumOS.WINDOWS)
-                {
-                    String s1 = String.format("cmd.exe /C start \"Open file\" \"%s\"", new Object[] {s});
+                } else if (Util.getOSType() == Util.EnumOS.WINDOWS) {
+                    String s1 = String.format("cmd.exe /C start \"Open file\" \"%s\"", new Object[]{s});
 
-                    try
-                    {
+                    try {
                         Runtime.getRuntime().exec(s1);
                         return;
-                    }
-                    catch (IOException ioexception)
-                    {
-                        logger.error((String)"Couldn\'t open file", (Throwable)ioexception);
+                    } catch (IOException ioexception) {
+                        logger.error((String) "Couldn\'t open file", (Throwable) ioexception);
                     }
                 }
 
                 boolean flag = false;
 
-                try
-                {
+                try {
                     Class<?> oclass = Class.forName("java.awt.Desktop");
-                    Object object = oclass.getMethod("getDesktop", new Class[0]).invoke((Object)null, new Object[0]);
-                    oclass.getMethod("browse", new Class[] {URI.class}).invoke(object, new Object[] {file1.toURI()});
-                }
-                catch (Throwable throwable)
-                {
+                    Object object = oclass.getMethod("getDesktop", new Class[0]).invoke((Object) null, new Object[0]);
+                    oclass.getMethod("browse", new Class[]{URI.class}).invoke(object, new Object[]{file1.toURI()});
+                } catch (Throwable throwable) {
                     logger.error("Couldn\'t open link", throwable);
                     flag = true;
                 }
 
-                if (flag)
-                {
+                if (flag) {
                     logger.info("Opening via system class!");
                     Sys.openURL("file://" + s);
                 }
-            }
-            else if (button.id == 1)
-            {
-                if (this.changed)
-                {
+            } else if (button.id == 1) {
+                if (this.changed) {
                     List<ResourcePackRepository.Entry> list = Lists.<ResourcePackRepository.Entry>newArrayList();
 
-                    for (ResourcePackListEntry resourcepacklistentry : this.selectedResourcePacks)
-                    {
-                        if (resourcepacklistentry instanceof ResourcePackListEntryFound)
-                        {
-                            list.add(((ResourcePackListEntryFound)resourcepacklistentry).func_148318_i());
+                    for (ResourcePackListEntry resourcepacklistentry : this.selectedResourcePacks) {
+                        if (resourcepacklistentry instanceof ResourcePackListEntryFound) {
+                            list.add(((ResourcePackListEntryFound) resourcepacklistentry).func_148318_i());
                         }
                     }
 
@@ -170,12 +160,10 @@ public class GuiScreenResourcePacks extends GuiScreen
                     this.mc.gameSettings.resourcePacks.clear();
                     this.mc.gameSettings.incompatibleResourcePacks.clear();
 
-                    for (ResourcePackRepository.Entry resourcepackrepository$entry : list)
-                    {
+                    for (ResourcePackRepository.Entry resourcepackrepository$entry : list) {
                         this.mc.gameSettings.resourcePacks.add(resourcepackrepository$entry.getResourcePackName());
 
-                        if (resourcepackrepository$entry.func_183027_f() != 1)
-                        {
+                        if (resourcepackrepository$entry.func_183027_f() != 1) {
                             this.mc.gameSettings.incompatibleResourcePacks.add(resourcepackrepository$entry.getResourcePackName());
                         }
                     }
@@ -189,30 +177,48 @@ public class GuiScreenResourcePacks extends GuiScreen
         }
     }
 
-    protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException
-    {
+    @Override
+    protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         super.mouseClicked(mouseX, mouseY, mouseButton);
         this.availableResourcePacksList.mouseClicked(mouseX, mouseY, mouseButton);
         this.selectedResourcePacksList.mouseClicked(mouseX, mouseY, mouseButton);
+        this.searchField.mouseClicked(mouseX, mouseY, mouseButton);
     }
 
-    protected void mouseReleased(int mouseX, int mouseY, int state)
-    {
+    protected void mouseReleased(int mouseX, int mouseY, int state) {
         super.mouseReleased(mouseX, mouseY, state);
     }
 
-    public void drawScreen(int mouseX, int mouseY, float partialTicks)
-    {
+    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawBackground(0);
         this.availableResourcePacksList.drawScreen(mouseX, mouseY, partialTicks);
         this.selectedResourcePacksList.drawScreen(mouseX, mouseY, partialTicks);
         this.drawCenteredString(this.fontRendererObj, I18n.format("resourcePack.title", new Object[0]), this.width / 2, 16, 16777215);
         this.drawCenteredString(this.fontRendererObj, I18n.format("resourcePack.folderInfo", new Object[0]), this.width / 2 - 77, this.height - 26, 8421504);
         super.drawScreen(mouseX, mouseY, partialTicks);
+        // Vẽ trường tìm kiếm
+        this.searchField.drawTextBox();
     }
 
-    public void markChanged()
-    {
+    public void markChanged() {
         this.changed = true;
+    }
+
+    @Override
+    protected void keyTyped(char typedChar, int keyCode) throws IOException {
+        super.keyTyped(typedChar, keyCode);
+
+        // Xử lý nhập liệu cho trường tìm kiếm
+        this.searchField.textboxKeyTyped(typedChar, keyCode);
+        filterResourcePacks(this.searchField.getText());
+
+    }
+
+    @Override
+    public void updateScreen() {
+        super.updateScreen();
+
+        // Cập nhật trường tìm kiếm
+        this.searchField.updateCursorCounter();
     }
 }

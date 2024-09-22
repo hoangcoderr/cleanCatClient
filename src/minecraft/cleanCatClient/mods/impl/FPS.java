@@ -6,6 +6,7 @@ import cleanCatClient.gui.hud.ScreenPosition;
 import cleanCatClient.mods.ModCategory;
 import cleanCatClient.mods.ModDraggable;
 import cleanCatClient.mods.ModInstances;
+import cleanCatClient.utils.RenderUtils;
 import net.minecraft.client.renderer.GlStateManager;
 
 import java.awt.*;
@@ -39,7 +40,7 @@ public class FPS extends ModDraggable {
 
     @Override
     public int getWidth() {
-        return 50;
+        return 40;
     }
 
 
@@ -51,9 +52,8 @@ public class FPS extends ModDraggable {
 
     @Override
     public void render(ScreenPosition pos) {
-        GlStateManager.pushMatrix();
+        RenderUtils.drawRect(pos.getAbsoluteX(), pos.getAbsoluteY(), getWidth(), getHeight());
         FontUtil.normal.drawStringWithShadow("FPS: " + mc.getDebugFPS(), pos.getAbsoluteX(), pos.getAbsoluteY(), color);
-        GlStateManager.popMatrix();
     }
 
     @Override

@@ -35,8 +35,14 @@ import org.apache.logging.log4j.Logger;
 
 public class ResourcePackRepository
 {
-    private List<ResourcePackRepository.Entry> resourcePackCache = null;
 
+    private List<ResourcePackRepository.Entry> resourcePackCache = null;
+    public List<ResourcePackRepository.Entry> getResourcePackCache() {
+        if (this.resourcePackCache == null) {
+            this.resourcePackCache = new ArrayList<>(this.repositoryEntriesAll);
+        }
+        return this.resourcePackCache;
+    }
     // Method to save the cache
     private void saveCache() {
         this.resourcePackCache = new ArrayList<>(this.repositoryEntriesAll);

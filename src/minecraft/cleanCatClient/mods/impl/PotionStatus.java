@@ -5,6 +5,7 @@ import cleanCatClient.gui.font.FontUtil;
 import cleanCatClient.gui.hud.ScreenPosition;
 import cleanCatClient.mods.ModCategory;
 import cleanCatClient.mods.ModDraggable;
+import cleanCatClient.utils.RenderUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -38,7 +39,9 @@ public class PotionStatus extends ModDraggable {
     public void render(ScreenPosition pos) {
         Collection<PotionEffect> effects = Minecraft.getMinecraft().thePlayer.getActivePotionEffects();
         int y = pos.getAbsoluteY();
-
+        int effectCount = effects.size();
+        int totalHeight = effectCount * 20; // Mỗi hiệu ứng potion chiếm 20 pixel chiều cao
+        RenderUtils.drawRect(pos.getAbsoluteX(), pos.getAbsoluteY(), getWidth(), totalHeight);
         for (PotionEffect effect : effects) {
             Potion potion = Potion.potionTypes[effect.getPotionID()];
 
@@ -52,8 +55,6 @@ public class PotionStatus extends ModDraggable {
                 name = name + " " + I18n.format("enchantment.level.4", new Object[0]);
             }
             String durationString = Potion.getDurationString(effect);
-
-
             GL11.glPushMatrix();
             int i1 = potion.getStatusIconIndex();
             Minecraft.getMinecraft().getTextureManager().bindTexture(GuiContainer.inventoryBackground);
@@ -63,6 +64,8 @@ public class PotionStatus extends ModDraggable {
             y += 20;
             GL11.glPopMatrix();
         }
+        // Vẽ hình chữ nhật bao quanh toàn bộ PotionStatus
+
     }
 
     @Override

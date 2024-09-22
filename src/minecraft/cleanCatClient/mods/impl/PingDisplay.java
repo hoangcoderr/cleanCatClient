@@ -5,6 +5,7 @@ import cleanCatClient.gui.font.FontUtil;
 import cleanCatClient.gui.hud.ScreenPosition;
 import cleanCatClient.mods.ModCategory;
 import cleanCatClient.mods.ModDraggable;
+import cleanCatClient.utils.RenderUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ServerAddress;
 import net.minecraft.client.multiplayer.ServerData;
@@ -27,7 +28,7 @@ public class PingDisplay extends ModDraggable {
 
     @Override
     public int getWidth() {
-        return 50;
+        return 40;
     }
 
     @Override
@@ -54,7 +55,8 @@ public class PingDisplay extends ModDraggable {
         }
 
         // Vẽ ping
-        FontUtil.normal.drawStringWithShadow(ping.get() + " ms", pos.getAbsoluteX(), pos.getAbsoluteY(), -1);
+        RenderUtils.drawRect(pos.getAbsoluteX(), pos.getAbsoluteY(), getWidth(), getHeight());
+        FontUtil.normal.drawStringWithShadow( ping.get() + " ms", pos.getAbsoluteX(), pos.getAbsoluteY(), -1);
     }
 
     @Override
