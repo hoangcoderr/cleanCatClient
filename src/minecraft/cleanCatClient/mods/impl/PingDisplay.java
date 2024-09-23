@@ -28,7 +28,7 @@ public class PingDisplay extends ModDraggable {
 
     @Override
     public int getWidth() {
-        return 40;
+        return 30;
     }
 
     @Override

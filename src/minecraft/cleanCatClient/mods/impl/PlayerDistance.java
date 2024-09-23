@@ -30,9 +30,12 @@ import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
 public class PlayerDistance extends ModDraggable {
+    private int vboId;
+    private int vaoId;
     public PlayerDistance() {
         super("Player Distance Mod", "Displays the distance between you and other players", ModCategory.RENDER);
         setEnabled(true);
+
     }
 
     private String getRelativePosition(EntityPlayer mainPlayer, EntityPlayer otherPlayer) {
@@ -95,21 +98,44 @@ public class PlayerDistance extends ModDraggable {
         GL11.glDepthMask(false);
         GL11.glColor4d(0, 1, 0, 0.2);
 
+        // Interpolated position
+        double x = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * Minecraft.getMinecraft().timer.renderPartialTicks;
+        double y = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * Minecraft.getMinecraft().timer.renderPartialTicks;
+        double z = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * Minecraft.getMinecraft().timer.renderPartialTicks;
+
         // Calculate bounding box coordinates
-        double minX = entity.boundingBox.minX - entity.posX + (entity.posX - Minecraft.getMinecraft().getRenderManager().renderPosX);
-        double minY = entity.boundingBox.minY - entity.posY + (entity.posY - Minecraft.getMinecraft().getRenderManager().renderPosY);
-        double minZ = entity.boundingBox.minZ - entity.posZ + (entity.posZ - Minecraft.getMinecraft().getRenderManager().renderPosZ);
-        double maxX = entity.boundingBox.maxX - entity.posX + (entity.posX - Minecraft.getMinecraft().getRenderManager().renderPosX);
-        double maxY = entity.boundingBox.maxY - entity.posY + (entity.posY - Minecraft.getMinecraft().getRenderManager().renderPosY);
-        double maxZ = entity.boundingBox.maxZ - entity.posZ + (entity.posZ - Minecraft.getMinecraft().getRenderManager().renderPosZ);
+        double minX = entity.boundingBox.minX - entity.posX + (x - Minecraft.getMinecraft().getRenderManager().renderPosX);
+        double minY = entity.boundingBox.minY - entity.posY + (y - Minecraft.getMinecraft().getRenderManager().renderPosY);
+        double minZ = entity.boundingBox.minZ - entity.posZ + (z - Minecraft.getMinecraft().getRenderManager().renderPosZ);
+        double maxX = entity.boundingBox.maxX - entity.posX + (x - Minecraft.getMinecraft().getRenderManager().renderPosX);
+        double maxY = entity.boundingBox.maxY - entity.posY + (y - Minecraft.getMinecraft().getRenderManager().renderPosY);
+        double maxZ = entity.boundingBox.maxZ - entity.posZ + (z - Minecraft.getMinecraft().getRenderManager().renderPosZ);
 
         // Draw bounding box
         RenderGlobal.drawSelectionBoundingBox(new AxisAlignedBB(minX, minY, minZ, maxX, maxY, maxZ));
 
-        GL11.glPopMatrix();
-        GL11.glPopAttrib(); // Restore all OpenGL attributes
+        // Calculate eye level of the player
+        EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
+        double eyeLevel = player.lastTickPosY + (player.posY - player.lastTickPosY) * Minecraft.getMinecraft().timer.renderPartialTicks + player.getEyeHeight() - Minecraft.getMinecraft().getRenderManager().renderPosY;
+        GL11.glLineWidth(10F); // Giảm độ rộng của đường kẻ
 
-        //RenderUtils.renderGlowingEffect(entity, Minecraft.getMinecraft().timer.renderPartialTicks);
+        // Vẽ đường ngang ở mức đầu và chân trong bounding box
+        GL11.glColor4d(1, 0, 0, 1); // Màu đỏ cho đường kẻ
+        GL11.glBegin(GL11.GL_LINES);
+        // Đường ngang ở mức đầu
+        GL11.glVertex3d(minX, maxY, minZ);
+        GL11.glVertex3d(maxX, maxY, minZ);
+        GL11.glVertex3d(minX, maxY, maxZ);
+        GL11.glVertex3d(maxX, maxY, maxZ);
+        // Đường ngang ở mức chân
+        GL11.glVertex3d(minX, minY, minZ);
+        GL11.glVertex3d(maxX, minY, minZ);
+        GL11.glVertex3d(minX, minY, maxZ);
+        GL11.glVertex3d(maxX, minY, maxZ);
+        GL11.glEnd();
+
+        GL11.glPopMatrix();
+        GL11.glPopAttrib();
     }
 
     @Override

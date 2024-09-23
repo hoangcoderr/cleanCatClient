@@ -45,11 +45,9 @@ public class Client {
 		hudManager = HUDManager.getInstance();
 		ModInstances.register(hudManager);
 		ModSettingsInstance.register();
-		SessionChanger.getInstance().setUser("hi", "hi");
+		//SessionChanger.getInstance().setUser("hi", "hi");
 		Minecraft.centerX = new ScaledResolution(Minecraft.getMinecraft()).getScaledWidth() / 2;
 		Minecraft.centerY = new ScaledResolution(Minecraft.getMinecraft()).getScaledHeight() / 2;
-
-
 	}
 
 	@EventTarget
