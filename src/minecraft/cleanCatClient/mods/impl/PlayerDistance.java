@@ -114,24 +114,23 @@ public class PlayerDistance extends ModDraggable {
         // Draw bounding box
         RenderGlobal.drawSelectionBoundingBox(new AxisAlignedBB(minX, minY, minZ, maxX, maxY, maxZ));
 
+
+// Calculate eye level of the player
+        // Draw bounding box
+        RenderGlobal.drawSelectionBoundingBox(new AxisAlignedBB(minX, minY, minZ, maxX, maxY, maxZ));
+
         // Calculate eye level of the player
         EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
         double eyeLevel = player.lastTickPosY + (player.posY - player.lastTickPosY) * Minecraft.getMinecraft().timer.renderPartialTicks + player.getEyeHeight() - Minecraft.getMinecraft().getRenderManager().renderPosY;
-        GL11.glLineWidth(10F); // Giảm độ rộng của đường kẻ
+        GL11.glLineWidth(30F); // Giảm độ rộng của đường kẻ
 
-        // Vẽ đường ngang ở mức đầu và chân trong bounding box
+        // Vẽ đường ngang ở mức mắt trong bounding box
         GL11.glColor4d(1, 0, 0, 1); // Màu đỏ cho đường kẻ
         GL11.glBegin(GL11.GL_LINES);
-        // Đường ngang ở mức đầu
-        GL11.glVertex3d(minX, maxY, minZ);
-        GL11.glVertex3d(maxX, maxY, minZ);
-        GL11.glVertex3d(minX, maxY, maxZ);
-        GL11.glVertex3d(maxX, maxY, maxZ);
-        // Đường ngang ở mức chân
-        GL11.glVertex3d(minX, minY, minZ);
-        GL11.glVertex3d(maxX, minY, minZ);
-        GL11.glVertex3d(minX, minY, maxZ);
-        GL11.glVertex3d(maxX, minY, maxZ);
+        GL11.glVertex3d(minX, Math.min(eyeLevel, maxY), minZ);
+        GL11.glVertex3d(maxX, Math.min(eyeLevel, maxY), minZ);
+        GL11.glVertex3d(minX, Math.min(eyeLevel, maxY), maxZ);
+        GL11.glVertex3d(maxX, Math.min(eyeLevel, maxY), maxZ);
         GL11.glEnd();
 
         GL11.glPopMatrix();

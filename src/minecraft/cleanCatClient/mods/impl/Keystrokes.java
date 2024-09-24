@@ -131,10 +131,31 @@ public class Keystrokes extends ModDraggable {
 
     public void setMode(KeystrokesMode mode) {
         this.mode = mode;
+        saveConfig();
     }
 
     public Keystrokes() {
         super(ModConstants.KEYSTROKES, ModConstants.KEYSTROKES_DESC, ModCategory.RENDER);
+        loadConfig();
+    }
+
+    public void loadConfig() {
+        String[] dataConfig = loadDataConfig();
+        if (dataConfig == null) {
+            return;
+        }
+        try {
+            this.mode = KeystrokesMode.valueOf(dataConfig[0]);
+        } catch (Exception e) {
+            e.printStackTrace();
+            this.mode = KeystrokesMode.WASD_JUMP_MOUSE;
+        }
+    }
+
+    public void saveConfig() {
+        String[] dataConfig = new String[1];
+        dataConfig[0] = this.mode.name();
+        saveDataConfig(dataConfig);
     }
 
     @Override

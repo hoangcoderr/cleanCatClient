@@ -67,29 +67,36 @@ public class HUDConfigScreen extends GuiScreen {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-
         super.drawDefaultBackground();
 
         final float zBackup = this.zLevel;
         this.zLevel = 200;
 
         for (IRenderer renderer : renderers.keySet()) {
-
             ScreenPosition pos = renderers.get(renderer);
 
-            Gui.drawRect(pos.getAbsoluteX(), pos.getAbsoluteY(), pos.getAbsoluteX() + renderer.getWidth(), pos.getAbsoluteY() + renderer.getHeight(), 0x33FFFFFF);
-            this.drawHollowRect(pos.getAbsoluteX(), pos.getAbsoluteY(), renderer.getWidth(), renderer.getHeight(), 0x88FFFFFF);
+            // Draw small square at the top-left corner outside
+            int squareSize = 5; // Size of the small square
+            Gui.drawRect(pos.getAbsoluteX() - squareSize, pos.getAbsoluteY() - squareSize, pos.getAbsoluteX(), pos.getAbsoluteY(), 0xFFFF0000); // Red color
 
+            // Change the size of Gui.drawRect when dragging
+            int width = renderer.getWidth();
+            int height = renderer.getHeight();
+            if (dragged && hovered) {
+                width += mouseX - prevX;
+                height += mouseY - prevY;
+            }
+
+            Gui.drawRect(pos.getAbsoluteX(), pos.getAbsoluteY(), pos.getAbsoluteX() + width, pos.getAbsoluteY() + height, 0x33FFFFFF);
+            this.drawHollowRect(pos.getAbsoluteX(), pos.getAbsoluteY(), width, height, 0x88FFFFFF);
 
             renderer.renderDummy(pos);
 
             // START OF SMOOTH DRAGGING
-
-            // Thanks ESS_Si1kn#0481 for pointing out that I forgot to add these back.
             int absoluteX = pos.getAbsoluteX();
             int absoluteY = pos.getAbsoluteY();
 
-            this.hovered = mouseX >= absoluteX && mouseX <= absoluteX + renderer.getWidth() && mouseY >= absoluteY && mouseY <= absoluteY + renderer.getHeight();
+            this.hovered = mouseX >= absoluteX && mouseX <= absoluteX + width && mouseY >= absoluteY && mouseY <= absoluteY + height;
 
             if (this.hovered) {
                 if (dragged) {
@@ -101,19 +108,16 @@ public class HUDConfigScreen extends GuiScreen {
                     this.prevY = mouseY;
                 }
             }
-
             // END OF SMOOTH DRAGGING
-
         }
 
         this.smX = mouseX;
         this.smY = mouseY;
 
         this.zLevel = zBackup;
-        super.drawScreen(mouseX, mouseY, partialTicks);
     }
 
-    private void drawHollowRect(int x, int y, int w, int h, int color) {
+        private void drawHollowRect(int x, int y, int w, int h, int color) {
 
         this.drawHorizontalLine(x, x + w, y, color);
         this.drawHorizontalLine(x, x + w, y + h, color);
