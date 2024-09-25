@@ -22,6 +22,7 @@ public class CustomCrosshair extends ModDraggable {
     private boolean isDot = false;
     private boolean isPlus = true;
     private boolean isArrow = false;
+
     public CustomCrosshair() {
         super(ModConstants.CROSSHAIR, ModConstants.CROSSHAIR_DESC, ModCategory.RENDER);
         loadConfig();
@@ -144,7 +145,13 @@ public class CustomCrosshair extends ModDraggable {
     public void renderDummy(ScreenPosition pos) {
     }
 
+    private final double ATTACK_RANGE = 3.2;
+
     public void drawCrosshair(int x, int y, int gap, int length, int thickness) {
+//        if (canAttackEntity()) {
+//            color = 0xFFFF0000; // Red color
+//        }
+
         if (isDot) {
             drawDotCrossHair(x, y, length, color);
         }

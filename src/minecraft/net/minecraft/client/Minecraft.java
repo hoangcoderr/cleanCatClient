@@ -22,6 +22,8 @@ import cleanCatClient.event.impl.ClientTickEvent;
 import cleanCatClient.event.impl.KeyEvent;
 import cleanCatClient.gui.mainmenu.MainMenu;
 import cleanCatClient.mods.ModInstances;
+import cleanCatClient.mods.impl.PlayerDistance;
+import net.minecraft.entity.EntityLivingBase;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.logging.log4j.LogManager;
@@ -1292,14 +1294,13 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
             long currentTime = System.currentTimeMillis();
             clickTimes.add(currentTime);
         }
+
         if (this.leftClickCounter <= 0) {
             this.thePlayer.swingItem();
-
             if (this.objectMouseOver == null) {
                 logger.error("Null returned as \'hitResult\', this shouldn\'t happen!");
-
                 if (this.playerController.isNotCreative()) {
-                   // this.leftClickCounter = 10;
+                    // this.leftClickCounter = 10;
                     this.leftClickCounter = 0;
                 }
             } else {
@@ -1325,6 +1326,23 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
                 }
             }
         }
+
+    }
+    private EntityPlayer findNearestPlayer() {
+        double closestDistance = 5.0; // Set the maximum distance to 5 units
+        EntityPlayer closestPlayer = null;
+
+        for (EntityPlayer player : Minecraft.getMinecraft().theWorld.playerEntities) {
+            if (player != Minecraft.getMinecraft().thePlayer) {
+                double distance = Minecraft.getMinecraft().thePlayer.getDistanceToEntity(player);
+                if (distance < closestDistance) {
+                    closestDistance = distance;
+                    closestPlayer = player;
+                }
+            }
+        }
+
+        return closestPlayer;
     }
 
 
@@ -1341,7 +1359,6 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         rightCps = rightClickTimes.size();
         return rightCps;
     }
-
 
 
     @SuppressWarnings("incomplete-switch")

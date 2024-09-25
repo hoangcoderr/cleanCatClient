@@ -34,7 +34,7 @@ public class ToggleSprint extends ModDraggable {
 
     @Override
     public void render(ScreenPosition pos) {
-        RenderUtils.drawRect(pos.getAbsoluteX(), pos.getAbsoluteY(), getWidth(), getHeight());
+        //RenderUtils.drawRect(pos.getAbsoluteX(), pos.getAbsoluteY(), getWidth(), getHeight());
         FontUtil.normal.drawStringWithShadow(ModConstants.TOGGLE_SPRINT_ENABLED, pos.getAbsoluteX(), pos.getAbsoluteY() , -1);
     }
 

@@ -55,7 +55,7 @@ public class PingDisplay extends ModDraggable {
         }
 
         // Vẽ ping
-        RenderUtils.drawRect(pos.getAbsoluteX(), pos.getAbsoluteY(), getWidth(), getHeight());
+        //RenderUtils.drawRect(pos.getAbsoluteX(), pos.getAbsoluteY(), getWidth(), getHeight());
         FontUtil.normal.drawStringWithShadow( ping.get() + " ms", pos.getAbsoluteX(), pos.getAbsoluteY(), -1);
     }
 

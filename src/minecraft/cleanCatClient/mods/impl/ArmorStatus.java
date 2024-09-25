@@ -20,7 +20,7 @@ public class ArmorStatus extends ModDraggable {
 
     @Override
     public int getHeight() {
-        return 64;
+        return 80;
     }
 
     @Override
@@ -30,6 +30,8 @@ public class ArmorStatus extends ModDraggable {
             ItemStack itemStack = mc.thePlayer.inventory.armorInventory[i];
             renderItemStack(pos, i, itemStack);
         }
+        renderHeldItem(pos);
+
     }
 
 
@@ -39,6 +41,8 @@ public class ArmorStatus extends ModDraggable {
        renderItemStack(pos, 2, new ItemStack(Items.diamond_chestplate));
        renderItemStack(pos, 1, new ItemStack(Items.diamond_leggings));
        renderItemStack(pos, 0, new ItemStack(Items.diamond_boots));
+       renderHeldItem(pos);
+
     }
 
     public void renderItemStack(ScreenPosition pos,int i, ItemStack is){
@@ -56,5 +60,19 @@ public class ArmorStatus extends ModDraggable {
         mc.getRenderItem().renderItemAndEffectIntoGUI(is, pos.getAbsoluteX(), pos.getAbsoluteY() + yAdd);
         GL11.glPopMatrix();
     }
+    private void renderHeldItem(ScreenPosition pos) {
+        ItemStack heldItem = mc.thePlayer.getHeldItem();
+        if (heldItem != null) {
+            GL11.glPushMatrix();
+            RenderHelper.enableGUIStandardItemLighting();
+            mc.getRenderItem().renderItemAndEffectIntoGUI(heldItem, pos.getAbsoluteX(), pos.getAbsoluteY() + 64); // Position below the armor items
+            renderHeldItemCount(pos, heldItem);
+            GL11.glPopMatrix();
+        }
+    }
 
+    private void renderHeldItemCount(ScreenPosition pos, ItemStack heldItem) {
+        String count = String.valueOf(heldItem.stackSize);
+        mc.fontRendererObj.drawStringWithShadow(count, pos.getAbsoluteX() + 16, pos.getAbsoluteY() + 64, 0xFFFFFF);
+    }
 }

@@ -2,6 +2,8 @@
 package cleanCatClient.mods.impl;
 
 import cleanCatClient.event.EventTarget;
+import cleanCatClient.event.impl.ClientTickEvent;
+import cleanCatClient.event.impl.KeyEvent;
 import cleanCatClient.event.impl.Render2D;
 import cleanCatClient.gui.font.FontUtil;
 import cleanCatClient.gui.hud.ScreenPosition;
@@ -20,7 +22,9 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.MathHelper;
 import org.lwjgl.BufferUtils;
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import net.minecraft.client.renderer.RenderGlobal;
 import org.lwjgl.util.glu.GLU;
@@ -32,6 +36,7 @@ import java.nio.IntBuffer;
 public class PlayerDistance extends ModDraggable {
     private int vboId;
     private int vaoId;
+
     public PlayerDistance() {
         super("Player Distance Mod", "Displays the distance between you and other players", ModCategory.RENDER);
         setEnabled(true);
@@ -64,6 +69,57 @@ public class PlayerDistance extends ModDraggable {
             }
         }
     }
+
+
+    public static synchronized void faceEntity(EntityPlayer entity, float partialTicks) {
+        final float[] rotations = getRotationsNeeded(entity, partialTicks);
+
+        if (rotations != null) {
+            Minecraft.getMinecraft().thePlayer.rotationYaw = rotations[0];
+            Minecraft.getMinecraft().thePlayer.rotationPitch = rotations[1] + 1.0F;
+        }
+    }
+
+    public static float[] getRotationsNeeded(Entity entity, float partialTicks) {
+        if (entity == null) {
+            return null;
+        }
+
+        final double diffX = entity.posX - (Minecraft.getMinecraft().thePlayer.lastTickPosX + (Minecraft.getMinecraft().thePlayer.posX - Minecraft.getMinecraft().thePlayer.lastTickPosX) * partialTicks);
+        final double diffZ = entity.posZ - (Minecraft.getMinecraft().thePlayer.lastTickPosZ + (Minecraft.getMinecraft().thePlayer.posZ - Minecraft.getMinecraft().thePlayer.lastTickPosZ) * partialTicks);
+        double diffY;
+
+        if (entity instanceof EntityLivingBase) {
+            final EntityLivingBase entityLivingBase = (EntityLivingBase) entity;
+            diffY = entityLivingBase.posY + entityLivingBase.getEyeHeight() - (Minecraft.getMinecraft().thePlayer.lastTickPosY + (Minecraft.getMinecraft().thePlayer.posY - Minecraft.getMinecraft().thePlayer.lastTickPosY) * partialTicks + Minecraft.getMinecraft().thePlayer.getEyeHeight());
+        } else {
+            diffY = (entity.boundingBox.minY + entity.boundingBox.maxY) / 2.0D - (Minecraft.getMinecraft().thePlayer.lastTickPosY + (Minecraft.getMinecraft().thePlayer.posY - Minecraft.getMinecraft().thePlayer.lastTickPosY) * partialTicks + Minecraft.getMinecraft().thePlayer.getEyeHeight());
+        }
+
+        final double dist = MathHelper.sqrt_double(diffX * diffX + diffZ * diffZ);
+        final float yaw = (float) (Math.atan2(diffZ, diffX) * 180.0D / Math.PI) - 90.0F;
+        final float pitch = (float) -(Math.atan2(diffY, dist) * 180.0D / Math.PI);
+        return new float[]{Minecraft.getMinecraft().thePlayer.rotationYaw + MathHelper.wrapAngleTo180_float(yaw - Minecraft.getMinecraft().thePlayer.rotationYaw), Minecraft.getMinecraft().thePlayer.rotationPitch + MathHelper.wrapAngleTo180_float(pitch - Minecraft.getMinecraft().thePlayer.rotationPitch)};
+    }
+
+    private EntityPlayer findNearestPlayer() {
+        double closestDistance = 5.0; // Set the maximum distance to 5 units
+        EntityPlayer closestPlayer = null;
+
+        for (EntityPlayer player : Minecraft.getMinecraft().theWorld.playerEntities) {
+            if (player != Minecraft.getMinecraft().thePlayer) {
+                double distance = Minecraft.getMinecraft().thePlayer.getDistanceToEntity(player);
+                if (distance < closestDistance) {
+                    closestDistance = distance;
+                    closestPlayer = player;
+                }
+            }
+        }
+
+        return closestPlayer;
+    }
+
+
 
     public void render(ScreenPosition pos) {
         Minecraft mc = Minecraft.getMinecraft();
@@ -113,25 +169,6 @@ public class PlayerDistance extends ModDraggable {
 
         // Draw bounding box
         RenderGlobal.drawSelectionBoundingBox(new AxisAlignedBB(minX, minY, minZ, maxX, maxY, maxZ));
-
-
-// Calculate eye level of the player
-        // Draw bounding box
-        RenderGlobal.drawSelectionBoundingBox(new AxisAlignedBB(minX, minY, minZ, maxX, maxY, maxZ));
-
-        // Calculate eye level of the player
-        EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
-        double eyeLevel = player.lastTickPosY + (player.posY - player.lastTickPosY) * Minecraft.getMinecraft().timer.renderPartialTicks + player.getEyeHeight() - Minecraft.getMinecraft().getRenderManager().renderPosY;
-        GL11.glLineWidth(30F); // Giảm độ rộng của đường kẻ
-
-        // Vẽ đường ngang ở mức mắt trong bounding box
-        GL11.glColor4d(1, 0, 0, 1); // Màu đỏ cho đường kẻ
-        GL11.glBegin(GL11.GL_LINES);
-        GL11.glVertex3d(minX, Math.min(eyeLevel, maxY), minZ);
-        GL11.glVertex3d(maxX, Math.min(eyeLevel, maxY), minZ);
-        GL11.glVertex3d(minX, Math.min(eyeLevel, maxY), maxZ);
-        GL11.glVertex3d(maxX, Math.min(eyeLevel, maxY), maxZ);
-        GL11.glEnd();
 
         GL11.glPopMatrix();
         GL11.glPopAttrib();

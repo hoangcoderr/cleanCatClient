@@ -16,7 +16,7 @@ public class FullBright extends Mod {
             mc.gameSettings.gammaSetting = 1;
         }
         else {
-            mc.gameSettings.gammaSetting = 100;
+            mc.gameSettings.gammaSetting = 1000;
         }
     }
 }
