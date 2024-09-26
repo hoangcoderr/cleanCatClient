@@ -13,10 +13,22 @@ import java.awt.*;
 
 public class FPS extends ModDraggable {
     private int color = -1;
+
     public FPS() {
         super(ModConstants.FPS, ModConstants.FPS_DESC, ModCategory.RENDER);
         loadConfig();
     }
+
+    @Override
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    @Override
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
     @Override
     public void loadConfig() {
         String[] dataConfig = loadDataConfig();
@@ -31,6 +43,7 @@ public class FPS extends ModDraggable {
             this.color = -1;
         }
     }
+
     @Override
     public void saveConfig() {
         String[] dataConfig = new String[1];
@@ -42,7 +55,6 @@ public class FPS extends ModDraggable {
     public int getWidth() {
         return 40;
     }
-
 
 
     @Override

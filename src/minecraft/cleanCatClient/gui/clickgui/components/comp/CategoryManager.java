@@ -1,4 +1,4 @@
-package cleanCatClient.gui.clickgui.comp;
+package cleanCatClient.gui.clickgui.components.comp;
 
 import java.util.ArrayList;
 

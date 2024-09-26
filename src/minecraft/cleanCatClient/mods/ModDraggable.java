@@ -10,6 +10,8 @@ import java.io.File;
 public abstract class ModDraggable extends Mod implements IRenderer {
 
     protected ScreenPosition pos;
+    protected int width = 100;
+    protected int height = 100;
 
     public ModDraggable(String name, String description, ModCategory category) {
         super(name, description, category);
@@ -34,7 +36,9 @@ public abstract class ModDraggable extends Mod implements IRenderer {
 
     protected void savePositionToFile() {
         FileManager.writeJsonToFile(new File(this.getFolder(), "pos.json"), this.pos);
+        FileManager.writeJsonToFile(new File(this.getFolder(), "size.json"), new int[]{this.width, this.height});
     }
+
     private ScreenPosition loadPositionFromFile() {
         File posFile = new File(getFolder(), "pos.json");
         if (!posFile.exists()) {
@@ -43,7 +47,20 @@ public abstract class ModDraggable extends Mod implements IRenderer {
             return defaultPos;
         }
         ScreenPosition loadedPos = FileManager.readFromJson(posFile, ScreenPosition.class);
-        return loadedPos != null ? loadedPos : ScreenPosition.fromRelativePosition(0.5, 0.5);
+        if (loadedPos == null) {
+            loadedPos = ScreenPosition.fromRelativePosition(0.5, 0.5);
+        }
+
+        File sizeFile = new File(getFolder(), "size.json");
+        if (sizeFile.exists()) {
+            int[] size = FileManager.readFromJson(sizeFile, int[].class);
+            if (size != null && size.length == 2) {
+                this.width = size[0];
+                this.height = size[1];
+            }
+        }
+
+        return loadedPos;
     }
 
 }

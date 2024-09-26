@@ -75,13 +75,18 @@ public class HUDConfigScreen extends GuiScreen {
         for (IRenderer renderer : renderers.keySet()) {
             ScreenPosition pos = renderers.get(renderer);
 
-            // Draw small square at the top-left corner outside
-            int squareSize = 5; // Size of the small square
-            Gui.drawRect(pos.getAbsoluteX() - squareSize, pos.getAbsoluteY() - squareSize, pos.getAbsoluteX(), pos.getAbsoluteY(), 0xFFFF0000); // Red color
-
-            // Change the size of Gui.drawRect when dragging
+            // Get renderer width and height
             int width = renderer.getWidth();
             int height = renderer.getHeight();
+
+            // Draw the small square at the bottom-right corner
+            int squareSize = 5; // Size of the small square
+            int squareX = pos.getAbsoluteX() + width;  // X coordinate of the bottom-right corner
+            int squareY = pos.getAbsoluteY() + height; // Y coordinate of the bottom-right corner
+
+            Gui.drawRect(squareX, squareY, squareX + squareSize, squareY + squareSize, 0xFFFF0000); // Red color
+
+            // Adjusting the size of the Gui.drawRect when dragging
             if (dragged && hovered) {
                 width += mouseX - prevX;
                 height += mouseY - prevY;
@@ -92,7 +97,7 @@ public class HUDConfigScreen extends GuiScreen {
 
             renderer.renderDummy(pos);
 
-            // START OF SMOOTH DRAGGING
+            // Start of smooth dragging
             int absoluteX = pos.getAbsoluteX();
             int absoluteY = pos.getAbsoluteY();
 
@@ -108,7 +113,7 @@ public class HUDConfigScreen extends GuiScreen {
                     this.prevY = mouseY;
                 }
             }
-            // END OF SMOOTH DRAGGING
+            // End of smooth dragging
         }
 
         this.smX = mouseX;
@@ -136,16 +141,8 @@ public class HUDConfigScreen extends GuiScreen {
             this.mc.displayGuiScreen(null);
         }
     }
+    private boolean resizing = false;
 
-    @Override
-    protected void mouseClickMove(int x, int y, int button, long time) {
-        if (selectedRenderer.isPresent()) {
-            moveSelectedRenderBy(x - prevX, y - prevY);
-        }
-
-        this.prevX = x;
-        this.prevY = y;
-    }
 
     private void moveSelectedRenderBy(int offsetX, int offsetY) {
         IRenderer renderer = selectedRenderer.get();
@@ -199,18 +196,60 @@ public class HUDConfigScreen extends GuiScreen {
         dragged = true;
 
         loadMouseOver(x, y);
+
+        // Check if the click is on the small red square (bottom-right corner)
+        if (selectedRenderer.isPresent()) {
+            IRenderer renderer = selectedRenderer.get();
+            ScreenPosition pos = renderers.get(renderer);
+            int absoluteX = pos.getAbsoluteX();
+            int absoluteY = pos.getAbsoluteY();
+            int width = renderer.getWidth();
+            int height = renderer.getHeight();
+            int squareSize = 5; // Size of the small square
+
+            // Check if the click is within the small red square
+            if (x >= absoluteX + width && x <= absoluteX + width + squareSize && y >= absoluteY + height && y <= absoluteY + height + squareSize) {
+                resizing = true;
+            }
+        }
+
         super.mouseClicked(x, y, button);
     }
 
     @Override
     protected void mouseReleased(int mouseX, int mouseY, int state) {
-
         // NEEDED FOR SMOOTH DRAGGING
         dragged = false;
+        resizing = false;
 
         super.mouseReleased(mouseX, mouseY, state);
     }
 
+    @Override
+    protected void mouseClickMove(int x, int y, int button, long time) {
+        if (selectedRenderer.isPresent()) {
+            if (resizing) {
+                // Resize the selected renderer
+                IRenderer renderer = selectedRenderer.get();
+                ScreenPosition pos = renderers.get(renderer);
+                int newWidth = x - pos.getAbsoluteX();
+                int newHeight = y - pos.getAbsoluteY();
+
+                // Ensure minimum size
+                newWidth = Math.max(newWidth, 10);
+                newHeight = Math.max(newHeight, 10);
+
+                renderer.setWidth(newWidth);
+                renderer.setHeight(newHeight);
+            } else {
+                // Move the selected renderer
+                moveSelectedRenderBy(x - prevX, y - prevY);
+            }
+        }
+
+        this.prevX = x;
+        this.prevY = y;
+    }
     private void loadMouseOver(int x, int y) {
         this.selectedRenderer = renderers.keySet().stream().filter(new MouseOverFinder(x, y)).findFirst();
     }

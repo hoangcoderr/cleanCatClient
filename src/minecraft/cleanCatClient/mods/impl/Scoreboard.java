@@ -13,6 +13,16 @@ public class Scoreboard extends ModDraggable {
     }
 
     @Override
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    @Override
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    @Override
     public void loadConfig() {
         String[] dataConfig = loadDataConfig();
         if (dataConfig == null) {
@@ -31,8 +41,8 @@ public class Scoreboard extends ModDraggable {
     @Override
     public void saveConfig() {
         saveDataConfig(new String[]{
-            String.valueOf(isHideRedNumbers()),
-            String.valueOf(isHideRect())
+                String.valueOf(isHideRedNumbers()),
+                String.valueOf(isHideRect())
         });
     }
 

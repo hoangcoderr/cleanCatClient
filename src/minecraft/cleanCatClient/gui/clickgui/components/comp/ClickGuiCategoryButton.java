@@ -1,4 +1,4 @@
-package cleanCatClient.gui.clickgui.comp;
+package cleanCatClient.gui.clickgui.components.comp;
 
 import java.awt.Color;
 
@@ -7,7 +7,6 @@ import cleanCatClient.gui.font.FontUtil;
 import cleanCatClient.utils.animation.AnimationEngine;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.renderer.GlStateManager;
 
 public class ClickGuiCategoryButton extends CategoryManager{
 	public int x,y,w,h,r;

@@ -168,6 +168,14 @@ public class Keystrokes extends ModDraggable {
         return mode.getHeight();
     }
 
+    @Override
+    public void setWidth(int width) {
+        this.width = width;
+    }
+    @Override
+    public void setHeight(int height) {
+        this.height = height;
+    }
     private void renderKeys(ScreenPosition pos, Key[] keys) {
         for (Key key : keys) {
             int textWidth = font.getStringWidth(key.getName());

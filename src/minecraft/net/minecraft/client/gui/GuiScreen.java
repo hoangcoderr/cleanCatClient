@@ -52,7 +52,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 	private static final Logger LOGGER = LogManager.getLogger();
 	private static final Set<String> PROTOCOLS = Sets.newHashSet(new String[] { "http", "https" });
 	private static final Splitter NEWLINE_SPLITTER = Splitter.on('\n');
-	protected Minecraft mc = Minecraft.getMinecraft();
+	public Minecraft mc = Minecraft.getMinecraft();
 	protected RenderItem itemRender;
 	public int width;
 	public int height;

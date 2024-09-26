@@ -27,6 +27,16 @@ public class PingDisplay extends ModDraggable {
     }
 
     @Override
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    @Override
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    @Override
     public int getWidth() {
         return 30;
     }
@@ -56,7 +66,7 @@ public class PingDisplay extends ModDraggable {
 
         // Vẽ ping
         //RenderUtils.drawRect(pos.getAbsoluteX(), pos.getAbsoluteY(), getWidth(), getHeight());
-        FontUtil.normal.drawStringWithShadow( ping.get() + " ms", pos.getAbsoluteX(), pos.getAbsoluteY(), -1);
+        FontUtil.normal.drawStringWithShadow(ping.get() + " ms", pos.getAbsoluteX(), pos.getAbsoluteY(), -1);
     }
 
     @Override

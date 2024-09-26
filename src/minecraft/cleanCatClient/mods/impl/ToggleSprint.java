@@ -19,28 +19,36 @@ public class ToggleSprint extends ModDraggable {
     public boolean shiftToggled = false;
 
     public ToggleSprint() {
-        super(ModConstants.TOGGLE_SPRINT, ModConstants.TOGGLE_SPRINT_DESC, ModCategory.PLAYER);}
-
-    public int getWidth()
-    {
-        return (int)FontUtil.normal.getStringWidth("[Sprinting (Key Toggled)]");
+        super(ModConstants.TOGGLE_SPRINT, ModConstants.TOGGLE_SPRINT_DESC, ModCategory.PLAYER);
     }
 
-    public int getHeight()
-    {
+    public int getWidth() {
+        return (int) FontUtil.normal.getStringWidth("[Sprinting (Key Toggled)]");
+    }
+
+    public int getHeight() {
         return mc.fontRendererObj.FONT_HEIGHT;
     }
 
+    @Override
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    @Override
+    public void setHeight(int height) {
+        this.height = height;
+    }
 
     @Override
     public void render(ScreenPosition pos) {
         //RenderUtils.drawRect(pos.getAbsoluteX(), pos.getAbsoluteY(), getWidth(), getHeight());
-        FontUtil.normal.drawStringWithShadow(ModConstants.TOGGLE_SPRINT_ENABLED, pos.getAbsoluteX(), pos.getAbsoluteY() , -1);
+        FontUtil.normal.drawStringWithShadow(ModConstants.TOGGLE_SPRINT_ENABLED, pos.getAbsoluteX(), pos.getAbsoluteY(), -1);
     }
 
     @Override
     public void renderDummy(ScreenPosition pos) {
-        FontUtil.normal.drawStringWithShadow(ModConstants.TOGGLE_SPRINT_ENABLED, pos.getAbsoluteX()+1, pos.getAbsoluteY()+1 , -1);
+        FontUtil.normal.drawStringWithShadow(ModConstants.TOGGLE_SPRINT_ENABLED, pos.getAbsoluteX() + 1, pos.getAbsoluteY() + 1, -1);
     }
 
 

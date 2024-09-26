@@ -36,6 +36,16 @@ public class PotionStatus extends ModDraggable {
     }
 
     @Override
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    @Override
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    @Override
     public void render(ScreenPosition pos) {
         Collection<PotionEffect> effects = Minecraft.getMinecraft().thePlayer.getActivePotionEffects();
         int y = pos.getAbsoluteY();

@@ -6,26 +6,22 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import cleanCatClient.gui.clickgui.comp.SettingsModButton;
+import cleanCatClient.gui.clickgui.components.comp.SettingsModButton;
 import cleanCatClient.gui.clickgui.settings.ModSettings;
 import cleanCatClient.gui.clickgui.settings.ModSettingsInstance;
-import cleanCatClient.gui.clickgui.settings.impl.CustomCrossHairSettings;
 import cleanCatClient.gui.font.FontUtil;
 import cleanCatClient.mods.Mod;
-import net.minecraft.util.ResourceLocation;
-import org.lwjgl.Sys;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
-import cleanCatClient.gui.clickgui.comp.CategoryManager;
-import cleanCatClient.gui.clickgui.comp.ClickGuiCategoryButton;
-import cleanCatClient.gui.clickgui.comp.ModButton;
+import cleanCatClient.gui.clickgui.components.comp.CategoryManager;
+import cleanCatClient.gui.clickgui.components.comp.ClickGuiCategoryButton;
+import cleanCatClient.gui.clickgui.components.comp.ModButton;
 import cleanCatClient.mods.ModInstances;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.GlStateManager;
 
 public class ClickGui extends GuiScreen {
 

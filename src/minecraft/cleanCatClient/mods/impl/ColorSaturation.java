@@ -14,6 +14,7 @@ import net.minecraft.util.ResourceLocation;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -24,6 +25,7 @@ import net.minecraft.client.shader.ShaderGroup;
 
 public class ColorSaturation extends ModDraggable {
     public float s = 1.0F;
+
     @Override
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
@@ -33,20 +35,32 @@ public class ColorSaturation extends ModDraggable {
         }
     }
 
+    @Override
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    @Override
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
     public ColorSaturation() {
         super(ModConstants.COLOR_SATURATION, ModConstants.COLOR_SATURATION_DESC, ModCategory.RENDER);
         loadConfig();
     }
+
     private static boolean lastEnabled = false;
 
     private static final ResourceLocation phosphorBlur = new ResourceLocation("minecraft:shaders/post/color_convolve.json");
+
     @Override
     public int getWidth() {
         return -1;
     }
 
     @Override
-    public void loadConfig(){
+    public void loadConfig() {
         String[] dataConfig = loadDataConfig();
         if (dataConfig == null) {
             return;
@@ -61,7 +75,7 @@ public class ColorSaturation extends ModDraggable {
     }
 
     @Override
-    public void saveConfig(){
+    public void saveConfig() {
         String[] dataConfig = new String[1];
         dataConfig[0] = String.valueOf(this.s);
         saveDataConfig(dataConfig);

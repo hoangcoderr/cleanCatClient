@@ -43,6 +43,16 @@ public class PlayerDistance extends ModDraggable {
 
     }
 
+    @Override
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    @Override
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
     private String getRelativePosition(EntityPlayer mainPlayer, EntityPlayer otherPlayer) {
         double angle = Math.toDegrees(Math.atan2(otherPlayer.posZ - mainPlayer.posZ, otherPlayer.posX - mainPlayer.posX)) - mainPlayer.rotationYaw;
         angle = (angle + 360) % 360;
@@ -118,7 +128,6 @@ public class PlayerDistance extends ModDraggable {
 
         return closestPlayer;
     }
-
 
 
     public void render(ScreenPosition pos) {

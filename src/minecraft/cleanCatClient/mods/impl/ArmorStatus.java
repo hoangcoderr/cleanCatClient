@@ -12,15 +12,26 @@ import org.lwjgl.opengl.GL11;
 
 public class ArmorStatus extends ModDraggable {
     public ArmorStatus() {
-        super(ModConstants.ARMOR_STATUS, ModConstants.ARMOR_STATUS_DESC, ModCategory.RENDER);}
+        super(ModConstants.ARMOR_STATUS, ModConstants.ARMOR_STATUS_DESC, ModCategory.RENDER);
+    }
     @Override
     public int getWidth() {
-        return 16;
+        return this.width;
     }
 
     @Override
     public int getHeight() {
-        return 80;
+        return height;
+    }
+
+    @Override
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    @Override
+    public void setHeight(int height) {
+        this.height = height;
     }
 
     @Override

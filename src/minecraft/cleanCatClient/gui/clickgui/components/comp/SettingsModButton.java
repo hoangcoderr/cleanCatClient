@@ -1,10 +1,9 @@
-package cleanCatClient.gui.clickgui.comp;
+package cleanCatClient.gui.clickgui.components.comp;
 
 import java.awt.*;
 
 import cleanCatClient.gui.font.FontUtil;
 import cleanCatClient.mods.Mod;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 
 public class SettingsModButton {
