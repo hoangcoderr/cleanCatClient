@@ -34,6 +34,9 @@ public class BlockOverlay extends Mod {
         if (isEnabled() && outline) {
             return customColorOutline;
         }
+        else if (isEnabled() && !outline) {
+            return new Color(0, 0, 0, 0).getRGB();
+        }
         return DEFAULT_COLOR_OUTLINE;
     }
 
