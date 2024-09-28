@@ -17,6 +17,7 @@ import org.lwjgl.opengl.GL11;
 import net.minecraft.util.ResourceLocation;
 
 import java.util.Collection;
+import java.util.Random;
 
 public class PotionStatus extends ModDraggable {
 
@@ -45,15 +46,22 @@ public class PotionStatus extends ModDraggable {
         this.height = height;
     }
 
+
+    private int getPotionColor(Potion potion) {
+        Random random = new Random();
+        return random.nextInt(0xFFFFFF + 1); // Generate a random color
+    }
+
     @Override
     public void render(ScreenPosition pos) {
         Collection<PotionEffect> effects = Minecraft.getMinecraft().thePlayer.getActivePotionEffects();
         int y = pos.getAbsoluteY();
         int effectCount = effects.size();
-        int totalHeight = effectCount * 20; // Mỗi hiệu ứng potion chiếm 20 pixel chiều cao
-        RenderUtils.drawRect(pos.getAbsoluteX(), pos.getAbsoluteY(), getWidth(), totalHeight);
+        int totalHeight = effectCount * 20; // Each potion effect takes 20 pixels height
+
         for (PotionEffect effect : effects) {
             Potion potion = Potion.potionTypes[effect.getPotionID()];
+            int color = getPotionColor(potion);
 
             String name = I18n.format(potion.getName(), new Object[0]);
 
@@ -69,13 +77,11 @@ public class PotionStatus extends ModDraggable {
             int i1 = potion.getStatusIconIndex();
             Minecraft.getMinecraft().getTextureManager().bindTexture(GuiContainer.inventoryBackground);
             Gui.drawModalRectWithCustomSizedTexture(pos.getAbsoluteX() - 20, y, i1 % 8 * 18, 198 + i1 / 8 * 18, 18, 18, 256, 256);
-            FontUtil.normal.drawStringWithShadow(name, pos.getAbsoluteX(), y, 0xFFFFFF);
-            FontUtil.normal.drawStringWithShadow(durationString, pos.getAbsoluteX(), y + 10, 0xFFFFFF);
+            FontUtil.normal.drawStringWithShadow(name, pos.getAbsoluteX(), y, color);
+            FontUtil.normal.drawStringWithShadow(durationString, pos.getAbsoluteX(), y + 10, color);
             y += 20;
             GL11.glPopMatrix();
         }
-        // Vẽ hình chữ nhật bao quanh toàn bộ PotionStatus
-
     }
 
     @Override

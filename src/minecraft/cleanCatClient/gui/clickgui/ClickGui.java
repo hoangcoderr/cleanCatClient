@@ -180,12 +180,13 @@ public class ClickGui extends GuiScreen {
                     modButton.onClick(mouseX, mouseY, mouseButton);
                 }
             }
-            for (SettingsModButton settingsModButton : settingsModButton) {
-                settingsModButton.onClick(mouseX, mouseY, mouseButton);
-            }
+
         }
         for (ClickGuiCategoryButton clickGuiCategoryButton : clickGuiCategoryButton) {
             clickGuiCategoryButton.onClick(mouseX, mouseY, mouseButton);
+        }
+        for (SettingsModButton settingsModButton : settingsModButton) {
+            settingsModButton.onClick(mouseX, mouseY, mouseButton);
         }
     }
 

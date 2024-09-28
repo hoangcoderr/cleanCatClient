@@ -81,6 +81,7 @@ public class ColorSaturation extends ModDraggable {
         saveDataConfig(dataConfig);
     }
 
+
     @Override
     public int getHeight() {
         return -1;
