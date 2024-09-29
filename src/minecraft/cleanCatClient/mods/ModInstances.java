@@ -39,7 +39,10 @@ public class ModInstances {
     private static ColorSaturation colorSaturation;
     private static MinimalViewBobbing minimalViewBobbing;
     private static ItemPhysics itemPhysics;
+    private static CoordinateDisplay coordinateDisplay;
     public static void register(HUDManager api) {
+        coordinateDisplay = new CoordinateDisplay();
+        api.register(coordinateDisplay);
         itemPhysics = new ItemPhysics();
         timeChangerMod = new TimeChanger();
 
@@ -119,7 +122,13 @@ public class ModInstances {
         allMods.add(timeChangerMod);
         allMods.add(colorSaturation);
         allMods.add(itemPhysics);
+        allMods.add(coordinateDisplay);
     }
+
+    public static CoordinateDisplay getCoordinateDisplay() {
+        return coordinateDisplay;
+    }
+
     public static ItemPhysics getItemPhysics() {
         return itemPhysics;
     }

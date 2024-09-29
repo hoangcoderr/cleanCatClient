@@ -14,9 +14,10 @@ public class FullBright extends Mod {
         super.setEnabled(enabled);
         if (!enabled) {
             mc.gameSettings.gammaSetting = 1;
-        }
-        else {
+            mc.gameSettings.ambientOcclusion = 2; // Restore smooth lighting
+        } else {
             mc.gameSettings.gammaSetting = 1000;
+            mc.gameSettings.ambientOcclusion = 0; // Disable smooth lighting
         }
     }
 }

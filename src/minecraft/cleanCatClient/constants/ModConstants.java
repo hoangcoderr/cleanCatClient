@@ -84,4 +84,7 @@ public class ModConstants {
 
     public static String ITEM_PHYSICS = "Item Physics";
     public static String ITEM_PHYSICS_DESC = "Change the physics of items";
+
+    public static String COORDINATES = "Coordinates";
+    public static String COORDINATES_DESC = "Show your coordinates";
 }

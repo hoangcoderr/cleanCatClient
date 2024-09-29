@@ -6,6 +6,6 @@ import cleanCatClient.mods.ModCategory;
 
 public class BossBar extends Mod {
     public BossBar() {
-        super(ModConstants.BOSS_BAR, ModConstants.BOSS_BAR_DESC, ModCategory.RENDER);
+        super(ModConstants.BOSS_BAR, ModConstants.BOSS_BAR_DESC, ModCategory.SETTINGS);
     }
 }
