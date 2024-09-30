@@ -21,6 +21,7 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.projectile.EntityFireball;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import org.lwjgl.BufferUtils;
@@ -129,6 +130,23 @@ public class PlayerDistance extends ModDraggable {
         return closestPlayer;
     }
 
+    private void checkForFireballs() {
+        Minecraft mc = Minecraft.getMinecraft();
+        for (Entity entity : mc.theWorld.loadedEntityList) {
+            if (entity instanceof EntityFireball) {
+                double distance = mc.thePlayer.getDistanceToEntity(entity);
+                if (distance < 50.0) { // Set the warning distance to 10 units
+                    displayWarning();
+                    break;
+                }
+            }
+        }
+    }
+
+    private void displayWarning() {
+        Minecraft mc = Minecraft.getMinecraft();
+        mc.fontRendererObj.drawStringWithShadow("Warning: Fireball Incoming!", 10, 10, 0xFF0000);
+    }
 
     public void render(ScreenPosition pos) {
         Minecraft mc = Minecraft.getMinecraft();
@@ -142,6 +160,7 @@ public class PlayerDistance extends ModDraggable {
                 yOffset += mc.fontRendererObj.FONT_HEIGHT + 2; // Move to the next line
             }
         }
+        checkForFireballs();
     }
 
     public static void drawTracerLine(EntityLivingBase entity) {
