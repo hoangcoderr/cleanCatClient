@@ -10,6 +10,7 @@ import cleanCatClient.gui.hud.ScreenPosition;
 import cleanCatClient.mods.ModCategory;
 import cleanCatClient.mods.ModDraggable;
 import cleanCatClient.utils.RenderUtils;
+import net.minecraft.block.BlockBed;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.network.NetworkPlayerInfo;
@@ -22,7 +23,9 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityFireball;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.input.Keyboard;
@@ -68,6 +71,14 @@ public class PlayerDistance extends ModDraggable {
             return "bên trái";
         }
     }
+    public void renderBedESP() {
+        for (TileEntity tileEntity : mc.theWorld.loadedTileEntityList) {
+            if (tileEntity.getBlockType() instanceof BlockBed) {
+                BlockPos bedPos = tileEntity.getPos();
+                blockESPBox(bedPos);
+            }
+        }
+    }
 
     @EventTarget
     public void drawLine(Render2D event) {
@@ -79,9 +90,25 @@ public class PlayerDistance extends ModDraggable {
                 }
             }
         }
+        //renderBedESP();
+    }
+    private boolean isFKeyPressed = false; // Track the state of the 'F' key
+    @EventTarget
+    public void onKey(KeyEvent event) {
+        if (event.getKey() == Keyboard.KEY_F) {
+            isFKeyPressed = Keyboard.getEventKeyState();
+        }
     }
 
-
+    @EventTarget
+    public void onClientTick(ClientTickEvent event) {
+        if (isFKeyPressed) {
+            EntityPlayer nearestPlayer = findNearestPlayer();
+            if (nearestPlayer != null) {
+                faceEntity(nearestPlayer, mc.timer.renderPartialTicks);
+            }
+        }
+    }
     public static synchronized void faceEntity(EntityPlayer entity, float partialTicks) {
         final float[] rotations = getRotationsNeeded(entity, partialTicks);
 
@@ -135,7 +162,7 @@ public class PlayerDistance extends ModDraggable {
         for (Entity entity : mc.theWorld.loadedEntityList) {
             if (entity instanceof EntityFireball) {
                 double distance = mc.thePlayer.getDistanceToEntity(entity);
-                if (distance < 50.0) { // Set the warning distance to 10 units
+                if (distance < 80.0) { // Set the warning distance to 10 units
                     displayWarning();
                     break;
                 }
@@ -145,8 +172,10 @@ public class PlayerDistance extends ModDraggable {
 
     private void displayWarning() {
         Minecraft mc = Minecraft.getMinecraft();
-        mc.fontRendererObj.drawStringWithShadow("Warning: Fireball Incoming!", 10, 10, 0xFF0000);
-    }
+        GL11.glPushMatrix();
+        GlStateManager.scale(3.0, 3.0, 3.0); // Scale the text to be 3 times larger
+        mc.fontRendererObj.drawStringWithShadow("Warning: Fireball Incoming!", (Minecraft.centerX - 90)/ 3, (Minecraft.centerY + 50) / 3, 0xFF0000);
+        GL11.glPopMatrix();    }
 
     public void render(ScreenPosition pos) {
         Minecraft mc = Minecraft.getMinecraft();
@@ -163,6 +192,30 @@ public class PlayerDistance extends ModDraggable {
         checkForFireballs();
     }
 
+    public static void blockESPBox(BlockPos blockPos) {
+        Minecraft mc = Minecraft.getMinecraft();
+        double x = blockPos.getX() - mc.getRenderManager().renderPosX;
+        double y = blockPos.getY() - mc.getRenderManager().renderPosY;
+        double z = blockPos.getZ() - mc.getRenderManager().renderPosZ;
+
+        GL11.glPushMatrix();
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glLineWidth(2.0F);
+        GL11.glDisable(GL11.GL_TEXTURE_2D);
+        GL11.glDisable(GL11.GL_DEPTH_TEST);
+        GL11.glDepthMask(false);
+
+        // Set color and draw bounding box
+        GL11.glColor4d(0, 0, 1, 0.5F);
+        RenderGlobal.drawSelectionBoundingBox(new AxisAlignedBB(x, y, z, x + 1.0, y + 0.5625, z + 1.0));
+
+        GL11.glEnable(GL11.GL_TEXTURE_2D);
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
+        GL11.glDepthMask(true);
+        GL11.glDisable(GL11.GL_BLEND);
+        GL11.glPopMatrix();
+    }
     public static void drawTracerLine(EntityLivingBase entity) {
         double xPos = (entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * Minecraft.getMinecraft().timer.renderPartialTicks) - Minecraft.getMinecraft().getRenderManager().renderPosX;
         double yPos = (entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * Minecraft.getMinecraft().timer.renderPartialTicks) - Minecraft.getMinecraft().getRenderManager().renderPosY;

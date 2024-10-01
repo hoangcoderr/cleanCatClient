@@ -75,6 +75,8 @@ public class ClickGui extends GuiScreen {
             addModButton(categoryID, mod, index, modButtonSize, spaceBetween, buttonsPerRow, ModSettingsInstance.getAllSettings().get(i));
             categoryIndices.put(categoryID, index + 1);
         }
+        settingsModButton.clear();
+
         addSettingsModButton(ModInstances.getFullBright(), 0, 340, 20, spaceBetween);
         addSettingsModButton(ModInstances.getMinimalViewBobbing(), 1, 340, 20, spaceBetween);
         addSettingsModButton(ModInstances.getLazyChunkLoading(), 2, 340, 20, spaceBetween);
