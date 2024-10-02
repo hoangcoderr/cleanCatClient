@@ -9,11 +9,12 @@ import java.io.IOException;
 
 public class TimeChangerSettings extends ModSettings {
     private Slider timeSlider;
-
     public TimeChangerSettings() {
         super(ModInstances.getTimeChangerMod());
         timeSlider = new Slider(Minecraft.centerX - 100, Minecraft.centerY + 20, 150, 20, 1, 20000, 1, 100);
     }
+
+
 
     @Override
     public void initGui() {

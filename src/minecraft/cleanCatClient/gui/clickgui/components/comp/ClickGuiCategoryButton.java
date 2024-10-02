@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import cleanCatClient.Client;
 import cleanCatClient.gui.font.FontUtil;
+import cleanCatClient.gui.hud.HUDManager;
 import cleanCatClient.utils.animation.AnimationEngine;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
@@ -62,7 +63,8 @@ public class ClickGuiCategoryButton extends CategoryManager{
 			animation.setIsDrawAnimation(true);
 			this.isOnThisPage = true;
 			if (number == 4){
-				Client.hudManager.openConfigScreen();
+				HUDManager hudManager = HUDManager.getInstance();
+				Client.hudManager.openConfigScreen(hudManager);
 			}
 			else
 				CategoryManager.thisPage(number);

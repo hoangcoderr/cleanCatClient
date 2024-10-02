@@ -1,11 +1,13 @@
-package cleanCatClient.mods;
+package cleanCatClient.mods.impl;
 
 
 import cleanCatClient.constants.ModConstants;
 import cleanCatClient.gui.font.FontUtil;
 import cleanCatClient.gui.hud.ScreenPosition;
+import cleanCatClient.mods.ModCategory;
+import cleanCatClient.mods.ModDraggable;
 
-public class CoordinateDisplay extends ModDraggable{
+public class CoordinateDisplay extends ModDraggable {
     public CoordinateDisplay() {
         super(ModConstants.COORDINATES, ModConstants.COORDINATES_DESC, ModCategory.RENDER);
         loadConfig();

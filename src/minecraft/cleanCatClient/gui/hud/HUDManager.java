@@ -42,8 +42,8 @@ public class HUDManager {
         return Sets.newHashSet(registeredRenderers);
     }
 
-    public void openConfigScreen() {
-        mc.displayGuiScreen(new HUDConfigScreen(this));
+    public void openConfigScreen(HUDManager hudManager) {
+        mc.displayGuiScreen(new HUDConfigScreen(hudManager));
     }
 
     @EventTarget
@@ -57,7 +57,6 @@ public class HUDManager {
     }
 
     private void callRenderer(IRenderer renderer) {
-
         if (!renderer.isEnabled()) {
             return;
         }

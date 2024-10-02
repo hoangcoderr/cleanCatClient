@@ -46,7 +46,11 @@ public class HUDConfigScreen extends GuiScreen {
     }
 
     public HUDConfigScreen(HUDManager api) {
+        reloadPositions(api);
+    }
 
+    private void reloadPositions(HUDManager api) {
+        renderers.clear();
         Collection<IRenderer> registeredRenderers = api.getRegisteredRenderers();
 
         for (IRenderer ren : registeredRenderers) {
@@ -62,9 +66,26 @@ public class HUDConfigScreen extends GuiScreen {
             adjustBounds(ren, pos);
             this.renderers.put(ren, pos);
         }
-
     }
+    public static void adjustRendererPosition(IRenderer ren) {
+        ScreenPosition pos = ren.load();
+        if (pos == null) {
+            pos = ScreenPosition.fromRelativePosition(0.5, 0.5);
+        }
 
+        adjustBound(ren, pos);
+    }
+    private static void adjustBound(IRenderer renderer, ScreenPosition pos) {
+        ScaledResolution res = new ScaledResolution(Minecraft.getMinecraft());
+
+        int screenWidth = res.getScaledWidth();
+        int screenHeight = res.getScaledHeight();
+
+        int absoluteX = Math.max(0, Math.min(pos.getAbsoluteX(), Math.max(screenWidth - renderer.getWidth(), 0)));
+        int absoluteY = Math.max(0, Math.min(pos.getAbsoluteY(), Math.max(screenHeight - renderer.getHeight(), 0)));
+
+        pos.setAbsolute(absoluteX, absoluteY);
+    }
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         super.drawDefaultBackground();
@@ -122,7 +143,7 @@ public class HUDConfigScreen extends GuiScreen {
         this.zLevel = zBackup;
     }
 
-        private void drawHollowRect(int x, int y, int w, int h, int color) {
+    private void drawHollowRect(int x, int y, int w, int h, int color) {
 
         this.drawHorizontalLine(x, x + w, y, color);
         this.drawHorizontalLine(x, x + w, y + h, color);
@@ -141,6 +162,7 @@ public class HUDConfigScreen extends GuiScreen {
             this.mc.displayGuiScreen(null);
         }
     }
+
     private boolean resizing = false;
 
 
@@ -241,6 +263,9 @@ public class HUDConfigScreen extends GuiScreen {
 
                 renderer.setWidth(newWidth);
                 renderer.setHeight(newHeight);
+
+                pos.setAbsolute(pos.getAbsoluteX(), pos.getAbsoluteY());
+
             } else {
                 // Move the selected renderer
                 moveSelectedRenderBy(x - prevX, y - prevY);
@@ -250,6 +275,7 @@ public class HUDConfigScreen extends GuiScreen {
         this.prevX = x;
         this.prevY = y;
     }
+
     private void loadMouseOver(int x, int y) {
         this.selectedRenderer = renderers.keySet().stream().filter(new MouseOverFinder(x, y)).findFirst();
     }

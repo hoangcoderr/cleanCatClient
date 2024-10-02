@@ -24,7 +24,7 @@ public class Client {
 		return INSTANCE;
 	}
 	public static final Logger logger = LogManager.getLogger(Client.class);
-	public static final String CLIENT_NAME = "cleanCat Client", CLIENT_VERSION = "1.2.0 - 1.8.9",
+	public static final String CLIENT_NAME = "cleanCat Client", CLIENT_VERSION = "1.0.0.a - 1.8.9",
 			CLIENT_BUILD = "2024.06.02", CLIENT_AUTHOR = "hoangcoderr",
 			WINDOW_TITLE = CLIENT_NAME + " (" + CLIENT_VERSION + ")";
 	private static DiscordRP discordRPC = new DiscordRP();
@@ -53,7 +53,8 @@ public class Client {
 	@EventTarget
 	public void onTick(ClientTickEvent e){
 		if (Minecraft.getMinecraft().gameSettings.CLIENT_GUI_MOD_POS.isPressed()) {
-			hudManager.openConfigScreen();
+			HUDManager hudManager = HUDManager.getInstance();
+			hudManager.openConfigScreen(hudManager);
 		}
 		if (Minecraft.getMinecraft().gameSettings.CLIENT_GUI_MOD_TOGGLE.isPressed()) {
 			openClickGui();

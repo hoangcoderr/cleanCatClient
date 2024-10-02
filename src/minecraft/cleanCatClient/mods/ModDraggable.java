@@ -4,6 +4,7 @@ import cleanCatClient.gui.clickgui.settings.ModSettings;
 import cleanCatClient.utils.FileManager;
 import cleanCatClient.gui.hud.IRenderer;
 import cleanCatClient.gui.hud.ScreenPosition;
+import net.minecraft.client.gui.ScaledResolution;
 
 import java.io.File;
 
@@ -30,6 +31,13 @@ public abstract class ModDraggable extends Mod implements IRenderer {
         return pos.getAbsoluteY() + getLineOffset(lineNum);
     }
 
+    public void setScreenPosition(ScreenPosition pos) {
+        this.pos = pos;
+    }
+
+    public ScreenPosition getScreenPosition() {
+        return this.pos;
+    }
     private int getLineOffset(int lineNum) {
         return (font.FONT_HEIGHT + 3) * lineNum;
     }
@@ -38,6 +46,7 @@ public abstract class ModDraggable extends Mod implements IRenderer {
         FileManager.writeJsonToFile(new File(this.getFolder(), "pos.json"), this.pos);
         FileManager.writeJsonToFile(new File(this.getFolder(), "size.json"), new int[]{this.width, this.height});
     }
+
 
     private ScreenPosition loadPositionFromFile() {
         File posFile = new File(getFolder(), "pos.json");

@@ -3,9 +3,11 @@ package cleanCatClient.mods;
 import cleanCatClient.Client;
 import cleanCatClient.event.EventManager;
 import cleanCatClient.gui.clickgui.settings.ModSettings;
+import cleanCatClient.gui.hud.ScreenPosition;
 import cleanCatClient.utils.FileManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.ScaledResolution;
 import org.lwjgl.input.Keyboard;
 
 import java.io.*;
@@ -135,4 +137,5 @@ public class Mod {
         folder.mkdirs();
         return folder;
     }
+
 }

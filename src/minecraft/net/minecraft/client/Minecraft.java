@@ -20,7 +20,13 @@ import javax.imageio.ImageIO;
 
 import cleanCatClient.event.impl.ClientTickEvent;
 import cleanCatClient.event.impl.KeyEvent;
+import cleanCatClient.gui.hud.HUDConfigScreen;
+import cleanCatClient.gui.hud.HUDManager;
+import cleanCatClient.gui.hud.IRenderer;
+import cleanCatClient.gui.hud.ScreenPosition;
 import cleanCatClient.gui.mainmenu.MainMenu;
+import cleanCatClient.mods.Mod;
+import cleanCatClient.mods.ModDraggable;
 import cleanCatClient.mods.ModInstances;
 import cleanCatClient.mods.impl.PlayerDistance;
 import net.minecraft.entity.EntityLivingBase;
@@ -1328,6 +1334,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         }
 
     }
+
     private EntityPlayer findNearestPlayer() {
         double closestDistance = 5.0; // Set the maximum distance to 5 units
         EntityPlayer closestPlayer = null;
@@ -1487,7 +1494,12 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
             centerX = scaledresolution.getScaledWidth() / 2;
             centerY = scaledresolution.getScaledHeight() / 2;
             this.currentScreen.onResize(this, scaledresolution.getScaledWidth(), scaledresolution.getScaledHeight());
+            HUDManager h = HUDManager.getInstance();
+            for (IRenderer ren: h.getRegisteredRenderers()) {
+                HUDConfigScreen.adjustRendererPosition(ren);
+            }
         }
+
 
         this.loadingScreen = new LoadingScreenRenderer(this);
         this.updateFramebufferSize();
