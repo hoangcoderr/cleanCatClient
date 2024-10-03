@@ -1,3 +1,4 @@
+// src/minecraft/cleanCatClient/Client.java
 package cleanCatClient;
 
 import cleanCatClient.discordrpc.DiscordRP;
@@ -28,13 +29,17 @@ public class Client {
 			CLIENT_BUILD = "2024.06.02", CLIENT_AUTHOR = "hoangcoderr",
 			WINDOW_TITLE = CLIENT_NAME + " (" + CLIENT_VERSION + ")";
 	private static DiscordRP discordRPC = new DiscordRP();
+	private long startTime;
+
 	public void init() {
 		logger.info("Starting " + CLIENT_NAME + " " + CLIENT_VERSION + "");
+		startTime = System.currentTimeMillis();
 		FileManager.init();
 		EventManager.register(this);
 		FontUtil.bootstrap();
 		start();
 	}
+
 	public static DiscordRP getDiscordRPC() {
 		return discordRPC;
 	}
@@ -66,8 +71,15 @@ public class Client {
 		Minecraft.getMinecraft().displayGuiScreen(clickGui);
 	}
 
+	// src/minecraft/cleanCatClient/Client.java
 	public void shutdown() {
+		long elapsedTime = System.currentTimeMillis() - startTime;
+		long seconds = (elapsedTime / 1000) % 60;
+		long minutes = (elapsedTime / (1000 * 60)) % 60;
+		long hours = (elapsedTime / (1000 * 60 * 60)) % 24;
+
 		logger.info("Shutting down " + CLIENT_NAME + " " + CLIENT_VERSION + "");
+		logger.info(String.format("Elapsed time: %d hours, %d minutes, %d seconds", hours, minutes, seconds));
 		discordRPC.shutdown();
 	}
 }

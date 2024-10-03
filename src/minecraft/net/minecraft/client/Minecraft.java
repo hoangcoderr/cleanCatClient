@@ -1306,7 +1306,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
             if (this.objectMouseOver == null) {
                 logger.error("Null returned as \'hitResult\', this shouldn\'t happen!");
                 if (this.playerController.isNotCreative()) {
-                    // this.leftClickCounter = 10;
+                    //this.leftClickCounter = 10;
                     this.leftClickCounter = 0;
                 }
             } else {
@@ -1477,6 +1477,10 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
             Display.setFullscreen(this.fullscreen);
             Display.setVSyncEnabled(this.gameSettings.enableVsync);
             this.updateDisplay();
+            HUDManager h = HUDManager.getInstance();
+            for (IRenderer ren: h.getRegisteredRenderers()) {
+                HUDConfigScreen.adjustRendererPosition(ren);
+            }
         } catch (Exception exception) {
             logger.error((String) "Couldn\'t toggle fullscreen", (Throwable) exception);
         }
@@ -1593,15 +1597,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
             while (Mouse.next()) {
                 int i = Mouse.getEventButton();
                 boolean isShiftPressed = Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT);
-
-                if (i == 4) {
-                    if (isShiftPressed) {
-                        i = 3;
-                        System.out.println("Shift + Mouse Back Side Button");
-                    } else {
-                        System.out.println("Mouse Back Side Button");
-                    }
-                }
+//
                 KeyBinding.setKeyBindState(i - 100, Mouse.getEventButtonState());
                 if (Mouse.getEventButtonState()) {
                     if (this.thePlayer.isSpectator() && i == 2) {
