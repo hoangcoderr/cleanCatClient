@@ -4,6 +4,7 @@ import cleanCatClient.constants.ModConstants;
 import cleanCatClient.event.EventTarget;
 import cleanCatClient.event.impl.ClientTickEvent;
 import cleanCatClient.event.impl.KeyEvent;
+import cleanCatClient.event.impl.Render2D;
 import cleanCatClient.mods.Mod;
 import cleanCatClient.mods.ModCategory;
 import net.minecraft.client.Minecraft;
@@ -21,9 +22,15 @@ public class Perspective extends Mod {
     private float cameraPitch = 0.0F;
 
     private int previousPerspective = 0; // pref f5 state
+    long startTime;
+    long duration = 1000; // 1 second
+    float initialFov = 10.0F;
 
     public Perspective() {
         super(ModConstants.PERSPECTIVE, ModConstants.PERSPECTIVE_DESC, ModCategory.PLAYER);}
+    private float targetFov;
+    private float currentFov;
+
     @EventTarget
     public void keyboardEvent(KeyEvent e) {
         if (e.getKey() == keyBind) {
@@ -34,21 +41,39 @@ public class Perspective extends Mod {
                     cameraPitch = mc.thePlayer.rotationPitch;
                     previousPerspective = mc.gameSettings.thirdPersonView;
                     mc.gameSettings.thirdPersonView = 1;
+                    targetFov = mc.gameSettings.fovSetting;
+                    currentFov = 30.0F;
+                    mc.gameSettings.fovSetting = currentFov;
                 } else if (!returnOnRelease) {
                     perspectiveToggled = false;
                     mc.gameSettings.thirdPersonView = previousPerspective;
+                    mc.gameSettings.fovSetting = targetFov;
                 }
             } else if (returnOnRelease) {
-                    perspectiveToggled = false;
+                perspectiveToggled = false;
                 mc.gameSettings.thirdPersonView = previousPerspective;
+                mc.gameSettings.fovSetting = targetFov;
             }
         }
         if (e.getKey() == mc.gameSettings.keyBindTogglePerspective.getKeyCode()) {
             perspectiveToggled = false;
+            mc.gameSettings.fovSetting = targetFov;
         }
-
     }
 
+    @EventTarget
+    public void onClientTick(Render2D event) {
+        if (perspectiveToggled && currentFov < targetFov) {// Update FOV every 5th particlesTick
+                currentFov += 3.0F; // Increase FOV by 1.0
+
+                // Clamp to targetFov to avoid overshooting
+                if (currentFov >= targetFov) {
+                    currentFov = targetFov;
+                }
+
+                mc.gameSettings.fovSetting = currentFov;
+            }
+    }
 //    @EventTarget
 //    public void keyboardEvent(ClientTickEvent e) {
 //        if (Keyboard.isKeyDown( mc.gameSettings.CLIENT_PERSPECTIVE.getKeyCode())) {
