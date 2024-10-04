@@ -11,7 +11,7 @@ public class ColorSaturationSettings extends ModSettings {
     private Slider saturationSlider;
     public ColorSaturationSettings() {
         super(ModInstances.getColorSaturation());
-        saturationSlider = new Slider(Minecraft.centerX, Minecraft.centerY, 100, 10, 0, 2, 1, 0.1F);
+        saturationSlider = new Slider(Minecraft.centerX, Minecraft.centerY, 100, 10, 0, 2, ModInstances.getColorSaturation().s, 0.1F);
     }
 
     @Override
