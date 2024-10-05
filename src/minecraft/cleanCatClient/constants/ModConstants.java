@@ -87,4 +87,7 @@ public class ModConstants {
 
     public static String COORDINATES = "Coordinates";
     public static String COORDINATES_DESC = "Show your coordinates";
+
+    public static String CHAT_SHORTCUTS = "Chat Shortcuts";
+    public static String CHAT_SHORTCUTS_DESC = "Chat shortcuts";
 }

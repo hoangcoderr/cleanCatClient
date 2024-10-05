@@ -40,7 +40,9 @@ public class ModInstances {
     private static MinimalViewBobbing minimalViewBobbing;
     private static ItemPhysics itemPhysics;
     private static CoordinateDisplay coordinateDisplay;
+    private static ChatShortcuts chatShortcuts;
     public static void register(HUDManager api) {
+        chatShortcuts = new ChatShortcuts();
         coordinateDisplay = new CoordinateDisplay();
         api.register(coordinateDisplay);
         itemPhysics = new ItemPhysics();
@@ -123,8 +125,11 @@ public class ModInstances {
         allMods.add(colorSaturation);
         allMods.add(itemPhysics);
         allMods.add(coordinateDisplay);
+        allMods.add(chatShortcuts);
     }
-
+    public static ChatShortcuts getChatShortcuts() {
+        return chatShortcuts;
+    }
     public static CoordinateDisplay getCoordinateDisplay() {
         return coordinateDisplay;
     }

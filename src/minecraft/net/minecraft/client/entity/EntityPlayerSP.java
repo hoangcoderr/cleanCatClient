@@ -231,7 +231,8 @@ public class EntityPlayerSP extends AbstractClientPlayer
 
     public void sendChatMessage(String message)
     {
-        this.sendQueue.addToSendQueue(new C01PacketChatMessage(message));
+
+        this.sendQueue.addToSendQueue(new C01PacketChatMessage(ModInstances.getChatShortcuts().processChatMessage(message)));
     }
 
     public void swingItem()
