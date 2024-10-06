@@ -31,6 +31,10 @@ public class ChatShortcuts extends Mod {
         // Thêm các shortcut khác tại đây
     }
 
+    public Map<String, String> getShortcuts(){
+        return shortcuts;
+    }
+
     public String processChatMessage(String message) {
 
         if (isEnabled())

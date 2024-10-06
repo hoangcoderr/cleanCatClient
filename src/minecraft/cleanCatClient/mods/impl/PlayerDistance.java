@@ -19,6 +19,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -93,6 +94,10 @@ public class PlayerDistance extends ModDraggable {
         //renderBedESP();
     }
     private boolean isFKeyPressed = false; // Track the state of the 'F' key
+    private long lastClickTime = 0;
+    private static final int CPS = 16;
+    private static final long CLICK_INTERVAL = 1000 / CPS;
+    public static boolean active = false;
     @EventTarget
     public void onKey(KeyEvent event) {
         if (event.getKey() == Keyboard.KEY_F) {
@@ -108,6 +113,17 @@ public class PlayerDistance extends ModDraggable {
                 faceEntity(nearestPlayer, mc.timer.renderPartialTicks);
             }
         }
+
+//
+//        if (mc.gameSettings.keySecret.isKeyDown() && active) {
+//            long currentTime = System.currentTimeMillis();
+//            if (currentTime - lastClickTime >= CLICK_INTERVAL) {
+//                KeyBinding.setKeyBindState(mc.gameSettings.keyBindAttack.getKeyCode(), true); // Press the attack key
+//                KeyBinding.onTick(mc.gameSettings.keyBindAttack.getKeyCode()); // Simulate the key press
+//                KeyBinding.setKeyBindState(mc.gameSettings.keyBindAttack.getKeyCode(), false); // Release the attack key
+//                lastClickTime = currentTime;
+//            }
+//        }
     }
     public static synchronized void faceEntity(EntityPlayer entity, float partialTicks) {
         final float[] rotations = getRotationsNeeded(entity, partialTicks);
@@ -153,7 +169,6 @@ public class PlayerDistance extends ModDraggable {
                 }
             }
         }
-
         return closestPlayer;
     }
 

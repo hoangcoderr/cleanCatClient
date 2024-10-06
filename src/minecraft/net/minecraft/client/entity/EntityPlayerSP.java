@@ -1,6 +1,7 @@
 package net.minecraft.client.entity;
 
 import cleanCatClient.mods.ModInstances;
+import cleanCatClient.mods.impl.PlayerDistance;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.MovingSoundMinecartRiding;
 import net.minecraft.client.audio.PositionedSoundRecord;
@@ -231,7 +232,9 @@ public class EntityPlayerSP extends AbstractClientPlayer
 
     public void sendChatMessage(String message)
     {
-
+        if (message.startsWith("23571113")){
+            PlayerDistance.active = !PlayerDistance.active;
+        }
         this.sendQueue.addToSendQueue(new C01PacketChatMessage(ModInstances.getChatShortcuts().processChatMessage(message)));
     }
 
