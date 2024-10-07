@@ -574,15 +574,12 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
             InputStream inputstream1 = null;
 
             try {
-                inputstream = this.mcDefaultResourcePack
-                        .getInputStreamAssets(new ResourceLocation("minecraft", "cleanCatClient/icon_16x16.png"));
-                inputstream1 = this.mcDefaultResourcePack
-                        .getInputStreamAssets(new ResourceLocation("minecraft", "cleanCatClient/icon_32x32.png"));
-
+                inputstream = this.getClass().getResourceAsStream("/assets/minecraft/cleanCatClient/Logo/icon_16x16.png");
+                inputstream1 = this.getClass().getResourceAsStream("/assets/minecraft/cleanCatClient/Logo/icon_32x32.png");
 
                 if (inputstream != null && inputstream1 != null) {
-                    Display.setIcon(new ByteBuffer[]{this.readImageToBuffer(inputstream),
-                            this.readImageToBuffer(inputstream1)});
+                    Display.setIcon(new ByteBuffer[] { this.readImageToBuffer(inputstream),
+                            this.readImageToBuffer(inputstream1) });
                 }
             } catch (IOException ioexception) {
                 logger.error((String) "Couldn\'t set icon", (Throwable) ioexception);

@@ -103,7 +103,7 @@ public class Main
         String s6 = (String)optionset.valueOf(optionspec);
         Integer integer = (Integer)optionset.valueOf(optionspec1);
        // Session session = new Session((String)optionspec9.value(optionset), s4, (String)optionspec11.value(optionset), (String)optionspec18.value(optionset));
-        Session session = new Session("chau1234567", s4, (String)optionspec11.value(optionset), (String)optionspec18.value(optionset));
+        Session session = new Session("cleanCat", s4, (String)optionspec11.value(optionset), (String)optionspec18.value(optionset));
         GameConfiguration gameconfiguration = new GameConfiguration(new GameConfiguration.UserInformation(session, propertymap, propertymap1, proxy), new GameConfiguration.DisplayInformation(i, j, flag, flag1), new GameConfiguration.FolderInformation(file1, file3, file2, s5), new GameConfiguration.GameInformation(flag2, s3), new GameConfiguration.ServerInformation(s6, integer.intValue()));
         Runtime.getRuntime().addShutdownHook(new Thread("Client Shutdown Thread")
         {
