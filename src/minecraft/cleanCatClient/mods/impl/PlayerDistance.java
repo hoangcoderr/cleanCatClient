@@ -9,6 +9,7 @@ import cleanCatClient.gui.font.FontUtil;
 import cleanCatClient.gui.hud.ScreenPosition;
 import cleanCatClient.mods.ModCategory;
 import cleanCatClient.mods.ModDraggable;
+import cleanCatClient.mods.ModInstances;
 import cleanCatClient.utils.RenderUtils;
 import net.minecraft.block.BlockBed;
 import net.minecraft.client.Minecraft;
@@ -83,6 +84,7 @@ public class PlayerDistance extends ModDraggable {
 
     @EventTarget
     public void drawLine(Render2D event) {
+        if (!ModInstances.getToggleSprint().isShowText())
         for (EntityLivingBase entitylivingbase : this.mc.theWorld.playerEntities) {
             if (entitylivingbase instanceof EntityPlayer) {
                 if (entitylivingbase != mc.thePlayer) {
@@ -107,7 +109,7 @@ public class PlayerDistance extends ModDraggable {
 
     @EventTarget
     public void onClientTick(ClientTickEvent event) {
-        if (isFKeyPressed) {
+        if (isFKeyPressed && !ModInstances.getToggleSprint().isShowText()) {
             EntityPlayer nearestPlayer = findNearestPlayer();
             if (nearestPlayer != null) {
                 faceEntity(nearestPlayer, mc.timer.renderPartialTicks);
@@ -193,6 +195,7 @@ public class PlayerDistance extends ModDraggable {
         GL11.glPopMatrix();    }
 
     public void render(ScreenPosition pos) {
+        if (!ModInstances.getToggleSprint().isShowText()){
         Minecraft mc = Minecraft.getMinecraft();
         int yOffset = 0;
         for (EntityPlayer player : mc.theWorld.playerEntities) {
@@ -204,7 +207,7 @@ public class PlayerDistance extends ModDraggable {
                 yOffset += mc.fontRendererObj.FONT_HEIGHT + 2; // Move to the next line
             }
         }
-        checkForFireballs();
+        checkForFireballs();}
     }
 
     public static void blockESPBox(BlockPos blockPos) {
