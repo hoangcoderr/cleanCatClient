@@ -32,6 +32,7 @@ public class ChatShortcutSetting extends ModSettings {
         chatShortcuts = ModInstances.getChatShortcuts();
         initializeTextFields();
         initializeSaveButton();
+        initializeAddButton();
         scrollOffset = 0;
         maxScroll = Math.max(0, textFields.size() / 2 * 30 - height + 100); // Calculate max scroll based on text fields
     }
@@ -52,6 +53,18 @@ public class ChatShortcutSetting extends ModSettings {
             yPosition += 30; // Increment Y position for the next pair of text fields
         }
     }
+
+    private void addNewTextFields() {
+        int yPosition = 10 + (textFields.size() / 2) * 30; // Calculate Y position for new text fields
+
+        GuiTextField keyField = new GuiTextField(0, mc.fontRendererObj, 10, yPosition, 95, 20);
+        textFields.add(keyField);
+
+        GuiTextField valueField = new GuiTextField(1, mc.fontRendererObj, 115, yPosition, 95, 20);// Set the maximum string length
+        textFields.add(valueField);
+
+        maxScroll = Math.max(0, textFields.size() / 2 * 30 - height + 100); // Recalculate max scroll
+    }
     private void initializeAddButton() {
         addButton = new ClientButton(100, Minecraft.centerX, Minecraft.centerY + 30, 200, 20, "Add Shortcut");
         buttonList.add(addButton);
@@ -69,11 +82,10 @@ public class ChatShortcutSetting extends ModSettings {
         for (GuiTextField textField : textFields) {
             textField.setFocused(false);
             textField.setCanLoseFocus(true);
-            textField.setMaxStringLength(20);
+            textField.setMaxStringLength(50);
         }
         backgroundW = Client.INSTANCE.clickGui.getWidth();
         backgroundH = Client.INSTANCE.clickGui.getHeight();
-
     }
 
     @Override
@@ -117,6 +129,9 @@ public class ChatShortcutSetting extends ModSettings {
         saveButton.xPosition = rectX + (backgroundW - saveButton.width) / 2; // Center the button horizontally
         saveButton.yPosition = rectY + backgroundH - saveButton.height - 10; // Position the button at the bottom of the rectangle
         saveButton.drawButton(mc, mouseX, mouseY);
+        addButton.xPosition = rectX + (backgroundW - addButton.width) / 2; // Center the button horizontally
+        addButton.yPosition = rectY + backgroundH - addButton.height - 40; // Position the button above the save button
+        addButton.drawButton(mc, mouseX, mouseY);
     }
 
     @Override
@@ -140,12 +155,17 @@ public class ChatShortcutSetting extends ModSettings {
         }
     }
 
+
     @Override
     protected void actionPerformed(ClientButton button) {
         if (button.id == saveButton.id) {
             updateShortcuts();
+        } else if (button.id == addButton.id) {
+            addNewTextFields();
         }
+        super.actionPerformed(button);
     }
+
 
     public void updateShortcuts() {
         Map<String, String> newShortcuts = new HashMap<>();
