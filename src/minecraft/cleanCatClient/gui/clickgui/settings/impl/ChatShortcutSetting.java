@@ -36,7 +36,12 @@ public class ChatShortcutSetting extends ModSettings {
         scrollOffset = 0;
         maxScroll = Math.max(0, textFields.size() / 2 * 30 - height + 100); // Calculate max scroll based on text fields
     }
+    private ClientButton deleteButton;
 
+    private void initializeDeleteButton() {
+        deleteButton = new ClientButton(101, Minecraft.centerX, Minecraft.centerY + 60, 200, 20, "Delete Shortcut");
+        buttonList.add(deleteButton);
+    }
     private void initializeTextFields() {
         textFields = new ArrayList<>();
         int yPosition = 10; // Starting Y position for the text fields
@@ -79,6 +84,7 @@ public class ChatShortcutSetting extends ModSettings {
     public void initGui() {
         super.initGui();
         initializeAddButton();
+        initializeDeleteButton();
         for (GuiTextField textField : textFields) {
             textField.setFocused(false);
             textField.setCanLoseFocus(true);
@@ -87,7 +93,6 @@ public class ChatShortcutSetting extends ModSettings {
         backgroundW = Client.INSTANCE.clickGui.getWidth();
         backgroundH = Client.INSTANCE.clickGui.getHeight();
     }
-
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         super.drawScreen(mouseX, mouseY, partialTicks);
@@ -102,7 +107,6 @@ public class ChatShortcutSetting extends ModSettings {
         int centerH = sr.getScaledHeight() / 2;
         int rectX = centerW - backgroundW / 2;
         int rectY = centerH - backgroundH / 2;
-
 
         // Enable scissor test
         GL11.glEnable(GL11.GL_SCISSOR_TEST);
@@ -129,9 +133,16 @@ public class ChatShortcutSetting extends ModSettings {
         saveButton.xPosition = rectX + (backgroundW - saveButton.width) / 2; // Center the button horizontally
         saveButton.yPosition = rectY + backgroundH - saveButton.height - 10; // Position the button at the bottom of the rectangle
         saveButton.drawButton(mc, mouseX, mouseY);
+
+        // Draw the add button
         addButton.xPosition = rectX + (backgroundW - addButton.width) / 2; // Center the button horizontally
         addButton.yPosition = rectY + backgroundH - addButton.height - 40; // Position the button above the save button
         addButton.drawButton(mc, mouseX, mouseY);
+
+        // Draw the delete button
+        deleteButton.xPosition = rectX + (backgroundW - deleteButton.width) / 2; // Center the button horizontally
+        deleteButton.yPosition = rectY + backgroundH - deleteButton.height - 70; // Position the button above the add button
+        deleteButton.drawButton(mc, mouseX, mouseY);
     }
 
     @Override
@@ -154,6 +165,13 @@ public class ChatShortcutSetting extends ModSettings {
             actionPerformed(saveButton); // Call action when button is pressed
         }
     }
+    private void deleteLastTextFields() {
+        if (textFields.size() >= 2) {
+            textFields.remove(textFields.size() - 1);
+            textFields.remove(textFields.size() - 1);
+            maxScroll = Math.max(0, textFields.size() / 2 * 30 - height + 100); // Recalculate max scroll
+        }
+    }
 
 
     @Override
@@ -162,10 +180,11 @@ public class ChatShortcutSetting extends ModSettings {
             updateShortcuts();
         } else if (button.id == addButton.id) {
             addNewTextFields();
+        } else if (button.id == deleteButton.id) {
+            deleteLastTextFields();
         }
         super.actionPerformed(button);
     }
-
 
     public void updateShortcuts() {
         Map<String, String> newShortcuts = new HashMap<>();
