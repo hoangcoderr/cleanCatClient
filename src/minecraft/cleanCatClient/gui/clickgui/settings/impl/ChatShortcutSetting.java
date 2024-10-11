@@ -44,7 +44,7 @@ public class ChatShortcutSetting extends ModSettings {
     }
     private void initializeTextFields() {
         textFields = new ArrayList<>();
-        int yPosition = 10; // Starting Y position for the text fields
+        int yPosition = 30; // Starting Y position for the text fields
 
         for (Map.Entry<String, String> entry : chatShortcuts.getShortcuts().entrySet()) {
             GuiTextField keyField = new GuiTextField(0, mc.fontRendererObj, 10, yPosition, 95, 20);
@@ -60,7 +60,7 @@ public class ChatShortcutSetting extends ModSettings {
     }
 
     private void addNewTextFields() {
-        int yPosition = 10 + (textFields.size() / 2) * 30; // Calculate Y position for new text fields
+        int yPosition = 30 + (textFields.size() / 2) * 30; // Calculate Y position for new text fields
 
         GuiTextField keyField = new GuiTextField(0, mc.fontRendererObj, 10, yPosition, 95, 20);
         textFields.add(keyField);

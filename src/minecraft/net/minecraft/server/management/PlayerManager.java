@@ -79,7 +79,7 @@ public class PlayerManager {
                         set1.remove(chunkcoordintpair);
                         if (ModInstances.getLazyChunkLoading().isEnabled()) {
                             try {
-                                Thread.sleep(60);
+                                Thread.sleep(40);
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
