@@ -97,7 +97,9 @@ public class ColorSaturation extends ModDraggable {
 
     public void setSaturation(float saturation) {
         s = saturation;
-        reloadSaturation();
+        if (isShaderActive() && isEnabled()) {
+            reloadSaturation();
+        }
         saveConfig();
     }
 
