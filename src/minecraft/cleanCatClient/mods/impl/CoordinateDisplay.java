@@ -60,7 +60,8 @@ public class CoordinateDisplay extends ModDraggable {
 
     @Override
     public void render(ScreenPosition pos) {
-        FontUtil.normal.drawString(getXYZ(), pos.getAbsoluteX(), pos.getAbsoluteY(), this.color);
+        //FontUtil.normal.drawString(getXYZ(), pos.getAbsoluteX(), pos.getAbsoluteY(), this.color);
+        mc.fontRendererObj.drawStringWithShadow(getXYZ(), pos.getAbsoluteX(), pos.getAbsoluteY(), this.color);
     }
 
     @Override

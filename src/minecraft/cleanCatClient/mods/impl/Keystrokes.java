@@ -184,7 +184,13 @@ public class Keystrokes extends ModDraggable {
                     pos.getAbsoluteX() + key.getX() + key.getWidth(),
                     pos.getAbsoluteY() + key.getY() + key.getHeight(),
                     key.isDown() ? new Color(255, 255, 255, 102).getRGB() : new Color(0, 0, 0, 102).getRGB());
-            FontUtil.normal.drawString(
+//            FontUtil.normal.drawString(
+//                    key.getName(),
+//                    pos.getAbsoluteX() + key.getX() + key.getWidth() / 2 - textWidth / 2,
+//                    pos.getAbsoluteY() + key.getY() + (key.getHeight() - 8) / 2,
+//                    key.isDown() ? Color.BLACK.getRGB() : Color.WHITE.getRGB()
+//            );
+            mc.fontRendererObj.drawStringWithShadow(
                     key.getName(),
                     pos.getAbsoluteX() + key.getX() + key.getWidth() / 2 - textWidth / 2,
                     pos.getAbsoluteY() + key.getY() + (key.getHeight() - 8) / 2,
@@ -201,7 +207,13 @@ public class Keystrokes extends ModDraggable {
                     pos.getAbsoluteX() + key.getX() + key.getWidth(),
                     pos.getAbsoluteY() + key.getY() + key.getHeight(),
                     key.isDown() ? new Color(255, 255, 255, 102).getRGB() : new Color(0, 0, 0, 102).getRGB());
-            FontUtil.normal.drawString(
+//            FontUtil.normal.drawString(
+//                    key.getName().equals("LMB") ? "" + mc.getCPS() : "" + mc.getRightCps(),
+//                    pos.getAbsoluteX() + key.getX() + key.getWidth() / 2 - textWidth / 2,
+//                    pos.getAbsoluteY() + key.getY() + (key.getHeight() - 10) / 2,
+//                    key.isDown() ? Color.BLACK.getRGB() : Color.WHITE.getRGB()
+//            );
+            mc.fontRendererObj.drawStringWithShadow(
                     key.getName().equals("LMB") ? "" + mc.getCPS() : "" + mc.getRightCps(),
                     pos.getAbsoluteX() + key.getX() + key.getWidth() / 2 - textWidth / 2,
                     pos.getAbsoluteY() + key.getY() + (key.getHeight() - 10) / 2,

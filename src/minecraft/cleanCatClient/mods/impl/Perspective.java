@@ -25,10 +25,43 @@ public class Perspective extends Mod {
     long startTime;
     long duration = 1000; // 1 second
     float initialFov = 10.0F;
+    private boolean isSmooth = false;
 
     public Perspective() {
-        super(ModConstants.PERSPECTIVE, ModConstants.PERSPECTIVE_DESC, ModCategory.PLAYER);}
-    private float targetFov;
+        super(ModConstants.PERSPECTIVE, ModConstants.PERSPECTIVE_DESC, ModCategory.PLAYER);
+        loadConfig();
+    }
+
+    public void loadConfig() {
+        String[] dataConfig = loadDataConfig();
+        if (dataConfig == null) {
+            return;
+        }
+        try {
+            this.isSmooth = Boolean.parseBoolean(dataConfig[0]);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            this.keyBind = Keyboard.KEY_LCONTROL;
+            this.returnOnRelease = true;
+            this.isSmooth = false;
+        }
+    }
+
+    public void saveConfig() {
+        String[] dataConfig = new String[3];
+        dataConfig[0] = String.valueOf(this.isSmooth);
+        saveDataConfig(dataConfig);
+    }
+
+    public boolean isSmooth() {
+        return isSmooth;
+    }
+
+    public void setSmooth(boolean smooth) {
+        isSmooth = smooth;
+    }
+    private float targetFov = mc.gameSettings.fovSetting;
+
     private float currentFov;
 
     @EventTarget
@@ -63,16 +96,14 @@ public class Perspective extends Mod {
 
     @EventTarget
     public void onClientTick(Render2D event) {
-        if (perspectiveToggled && currentFov < targetFov) {// Update FOV every 5th particlesTick
-                currentFov += 3.0F; // Increase FOV by 1.0
-
-                // Clamp to targetFov to avoid overshooting
-                if (currentFov >= targetFov) {
-                    currentFov = targetFov;
-                }
-
-                mc.gameSettings.fovSetting = currentFov;
+        if (perspectiveToggled && currentFov < targetFov && isSmooth) {
+            currentFov += 3.0F;
+            if (currentFov >= targetFov) {
+                currentFov = targetFov;
             }
+
+            mc.gameSettings.fovSetting = currentFov;
+        }
     }
 //    @EventTarget
 //    public void keyboardEvent(ClientTickEvent e) {
@@ -106,11 +137,11 @@ public class Perspective extends Mod {
         return perspectiveToggled ? cameraPitch : mc.thePlayer.rotationPitch;
     }
 
-    public float getCameraYawForTag(){
+    public float getCameraYawForTag() {
         return cameraYaw;
     }
 
-    public float getCameraPitchForTag(){
+    public float getCameraPitchForTag() {
         return cameraPitch;
     }
 

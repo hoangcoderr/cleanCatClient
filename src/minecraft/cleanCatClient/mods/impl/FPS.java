@@ -65,7 +65,8 @@ public class FPS extends ModDraggable {
     @Override
     public void render(ScreenPosition pos) {
         //RenderUtils.drawRect(pos.getAbsoluteX(), pos.getAbsoluteY(), getWidth(), getHeight());
-        FontUtil.normal.drawStringWithShadow("FPS: " + mc.getDebugFPS(), pos.getAbsoluteX(), pos.getAbsoluteY(), color);
+        //FontUtil.normal.drawStringWithShadow("FPS: " + mc.getDebugFPS(), pos.getAbsoluteX(), pos.getAbsoluteY(), color);
+        mc.fontRendererObj.drawStringWithShadow("FPS: " + mc.getDebugFPS(), pos.getAbsoluteX(), pos.getAbsoluteY(), color);
     }
 
     @Override

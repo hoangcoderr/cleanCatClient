@@ -86,8 +86,10 @@ public class PotionStatus extends ModDraggable {
             int i1 = potion.getStatusIconIndex();
             Minecraft.getMinecraft().getTextureManager().bindTexture(GuiContainer.inventoryBackground);
             Gui.drawModalRectWithCustomSizedTexture(pos.getAbsoluteX() - 20, y, i1 % 8 * 18, 198 + i1 / 8 * 18, 18, 18, 256, 256);
-            FontUtil.normal.drawStringWithShadow(name, pos.getAbsoluteX(), y, color);
-            FontUtil.normal.drawStringWithShadow(durationString, pos.getAbsoluteX(), y + 10, color);
+            //FontUtil.normal.drawStringWithShadow(name, pos.getAbsoluteX(), y, color);
+            //FontUtil.normal.drawStringWithShadow(durationString, pos.getAbsoluteX(), y + 10, color);
+            mc.fontRendererObj.drawStringWithShadow(name, pos.getAbsoluteX(), y, color);
+            mc.fontRendererObj.drawStringWithShadow(durationString, pos.getAbsoluteX(), y + 10, color);
             y += 20;
             GL11.glPopMatrix();
         }
