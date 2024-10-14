@@ -62,6 +62,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.event.ClickEvent;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.server.integrated.IntegratedServer;
@@ -823,7 +824,9 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                         if (ModInstances.getOldAnimation().isEnabled() && ModInstances.getLeftHand().isEnabled()) {
                             Entity entity = this.mc.getRenderViewEntity();
                             ItemStack itemToRender = ((EntityPlayer) entity).getCurrentEquippedItem();
-                            GlStateManager.scale(-1F, 1F, 1F);
+                            if (!(itemToRender.getItem() instanceof ItemMap)) {
+                                GlStateManager.scale(-1F, 1F, 1F);
+                            }
                             if (itemToRender != null) {
                                 GlStateManager.cullFace(GL_FRONT);
                             } else {

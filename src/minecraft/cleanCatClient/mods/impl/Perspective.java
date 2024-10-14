@@ -59,6 +59,7 @@ public class Perspective extends Mod {
 
     public void setSmooth(boolean smooth) {
         isSmooth = smooth;
+        saveConfig();
     }
     private float targetFov = mc.gameSettings.fovSetting;
 

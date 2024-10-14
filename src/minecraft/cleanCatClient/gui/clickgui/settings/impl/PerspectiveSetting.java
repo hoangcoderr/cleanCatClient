@@ -11,13 +11,13 @@ public class PerspectiveSetting extends ModSettings {
     private CheckBox smooth;
     public PerspectiveSetting() {
         super(ModInstances.getPerspective());
-        this.smooth = new CheckBox(Minecraft.centerX - 100, Minecraft.centerY - 100, 200, 20, "Smooth", ModInstances.getPerspective().isSmooth());
+        this.smooth = new CheckBox(Minecraft.centerX - 100, Minecraft.centerY - 50, 200, 20, "Smooth", ModInstances.getPerspective().isSmooth());
     }
 
     @Override
     public void initGui(){
         super.initGui();
-        smooth.reloadPosition(Minecraft.centerX - 100, Minecraft.centerY - 100);
+        smooth.reloadPosition(Minecraft.centerX - 100, Minecraft.centerY - 50);
     }
 
     @Override

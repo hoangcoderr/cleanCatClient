@@ -78,8 +78,8 @@ public class ClientButton extends GuiButton {
             // Change color when hovered
             int color = this.hovered ? new Color(105, 170, 192, 187).getRGB()
                     : new Color(86, 78, 78, 147).getRGB();
-            Gui.drawRect(this.xPosition, this.yPosition,
-                    this.xPosition + this.width, this.yPosition + this.height, color);
+            Gui.drawRoundedRect(this.xPosition, this.yPosition,
+                    this.xPosition + this.width, this.yPosition + this.height,15,color);
 
             this.mouseDragged(mc, mouseX, mouseY);
             int textColor = this.hovered ? 16777120 : 14737632;
