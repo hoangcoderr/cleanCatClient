@@ -26,6 +26,11 @@ public class ChatShortcutSetting extends ModSettings {
     private int scrollOffset;
     private int maxScroll;
     private ClientButton addButton;
+    private ClientButton deleteButton;
+    private int backgroundW;
+    private int backgroundH;
+    private String successMessage;
+    private long successMessageTimer;
 
     public ChatShortcutSetting() {
         super(ModInstances.getChatShortcuts());
@@ -33,15 +38,16 @@ public class ChatShortcutSetting extends ModSettings {
         initializeTextFields();
         initializeSaveButton();
         initializeAddButton();
+        initializeDeleteButton();
         scrollOffset = 0;
         maxScroll = Math.max(0, textFields.size() / 2 * 30 - height + 100); // Calculate max scroll based on text fields
     }
-    private ClientButton deleteButton;
 
     private void initializeDeleteButton() {
         deleteButton = new ClientButton(101, Minecraft.centerX, Minecraft.centerY + 60, 200, 20, "Delete Shortcut");
         buttonList.add(deleteButton);
     }
+
     private void initializeTextFields() {
         textFields = new ArrayList<>();
         int yPosition = 30; // Starting Y position for the text fields
@@ -70,16 +76,17 @@ public class ChatShortcutSetting extends ModSettings {
 
         maxScroll = Math.max(0, textFields.size() / 2 * 30 - height + 100); // Recalculate max scroll
     }
+
     private void initializeAddButton() {
         addButton = new ClientButton(100, Minecraft.centerX, Minecraft.centerY + 30, 200, 20, "Add Shortcut");
         buttonList.add(addButton);
     }
+
     private void initializeSaveButton() {
         saveButton = new ClientButton(99, Minecraft.centerX, Minecraft.centerY, 200, 20, "Save");
         buttonList.add(saveButton);
     }
-    private int backgroundW;
-    private int backgroundH;
+
     @Override
     public void initGui() {
         super.initGui();
@@ -93,6 +100,7 @@ public class ChatShortcutSetting extends ModSettings {
         backgroundW = Client.INSTANCE.clickGui.getWidth();
         backgroundH = Client.INSTANCE.clickGui.getHeight();
     }
+
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         super.drawScreen(mouseX, mouseY, partialTicks);
@@ -143,6 +151,11 @@ public class ChatShortcutSetting extends ModSettings {
         deleteButton.xPosition = rectX + (backgroundW - deleteButton.width) / 2; // Center the button horizontally
         deleteButton.yPosition = rectY + backgroundH - deleteButton.height - 70; // Position the button above the add button
         deleteButton.drawButton(mc, mouseX, mouseY);
+
+        // Draw the success message if the timer is active
+        if (System.currentTimeMillis() - successMessageTimer < 2000) { // Display for 2 seconds
+            drawCenteredString(mc.fontRendererObj, successMessage, centerW, rectY - 20, Color.GREEN.getRGB());
+        }
     }
 
     @Override
@@ -165,6 +178,7 @@ public class ChatShortcutSetting extends ModSettings {
             actionPerformed(saveButton); // Call action when button is pressed
         }
     }
+
     private void deleteLastTextFields() {
         if (textFields.size() >= 2) {
             textFields.remove(textFields.size() - 1);
@@ -172,7 +186,6 @@ public class ChatShortcutSetting extends ModSettings {
             maxScroll = Math.max(0, textFields.size() / 2 * 30 - height + 100); // Recalculate max scroll
         }
     }
-
 
     @Override
     protected void actionPerformed(ClientButton button) {
@@ -196,6 +209,8 @@ public class ChatShortcutSetting extends ModSettings {
             }
         }
         chatShortcuts.setShortcuts(newShortcuts);
+        successMessage = "Shortcuts saved successfully!";
+        successMessageTimer = System.currentTimeMillis();
         System.out.println("Shortcuts updated!");
     }
 }

@@ -105,6 +105,9 @@ public class Perspective extends Mod {
 
             mc.gameSettings.fovSetting = currentFov;
         }
+        else if (!isSmooth){
+            mc.gameSettings.fovSetting = targetFov;
+        }
     }
 //    @EventTarget
 //    public void keyboardEvent(ClientTickEvent e) {
