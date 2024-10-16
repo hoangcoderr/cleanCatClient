@@ -824,9 +824,9 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                         if (ModInstances.getOldAnimation().isEnabled() && ModInstances.getLeftHand().isEnabled()) {
                             Entity entity = this.mc.getRenderViewEntity();
                             ItemStack itemToRender = ((EntityPlayer) entity).getCurrentEquippedItem();
-                            if (!(itemToRender.getItem() instanceof ItemMap)) {
+                           // if (!(itemToRender.getItem() instanceof ItemMap) && itemToRender != null) {
                                 GlStateManager.scale(-1F, 1F, 1F);
-                            }
+                           // }
                             if (itemToRender != null) {
                                 GlStateManager.cullFace(GL_FRONT);
                             } else {

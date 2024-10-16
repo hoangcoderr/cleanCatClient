@@ -53,6 +53,8 @@ public class Client {
 		//SessionChanger.getInstance().setUser("hi", "hi");
 		Minecraft.centerX = new ScaledResolution(Minecraft.getMinecraft()).getScaledWidth() / 2;
 		Minecraft.centerY = new ScaledResolution(Minecraft.getMinecraft()).getScaledHeight() / 2;
+		Minecraft.displayHeightBefore = new ScaledResolution(Minecraft.getMinecraft()).getScaledHeight();
+		Minecraft.displayWidthBefore = new ScaledResolution(Minecraft.getMinecraft()).getScaledWidth();
 	}
 
 	@EventTarget

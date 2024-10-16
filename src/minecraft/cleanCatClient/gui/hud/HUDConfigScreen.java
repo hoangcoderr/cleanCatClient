@@ -67,6 +67,7 @@ public class HUDConfigScreen extends GuiScreen {
             this.renderers.put(ren, pos);
         }
     }
+    private static double relativeX, relativeY;
     public static void adjustRendererPosition(IRenderer ren) {
         ScreenPosition pos = ren.load();
         if (pos == null) {
@@ -75,17 +76,30 @@ public class HUDConfigScreen extends GuiScreen {
 
         adjustBound(ren, pos);
     }
+
     private static void adjustBound(IRenderer renderer, ScreenPosition pos) {
         ScaledResolution res = new ScaledResolution(Minecraft.getMinecraft());
 
         int screenWidth = res.getScaledWidth();
         int screenHeight = res.getScaledHeight();
+        System.out.println(Minecraft.displayWidthBefore + " " + Minecraft.displayHeightBefore);
+// Tính toán tỷ lệ của tọa độ hiện tại dựa trên màn hình hiện tại
+        double relativeX = (double) pos.getAbsoluteX() / Minecraft.displayWidthBefore;
+        double relativeY = (double) pos.getAbsoluteY() / Minecraft.displayHeightBefore;
 
-        int absoluteX = Math.max(0, Math.min(pos.getAbsoluteX(), Math.max(screenWidth - renderer.getWidth(), 0)));
-        int absoluteY = Math.max(0, Math.min(pos.getAbsoluteY(), Math.max(screenHeight - renderer.getHeight(), 0)));
+// Khi độ phân giải màn hình thay đổi, tính toán lại vị trí dựa trên tỷ lệ này
+        int absoluteX = (int) (relativeX * screenWidth);
+        int absoluteY = (int) (relativeY * screenHeight);
 
+// Đảm bảo rằng tọa độ không vượt quá giới hạn màn hình
+        absoluteX = Math.max(0, Math.min(absoluteX, Math.max(screenWidth - renderer.getWidth(), 0)));
+        absoluteY = Math.max(0, Math.min(absoluteY, Math.max(screenHeight - renderer.getHeight(), 0)));
+
+// Đặt lại tọa độ tuyệt đối cho đối tượng
         pos.setAbsolute(absoluteX, absoluteY);
+
     }
+
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         super.drawDefaultBackground();
@@ -197,15 +211,24 @@ public class HUDConfigScreen extends GuiScreen {
     }
 
     private void adjustBounds(IRenderer renderer, ScreenPosition pos) {
-
         ScaledResolution res = new ScaledResolution(Minecraft.getMinecraft());
 
         int screenWidth = res.getScaledWidth();
         int screenHeight = res.getScaledHeight();
 
-        int absoluteX = Math.max(0, Math.min(pos.getAbsoluteX(), Math.max(screenWidth - renderer.getWidth(), 0)));
-        int absoluteY = Math.max(0, Math.min(pos.getAbsoluteY(), Math.max(screenHeight - renderer.getHeight(), 0)));
+// Tính toán tỷ lệ của tọa độ hiện tại dựa trên màn hình hiện tại
+        double relativeX = (double) pos.getAbsoluteX() / screenWidth;
+        double relativeY = (double) pos.getAbsoluteY() / screenHeight;
 
+// Khi độ phân giải màn hình thay đổi, tính toán lại vị trí dựa trên tỷ lệ này
+        int absoluteX = (int) (relativeX * screenWidth);
+        int absoluteY = (int) (relativeY * screenHeight);
+
+// Đảm bảo rằng tọa độ không vượt quá giới hạn màn hình
+        absoluteX = Math.max(0, Math.min(absoluteX, Math.max(screenWidth - renderer.getWidth(), 0)));
+        absoluteY = Math.max(0, Math.min(absoluteY, Math.max(screenHeight - renderer.getHeight(), 0)));
+
+// Đặt lại tọa độ tuyệt đối cho đối tượng
         pos.setAbsolute(absoluteX, absoluteY);
     }
 
