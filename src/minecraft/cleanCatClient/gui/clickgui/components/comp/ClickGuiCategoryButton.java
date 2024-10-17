@@ -3,6 +3,7 @@ package cleanCatClient.gui.clickgui.components.comp;
 import java.awt.Color;
 
 import cleanCatClient.Client;
+import cleanCatClient.gui.clickgui.ClickGui;
 import cleanCatClient.gui.font.FontUtil;
 import cleanCatClient.gui.hud.HUDManager;
 import cleanCatClient.utils.animation.AnimationEngine;
@@ -66,8 +67,10 @@ public class ClickGuiCategoryButton extends CategoryManager{
 				HUDManager hudManager = HUDManager.getInstance();
 				Client.hudManager.openConfigScreen(hudManager);
 			}
-			else
+			else{
 				CategoryManager.thisPage(number);
+				((ClickGui) Minecraft.getMinecraft().currentScreen).resetScroll(); // Reset scroll position
+			}
 		}
 	}
 	

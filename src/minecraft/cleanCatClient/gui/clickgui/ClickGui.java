@@ -43,7 +43,9 @@ public class ClickGui extends GuiScreen {
     int backgroundW = 200;
     int centerW;
     int centerH;
-
+    public void resetScroll() {
+        currentScroll = 0;
+    }
     @Override
     public void initGui() {
         sr = new ScaledResolution(mc);
@@ -112,8 +114,6 @@ public class ClickGui extends GuiScreen {
         Gui.drawRoundedRect(centerW - backgroundW, centerH - 125, centerW + backgroundW, centerH + 125, 8, new Color(77, 76, 76, 97).getRGB());
         Gui.drawRoundedRect(centerW - backgroundW + 480, centerH - 125, centerW + backgroundW, centerH + 125, 8, new Color(24, 23, 23, 192).getRGB());
 
-        // Draw "cleanCat" at the top-left corner
-
         for (ClickGuiCategoryButton clickGuiCategoryButton : clickGuiCategoryButton) {
             clickGuiCategoryButton.renderButton();
         }
@@ -141,10 +141,12 @@ public class ClickGui extends GuiScreen {
                 GL11.glDisable(GL11.GL_SCISSOR_TEST);
             }
         }
+
         if (CategoryManager.currentPage == 3) {
             for (SettingsModButton settingsModButton : settingsModButton) {
                 GL11.glEnable(GL11.GL_SCISSOR_TEST);
                 this.glScissor(centerW - backgroundW, centerH - 115, centerW + backgroundW, 230);
+                settingsModButton.y = settingsModButton.originalY - currentScroll; // Adjust y position based on scroll
                 settingsModButton.render(mouseX, mouseY);
                 GL11.glDisable(GL11.GL_SCISSOR_TEST);
             }

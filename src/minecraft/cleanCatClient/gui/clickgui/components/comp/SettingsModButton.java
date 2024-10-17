@@ -9,11 +9,13 @@ import net.minecraft.client.gui.Gui;
 public class SettingsModButton {
 
     public int x, y, w, h;
+    public int originalY;
     public Mod mod;
 
     public SettingsModButton(int x, int y, int w, int h, Mod mod) {
         this.x = x;
         this.y = y;
+        this.originalY = this.y;
         this.w = w;
         this.h = h;
         this.mod = mod;

@@ -96,7 +96,7 @@ public class HUDConfigScreen extends GuiScreen {
         absoluteY = Math.max(0, Math.min(absoluteY, Math.max(screenHeight - renderer.getHeight(), 0)));
 
 // Đặt lại tọa độ tuyệt đối cho đối tượng
-        pos.setAbsolute(absoluteX, absoluteY);
+        pos.setAbsolute(absoluteX + 1, absoluteY);
 
     }
 
@@ -114,12 +114,7 @@ public class HUDConfigScreen extends GuiScreen {
             int width = renderer.getWidth();
             int height = renderer.getHeight();
 
-            // Draw the small square at the bottom-right corner
-            int squareSize = 5; // Size of the small square
-            int squareX = pos.getAbsoluteX() + width;  // X coordinate of the bottom-right corner
-            int squareY = pos.getAbsoluteY() + height; // Y coordinate of the bottom-right corner
 
-            Gui.drawRect(squareX, squareY, squareX + squareSize, squareY + squareSize, 0xFFFF0000); // Red color
 
             // Adjusting the size of the Gui.drawRect when dragging
             if (dragged && hovered) {
@@ -176,8 +171,6 @@ public class HUDConfigScreen extends GuiScreen {
             this.mc.displayGuiScreen(null);
         }
     }
-
-    private boolean resizing = false;
 
 
     private void moveSelectedRenderBy(int offsetX, int offsetY) {
@@ -246,16 +239,7 @@ public class HUDConfigScreen extends GuiScreen {
         if (selectedRenderer.isPresent()) {
             IRenderer renderer = selectedRenderer.get();
             ScreenPosition pos = renderers.get(renderer);
-            int absoluteX = pos.getAbsoluteX();
-            int absoluteY = pos.getAbsoluteY();
-            int width = renderer.getWidth();
-            int height = renderer.getHeight();
-            int squareSize = 5; // Size of the small square
 
-            // Check if the click is within the small red square
-            if (x >= absoluteX + width && x <= absoluteX + width + squareSize && y >= absoluteY + height && y <= absoluteY + height + squareSize) {
-                resizing = true;
-            }
         }
 
         super.mouseClicked(x, y, button);
@@ -265,7 +249,6 @@ public class HUDConfigScreen extends GuiScreen {
     protected void mouseReleased(int mouseX, int mouseY, int state) {
         // NEEDED FOR SMOOTH DRAGGING
         dragged = false;
-        resizing = false;
 
         super.mouseReleased(mouseX, mouseY, state);
     }
@@ -273,28 +256,9 @@ public class HUDConfigScreen extends GuiScreen {
     @Override
     protected void mouseClickMove(int x, int y, int button, long time) {
         if (selectedRenderer.isPresent()) {
-            if (resizing) {
-                // Resize the selected renderer
-                IRenderer renderer = selectedRenderer.get();
-                ScreenPosition pos = renderers.get(renderer);
-                int newWidth = x - pos.getAbsoluteX();
-                int newHeight = y - pos.getAbsoluteY();
 
-                // Ensure minimum size
-                newWidth = Math.max(newWidth, 10);
-                newHeight = Math.max(newHeight, 10);
-
-                renderer.setWidth(newWidth);
-                renderer.setHeight(newHeight);
-
-                pos.setAbsolute(pos.getAbsoluteX(), pos.getAbsoluteY());
-
-            } else {
-                // Move the selected renderer
-                moveSelectedRenderBy(x - prevX, y - prevY);
-            }
+            moveSelectedRenderBy(x - prevX, y - prevY);
         }
-
         this.prevX = x;
         this.prevY = y;
     }

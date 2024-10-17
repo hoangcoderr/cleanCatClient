@@ -86,8 +86,8 @@ public class ToggleSprint extends ModDraggable {
     public void render(ScreenPosition pos) {
         if (isShowText) {
             //FontUtil.normal.drawStringWithShadow(ModConstants.TOGGLE_SPRINT_ENABLED, pos.getAbsoluteX(), pos.getAbsoluteY(), color);
-            //mc.fontRendererObj.drawStringWithShadow(ModConstants.TOGGLE_SPRINT_ENABLED, pos.getAbsoluteX(), pos.getAbsoluteY(), color);
-            mc.fontRendererObj.drawStringWithShadow("aX = " + pos.getAbsoluteX() + " aY = " + pos.getAbsoluteY() + " rX = " + pos.getRelativeX() + " rY = " + pos.getRelativeY(), pos.getAbsoluteX(), pos.getAbsoluteY(), color);
+            mc.fontRendererObj.drawStringWithShadow(ModConstants.TOGGLE_SPRINT_ENABLED, pos.getAbsoluteX(), pos.getAbsoluteY(), color);
+            //mc.fontRendererObj.drawStringWithShadow("aX = " + pos.getAbsoluteX() + " aY = " + pos.getAbsoluteY() + " rX = " + pos.getRelativeX() + " rY = " + pos.getRelativeY(), pos.getAbsoluteX(), pos.getAbsoluteY(), color);
         }
     }
 
