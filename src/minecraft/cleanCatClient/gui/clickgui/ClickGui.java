@@ -39,7 +39,9 @@ public class ClickGui extends GuiScreen {
     public int getHeight() {
         return 250; // Assuming the height is fixed as 250 based on the initGui method
     }
-
+    private long animationStartTime;
+    private boolean isOpening;
+    private float animationProgress;
     int backgroundW = 200;
     int centerW;
     int centerH;
@@ -48,6 +50,12 @@ public class ClickGui extends GuiScreen {
     }
     @Override
     public void initGui() {
+        super.initGui();
+        animationStartTime = System.currentTimeMillis();
+        isOpening = true;
+        animationProgress = 0.0f;
+
+        // Existing initialization code
         sr = new ScaledResolution(mc);
         centerW = sr.getScaledWidth() / 2;
         centerH = sr.getScaledHeight() / 2;
@@ -85,6 +93,15 @@ public class ClickGui extends GuiScreen {
         addSettingsModButton(ModInstances.getDisableBlockParticles(), 3, 340, 20, spaceBetween);
     }
 
+    @Override
+    public void onGuiClosed() {
+        super.onGuiClosed();
+        animationStartTime = System.currentTimeMillis();
+        isOpening = false;
+        animationProgress = 1.0f;
+
+    }
+
     private void addModButton(int categoryID, Mod mod, int index, int size, int spaceBetween, int buttonsPerRow, ModSettings settings) {
         int row = index / buttonsPerRow;
         int col = index % buttonsPerRow;
@@ -106,6 +123,24 @@ public class ClickGui extends GuiScreen {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+        long currentTime = System.currentTimeMillis();
+        long elapsedTime = currentTime - animationStartTime;
+        float animationDuration = 500.0f; // Animation duration in milliseconds
+
+        if (isOpening) {
+            animationProgress = Math.min(1.0f, elapsedTime / animationDuration);
+        } else {
+            animationProgress = Math.max(0.0f, 1.0f - (elapsedTime / animationDuration));
+        }
+
+        float scale = animationProgress;
+        GL11.glPushMatrix();
+        GL11.glTranslatef(centerW, centerH, 0);
+        GL11.glScalef(scale, scale, 1.0f);
+        GL11.glTranslatef(-centerW, -centerH, 0);
+
+        // Draw the GUI elements here
+        drawRect(0, 0, this.width, this.height, new Color(0, 0, 0, 81).getRGB());
         super.drawScreen(mouseX, mouseY, partialTicks);
         FontUtil.getFontRenderer(30).drawStringWithShadow("cleanCat Client", centerW - backgroundW + 10, centerH - 125 + 10, new Color(255, 255, 255, 255).getRGB());
         centerW = sr.getScaledWidth() / 2;
@@ -153,6 +188,8 @@ public class ClickGui extends GuiScreen {
         }
 
         drawScrollbar();
+
+        GL11.glPopMatrix();
     }
 
     private void drawScrollbar() {
