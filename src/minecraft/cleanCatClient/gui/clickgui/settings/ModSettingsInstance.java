@@ -28,6 +28,7 @@ public class ModSettingsInstance {
     private static ItemPhysicsSetting itemPhysicsSetting;
     private static CoordinateDisplaySettings coordinateDisplaySettings;
     private static ChatShortcutSetting chatShortcutSetting;
+    private static ItemCounterSetting itemCounterSetting;
     private static List<ModSettings> allSettings = new ArrayList<>();
     public static void register(){
         chatShortcutSetting = new ChatShortcutSetting();
@@ -51,6 +52,7 @@ public class ModSettingsInstance {
         colorSaturationSettings = new ColorSaturationSettings();
         itemPhysicsSetting = new ItemPhysicsSetting();
         coordinateDisplaySettings = new CoordinateDisplaySettings();
+        itemCounterSetting = new ItemCounterSetting();
 //        allSettings.add(armorStatusSetting);
 //        allSettings.add(blockOverlaySettings);
 //        allSettings.add(bossBarSettings);
@@ -71,7 +73,7 @@ public class ModSettingsInstance {
                 armorStatusSetting, blockOverlaySettings, bossBarSettings, customCrosshairSettings, fpsSettings,
                 glintColorSettings, hitColorSettings, keystrokesSettings, lazyChunkLoadingSettings, noHurtCamSettings,
                 oldAnimationSettings, perspectiveSettings, pingDisplaySettings, potionStatusSettings,
-                scoreboardSettings, toggleSprintSettings, timeChangerSettings, colorSaturationSettings, itemPhysicsSetting, coordinateDisplaySettings,chatShortcutSetting
+                scoreboardSettings, toggleSprintSettings, timeChangerSettings, colorSaturationSettings, itemPhysicsSetting, coordinateDisplaySettings,chatShortcutSetting,itemCounterSetting
         );
     }
     public static List<ModSettings> getAllSettings(){

@@ -41,7 +41,10 @@ public class ModInstances {
     private static ItemPhysics itemPhysics;
     private static CoordinateDisplay coordinateDisplay;
     private static ChatShortcuts chatShortcuts;
+    private static ItemCounter itemCounter;
     public static void register(HUDManager api) {
+        itemCounter = new ItemCounter();
+        api.register(itemCounter);
         chatShortcuts = new ChatShortcuts();
         coordinateDisplay = new CoordinateDisplay();
         api.register(coordinateDisplay);
@@ -126,7 +129,13 @@ public class ModInstances {
         allMods.add(itemPhysics);
         allMods.add(coordinateDisplay);
         allMods.add(chatShortcuts);
+        allMods.add(itemCounter);
     }
+
+    public static ItemCounter getItemCounter() {
+        return itemCounter;
+    }
+
     public static ChatShortcuts getChatShortcuts() {
         return chatShortcuts;
     }

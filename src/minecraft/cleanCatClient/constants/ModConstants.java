@@ -90,4 +90,7 @@ public class ModConstants {
 
     public static String CHAT_SHORTCUTS = "Chat Shortcuts";
     public static String CHAT_SHORTCUTS_DESC = "Chat shortcuts";
+
+    public static String ITEM_COUNTER = "Item Counter";
+    public static String ITEM_COUNTER_DESC = "Count the number of items in your inventory";
 }
