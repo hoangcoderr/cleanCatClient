@@ -38,6 +38,14 @@ public class ItemCounter extends ModDraggable {
         itemsToCount.add(item);
     }
 
+    public List<ItemStack> getItemsToCount() {
+        return itemsToCount;
+    }
+
+    public void setItemsToCount(List<ItemStack> itemsToCount) {
+        this.itemsToCount = itemsToCount;
+    }
+
     @Override
     public int getWidth() {
         return 50;

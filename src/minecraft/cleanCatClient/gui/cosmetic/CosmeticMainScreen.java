@@ -117,7 +117,7 @@ public class CosmeticMainScreen extends GuiScreen {
             player.renderYawOffset = rotationYaw;
             player.rotationYaw = rotationYaw;
             player.rotationPitch = 0.0F; // Keep the head from moving up and down
-            player.rotationYawHead = player.rotationYaw;
+            player.rotationYawHead = player.rotationYaw;    
             player.prevRotationYawHead = player.rotationYaw;
             GlStateManager.translate(0.0F, 0.0F, 0.0F);
             RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
