@@ -1,4 +1,4 @@
-package cleanCatClient.cosmetic.impl;
+package cleanCatClient.cosmetic.impl.cape;
 
 import cleanCatClient.cosmetic.CosmeticBoolean;
 import cleanCatClient.utils.animation.AnimatedResourceLocation;
@@ -10,23 +10,23 @@ import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.entity.player.EnumPlayerModelParts;
 import net.minecraft.util.MathHelper;
 
-public class CosmeticBadWolf implements LayerRenderer<AbstractClientPlayer> {
+public class CosmeticStarrySunsetCape implements LayerRenderer<AbstractClientPlayer> {
     private final RenderPlayer playerRenderer;
     public static AnimatedResourceLocation CAPEANIMATED;
 
     static {
-        CosmeticBadWolf.CAPEANIMATED = new AnimatedResourceLocation("cleanCatClient/Cosmetic/badwolfcape", 10, 10);
+        CosmeticStarrySunsetCape.CAPEANIMATED = new AnimatedResourceLocation("cleanCatClient/Cosmetic/starrysunsetcape", 10, 10);
     }
 
-    public CosmeticBadWolf(final RenderPlayer playerRendererIn) {
+    public CosmeticStarrySunsetCape(final RenderPlayer playerRendererIn) {
         this.playerRenderer = playerRendererIn;
     }
 
     @Override
     public void doRenderLayer(final AbstractClientPlayer entitylivingbaseIn, final float p_177141_2_, final float p_177141_3_, final float partialTicks, final float p_177141_5_, final float p_177141_6_, final float p_177141_7_, final float scale) {
-        if (CosmeticBoolean.BadWolfCape() && entitylivingbaseIn.hasPlayerInfo() && !entitylivingbaseIn.isInvisible() && entitylivingbaseIn.isWearing(EnumPlayerModelParts.CAPE) && entitylivingbaseIn.getName().equals(Minecraft.getMinecraft().session.getUsername()) && entitylivingbaseIn.getName().equals(Minecraft.getMinecraft().session.getUsername())) {
+        if (CosmeticBoolean.StarrySunsetCape() && entitylivingbaseIn.hasPlayerInfo() && !entitylivingbaseIn.isInvisible() && entitylivingbaseIn.isWearing(EnumPlayerModelParts.CAPE) && entitylivingbaseIn.getName().equals(Minecraft.getMinecraft().session.getUsername()) && entitylivingbaseIn.getName().equals(Minecraft.getMinecraft().session.getUsername())) {
             GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
-            this.playerRenderer.bindTexture(CosmeticBadWolf.CAPEANIMATED.getTexture());
+            this.playerRenderer.bindTexture(CosmeticStarrySunsetCape.CAPEANIMATED.getTexture());
             GlStateManager.pushMatrix();
             GlStateManager.translate(0.0f, 0.0f, 0.125f);
             final double d0 = entitylivingbaseIn.prevChasingPosX + (entitylivingbaseIn.chasingPosX - entitylivingbaseIn.prevChasingPosX) * partialTicks - (entitylivingbaseIn.prevPosX + (entitylivingbaseIn.posX - entitylivingbaseIn.prevPosX) * partialTicks);
@@ -61,7 +61,7 @@ public class CosmeticBadWolf implements LayerRenderer<AbstractClientPlayer> {
             this.playerRenderer.getMainModel().renderCape(0.0625f);
             GlStateManager.popMatrix();
         }
-        CosmeticBadWolf.CAPEANIMATED.update();
+        CosmeticStarrySunsetCape.CAPEANIMATED.update();
     }
 
     @Override

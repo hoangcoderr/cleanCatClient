@@ -10,22 +10,35 @@ public class CosmeticBoolean {
     public static boolean thuderCape;
     public static boolean badWolfCape;
     public static boolean starrySunsetCape;
+    public static boolean topHat;
+    public static boolean dragonWing;
 
     static {
         CosmeticBoolean.snowcape = false;
         CosmeticBoolean.nornalCape = false;
-        CosmeticBoolean.thuderCape = true;
+        CosmeticBoolean.thuderCape = false;
         CosmeticBoolean.badWolfCape = false;
-        CosmeticBoolean.starrySunsetCape = false;
+        CosmeticBoolean.starrySunsetCape = true;
+        CosmeticBoolean.topHat = true;
     }
 
 
     public static boolean shouldRenderTopHat(final AbstractClientPlayer player) {
+        //neu la ng choi moi render
         return player.getName().contains(Minecraft.getMinecraft().getSession().getUsername());
     }
 
-    public static float[] getHaloColor(final AbstractClientPlayer player) {
-        return new float[]{0.0f, 51.0f, 153.0f, 255.0f};
+    public static float[] getTopHatColor(final AbstractClientPlayer player) {
+        return new float[]{1.0f, 0.0f, 0.0f};
+    }
+
+    public static boolean shouldRenderDragonWing(final AbstractClientPlayer player) {
+        //neu la ng choi moi render
+        return player.getName().contains(Minecraft.getMinecraft().getSession().getUsername());
+    }
+
+    public static float[] getDragonWingColor(final AbstractClientPlayer player) {
+        return new float[]{1.0f, 0.0f, 0.0f};
     }
 
     public static boolean SnowCape() {
@@ -48,15 +61,16 @@ public class CosmeticBoolean {
         return CosmeticBoolean.starrySunsetCape;
     }
 
-    public static void set(String capeName) {
-        System.out.println("Da truyen vao: " + capeName);
-        switch (capeName) {
+    public static void set(String cosmeticName) {
+        System.out.println("Da truyen vao: " + cosmeticName);
+        switch (cosmeticName) {
             case "Snow Cape":
                 CosmeticBoolean.snowcape = true;
                 CosmeticBoolean.nornalCape = false;
                 CosmeticBoolean.thuderCape = false;
                 CosmeticBoolean.badWolfCape = false;
                 CosmeticBoolean.starrySunsetCape = false;
+                CosmeticBoolean.topHat = false;
                 break;
             case "Nornal Cape":
                 CosmeticBoolean.snowcape = false;
@@ -64,6 +78,8 @@ public class CosmeticBoolean {
                 CosmeticBoolean.thuderCape = false;
                 CosmeticBoolean.badWolfCape = false;
                 CosmeticBoolean.starrySunsetCape = false;
+                CosmeticBoolean.topHat = false;
+
                 break;
             case "Thuder Cape":
                 CosmeticBoolean.snowcape = false;
@@ -71,6 +87,8 @@ public class CosmeticBoolean {
                 CosmeticBoolean.thuderCape = true;
                 CosmeticBoolean.badWolfCape = false;
                 CosmeticBoolean.starrySunsetCape = false;
+                CosmeticBoolean.topHat = false;
+
                 break;
             case "Bad Wolf Cape":
                 CosmeticBoolean.snowcape = false;
@@ -78,6 +96,8 @@ public class CosmeticBoolean {
                 CosmeticBoolean.thuderCape = false;
                 CosmeticBoolean.badWolfCape = true;
                 CosmeticBoolean.starrySunsetCape = false;
+                CosmeticBoolean.topHat = false;
+
                 break;
             case "Starry Sunset Cape":
                 CosmeticBoolean.snowcape = false;
@@ -85,6 +105,10 @@ public class CosmeticBoolean {
                 CosmeticBoolean.thuderCape = false;
                 CosmeticBoolean.badWolfCape = false;
                 CosmeticBoolean.starrySunsetCape = true;
+                CosmeticBoolean.topHat = false;
+                break;
+            case "Top Hat":
+                CosmeticBoolean.topHat = true;
                 break;
             default:
                 break;

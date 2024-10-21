@@ -11,10 +11,10 @@ import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 
 public abstract class CosmeticBase implements LayerRenderer<AbstractClientPlayer>
 {
-    protected final RenderPlayer playerRendner;
+    protected final RenderPlayer playerRenderer;
     
-    public CosmeticBase(final RenderPlayer playerRendner) {
-        this.playerRendner = playerRendner;
+    public CosmeticBase(final RenderPlayer playerRenderer) {
+        this.playerRenderer = playerRenderer;
     }
     
     @Override

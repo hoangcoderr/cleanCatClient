@@ -43,6 +43,45 @@ public class ItemCounterSetting extends ModSettings {
         buttonList.add(saveButton);
     }
 
+
+
+    private ItemStack getItemByName(String itemName) {
+        ResourceLocation itemResource = new ResourceLocation(itemName);
+        net.minecraft.item.Item item = net.minecraft.item.Item.getByNameOrId(itemResource.toString());
+        if (item == null) {
+            System.out.println("Item not found: " + itemName); // Ghi nhật ký lỗi
+            return null;
+        }
+        return new ItemStack(item);
+    }
+
+
+    @Override
+    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+        super.drawScreen(mouseX, mouseY, partialTicks);
+        itemTextField.drawTextBox();
+        int y = height / 2 - 50;
+        int centerX = width / 2;
+
+        for (int i = 0; i < itemsToCount.size(); i++) {
+            ItemStack item = itemsToCount.get(i);
+
+            // Render the item icon
+            mc.getRenderItem().renderItemAndEffectIntoGUI(item, centerX - 110, y);
+
+            // Calculate the X position to center the text
+            int itemNameWidth = fontRendererObj.getStringWidth(item.getDisplayName());
+            int itemX = centerX - itemNameWidth / 2;
+            fontRendererObj.drawString(item.getDisplayName(), itemX, y + 5, 0xFFFFFF);
+
+            // Add delete button
+            ClientButton deleteButton = new ClientButton(100 + i, centerX + 110, y, 20, 20, "X");
+            buttonList.add(deleteButton);
+
+            y += 30;
+        }
+    }
+
     @Override
     protected void actionPerformed(ClientButton button) {
         if (button == addButton) {
@@ -59,36 +98,14 @@ public class ItemCounterSetting extends ModSettings {
             okButton.visible = false;
         } else if (button == saveButton) {
             // Save logic here
+        } else if (button.id >= 100) {
+            // Handle delete button
+            int index = button.id - 100;
+            if (index < itemsToCount.size()) {
+                itemsToCount.remove(index);
+                ModInstances.getItemCounter().setItemsToCount(itemsToCount);
+            }
         }
-    }
-
-    private ItemStack getItemByName(String itemName) {
-        ResourceLocation itemResource = new ResourceLocation(itemName);
-        net.minecraft.item.Item item = net.minecraft.item.Item.getByNameOrId(itemResource.toString());
-        if (item == null) {
-            System.out.println("Item not found: " + itemName); // Ghi nhật ký lỗi
-            return null;
-        }
-        return new ItemStack(item);
-    }
-
-
-    @Override
-    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        super.drawScreen(mouseX, mouseY, partialTicks);
-        //drawDefaultBackground();
-        itemTextField.drawTextBox();
-        int y = height / 2 - 50;
-        int centerX = width / 2; // Calculate the center X position
-
-        for (ItemStack item : itemsToCount) {
-            // Calculate the X position to center the text
-            int itemNameWidth = fontRendererObj.getStringWidth(item.getDisplayName());
-            int itemX = centerX - itemNameWidth / 2;
-            fontRendererObj.drawString(item.getDisplayName(), itemX, y, 0xFFFFFF);
-            y += 20;
-        }
-
     }
 
     @Override

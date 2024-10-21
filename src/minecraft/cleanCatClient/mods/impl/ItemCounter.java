@@ -77,7 +77,7 @@ public class ItemCounter extends ModDraggable {
             mc.getRenderItem().renderItemAndEffectIntoGUI(itemToCount, x, y);
 
             // Render the item count below the icon
-            mc.fontRendererObj.drawStringWithShadow(String.valueOf(totalCount), x + 8, y + 20, 0xFFFFFF);
+            mc.fontRendererObj.drawStringWithShadow(String.valueOf(totalCount), x, y + 20, 0xFFFFFF);
 
             // Move to the next position
             x += 20;
