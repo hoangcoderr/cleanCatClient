@@ -5,6 +5,8 @@ import cleanCatClient.cosmetic.impl.cape.CosmeticSnowyCape;
 import cleanCatClient.cosmetic.impl.cape.CosmeticStarrySunsetCape;
 import cleanCatClient.cosmetic.impl.cape.CosmeticThunderCape;
 import cleanCatClient.cosmetic.impl.hat.CosmeticTopHat;
+import cleanCatClient.cosmetic.impl.wing.CosmeticDragonWings;
+import cleanCatClient.cosmetic.impl.wing.CosmeticSatanWings;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.model.ModelPlayer;
@@ -38,6 +40,7 @@ public class RenderPlayer extends RendererLivingEntity<AbstractClientPlayer>
         this.smallArms = useSmallArms;
         this.addLayer(new LayerBipedArmor(this));
         //this.addLayer(new CosmeticDragonWings(this));
+        this.addLayer(new CosmeticSatanWings(this));
         this.addLayer(new LayerHeldItem(this));
         this.addLayer(new LayerArrow(this));
         this.addLayer(new LayerDeadmau5Head(this));

@@ -29,7 +29,7 @@ public class CosmeticBoolean {
     }
 
     public static float[] getTopHatColor(final AbstractClientPlayer player) {
-        return new float[]{1.0f, 0.0f, 0.0f};
+        return new float[]{1.0f, 1.0f, 0.0f};
     }
 
     public static boolean shouldRenderDragonWing(final AbstractClientPlayer player) {
@@ -38,6 +38,15 @@ public class CosmeticBoolean {
     }
 
     public static float[] getDragonWingColor(final AbstractClientPlayer player) {
+        return new float[]{1.0f, 0.0f, 0.0f};
+    }
+
+    public static boolean shouldRenderSatanWings(final AbstractClientPlayer player) {
+        //neu la ng choi moi render
+        return player.getName().contains(Minecraft.getMinecraft().getSession().getUsername());
+    }
+
+    public static float[] getSatanWingsColor(final AbstractClientPlayer player) {
         return new float[]{1.0f, 0.0f, 0.0f};
     }
 

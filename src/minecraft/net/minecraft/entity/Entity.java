@@ -49,6 +49,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 
 public abstract class Entity implements ICommandSender {
+	public long animation = System.currentTimeMillis();
+	public float airTicks;
 	private static final AxisAlignedBB ZERO_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
 	private static int nextEntityID;
 	private int entityId;
