@@ -1,4 +1,4 @@
-package cleanCatClient.gui.cosmetic;
+package cleanCatClient.gui.cosmetic.impl;
 
 import cleanCatClient.gui.mainmenu.button.ClientButton;
 import net.minecraft.client.gui.GuiButton;
@@ -8,18 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 import cleanCatClient.cosmetic.CosmeticBoolean;
 
-public class CapeScreen extends GuiScreen {
-    private List<String> capeNames;
+public class WingScreen extends GuiScreen {
+    private List<String> wingNames;
     private List<GuiButton> buttons;
 
-    public CapeScreen() {
-        capeNames = new ArrayList<>();
+    public WingScreen() {
+        wingNames = new ArrayList<>();
         buttons = new ArrayList<>();
-        capeNames.add("Snow Cape");
-        capeNames.add("Nornal Cape");
-        capeNames.add("Thuder Cape");
-        capeNames.add("Bad Wolf Cape");
-        capeNames.add("Starry Sunset Cape");
+        wingNames.add("Dragon Wings");
+        wingNames.add("Satan Wings");
     }
 
     @Override
@@ -30,10 +27,10 @@ public class CapeScreen extends GuiScreen {
         int startX = (this.width - (buttonWidth * 3 + padding * 2)) / 2;
         int startY = (this.height - (buttonHeight * 5 + padding * 4)) / 2;
 
-        for (int i = 0; i < capeNames.size(); i++) {
+        for (int i = 0; i < wingNames.size(); i++) {
             int x = startX + (i % 3) * (buttonWidth + padding);
             int y = startY + (i / 3) * (buttonHeight + padding);
-            ClientButton button = new ClientButton(i, x, y, buttonWidth, buttonHeight, capeNames.get(i));
+            ClientButton button = new ClientButton(i, x, y, buttonWidth, buttonHeight, wingNames.get(i));
             this.buttonList.add(button);
             buttons.add(button);
         }
@@ -41,7 +38,7 @@ public class CapeScreen extends GuiScreen {
 
     @Override
     protected void actionPerformed(ClientButton button) throws IOException {
-        String capeName = capeNames.get(button.id);
+        String capeName = wingNames.get(button.id);
         // Gọi hàm CosmeticBoolean.set<ten cape>
         System.out.println(capeName);
         CosmeticBoolean.set(capeName);

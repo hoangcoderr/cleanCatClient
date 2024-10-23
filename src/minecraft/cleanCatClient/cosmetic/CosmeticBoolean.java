@@ -12,6 +12,7 @@ public class CosmeticBoolean {
     public static boolean starrySunsetCape;
     public static boolean topHat;
     public static boolean dragonWing;
+    public static boolean satanWing;
 
     static {
         CosmeticBoolean.snowcape = false;
@@ -20,6 +21,8 @@ public class CosmeticBoolean {
         CosmeticBoolean.badWolfCape = false;
         CosmeticBoolean.starrySunsetCape = true;
         CosmeticBoolean.topHat = true;
+        CosmeticBoolean.dragonWing = true;
+        CosmeticBoolean.satanWing = false;
     }
 
 
@@ -34,16 +37,16 @@ public class CosmeticBoolean {
 
     public static boolean shouldRenderDragonWing(final AbstractClientPlayer player) {
         //neu la ng choi moi render
-        return player.getName().contains(Minecraft.getMinecraft().getSession().getUsername());
+        return player.getName().contains(Minecraft.getMinecraft().getSession().getUsername()) && dragonWing;
     }
 
-    public static float[] getDragonWingColor(final AbstractClientPlayer player) {
+    public static float[] getDragonWingColor() {
         return new float[]{1.0f, 0.0f, 0.0f};
     }
 
     public static boolean shouldRenderSatanWings(final AbstractClientPlayer player) {
         //neu la ng choi moi render
-        return player.getName().contains(Minecraft.getMinecraft().getSession().getUsername());
+        return player.getName().contains(Minecraft.getMinecraft().getSession().getUsername()) && satanWing;
     }
 
     public static float[] getSatanWingsColor(final AbstractClientPlayer player) {
@@ -118,6 +121,15 @@ public class CosmeticBoolean {
                 break;
             case "Top Hat":
                 CosmeticBoolean.topHat = true;
+                break;
+            case "Dragon Wings":
+                CosmeticBoolean.dragonWing = true;
+                CosmeticBoolean.satanWing = false;
+                break;
+
+            case "Satan Wings":
+                CosmeticBoolean.satanWing = true;
+                CosmeticBoolean.dragonWing = false;
                 break;
             default:
                 break;

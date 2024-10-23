@@ -1,11 +1,15 @@
 package cleanCatClient.cosmetic.impl.wing;
 
 import cleanCatClient.cosmetic.CosmeticBase;
+import cleanCatClient.cosmetic.CosmeticBoolean;
 import cleanCatClient.cosmetic.CosmeticModelBase;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderPlayer;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
@@ -19,45 +23,25 @@ public class CosmeticDragonWings extends CosmeticBase {
         this.modelDragonWing = new ModelDragonWing(renderPlayer);
     }
 
-    private float interpolate(float yaw1, float yaw2, float percent) {
-        float f = (yaw1 + (yaw2 - yaw1) * percent) % 360;
-        if (f < 0) {
-            f += 360;
-        }
-        return f;
-    }
 
     @Override
     public void render(AbstractClientPlayer player, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale, float partialTicks) {
-        if (!player.isInvisible()) {
-            double rotate = interpolate(player.prevRenderYawOffset, player.renderYawOffset, partialTicks);
-
-            GlStateManager.pushMatrix();
-            playerRenderer.bindTexture(TEXTURE);
-
-            double wingScale = 0.01; // Adjust wing scale if needed
-
-            GL11.glScaled(-wingScale, -wingScale, wingScale);  // Scaling wings
-            //GL11.glRotated(180 + rotate, 0, 1, 0); // Aligning wings with player's yaw
-            GL11.glTranslated(0, 1.25, 0);  // Adjusting position
-            GL11.glTranslated(0, 0, 0.2);
-
-            if (player.isSneaking()) {
-                GL11.glTranslated(0D, 0.125D, 0D);
-            }
-
-            float[] colors = {1.0F, 1.0F, 1.0F}; // Assuming default white color, replace with actual settings if available
-            GL11.glColor3f(colors[0], colors[1], colors[2]);
-
-            this.modelDragonWing.renderWings(scale);  // Call to render the dragon wings
-
-            GlStateManager.popMatrix();
+        if (!player.isInvisible() && CosmeticBoolean.shouldRenderDragonWing(player)) {
+            this.modelDragonWing.renderWings(player, partialTicks);
         }
     }
 
     private class ModelDragonWing extends CosmeticModelBase {
         private final ModelRenderer wing;
         private final ModelRenderer wingTip;
+
+        private float interpolate(float yaw1, float yaw2, float percent) {
+            float f = (yaw1 + (yaw2 - yaw1) * percent) % 360;
+            if (f < 0) {
+                f += 360;
+            }
+            return f;
+        }
 
         public ModelDragonWing(RenderPlayer player) {
             super(player);
@@ -83,43 +67,36 @@ public class CosmeticDragonWings extends CosmeticBase {
             wing.addChild(wingTip);
         }
 
-        public void renderWings(float scale) {
-            for (int i = 0; i < 2; i++) {
+
+        private void renderWings(EntityPlayer player, float partialTicks) {
+            GL11.glPushMatrix();
+            GL11.glScaled(-1, -1, 1);
+            GL11.glTranslated(0D, -0.2D, 0.2D);
+            if (player.isSneaking()) {
+                GL11.glTranslated(0D, 0.125D, 0D);
+            }
+
+            float[] colors = CosmeticBoolean.getDragonWingColor();
+            GL11.glColor3f(colors[0], colors[1], colors[2]);
+            Minecraft.getMinecraft().getTextureManager().bindTexture(TEXTURE);
+            for (int j = 0; j < 2; ++j) {
                 GL11.glEnable(GL11.GL_CULL_FACE);
-
-                float wingAnimation = (System.currentTimeMillis() % 1000) / 1000F * (float) Math.PI * 2.0F;
-
-                // Rotate the wings
-                this.wing.rotateAngleX = (float) Math.toRadians(-80F) - (float) Math.cos(wingAnimation) * 0.2F;
-                this.wing.rotateAngleY = (float) Math.toRadians(20F) + (float) Math.sin(wingAnimation) * 0.4F;
+                float f11 = (System.currentTimeMillis() % 1000) / 1000F * (float) Math.PI * 2.0F;
+                this.wing.rotateAngleX = (float) Math.toRadians(-80F) - (float) Math.cos((double) f11) * 0.2F;
+                this.wing.rotateAngleY = (float) Math.toRadians(20F) + (float) Math.sin(f11) * 0.4F;
                 this.wing.rotateAngleZ = (float) Math.toRadians(20F);
-
-                // Wingtip movement
-                this.wingTip.rotateAngleZ = -((float) (Math.sin(wingAnimation + 2.0F) + 0.5D)) * 0.75F;
-
-                // Separate each wing to its side (adjust this to control separation distance)
-                if (i == 0) {
-                    GL11.glTranslated(-0.75D, 0, 0); // Move left wing to the left
-                } else {
-                    GL11.glTranslated(0.75D, 0, 0);  // Move right wing to the right
-                }
-
-                // Render the current wing
-                this.wing.render(scale);
-
-                // Mirror the second wing horizontally
+                this.wingTip.rotateAngleZ = -((float) (Math.sin((double) (f11 + 2.0F)) + 0.5D)) * 0.75F;
+                this.wing.render(0.0625F);
                 GL11.glScalef(-1.0F, 1.0F, 1.0F);
 
-                // Set culling to the front for the first wing
-                if (i == 0) {
-                    GL11.glCullFace(GL11.GL_FRONT);
+                if (j == 0) {
+                    GL11.glCullFace(1028);
                 }
             }
 
-// Reset culling and disable face culling
-            GL11.glCullFace(GL11.GL_BACK);
+            GL11.glCullFace(1029);
             GL11.glDisable(GL11.GL_CULL_FACE);
-
+            GL11.glColor3f(255F, 255F, 255F);
+            GL11.glPopMatrix();
         }
-    }
-}
+}}

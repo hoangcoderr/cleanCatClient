@@ -39,7 +39,7 @@ public class RenderPlayer extends RendererLivingEntity<AbstractClientPlayer>
         super(renderManager, new ModelPlayer(0.0F, useSmallArms), 0.5F);
         this.smallArms = useSmallArms;
         this.addLayer(new LayerBipedArmor(this));
-        //this.addLayer(new CosmeticDragonWings(this));
+        this.addLayer(new CosmeticDragonWings(this));
         this.addLayer(new CosmeticSatanWings(this));
         this.addLayer(new LayerHeldItem(this));
         this.addLayer(new LayerArrow(this));

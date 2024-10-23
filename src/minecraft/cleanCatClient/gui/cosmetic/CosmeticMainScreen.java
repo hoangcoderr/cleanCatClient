@@ -1,5 +1,7 @@
 package cleanCatClient.gui.cosmetic;
 
+import cleanCatClient.gui.cosmetic.impl.CapeScreen;
+import cleanCatClient.gui.cosmetic.impl.WingScreen;
 import cleanCatClient.gui.mainmenu.button.ClientButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
@@ -36,7 +38,7 @@ public class CosmeticMainScreen extends GuiScreen {
                 // this.mc.displayGuiScreen(new HatScreen());
                 break;
             case 1:
-                //  this.mc.displayGuiScreen(new WingScreen());
+                this.mc.displayGuiScreen(new WingScreen());
                 break;
             case 2:
                 this.mc.displayGuiScreen(new CapeScreen());
@@ -98,7 +100,7 @@ public class CosmeticMainScreen extends GuiScreen {
         }
     }
 
-    private void renderPlayerModel(int posX, int posY, int scale, float mouseX, float mouseY, EntityPlayerSP player) {
+    public void renderPlayerModel(int posX, int posY, int scale, float mouseX, float mouseY, EntityPlayerSP player) {
         try {
             GlStateManager.enableColorMaterial();
             GlStateManager.pushMatrix();
