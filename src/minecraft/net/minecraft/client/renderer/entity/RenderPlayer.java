@@ -1,10 +1,8 @@
 package net.minecraft.client.renderer.entity;
 
-import cleanCatClient.cosmetic.impl.cape.CosmeticBadWolf;
-import cleanCatClient.cosmetic.impl.cape.CosmeticSnowyCape;
-import cleanCatClient.cosmetic.impl.cape.CosmeticStarrySunsetCape;
-import cleanCatClient.cosmetic.impl.cape.CosmeticThunderCape;
+import cleanCatClient.cosmetic.impl.cape.*;
 import cleanCatClient.cosmetic.impl.hat.CosmeticTopHat;
+import cleanCatClient.cosmetic.impl.wing.CosmeticDragonBabyWings;
 import cleanCatClient.cosmetic.impl.wing.CosmeticDragonWings;
 import cleanCatClient.cosmetic.impl.wing.CosmeticSatanWings;
 import net.minecraft.client.entity.AbstractClientPlayer;
@@ -40,6 +38,7 @@ public class RenderPlayer extends RendererLivingEntity<AbstractClientPlayer>
         this.smallArms = useSmallArms;
         this.addLayer(new LayerBipedArmor(this));
         this.addLayer(new CosmeticDragonWings(this));
+        this.addLayer(new CosmeticDragonBabyWings(this));
         this.addLayer(new CosmeticSatanWings(this));
         this.addLayer(new LayerHeldItem(this));
         this.addLayer(new LayerArrow(this));
@@ -49,6 +48,7 @@ public class RenderPlayer extends RendererLivingEntity<AbstractClientPlayer>
         this.addLayer(new CosmeticSnowyCape(this));
         this.addLayer(new CosmeticBadWolf(this));
         this.addLayer(new CosmeticStarrySunsetCape(this));
+        this.addLayer(new CosmeticAnimeGirlCape(this));
         this.addLayer(new LayerCustomHead(this.getMainModel().bipedHead));
         this.addLayer(new CosmeticTopHat(this));}
 

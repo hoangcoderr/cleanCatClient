@@ -13,6 +13,8 @@ public class CosmeticBoolean {
     public static boolean topHat;
     public static boolean dragonWing;
     public static boolean satanWing;
+    public static boolean dragonBabyWing;
+    public static boolean animeGirlCape;
 
     static {
         CosmeticBoolean.snowcape = false;
@@ -23,6 +25,7 @@ public class CosmeticBoolean {
         CosmeticBoolean.topHat = true;
         CosmeticBoolean.dragonWing = true;
         CosmeticBoolean.satanWing = false;
+        CosmeticBoolean.dragonBabyWing = false;
     }
 
 
@@ -38,6 +41,11 @@ public class CosmeticBoolean {
     public static boolean shouldRenderDragonWing(final AbstractClientPlayer player) {
         //neu la ng choi moi render
         return player.getName().contains(Minecraft.getMinecraft().getSession().getUsername()) && dragonWing;
+    }
+
+    public static boolean shouldRenderDragonBabyWing(final AbstractClientPlayer player) {
+        //neu la ng choi moi render
+        return player.getName().contains(Minecraft.getMinecraft().getSession().getUsername()) && dragonBabyWing;
     }
 
     public static float[] getDragonWingColor() {
@@ -83,6 +91,8 @@ public class CosmeticBoolean {
                 CosmeticBoolean.badWolfCape = false;
                 CosmeticBoolean.starrySunsetCape = false;
                 CosmeticBoolean.topHat = false;
+                CosmeticBoolean.animeGirlCape = false;
+
                 break;
             case "Nornal Cape":
                 CosmeticBoolean.snowcape = false;
@@ -91,6 +101,8 @@ public class CosmeticBoolean {
                 CosmeticBoolean.badWolfCape = false;
                 CosmeticBoolean.starrySunsetCape = false;
                 CosmeticBoolean.topHat = false;
+                CosmeticBoolean.animeGirlCape = false;
+
 
                 break;
             case "Thuder Cape":
@@ -100,6 +112,8 @@ public class CosmeticBoolean {
                 CosmeticBoolean.badWolfCape = false;
                 CosmeticBoolean.starrySunsetCape = false;
                 CosmeticBoolean.topHat = false;
+                CosmeticBoolean.animeGirlCape = false;
+
 
                 break;
             case "Bad Wolf Cape":
@@ -109,6 +123,8 @@ public class CosmeticBoolean {
                 CosmeticBoolean.badWolfCape = true;
                 CosmeticBoolean.starrySunsetCape = false;
                 CosmeticBoolean.topHat = false;
+                CosmeticBoolean.animeGirlCape = false;
+
 
                 break;
             case "Starry Sunset Cape":
@@ -118,6 +134,8 @@ public class CosmeticBoolean {
                 CosmeticBoolean.badWolfCape = false;
                 CosmeticBoolean.starrySunsetCape = true;
                 CosmeticBoolean.topHat = false;
+                CosmeticBoolean.animeGirlCape = false;
+
                 break;
             case "Top Hat":
                 CosmeticBoolean.topHat = true;
@@ -125,11 +143,27 @@ public class CosmeticBoolean {
             case "Dragon Wings":
                 CosmeticBoolean.dragonWing = true;
                 CosmeticBoolean.satanWing = false;
+                CosmeticBoolean.dragonBabyWing = false;
                 break;
 
             case "Satan Wings":
                 CosmeticBoolean.satanWing = true;
                 CosmeticBoolean.dragonWing = false;
+                CosmeticBoolean.dragonBabyWing = false;
+                break;
+            case "Baby Dragon Wings":
+                CosmeticBoolean.dragonBabyWing = true;
+                CosmeticBoolean.dragonWing = false;
+                CosmeticBoolean.satanWing = false;
+                break;
+            case "Anime Girl Cape":
+                CosmeticBoolean.animeGirlCape = true;
+                CosmeticBoolean.snowcape = false;
+                CosmeticBoolean.nornalCape = false;
+                CosmeticBoolean.thuderCape = false;
+                CosmeticBoolean.badWolfCape = false;
+                CosmeticBoolean.starrySunsetCape = false;
+                CosmeticBoolean.topHat = false;
                 break;
             default:
                 break;

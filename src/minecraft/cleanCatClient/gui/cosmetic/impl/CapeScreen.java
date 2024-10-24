@@ -20,6 +20,7 @@ public class CapeScreen extends GuiScreen {
         capeNames.add("Thuder Cape");
         capeNames.add("Bad Wolf Cape");
         capeNames.add("Starry Sunset Cape");
+        capeNames.add("Anime Girl Cape");
     }
 
     @Override

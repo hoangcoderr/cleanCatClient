@@ -17,6 +17,7 @@ public class WingScreen extends GuiScreen {
         buttons = new ArrayList<>();
         wingNames.add("Dragon Wings");
         wingNames.add("Satan Wings");
+        wingNames.add("Baby Dragon Wings");
     }
 
     @Override
