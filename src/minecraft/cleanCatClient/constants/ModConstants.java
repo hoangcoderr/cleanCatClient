@@ -93,4 +93,7 @@ public class ModConstants {
 
     public static String ITEM_COUNTER = "Item Counter";
     public static String ITEM_COUNTER_DESC = "Count the number of items in your inventory";
+
+    public static String TNT_TIMER = "TNT Timer";
+    public static String TNT_TIMER_DESC = "Show the time of TNT explosion";
 }

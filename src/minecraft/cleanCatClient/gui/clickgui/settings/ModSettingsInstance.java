@@ -1,6 +1,7 @@
 package cleanCatClient.gui.clickgui.settings;
 
 import cleanCatClient.gui.clickgui.settings.impl.*;
+import cleanCatClient.mods.impl.TNTTimer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,8 +30,10 @@ public class ModSettingsInstance {
     private static CoordinateDisplaySettings coordinateDisplaySettings;
     private static ChatShortcutSetting chatShortcutSetting;
     private static ItemCounterSetting itemCounterSetting;
+    private static TNTTimerSettings tntTimerSettings;
     private static List<ModSettings> allSettings = new ArrayList<>();
     public static void register(){
+        tntTimerSettings = new TNTTimerSettings();
         chatShortcutSetting = new ChatShortcutSetting();
         armorStatusSetting = new ArmorStatusSetting();
         blockOverlaySettings = new BlockOverlaySettings();
@@ -73,7 +76,7 @@ public class ModSettingsInstance {
                 armorStatusSetting, blockOverlaySettings, bossBarSettings, customCrosshairSettings, fpsSettings,
                 glintColorSettings, hitColorSettings, keystrokesSettings, lazyChunkLoadingSettings, noHurtCamSettings,
                 oldAnimationSettings, perspectiveSettings, pingDisplaySettings, potionStatusSettings,
-                scoreboardSettings, toggleSprintSettings, timeChangerSettings, colorSaturationSettings, itemPhysicsSetting, coordinateDisplaySettings,chatShortcutSetting,itemCounterSetting
+                scoreboardSettings, toggleSprintSettings, timeChangerSettings, colorSaturationSettings, itemPhysicsSetting, coordinateDisplaySettings,chatShortcutSetting,itemCounterSetting,tntTimerSettings
         );
     }
     public static List<ModSettings> getAllSettings(){
