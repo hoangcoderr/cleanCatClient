@@ -36,4 +36,5 @@ public abstract class CosmeticBase implements LayerRenderer<AbstractClientPlayer
         Minecraft.getMinecraft().getTextureManager().bindTexture(resourceLocation);
         return colorModel;
     }
+
 }

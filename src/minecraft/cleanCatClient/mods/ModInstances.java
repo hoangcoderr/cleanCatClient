@@ -142,7 +142,6 @@ public class ModInstances {
     public static TNTTimer getTntTimer() {
         return tntTimer;
     }
-
     public static ChatShortcuts getChatShortcuts() {
         return chatShortcuts;
     }

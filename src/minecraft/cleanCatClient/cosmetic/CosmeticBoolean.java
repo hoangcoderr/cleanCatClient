@@ -15,6 +15,7 @@ public class CosmeticBoolean {
     public static boolean satanWing;
     public static boolean dragonBabyWing;
     public static boolean animeGirlCape;
+    public static boolean jumpingFrogCape;
 
     static {
         CosmeticBoolean.snowcape = false;
@@ -26,6 +27,7 @@ public class CosmeticBoolean {
         CosmeticBoolean.dragonWing = true;
         CosmeticBoolean.satanWing = false;
         CosmeticBoolean.dragonBabyWing = false;
+        CosmeticBoolean.animeGirlCape = false;
     }
 
 
@@ -92,6 +94,8 @@ public class CosmeticBoolean {
                 CosmeticBoolean.starrySunsetCape = false;
                 CosmeticBoolean.topHat = false;
                 CosmeticBoolean.animeGirlCape = false;
+                CosmeticBoolean.jumpingFrogCape = false;
+
 
                 break;
             case "Nornal Cape":
@@ -102,6 +106,7 @@ public class CosmeticBoolean {
                 CosmeticBoolean.starrySunsetCape = false;
                 CosmeticBoolean.topHat = false;
                 CosmeticBoolean.animeGirlCape = false;
+                CosmeticBoolean.jumpingFrogCape = false;
 
 
                 break;
@@ -113,6 +118,7 @@ public class CosmeticBoolean {
                 CosmeticBoolean.starrySunsetCape = false;
                 CosmeticBoolean.topHat = false;
                 CosmeticBoolean.animeGirlCape = false;
+                CosmeticBoolean.jumpingFrogCape = false;
 
 
                 break;
@@ -124,6 +130,7 @@ public class CosmeticBoolean {
                 CosmeticBoolean.starrySunsetCape = false;
                 CosmeticBoolean.topHat = false;
                 CosmeticBoolean.animeGirlCape = false;
+                CosmeticBoolean.jumpingFrogCape = false;
 
 
                 break;
@@ -135,6 +142,7 @@ public class CosmeticBoolean {
                 CosmeticBoolean.starrySunsetCape = true;
                 CosmeticBoolean.topHat = false;
                 CosmeticBoolean.animeGirlCape = false;
+                CosmeticBoolean.jumpingFrogCape = false;
 
                 break;
             case "Top Hat":
@@ -163,7 +171,16 @@ public class CosmeticBoolean {
                 CosmeticBoolean.thuderCape = false;
                 CosmeticBoolean.badWolfCape = false;
                 CosmeticBoolean.starrySunsetCape = false;
-                CosmeticBoolean.topHat = false;
+                CosmeticBoolean.jumpingFrogCape = false;
+                break;
+            case "Jumping Frog Cape":
+                CosmeticBoolean.jumpingFrogCape = true;
+                CosmeticBoolean.animeGirlCape = false;
+                CosmeticBoolean.snowcape = false;
+                CosmeticBoolean.nornalCape = false;
+                CosmeticBoolean.thuderCape = false;
+                CosmeticBoolean.badWolfCape = false;
+                CosmeticBoolean.starrySunsetCape = false;
                 break;
             default:
                 break;

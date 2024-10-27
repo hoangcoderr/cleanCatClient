@@ -37,4 +37,7 @@ if __name__ == "__main__":
     gif_path = "cape.gif"
     output_folder = "output"
     num_frames = int(input("Enter the number of frames to extract: "))
+    ##clean output folder
+    for file in os.listdir(output_folder):
+        os.remove(os.path.join(output_folder, file))
     extract_frames_from_gif(gif_path, output_folder, num_frames)
