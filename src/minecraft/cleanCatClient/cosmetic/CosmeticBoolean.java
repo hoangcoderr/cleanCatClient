@@ -172,6 +172,7 @@ public class CosmeticBoolean {
                 CosmeticBoolean.badWolfCape = false;
                 CosmeticBoolean.starrySunsetCape = false;
                 CosmeticBoolean.jumpingFrogCape = false;
+                System.out.println(CosmeticBoolean.animeGirlCape + " " + CosmeticBoolean.snowcape + " " + CosmeticBoolean.nornalCape + " " + CosmeticBoolean.thuderCape + " " + CosmeticBoolean.badWolfCape + " " + CosmeticBoolean.starrySunsetCape + " " + CosmeticBoolean.jumpingFrogCape);
                 break;
             case "Jumping Frog Cape":
                 CosmeticBoolean.jumpingFrogCape = true;

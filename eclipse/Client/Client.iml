@@ -66,6 +66,9 @@
       <src_folder value="file://$MCP_LOC$/src/minecraft" expected_position="0" />
     </src_description>
   </component>
+  <component name="McpModuleSettings">
+    <option name="srgType" value="SRG" />
+  </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MCP_LOC$">
