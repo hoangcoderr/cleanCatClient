@@ -15,7 +15,7 @@ public class CosmeticAnimeGirlCape implements LayerRenderer<AbstractClientPlayer
     public static AnimatedResourceLocation CAPEANIMATED;
 
     static {
-        CosmeticBadWolf.CAPEANIMATED = new AnimatedResourceLocation("cleanCatClient/Cosmetic/animegirl", 20, 20);
+        CosmeticAnimeGirlCape.CAPEANIMATED = new AnimatedResourceLocation("cleanCatClient/Cosmetic/animegirl", 20, 20);
     }
 
     public CosmeticAnimeGirlCape(final RenderPlayer playerRendererIn) {

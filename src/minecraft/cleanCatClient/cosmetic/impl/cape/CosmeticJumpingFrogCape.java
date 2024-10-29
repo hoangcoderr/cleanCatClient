@@ -15,7 +15,7 @@ public class CosmeticJumpingFrogCape implements LayerRenderer<AbstractClientPlay
     public static AnimatedResourceLocation CAPEANIMATED;
 
     static {
-        CosmeticBadWolf.CAPEANIMATED = new AnimatedResourceLocation("cleanCatClient/Cosmetic/jumpingfrogcape", 12 ,12);
+        CosmeticJumpingFrogCape.CAPEANIMATED = new AnimatedResourceLocation("cleanCatClient/Cosmetic/jumpingfrogcape", 12 ,12);
     }
 
     public CosmeticJumpingFrogCape(final RenderPlayer playerRendererIn) {
