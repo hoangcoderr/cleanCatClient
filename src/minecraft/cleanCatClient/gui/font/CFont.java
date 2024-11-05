@@ -38,6 +38,7 @@ public class CFont {
         int imgSize = (int) this.imgSize;
         BufferedImage bufferedImage = new BufferedImage(imgSize, imgSize, BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphics = (Graphics2D) bufferedImage.getGraphics();
+
         graphics.setFont(font);
         graphics.setColor(new Color(255, 255, 255, 0));
         graphics.fillRect(0, 0, imgSize, imgSize);

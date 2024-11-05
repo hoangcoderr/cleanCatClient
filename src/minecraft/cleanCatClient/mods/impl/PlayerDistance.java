@@ -1,6 +1,7 @@
 // src/minecraft/cleanCatClient/mods/impl/PlayerDistance.java
 package cleanCatClient.mods.impl;
 
+import cleanCatClient.Client;
 import cleanCatClient.event.EventTarget;
 import cleanCatClient.event.impl.ClientTickEvent;
 import cleanCatClient.event.impl.KeyEvent;
@@ -39,6 +40,7 @@ import net.minecraft.util.Vec3;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
+
 public class PlayerDistance extends ModDraggable {
     private int vboId;
     private int vaoId;
@@ -73,6 +75,7 @@ public class PlayerDistance extends ModDraggable {
             return "bên trái";
         }
     }
+
     public void renderBedESP() {
         for (TileEntity tileEntity : mc.theWorld.loadedTileEntityList) {
             if (tileEntity.getBlockType() instanceof BlockBed) {
@@ -85,21 +88,23 @@ public class PlayerDistance extends ModDraggable {
     @EventTarget
     public void drawLine(Render2D event) {
         if (!ModInstances.getToggleSprint().isShowText())
-        for (EntityLivingBase entitylivingbase : this.mc.theWorld.playerEntities) {
-            if (entitylivingbase instanceof EntityPlayer) {
-                if (entitylivingbase != mc.thePlayer) {
-                    PlayerDistance.drawTracerLine(entitylivingbase);
-                    PlayerDistance.entityESPBox(entitylivingbase);
+            for (EntityLivingBase entitylivingbase : this.mc.theWorld.playerEntities) {
+                if (entitylivingbase instanceof EntityPlayer) {
+                    if (entitylivingbase != mc.thePlayer) {
+                        PlayerDistance.drawTracerLine(entitylivingbase);
+                        PlayerDistance.entityESPBox(entitylivingbase);
+                    }
                 }
             }
-        }
         //renderBedESP();
     }
+
     private boolean isFKeyPressed = false; // Track the state of the 'F' key
     private long lastClickTime = 0;
     private static final int CPS = 16;
     private static final long CLICK_INTERVAL = 1000 / CPS;
     public static boolean active = false;
+
     @EventTarget
     public void onKey(KeyEvent event) {
         if (event.getKey() == Keyboard.KEY_F) {
@@ -127,13 +132,14 @@ public class PlayerDistance extends ModDraggable {
 //            }
 //        }
     }
-    public static synchronized void faceEntity(EntityPlayer entity, float partialTicks) {
-        final float[] rotations = getRotationsNeeded(entity, partialTicks);
 
-        if (rotations != null) {
-            Minecraft.getMinecraft().thePlayer.rotationYaw = rotations[0];
-            Minecraft.getMinecraft().thePlayer.rotationPitch = rotations[1] + 1.0F;
-        }
+    public static synchronized void faceEntity(EntityPlayer entity, float partialTicks) {
+//        final float[] rotations = getRotationsNeeded(entity, partialTicks);
+//
+//        if (rotations != null) {
+//            Minecraft.getMinecraft().thePlayer.rotationYaw = rotations[0];
+//            Minecraft.getMinecraft().thePlayer.rotationPitch = rotations[1] + 1.0F;
+//        }
     }
 
     public static float[] getRotationsNeeded(Entity entity, float partialTicks) {
@@ -192,22 +198,26 @@ public class PlayerDistance extends ModDraggable {
         GL11.glPushMatrix();
         GlStateManager.scale(3.0, 3.0, 3.0); // Scale the text to be 3 times larger
         mc.fontRendererObj.drawStringWithShadow("Warning: Fireball Incoming!", (Minecraft.centerX - 90)/ 3, (Minecraft.centerY + 50) / 3, 0xFF0000);
-        GL11.glPopMatrix();    }
+        GL11.glPopMatrix();
+    }
 
     public void render(ScreenPosition pos) {
-        if (!ModInstances.getToggleSprint().isShowText()){
-        Minecraft mc = Minecraft.getMinecraft();
-        int yOffset = 0;
-        for (EntityPlayer player : mc.theWorld.playerEntities) {
-            if (player != mc.thePlayer) {
-                double distance = mc.thePlayer.getDistanceToEntity(player);
-                String relativePosition = getRelativePosition(mc.thePlayer, player);
-                String text = player.getDisplayName().getFormattedText() + ": " + String.format("%.1f", distance) + " blocks (" + relativePosition + ")";
-                mc.fontRendererObj.drawStringWithShadow(text, pos.getAbsoluteX(), pos.getAbsoluteY() + yOffset, 0XFFFFFF);
-                yOffset += mc.fontRendererObj.FONT_HEIGHT + 2; // Move to the next line
+        if (!ModInstances.getToggleSprint().isShowText()) {
+            Minecraft mc = Minecraft.getMinecraft();
+            int yOffset = 0;
+            for (EntityPlayer player : mc.theWorld.playerEntities) {
+                if (player != mc.thePlayer) {
+                    double distance = mc.thePlayer.getDistanceToEntity(player);
+                    String relativePosition = getRelativePosition(mc.thePlayer, player);
+                    String text = player.getDisplayName().getFormattedText() + ": " + String.format("%.1f", distance) + " blocks (" + relativePosition + ")";
+                    mc.fontRendererObj.drawStringWithShadow(text, pos.getAbsoluteX(), pos.getAbsoluteY() + yOffset, 0XFFFFFF);
+                    yOffset += mc.fontRendererObj.FONT_HEIGHT + 2; // Move to the next line
+                }
             }
+            checkForFireballs();
         }
-        checkForFireballs();}
+
+
     }
 
     public static void blockESPBox(BlockPos blockPos) {
@@ -234,6 +244,7 @@ public class PlayerDistance extends ModDraggable {
         GL11.glDisable(GL11.GL_BLEND);
         GL11.glPopMatrix();
     }
+
     public static void drawTracerLine(EntityLivingBase entity) {
         double xPos = (entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * Minecraft.getMinecraft().timer.renderPartialTicks) - Minecraft.getMinecraft().getRenderManager().renderPosX;
         double yPos = (entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * Minecraft.getMinecraft().timer.renderPartialTicks) - Minecraft.getMinecraft().getRenderManager().renderPosY;

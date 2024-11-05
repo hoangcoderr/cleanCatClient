@@ -1,5 +1,6 @@
 package net.minecraft.client.gui;
 
+import cleanCatClient.gui.font.FontUtil;
 import com.google.common.collect.ComparisonChain;
 import com.google.common.collect.Ordering;
 import com.mojang.authlib.GameProfile;
@@ -133,7 +134,7 @@ public class GuiPlayerTabOverlay extends Gui
             for (String s3 : list1)
             {
                 int i2 = this.mc.fontRendererObj.getStringWidth(s3);
-                this.mc.fontRendererObj.drawStringWithShadow(s3, (float)(width / 2 - i2 / 2), (float)k1, -1);
+                FontUtil.normal.drawStringWithShadow(s3, (float)(width / 2 - i2 / 2), (float)k1, -1);
                 k1 += this.mc.fontRendererObj.FONT_HEIGHT;
             }
 
@@ -182,11 +183,11 @@ public class GuiPlayerTabOverlay extends Gui
                 if (networkplayerinfo1.getGameType() == WorldSettings.GameType.SPECTATOR)
                 {
                     s1 = EnumChatFormatting.ITALIC + s1;
-                    this.mc.fontRendererObj.drawStringWithShadow(s1, (float)j2, (float)k2, -1862270977);
+                    FontUtil.normal.drawStringWithShadow(s1, (float)j2, (float)k2, -1862270977);
                 }
                 else
                 {
-                    this.mc.fontRendererObj.drawStringWithShadow(s1, (float)j2, (float)k2, -1);
+                    FontUtil.normal.drawStringWithShadow(s1, (float)j2, (float)k2, -1);
                 }
 
                 if (scoreObjectiveIn != null && networkplayerinfo1.getGameType() != WorldSettings.GameType.SPECTATOR)
@@ -212,7 +213,7 @@ public class GuiPlayerTabOverlay extends Gui
             for (String s4 : list2)
             {
                 int j5 = this.mc.fontRendererObj.getStringWidth(s4);
-                this.mc.fontRendererObj.drawStringWithShadow(s4, (float)(width / 2 - j5 / 2), (float)k1, -1);
+                FontUtil.normal.drawStringWithShadow(s4, (float)(width / 2 - j5 / 2), (float)k1, -1);
                 k1 += this.mc.fontRendererObj.FONT_HEIGHT;
             }
         }
@@ -340,14 +341,14 @@ public class GuiPlayerTabOverlay extends Gui
                         s = s + "hp";
                     }
 
-                    this.mc.fontRendererObj.drawStringWithShadow(s, (float)((p_175247_5_ + p_175247_4_) / 2 - this.mc.fontRendererObj.getStringWidth(s) / 2), (float)p_175247_2_, i1);
+                    FontUtil.normal.drawStringWithShadow(s, (float)((p_175247_5_ + p_175247_4_) / 2 - this.mc.fontRendererObj.getStringWidth(s) / 2), (float)p_175247_2_, i1);
                 }
             }
         }
         else
         {
             String s1 = EnumChatFormatting.YELLOW + "" + i;
-            this.mc.fontRendererObj.drawStringWithShadow(s1, (float)(p_175247_5_ - this.mc.fontRendererObj.getStringWidth(s1)), (float)p_175247_2_, 16777215);
+            FontUtil.normal.drawStringWithShadow(s1, (float)(p_175247_5_ - this.mc.fontRendererObj.getStringWidth(s1)), (float)p_175247_2_, 16777215);
         }
     }
 

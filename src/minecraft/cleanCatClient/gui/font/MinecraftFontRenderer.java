@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MinecraftFontRenderer extends CFont {
-    CFont.CharData[] boldChars = new CFont.CharData[256],
-            italicChars = new CFont.CharData[256],
-            boldItalicChars = new CFont.CharData[256];
+    CFont.CharData[] boldChars = new CFont.CharData[131072],
+            italicChars = new CFont.CharData[131072],
+            boldItalicChars = new CFont.CharData[131072];
     int[] colorCode = new int[32];
     String colorcodeIdentifiers = "0123456789abcdefklmnor";
     DynamicTexture texBold, texItalic, texItalicBold;
