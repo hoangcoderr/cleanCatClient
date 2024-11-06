@@ -16,20 +16,26 @@ public class CosmeticBoolean {
     public static boolean dragonBabyWing;
     public static boolean animeGirlCape;
     public static boolean jumpingFrogCape;
+    public static boolean dragonObsidianWing;
 
     static {
         CosmeticBoolean.snowcape = false;
         CosmeticBoolean.nornalCape = false;
         CosmeticBoolean.thuderCape = false;
         CosmeticBoolean.badWolfCape = false;
-        CosmeticBoolean.starrySunsetCape = true;
+        CosmeticBoolean.starrySunsetCape = false;
         CosmeticBoolean.topHat = true;
         CosmeticBoolean.dragonWing = true;
         CosmeticBoolean.satanWing = false;
         CosmeticBoolean.dragonBabyWing = false;
-        CosmeticBoolean.animeGirlCape = false;
+        CosmeticBoolean.animeGirlCape = true;
+        CosmeticBoolean.dragonObsidianWing = false;
     }
 
+    public static boolean shouldRenderDragonObsidianWing(final AbstractClientPlayer player) {
+        //neu la ng choi moi render
+        return player.getName().contains(Minecraft.getMinecraft().getSession().getUsername()) && dragonObsidianWing;
+    }
 
     public static boolean shouldRenderTopHat(final AbstractClientPlayer player) {
         //neu la ng choi moi render
@@ -152,17 +158,23 @@ public class CosmeticBoolean {
                 CosmeticBoolean.dragonWing = true;
                 CosmeticBoolean.satanWing = false;
                 CosmeticBoolean.dragonBabyWing = false;
+                CosmeticBoolean.dragonObsidianWing = false;
+
                 break;
 
             case "Satan Wings":
                 CosmeticBoolean.satanWing = true;
                 CosmeticBoolean.dragonWing = false;
                 CosmeticBoolean.dragonBabyWing = false;
+                CosmeticBoolean.dragonObsidianWing = false;
+
                 break;
             case "Baby Dragon Wings":
                 CosmeticBoolean.dragonBabyWing = true;
                 CosmeticBoolean.dragonWing = false;
                 CosmeticBoolean.satanWing = false;
+                CosmeticBoolean.dragonObsidianWing = false;
+
                 break;
             case "Anime Girl Cape":
                 CosmeticBoolean.animeGirlCape = true;
@@ -182,6 +194,12 @@ public class CosmeticBoolean {
                 CosmeticBoolean.thuderCape = false;
                 CosmeticBoolean.badWolfCape = false;
                 CosmeticBoolean.starrySunsetCape = false;
+                break;
+            case "Dragon Obsidian Wings":
+                CosmeticBoolean.dragonObsidianWing = true;
+                CosmeticBoolean.dragonBabyWing = false;
+                CosmeticBoolean.dragonWing = false;
+                CosmeticBoolean.satanWing = false;
                 break;
             default:
                 break;

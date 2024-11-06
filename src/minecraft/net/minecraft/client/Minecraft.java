@@ -1056,8 +1056,13 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
                 }
 
                 this.resize(this.displayWidth, this.displayHeight);
+
+                ScaledResolution scaledresolution = new ScaledResolution(this);
+                centerX = scaledresolution.getScaledWidth() / 2;
+                centerY = scaledresolution.getScaledHeight() / 2;
             }
         }
+
     }
 
     public int getLimitFramerate() {

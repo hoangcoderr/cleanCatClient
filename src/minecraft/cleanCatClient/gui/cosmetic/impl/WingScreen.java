@@ -18,6 +18,7 @@ public class WingScreen extends GuiScreen {
         wingNames.add("Dragon Wings");
         wingNames.add("Satan Wings");
         wingNames.add("Baby Dragon Wings");
+        wingNames.add("Dragon Obsidian Wings");
     }
 
     @Override

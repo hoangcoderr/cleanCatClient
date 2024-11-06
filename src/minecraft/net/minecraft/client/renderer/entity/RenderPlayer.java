@@ -3,6 +3,7 @@ package net.minecraft.client.renderer.entity;
 import cleanCatClient.cosmetic.impl.cape.*;
 import cleanCatClient.cosmetic.impl.hat.CosmeticTopHat;
 import cleanCatClient.cosmetic.impl.wing.CosmeticDragonBabyWings;
+import cleanCatClient.cosmetic.impl.wing.CosmeticDragonObsidianWings;
 import cleanCatClient.cosmetic.impl.wing.CosmeticDragonWings;
 import cleanCatClient.cosmetic.impl.wing.CosmeticSatanWings;
 import net.minecraft.client.entity.AbstractClientPlayer;
@@ -57,6 +58,7 @@ public class RenderPlayer extends RendererLivingEntity<AbstractClientPlayer> {
         this.addLayer(new CosmeticDragonWings(this));
         this.addLayer(new CosmeticDragonBabyWings(this));
         this.addLayer(new CosmeticSatanWings(this));
+        this.addLayer(new CosmeticDragonObsidianWings(this));
     }
 
     public ModelPlayer getMainModel() {

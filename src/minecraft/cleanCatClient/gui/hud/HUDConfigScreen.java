@@ -96,7 +96,7 @@ public class HUDConfigScreen extends GuiScreen {
         absoluteY = Math.max(0, Math.min(absoluteY, Math.max(screenHeight - renderer.getHeight(), 0)));
 
 // Đặt lại tọa độ tuyệt đối cho đối tượng
-        pos.setAbsolute(absoluteX + 1, absoluteY);
+        pos.setAbsolute(absoluteX, absoluteY);
 
     }
 

@@ -8,8 +8,6 @@ import cleanCatClient.event.impl.ClientTickEvent;
 import cleanCatClient.gui.clickgui.ClickGui;
 import cleanCatClient.gui.clickgui.settings.ModSettingsInstance;
 import cleanCatClient.gui.font.FontUtil;
-import cleanCatClient.gui.font.customFont.GlyphPage;
-import cleanCatClient.gui.font.customFont.GlyphPageFontRenderer;
 import cleanCatClient.gui.hud.HUDManager;
 import cleanCatClient.mods.ModInstances;
 import cleanCatClient.utils.FileManager;
@@ -55,7 +53,6 @@ public class Client {
 
     public ClickGui clickGui = new ClickGui();
 
-    public GlyphPageFontRenderer fontRenderer;
 
     public void start() {
         hudManager = HUDManager.getInstance();

@@ -18,7 +18,7 @@ public class FullBright extends Mod {
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
         if (enabled) {
-            mc.gameSettings.gammaSetting = 100;
+            mc.gameSettings.gammaSetting = 1000;
         } else {
             mc.gameSettings.gammaSetting = 1;
         }

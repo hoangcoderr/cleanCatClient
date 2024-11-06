@@ -26,6 +26,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityFireball;
+import net.minecraft.item.ItemBow;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
@@ -44,7 +45,6 @@ import java.nio.IntBuffer;
 public class PlayerDistance extends ModDraggable {
     private int vboId;
     private int vaoId;
-
     public PlayerDistance() {
         super("Player Distance Mod", "Displays the distance between you and other players", ModCategory.RENDER);
         setEnabled(true);
@@ -91,9 +91,11 @@ public class PlayerDistance extends ModDraggable {
             for (EntityLivingBase entitylivingbase : this.mc.theWorld.playerEntities) {
                 if (entitylivingbase instanceof EntityPlayer) {
                     if (entitylivingbase != mc.thePlayer) {
-                        PlayerDistance.drawTracerLine(entitylivingbase);
+                        //PlayerDistance.drawTracerLine(entitylivingbase);
                         PlayerDistance.entityESPBox(entitylivingbase);
+
                     }
+
                 }
             }
         //renderBedESP();
@@ -244,6 +246,48 @@ public class PlayerDistance extends ModDraggable {
         GL11.glDisable(GL11.GL_BLEND);
         GL11.glPopMatrix();
     }
+
+
+    private void drawBowTrajectory(EntityPlayerSP player) {
+        double posX = player.lastTickPosX + (player.posX - player.lastTickPosX) * Minecraft.getMinecraft().timer.renderPartialTicks - MathHelper.cos(player.rotationYaw / 180.0F * (float) Math.PI) * 0.16F;
+        double posY = player.lastTickPosY + (player.posY - player.lastTickPosY) * Minecraft.getMinecraft().timer.renderPartialTicks + player.getEyeHeight() - 0.1;
+        double posZ = player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * Minecraft.getMinecraft().timer.renderPartialTicks - MathHelper.sin(player.rotationYaw / 180.0F * (float) Math.PI) * 0.16F;
+
+        float velocity = player.getItemInUseDuration() / 20.0F;
+        velocity = (velocity * velocity + velocity * 2.0F) / 3.0F;
+        if (velocity > 1.0F) {
+            velocity = 1.0F;
+        }
+
+        Vec3 direction = player.getLook(1.0F);
+        direction = direction.normalize();
+        direction = new Vec3(direction.xCoord * (velocity * 3.0F),
+                direction.yCoord * (velocity * 3.0F),
+                direction.zCoord * (velocity * 3.0F));
+
+
+        GL11.glPushMatrix();
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glDisable(GL11.GL_TEXTURE_2D);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        GL11.glLineWidth(2.0F);
+        GL11.glColor4f(0.0F, 1.0F, 0.0F, 0.5F);
+
+        GL11.glBegin(GL11.GL_LINE_STRIP);
+        for (int i = 0; i < 100; i++) {
+            GL11.glVertex3d(posX, posY, posZ);
+            posX += direction.xCoord * 0.1;
+            posY += direction.yCoord * 0.1;
+            posZ += direction.zCoord * 0.1;
+            direction = direction.addVector(0, -0.05, 0); // Gravity effect
+        }
+        GL11.glEnd();
+
+        GL11.glEnable(GL11.GL_TEXTURE_2D);
+        GL11.glDisable(GL11.GL_BLEND);
+        GL11.glPopMatrix();
+    }
+
 
     public static void drawTracerLine(EntityLivingBase entity) {
         double xPos = (entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * Minecraft.getMinecraft().timer.renderPartialTicks) - Minecraft.getMinecraft().getRenderManager().renderPosX;
