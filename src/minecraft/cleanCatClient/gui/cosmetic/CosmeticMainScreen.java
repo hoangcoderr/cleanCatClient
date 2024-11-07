@@ -1,6 +1,7 @@
 package cleanCatClient.gui.cosmetic;
 
 import cleanCatClient.gui.cosmetic.impl.CapeScreen;
+import cleanCatClient.gui.cosmetic.impl.HatScreen;
 import cleanCatClient.gui.cosmetic.impl.WingScreen;
 import cleanCatClient.gui.mainmenu.button.ClientButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -35,7 +36,7 @@ public class CosmeticMainScreen extends GuiScreen {
     protected void actionPerformed(ClientButton button) {
         switch (button.id) {
             case 0:
-                // this.mc.displayGuiScreen(new HatScreen());
+                this.mc.displayGuiScreen(new HatScreen());
                 break;
             case 1:
                 this.mc.displayGuiScreen(new WingScreen());

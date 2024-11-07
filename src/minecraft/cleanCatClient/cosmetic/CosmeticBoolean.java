@@ -17,6 +17,7 @@ public class CosmeticBoolean {
     public static boolean animeGirlCape;
     public static boolean jumpingFrogCape;
     public static boolean dragonObsidianWing;
+    public static boolean witchHat;
 
     static {
         CosmeticBoolean.snowcape = false;
@@ -24,12 +25,18 @@ public class CosmeticBoolean {
         CosmeticBoolean.thuderCape = false;
         CosmeticBoolean.badWolfCape = false;
         CosmeticBoolean.starrySunsetCape = false;
-        CosmeticBoolean.topHat = true;
+        CosmeticBoolean.topHat = false;
         CosmeticBoolean.dragonWing = true;
         CosmeticBoolean.satanWing = false;
         CosmeticBoolean.dragonBabyWing = false;
         CosmeticBoolean.animeGirlCape = true;
         CosmeticBoolean.dragonObsidianWing = false;
+        CosmeticBoolean.witchHat = true;
+    }
+
+    public static boolean shouldRenderWitchHat(final AbstractClientPlayer player) {
+        //neu la ng choi moi render
+        return player.getName().contains(Minecraft.getMinecraft().getSession().getUsername()) && witchHat;
     }
 
     public static boolean shouldRenderDragonObsidianWing(final AbstractClientPlayer player) {
@@ -39,7 +46,7 @@ public class CosmeticBoolean {
 
     public static boolean shouldRenderTopHat(final AbstractClientPlayer player) {
         //neu la ng choi moi render
-        return player.getName().contains(Minecraft.getMinecraft().getSession().getUsername());
+        return player.getName().contains(Minecraft.getMinecraft().getSession().getUsername()) && topHat;
     }
 
     public static float[] getTopHatColor(final AbstractClientPlayer player) {
@@ -65,7 +72,7 @@ public class CosmeticBoolean {
         return player.getName().contains(Minecraft.getMinecraft().getSession().getUsername()) && satanWing;
     }
 
-    public static float[] getSatanWingsColor(final AbstractClientPlayer player) {
+    public static float[] getWitchHatColor(final AbstractClientPlayer player) {
         return new float[]{1.0f, 0.0f, 0.0f};
     }
 
@@ -153,6 +160,11 @@ public class CosmeticBoolean {
                 break;
             case "Top Hat":
                 CosmeticBoolean.topHat = true;
+                CosmeticBoolean.witchHat = false;
+                break;
+            case "Witch Hat":
+                CosmeticBoolean.witchHat = true;
+                CosmeticBoolean.topHat = false;
                 break;
             case "Dragon Wings":
                 CosmeticBoolean.dragonWing = true;
