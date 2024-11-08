@@ -2,6 +2,7 @@
 package cleanCatClient.mods.impl;
 
 import cleanCatClient.Client;
+import cleanCatClient.cosmetic.impl.cape.realistic.WavyCapeRenderer;
 import cleanCatClient.event.EventTarget;
 import cleanCatClient.event.impl.ClientTickEvent;
 import cleanCatClient.event.impl.KeyEvent;
@@ -215,6 +216,7 @@ public class PlayerDistance extends ModDraggable {
                     mc.fontRendererObj.drawStringWithShadow(text, pos.getAbsoluteX(), pos.getAbsoluteY() + yOffset, 0XFFFFFF);
                     yOffset += mc.fontRendererObj.FONT_HEIGHT + 2; // Move to the next line
                 }
+
             }
             checkForFireballs();
         }

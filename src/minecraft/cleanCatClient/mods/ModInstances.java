@@ -1,5 +1,6 @@
 package cleanCatClient.mods;
 
+import cleanCatClient.cosmetic.impl.cape.realistic.WavyCapeRenderer;
 import cleanCatClient.gui.hud.HUDManager;
 import cleanCatClient.mods.impl.*;
 import cleanCatClient.mods.impl.oldanimations.LeftHand;

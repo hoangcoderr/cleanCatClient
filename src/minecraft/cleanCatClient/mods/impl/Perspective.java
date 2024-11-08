@@ -69,6 +69,7 @@ public class Perspective extends Mod {
     public void keyboardEvent(KeyEvent e) {
         if (e.getKey() == keyBind) {
             if (Keyboard.getEventKeyState()) {
+
                 if (!perspectiveToggled) {
                     perspectiveToggled = true;
                     cameraYaw = mc.thePlayer.rotationYaw;
