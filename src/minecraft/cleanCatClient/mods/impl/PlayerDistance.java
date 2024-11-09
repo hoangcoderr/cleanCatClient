@@ -1,13 +1,10 @@
 // src/minecraft/cleanCatClient/mods/impl/PlayerDistance.java
 package cleanCatClient.mods.impl;
 
-import cleanCatClient.Client;
-import cleanCatClient.cosmetic.impl.cape.realistic.WavyCapeRenderer;
 import cleanCatClient.event.EventTarget;
 import cleanCatClient.event.impl.ClientTickEvent;
 import cleanCatClient.event.impl.KeyEvent;
 import cleanCatClient.event.impl.Render2D;
-import cleanCatClient.gui.font.FontUtil;
 import cleanCatClient.gui.hud.ScreenPosition;
 import cleanCatClient.mods.ModCategory;
 import cleanCatClient.mods.ModDraggable;
@@ -16,31 +13,19 @@ import cleanCatClient.utils.RenderUtils;
 import net.minecraft.block.BlockBed;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.WorldRenderer;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityFireball;
-import net.minecraft.item.ItemBow;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
-import org.lwjgl.BufferUtils;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import net.minecraft.client.renderer.RenderGlobal;
-import org.lwjgl.util.glu.GLU;
 import net.minecraft.util.Vec3;
-
-import java.nio.FloatBuffer;
-import java.nio.IntBuffer;
 
 
 public class PlayerDistance extends ModDraggable {

@@ -1,7 +1,8 @@
 // src/minecraft/cleanCatClient/Client.java
 package cleanCatClient;
 
-import cleanCatClient.discordrpc.DiscordRP;
+import cleanCatClient.cosmetic.impl.cape.realistic.WavyCapeRenderer;
+import cleanCatClient.utils.discordrpc.DiscordRP;
 import cleanCatClient.event.EventManager;
 import cleanCatClient.event.EventTarget;
 import cleanCatClient.event.impl.ClientTickEvent;
@@ -11,16 +12,10 @@ import cleanCatClient.gui.font.FontUtil;
 import cleanCatClient.gui.hud.HUDManager;
 import cleanCatClient.mods.ModInstances;
 import cleanCatClient.utils.FileManager;
-import cleanCatClient.utils.SessionChanger;
-import net.arikia.dev.drpc.DiscordRPC;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.lwjgl.input.Keyboard;
-
-import java.awt.*;
-import java.io.File;
 
 public class Client {
     public static final Client INSTANCE = new Client();
@@ -35,6 +30,7 @@ public class Client {
             WINDOW_TITLE = CLIENT_NAME + " (" + CLIENT_VERSION + ")";
     private static DiscordRP discordRPC = new DiscordRP();
     private long startTime;
+    private WavyCapeRenderer wavyCapeRenderer;
 
     public void init() {
         logger.info("Starting " + CLIENT_NAME + " " + CLIENT_VERSION + "");
@@ -42,7 +38,9 @@ public class Client {
         FileManager.init();
         EventManager.register(this);
         FontUtil.bootstrap();
+        wavyCapeRenderer = new WavyCapeRenderer();
         start();
+
     }
 
     public static DiscordRP getDiscordRPC() {

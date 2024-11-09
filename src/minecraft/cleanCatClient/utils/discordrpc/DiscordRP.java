@@ -1,4 +1,4 @@
-package cleanCatClient.discordrpc;
+package cleanCatClient.utils.discordrpc;
 
 import cleanCatClient.Client;
 import net.arikia.dev.drpc.DiscordEventHandlers;

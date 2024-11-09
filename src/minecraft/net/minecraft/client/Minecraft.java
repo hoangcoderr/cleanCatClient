@@ -301,6 +301,10 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
     private int cps = 0;
     private int rightCps = 0;
 
+    public TextureManager getRenderEngine() {
+        return this.renderEngine;
+    }
+
     public Minecraft(GameConfiguration gameConfig) {
         theMinecraft = this;
         this.mcDataDir = gameConfig.folderInfo.mcDataDir;

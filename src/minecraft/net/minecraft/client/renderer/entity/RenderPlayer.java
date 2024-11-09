@@ -1,7 +1,6 @@
 package net.minecraft.client.renderer.entity;
 
 import cleanCatClient.cosmetic.impl.cape.*;
-import cleanCatClient.cosmetic.impl.cape.realistic.WavyCapeRenderer;
 import cleanCatClient.cosmetic.impl.hat.CosmeticTopHat;
 import cleanCatClient.cosmetic.impl.hat.CosmeticWitchHat;
 import cleanCatClient.cosmetic.impl.wing.CosmeticDragonBabyWings;
@@ -9,6 +8,7 @@ import cleanCatClient.cosmetic.impl.wing.CosmeticDragonObsidianWings;
 import cleanCatClient.cosmetic.impl.wing.CosmeticDragonWings;
 import cleanCatClient.cosmetic.impl.wing.CosmeticSatanWings;
 import cleanCatClient.event.impl.EventRenderPlayer;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.model.ModelPlayer;
@@ -19,7 +19,6 @@ import net.minecraft.client.renderer.entity.layers.LayerCape;
 import net.minecraft.client.renderer.entity.layers.LayerCustomHead;
 import net.minecraft.client.renderer.entity.layers.LayerDeadmau5Head;
 import net.minecraft.client.renderer.entity.layers.LayerHeldItem;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EnumPlayerModelParts;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
@@ -39,16 +38,15 @@ public class RenderPlayer extends RendererLivingEntity<AbstractClientPlayer> {
         super(renderManager, new ModelPlayer(0.0F, useSmallArms), 0.5F);
         this.smallArms = useSmallArms;
         this.addLayer(new LayerBipedArmor(this));
-        //addWingLayer();
+        addWingLayer();
         this.addLayer(new LayerHeldItem(this));
         this.addLayer(new LayerArrow(this));
         this.addLayer(new LayerDeadmau5Head(this));
         this.addLayer(new LayerCape(this));
-        //addCapeLayer();
+        addCapeLayer();
 
         this.addLayer(new LayerCustomHead(this.getMainModel().bipedHead));
-        //addHatLayer();
-        this.addLayer(new WavyCapeRenderer(this));
+        addHatLayer();
 
     }
 
@@ -81,6 +79,11 @@ public class RenderPlayer extends RendererLivingEntity<AbstractClientPlayer> {
 
     public void doRender(AbstractClientPlayer entity, double x, double y, double z, float entityYaw, float partialTicks) {
         if (!entity.isUser() || this.renderManager.livingPlayer == entity) {
+
+            Minecraft.getMinecraft().mcProfiler.startSection("WavyCape");
+            new EventRenderPlayer(entity, this, partialTicks, x, y, z).call();
+            Minecraft.getMinecraft().mcProfiler.endSection();
+
             double d0 = y;
 
             if (entity.isSneaking() && !(entity instanceof EntityPlayerSP)) {

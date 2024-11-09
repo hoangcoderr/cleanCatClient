@@ -1,75 +1,154 @@
 package cleanCatClient.cosmetic.impl.cape.realistic;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import cleanCatClient.cosmetic.CosmeticBoolean;
+import cleanCatClient.event.EventManager;
 import cleanCatClient.event.EventTarget;
 import cleanCatClient.event.impl.EventRenderPlayer;
-import cleanCatClient.mods.Mod;
-import cleanCatClient.mods.ModCategory;
-import net.minecraft.client.entity.AbstractClientPlayer;
-import net.minecraft.client.renderer.entity.RenderPlayer;
-import net.minecraft.client.renderer.entity.layers.LayerRenderer;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL20;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.texture.SimpleTexture;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.*;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL20;
 
-import static org.lwjgl.opengl.GL11.glTexCoord2d;
+import java.util.ArrayList;
+import java.util.List;
 
-public class WavyCapeRenderer implements LayerRenderer<AbstractClientPlayer> {
+public class WavyCapeRenderer {
+
+    public WavyCapeRenderer() {
+        EventManager.register(this);
+    }
+
     Minecraft mc = Minecraft.getMinecraft();
-    private long millisLastRenderUpdate = 0;
-    private final int horzNodes = 20;
+    private final int horzNodes = 16; // Reduced number of horizontal nodes
+    private final int vertNodes = 25; // Reduced number of vertical nodes
+    private final int updateSteps = 3; //
     private final double targetDist = 1 / 30.0;
-    private EntityPlayer player = null;
-    private static double partialTickTest;
-    private final double vertOffset = 1.4;
-    private final double shoulderLength = 0.3;
     private final double shoulderWidth = 0.13;
     private final double crouchWidthOffset = -0.05;
-    private final double maxCrouchOffset = 0.35;
-    private final double resistance = 0.08;
-    private final double gravity = 0.04;
-    private final List<List<Node>> nodes = new ArrayList<List<Node>>();
-    private final RenderPlayer playerRenderer;
-
-    public WavyCapeRenderer(RenderPlayer playerRenderer) {
-        this.playerRenderer = playerRenderer;
-    }
+    private final List<List<Node>> nodes = new ArrayList<>();
 
     private void resetNodes(final EntityPlayer player) {
         nodes.clear();
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < vertNodes; i++) {
             final List<Node> list = new ArrayList<>();
             for (int j = 0; j < horzNodes; j++)
-                if (horzNodes > 1) list.add(new Node(player.posX - 1,
-                        player.posY + 2 - i * targetDist,
-                        player.posZ + ((double) j) / (horzNodes - 1),
-                        i,
-                        j));
+                list.add(new Node(player.posX - 1, player.posY + 2 - i * targetDist, player.posZ + ((double) j) / (horzNodes - 1), i, j));
             nodes.add(list);
         }
     }
-
-
-    private Vec3 node2vec(final Node node) {
-        return new Vec3(node.x, node.y, node.z);
+    private ResourceLocation capeTex = new ResourceLocation("cleanCatClient/Cosmetic/wavycape/cape.png");
+    @EventTarget
+    public void onRenderPlayer(final EventRenderPlayer e) {
+        if (mc.theWorld == null) return;
+        final double partialTicks = e.getPartialRenderTick();
+        final EntityPlayer player = e.getPlayer();
+        if (player == null || player != (EntityPlayer) mc.thePlayer) return;
+        if (CosmeticBoolean.wavingCape) {
+            final Entity viewer = mc.getRenderViewEntity();
+            final double pX = player.lastTickPosX + (player.posX - player.lastTickPosX) * partialTicks;
+            final double pY = player.lastTickPosY + (player.posY - player.lastTickPosY) * partialTicks;
+            final double pZ = player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * partialTicks;
+            if (nodes.size() < 1) resetNodes(player);
+            for (final List<Node> nodes2 : nodes) for (final Node node : nodes2) {
+                double gravity = 0.04;
+                node.aY -= gravity / 2; node.update(pX, pY, pZ, player); }
+            updateFixedNodes(pX, pY, pZ, player);
+            {
+                for (int step = 0; step < updateSteps; step++)
+                    for (int i = 0; i < nodes.size(); i++)
+                        for (int j = 0; j < horzNodes; j++) {
+                            final Node node = nodes.get(i).get(j);
+                            final List<Node> struct = new ArrayList<>();
+                            final List<Node> shear = new ArrayList<>();
+                            final List<Node> bend = new ArrayList<>();
+                            if (i + 1 < nodes.size()) struct.add(nodes.get(i + 1).get(j));
+                            if (j + 1 < horzNodes) struct.add(nodes.get(i).get(j + 1));
+                            if (i - 1 >= 0) struct.add(nodes.get(i - 1).get(j));
+                            if (j - 1 >= 0) struct.add(nodes.get(i).get(j - 1));
+                            if (i + 1 < nodes.size() && j + 1 < horzNodes) shear.add(nodes.get(i + 1).get(j + 1));
+                            if (i + 1 < nodes.size() && j - 1 >= 0) shear.add(nodes.get(i + 1).get(j - 1));
+                            if (i - 1 >= 0 && j + 1 < horzNodes) shear.add(nodes.get(i - 1).get(j + 1));
+                            if (i - 1 >= 0 && j - 1 >= 0) shear.add(nodes.get(i - 1).get(j - 1));
+                            if (i + 2 < nodes.size()) bend.add(nodes.get(i + 2).get(j));
+                            if (j + 2 < horzNodes) bend.add(nodes.get(i).get(j + 2));
+                            if (i - 2 >= 0) bend.add(nodes.get(i - 2).get(j));
+                            if (j - 2 >= 0) bend.add(nodes.get(i).get(j - 2));
+                            try {
+                                updateNode(node, struct, shear, bend);
+                            } catch (final Exception ex) {
+                                ex.printStackTrace();
+                                System.exit(0);
+                            }
+                        }
+                for (int i = 0; i < nodes.size(); i++)
+                    for (int j = 0; j < horzNodes; j++) {
+                        Node up = null, down = null, left = null, right = null;
+                        Node up2 = null, down2 = null, left2 = null, right2 = null;
+                        if (i + 1 < nodes.size()) down = nodes.get(i + 1).get(j);
+                        if (j + 1 < horzNodes) right = nodes.get(i).get(j + 1);
+                        if (i - 1 >= 0) up = nodes.get(i - 1).get(j);
+                        if (j - 1 >= 0) left = nodes.get(i).get(j - 1);
+                        if (i + 2 < nodes.size()) down2 = nodes.get(i + 2).get(j);
+                        if (j + 2 < horzNodes) right2 = nodes.get(i).get(j + 2);
+                        if (i - 2 >= 0) up2 = nodes.get(i - 2).get(j);
+                        if (j - 2 >= 0) left2 = nodes.get(i).get(j - 2);
+                        nodes.get(i).get(j).updateNormal(up, left, right, down, up2, left2, right2, down2);
+                    }
+            }
+            GlStateManager.pushMatrix();
+            GlStateManager.enableBlend();
+            GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO);
+            GL11.glDisable(GL11.GL_CULL_FACE);
+            GlStateManager.enableTexture2D();
+            final int currTex = GL11.glGetInteger(GL11.GL_TEXTURE_BINDING_2D);
+            final double vX = viewer.lastTickPosX + (viewer.posX - viewer.lastTickPosX) * partialTicks;
+            final double vY = viewer.lastTickPosY + (viewer.posY - viewer.lastTickPosY) * partialTicks;
+            final double vZ = viewer.lastTickPosZ + (viewer.posZ - viewer.lastTickPosZ) * partialTicks;
+            GlStateManager.disableCull();
+            final SimpleTexture simpleTexture = new SimpleTexture(capeTex);
+            GL11.glPushMatrix();
+            final double scaleamount = 2;
+            GL11.glScaled(scaleamount, scaleamount, scaleamount);
+            GL11.glBindTexture(GL11.GL_TEXTURE_2D, simpleTexture.getGlTextureId());
+            mc.getRenderEngine().bindTexture(capeTex);
+            GL11.glPopMatrix();
+            for (int i = 0; i < nodes.size(); i++) for (int j = 0; j < horzNodes; j++) {
+                final Node node = nodes.get(i).get(j);
+                if (i + 1 < nodes.size() && j + 1 < horzNodes) {
+                    GlStateManager.color(1F, 1F, 1F, 1F);
+                    renderNodeConnection(vX, vY, vZ, node, nodes.get(i + 1).get(j), nodes.get(i).get(j + 1), nodes.get(i + 1).get(j + 1), true);
+                    GlStateManager.color(1F, 1F, 1F, 1F);
+                    renderNodeConnection(vX, vY, vZ, node, nodes.get(i + 1).get(j), nodes.get(i).get(j + 1), nodes.get(i + 1).get(j + 1), false);
+                }
+            }
+            GlStateManager.color(1F, 1F, 1F, 1F);
+            for (int i = 0; i < nodes.size(); i++) if (i + 1 < nodes.size()) {
+                renderSideConnection(vX, vY, vZ, nodes.get(i).get(0), nodes.get(i + 1).get(0));
+                renderSideConnection(vX, vY, vZ, nodes.get(i).get(horzNodes - 1), nodes.get(i + 1).get(horzNodes - 1));
+            }
+            for (int j = 0; j < horzNodes; j++) if (j + 1 < horzNodes) {
+                renderSideConnection(vX, vY, vZ, nodes.get(0).get(j), nodes.get(0).get(j + 1));
+                renderSideConnection(vX, vY, vZ, nodes.get(nodes.size() - 1).get(j), nodes.get(nodes.size() - 1).get(j + 1));
+            }
+            GL20.glUseProgram(0);
+            GL11.glBindTexture(GL11.GL_TEXTURE_2D, currTex);
+            GL11.glEnable(GL11.GL_CULL_FACE);
+            GlStateManager.enableTexture2D();
+            GlStateManager.disableBlend();
+            GlStateManager.popMatrix();
+            GlStateManager.color(1F, 1F, 1F, 1F);
+        }
     }
+
+    private Vec3 node2vec(final Node node) { return new Vec3(node.x, node.y, node.z); }
 
     private void renderSideConnection(double pX, double pY, double pZ, Node node1, Node node2) {
         Tessellator tessellator = Tessellator.getInstance();
@@ -102,32 +181,35 @@ public class WavyCapeRenderer implements LayerRenderer<AbstractClientPlayer> {
             worldrenderer.pos(node3.x - pX, node3.y - pY, node3.z - pZ).normal((float) node3.normalX, (float) node3.normalY, (float) node3.normalZ).endVertex();
             worldrenderer.pos(node4.x - pX, node4.y - pY, node4.z - pZ).normal((float) node4.normalX, (float) node4.normalY, (float) node4.normalZ).endVertex();
         }
-
-
         tessellator.draw();
     }
 
-    private Vec3 scale(final Vec3 vector, final double amount) {
-        return new Vec3(vector.xCoord * amount, vector.yCoord * amount, vector.zCoord * amount);
-    }
+    private Vec3 scale(final Vec3 vector, final double amount) { return new Vec3(vector.xCoord * amount, vector.yCoord * amount, vector.zCoord * amount); }
 
     private void updateNode(final Node node, final List<Node> struct, final List<Node> shear, final List<Node> bend) {
         final double shearDist = 1.414 * targetDist;
         final double bendDist = 2 * targetDist;
-        for (final Node bendNode : bend) resolve(node, bendNode, bendDist);
-        for (final Node shearNode : shear) resolve(node, shearNode, shearDist);
-        for (final Node structNode : struct) resolve(node, structNode, targetDist);
+        for (final Node bendNode : bend) resolve(node, bendNode, bendDist, false);
+        for (final Node shearNode : shear) resolve(node, shearNode, shearDist, false);
+        for (final Node structNode : struct) resolve(node, structNode, targetDist, false);
     }
 
-    public void resolve(final Node node1, final Node node2, final double targetDist) {
+    public void resolve(final Node node1, final Node node2, final double targetDist, boolean isRunningFast) {
         double dX = node1.x - node2.x;
         double dY = node1.y - node2.y;
         double dZ = node1.z - node2.z;
         final double distSq = dX * dX + dY * dY + dZ * dZ;
         final double dist = Math.sqrt(distSq);
-        dX *= (1 - targetDist / dist) * 0.5;
-        dY *= (1 - targetDist / dist) * 0.5;
-        dZ *= (1 - targetDist / dist) * 0.5;
+        double factor = (1 - targetDist / dist) * 0.5;
+
+        if (isRunningFast) {
+            factor *= 0.5; // Reduce the effect when running fast
+        }
+
+        dX *= factor;
+        dY *= factor;
+        dZ *= factor;
+
         if (node1.fixed || node2.fixed) {
             dX *= 2;
             dY *= 2;
@@ -146,151 +228,26 @@ public class WavyCapeRenderer implements LayerRenderer<AbstractClientPlayer> {
     }
 
     private void updateFixedNodes(final double pX, final double pY, final double pZ, final EntityPlayer player) {
-        final double angle = Math.toRadians(player.renderYawOffset);
+        final double angle = Math.toRadians(player.rotationYaw);
         double shoulderWidth2 = shoulderWidth + (player.isSneaking() ? crouchWidthOffset : 0);
-        if (player.getCurrentArmor(1) != null || player.getCurrentArmor(2) != null)
+        if (player.getCurrentArmor(1) != null || player.getCurrentArmor(2) != null) {
             if (player.isSneaking()) shoulderWidth2 += 0.15;
             else shoulderWidth2 += 0.06;
-        final double vertoffset = 0;
-        final double xAngle = Math.cos(angle);
-        final double zAngle = Math.sin(angle);
-
-        Node node = nodes.get(0).get(0);
-        node.x = pX + xAngle * shoulderLength - zAngle * shoulderWidth2;
-        node.y = pY + vertoffset - (player.isSneaking() ? 0.2 : 0);
-        node.z = pZ + zAngle * shoulderLength + xAngle * shoulderWidth2;
-        node.fixed = true;
-
-        node = nodes.get(0).get(nodes.get(0).size() - 1);
-        node.x = pX - xAngle * shoulderLength - zAngle * shoulderWidth2;
-        node.y = pY + vertoffset - (player.isSneaking() ? 0.2 : 0);
-        node.z = pZ - zAngle * shoulderLength + xAngle * shoulderWidth2;
-        node.fixed = true;
-    }
-
-    @Override
-    public void doRenderLayer(AbstractClientPlayer entitylivingbaseIn, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale) {
-        if (mc.theWorld == null) return;
-        final long delta = System.currentTimeMillis() - millisLastRenderUpdate;
-        final double lagFactor = delta / (1000 / 60.0);
-        EntityPlayer player;
-        if (entitylivingbaseIn instanceof EntityPlayer) player = (EntityPlayer) entitylivingbaseIn;
-        else return;
-        this.player = player;
-        final boolean check = true; /* TODO put your if check */
-        if (check) {
-            final Entity viewer = mc.getRenderViewEntity();
-            final double pX = player.lastTickPosX + (player.posX - player.lastTickPosX) * partialTicks;
-            final double pY = player.lastTickPosY + (player.posY - player.lastTickPosY) * partialTicks;
-            final double pZ = player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * partialTicks;
-            if (nodes.size() < 1) resetNodes(player);
-            for (final List<Node> nodes2 : nodes)
-                for (final Node node : nodes2) {
-                    node.aY -= gravity / 2;
-                    node.update(pX, pY, pZ, player);
-                }
-            updateFixedNodes(pX, pY, pZ, player);
-            physics:
-            {
-                for (int step = 0; step < 6; step++)
-                    for (int i = 0; i < nodes.size(); i++)
-                        for (int j = 0; j < horzNodes; j++) {
-                            final Node node = nodes.get(i).get(j);
-                            final List<Node> struct = new ArrayList<Node>();
-                            final List<Node> shear = new ArrayList<Node>();
-                            final List<Node> bend = new ArrayList<Node>();
-                            if (i + 1 < nodes.size()) struct.add(nodes.get(i + 1).get(j));
-                            if (j + 1 < horzNodes) struct.add(nodes.get(i).get(j + 1));
-                            if (i - 1 >= 0) struct.add(nodes.get(i - 1).get(j));
-                            if (j - 1 >= 0) struct.add(nodes.get(i).get(j - 1));
-                            if (i + 1 < nodes.size() && j + 1 < horzNodes) shear.add(nodes.get(i + 1).get(j + 1));
-                            if (i + 1 < nodes.size() && j - 1 >= 0) shear.add(nodes.get(i + 1).get(j - 1));
-                            if (i - 1 >= 0 && j + 1 < horzNodes) shear.add(nodes.get(i - 1).get(j + 1));
-                            if (i - 1 >= 0 && j - 1 >= 0) shear.add(nodes.get(i - 1).get(j - 1));
-                            if (i + 2 < nodes.size()) bend.add(nodes.get(i + 2).get(j));
-                            if (j + 2 < horzNodes) bend.add(nodes.get(i).get(j + 2));
-                            if (i - 2 >= 0) bend.add(nodes.get(i - 2).get(j));
-                            if (j - 2 >= 0) bend.add(nodes.get(i).get(j - 2));
-                            try {
-                                updateNode(node, struct, shear, bend);
-                            } catch (final Exception ex) {
-                                ex.printStackTrace();
-                                System.exit(0);
-                            }
-                        }
-                for (int i = 0; i < nodes.size(); i++)
-                    for (int j = 0; j < horzNodes; j++) {
-                        Node up = null, down = null, left = null, right = null;
-                        Node up2 = null, down2 = null, left2 = null, right2 = null;
-                        if (i + 1 < nodes.size()) down = nodes.get(i + 1).get(j);
-                        if (j + 1 < horzNodes) right = nodes.get(i).get(j + 1);
-                        if (i - 1 >= 0) up = nodes.get(i - 1).get(j);
-                        if (j - 1 >= 0) left = nodes.get(i).get(j - 1);
-                        if (i + 2 < nodes.size()) down2 = nodes.get(i + 2).get(j);
-                        if (j + 2 < horzNodes) right2 = nodes.get(i).get(j + 2);
-                        if (i - 2 >= 0) up2 = nodes.get(i - 2).get(j);
-                        if (j - 2 >= 0) left2 = nodes.get(i).get(j - 2);
-                        /* this drops fps */
-                        nodes.get(i).get(j).updateNormal(up, left, right, down, up2, left2, right2, down2);
-                    }
-            }
-            GlStateManager.pushMatrix();
-            GlStateManager.enableBlend();
-            GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO);
-            GL11.glDisable(GL11.GL_CULL_FACE);
-            GlStateManager.enableTexture2D();
-            GL11.glScalef(1.0f, -1.0f, 1.0f);
-
-            final int currTex = GL11.glGetInteger(GL11.GL_TEXTURE_BINDING_2D);
-            final double vX = viewer.lastTickPosX + (viewer.posX - viewer.lastTickPosX) * partialTicks;
-            final double vY = viewer.lastTickPosY + (viewer.posY - viewer.lastTickPosY) * partialTicks;
-            final double vZ = viewer.lastTickPosZ + (viewer.posZ - viewer.lastTickPosZ) * partialTicks;
-            GlStateManager.disableCull();
-            final ResourceLocation capeTex = new ResourceLocation("cleanCatClient/cape.png"); // 1024 * 768
-            final SimpleTexture simpleTexture = new SimpleTexture(capeTex);
-            GL11.glPushMatrix();
-            final double scaleamount = 2;
-            GL11.glScaled(scaleamount, scaleamount, scaleamount);
-            GL11.glBindTexture(GL11.GL_TEXTURE_2D, simpleTexture.getGlTextureId());
-            //bind texture capeTex
-            mc.getTextureManager().bindTexture(capeTex);
-            GL11.glPopMatrix();
-            for (int i = 0; i < nodes.size(); i++)
-                for (int j = 0; j < horzNodes; j++) {
-                    final Node node = nodes.get(i).get(j);
-                    if (i + 1 < nodes.size() && j + 1 < horzNodes) {
-                        GlStateManager.color(1F, 1F, 1F, 1F);
-                        renderNodeConnection(vX, vY, vZ, node, nodes.get(i + 1).get(j), nodes.get(i).get(j + 1), nodes.get(i + 1).get(j + 1), true);
-                        GlStateManager.color(1F, 1F, 1F, 1F);
-                        renderNodeConnection(vX, vY, vZ, node, nodes.get(i + 1).get(j), nodes.get(i).get(j + 1), nodes.get(i + 1).get(j + 1), false);
-                    }
-                }
-            GlStateManager.color(1F, 1F, 1F, 1F);
-            for (int i = 0; i < nodes.size(); i++)
-                if (i + 1 < nodes.size()) {
-                    renderSideConnection(vX, vY, vZ, nodes.get(i).get(0), nodes.get(i + 1).get(0));
-                    renderSideConnection(vX, vY, vZ, nodes.get(i).get(horzNodes - 1), nodes.get(i + 1).get(horzNodes - 1));
-                }
-            for (int j = 0; j < horzNodes; j++)
-                if (j + 1 < horzNodes) {
-                    renderSideConnection(vX, vY, vZ, nodes.get(0).get(j), nodes.get(0).get(j + 1));
-                    renderSideConnection(vX, vY, vZ, nodes.get(nodes.size() - 1).get(j), nodes.get(nodes.size() - 1).get(j + 1));
-                }
-
-            GL20.glUseProgram(0);
-            GL11.glBindTexture(GL11.GL_TEXTURE_2D, currTex);
-            GL11.glEnable(GL11.GL_CULL_FACE);
-            GlStateManager.enableTexture2D();
-            GlStateManager.disableBlend();
-            GlStateManager.popMatrix();
-            GlStateManager.color(1F, 1F, 1F, 1F);
-            millisLastRenderUpdate = System.currentTimeMillis(); // used to update every 50 ms instead of every FRAME you can delete it if you want
         }
-    }
-
-    @Override
-    public boolean shouldCombineTextures() {
-        return false;
+        final double vertoffset = 1.4;
+        final double xAngle = 0;
+        final double zAngle = 0;
+        Node node = nodes.get(0).get(0);
+        double shoulderLength = 0.23; // Decreased value to bring points closer
+        node.x = pX + Math.cos(angle) * shoulderLength - xAngle * shoulderWidth2;
+        node.y = pY + vertoffset - (player.isSneaking() ? 0.2 : 0);
+        node.z = pZ + Math.sin(angle) * shoulderLength - zAngle * shoulderWidth2;
+        node.fixed = true;
+        node = nodes.get(0).get(nodes.get(0).size() - 1);
+        node.x = pX - Math.cos(angle) * shoulderLength - xAngle * shoulderWidth2;
+        node.y = pY + vertoffset - (player.isSneaking() ? 0.2 : 0);
+        node.z = pZ - Math.sin(angle) * shoulderLength - zAngle * shoulderWidth2;
+        node.fixed = true;
     }
 
     class Node {
@@ -348,6 +305,7 @@ public class WavyCapeRenderer implements LayerRenderer<AbstractClientPlayer> {
             final double xTemp = x;
             final double yTemp = y;
             final double zTemp = z;
+            double resistance = 0.08;
             final double x$ = resistance * 2 * 2173;
             final double y$ = (resistance + 0.001) * 2 * 2173;
             final double temp$ = y$ - x$;
@@ -390,6 +348,7 @@ public class WavyCapeRenderer implements LayerRenderer<AbstractClientPlayer> {
             if (player.isSneaking()) {
                 offset -= crouchWidthOffset;
                 final double dY = y - player.posY;
+                double maxCrouchOffset = 0.35;
                 if (dY < 0.65) offset += maxCrouchOffset;
                 else if (dY < 1.2) offset += maxCrouchOffset * (1.2 - dY) / 0.55;
             }
@@ -437,20 +396,14 @@ public class WavyCapeRenderer implements LayerRenderer<AbstractClientPlayer> {
             if (adZ / tot > 0.3) z = zOld = vec.zCoord;
         }
 
-        private boolean checkCollision(double x, double y, double z) {
-            // Giảm giá trị y một chút để cape nằm thấp hơn khi kiểm tra va chạm
-            double adjustedY = y + 1.5;  // Điều chỉnh giá trị này cho phù hợp
-            BlockPos pos = new BlockPos(MathHelper.floor_double(x), MathHelper.floor_double(adjustedY), MathHelper.floor_double(z));
-            Block block = mc.theWorld.getBlockState(pos).getBlock();
-
+        public boolean checkCollision(final double x, final double y, final double z) {
+            final BlockPos pos = new BlockPos(MathHelper.floor_double(x), MathHelper.floor_double(y), MathHelper.floor_double(z));
+            final Block block = mc.theWorld.getBlockState(pos).getBlock();
             if (block.getMaterial().isSolid()) {
                 block.setBlockBoundsBasedOnState(mc.theWorld, pos);
-                AxisAlignedBB bb = block.getSelectedBoundingBox(mc.theWorld, pos);
-                return bb != null && bb.isVecInside(new Vec3(x, adjustedY, z));
-            } else {
-                return false;
-            }
+                final AxisAlignedBB bb = block.getSelectedBoundingBox(mc.theWorld, pos);
+                return bb.isVecInside(new Vec3(x, y, z));
+            } else return false;
         }
-
     }
 }

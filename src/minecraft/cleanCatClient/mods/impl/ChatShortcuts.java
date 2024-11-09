@@ -31,6 +31,9 @@ public class ChatShortcuts extends Mod {
         if (isEnabled() && shortcuts.containsKey(message)) {
             message = shortcuts.get(message);
         }
+        if (message.startsWith("/pc")){
+            return message.replace("/pc", "/pc &b&l");
+        }
         return message;
     }
 
