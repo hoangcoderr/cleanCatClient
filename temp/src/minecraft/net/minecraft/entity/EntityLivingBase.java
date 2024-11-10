@@ -1490,6 +1490,9 @@ public abstract class EntityLivingBase extends Entity {
    }
 
    public Vec3 func_70676_i(float p_70676_1_) {
+      if (this instanceof EntityPlayerSP) {
+         return super.getLook(partialTicks);
+      }
       if(p_70676_1_ == 1.0F) {
          return this.func_174806_f(this.field_70125_A, this.field_70759_as);
       } else {

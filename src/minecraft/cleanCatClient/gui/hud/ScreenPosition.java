@@ -6,26 +6,23 @@ import net.minecraft.client.gui.ScaledResolution;
 
 public class ScreenPosition {
     @Expose(serialize = false)
-    private static final Minecraft mc;
+    private static final Minecraft mc = Minecraft.getMinecraft();
+
     private int x, y;
 
-    static {
-        mc = Minecraft.getMinecraft();
+    public ScreenPosition(double x, double y) {
+        setRelative(x, y);
     }
 
-    public ScreenPosition(final double x, final double y) {
-        this.setRelative(x, y);
-    }
-
-    public ScreenPosition(final int x, final int y) {
-        this.setAbsolute(x, y);
+    public ScreenPosition(int x, int y) {
+        setAbsolute(x, y);
     }
 
     public static ScreenPosition fromRelativePosition(double x, double y) {
         return new ScreenPosition(x, y);
     }
 
-    public static ScreenPosition fromAbsolutePosition(int x, int y) {
+    public static ScreenPosition fromAbsolute(int x, int y) {
         return new ScreenPosition(x, y);
     }
 
@@ -54,8 +51,8 @@ public class ScreenPosition {
 
     public void setRelative(double x, double y) {
         ScaledResolution sr = new ScaledResolution(mc);
-        this.x = (int) (x * sr.getScaledWidth());
-        this.y = (int) (y * sr.getScaledHeight());
+        this.x = (int) (sr.getScaledWidth() / x);
+        this.y = (int) (sr.getScaledHeight() / y);
     }
 
 }

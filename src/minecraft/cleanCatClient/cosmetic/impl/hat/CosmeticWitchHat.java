@@ -87,15 +87,8 @@ public class CosmeticWitchHat extends CosmeticBase {
             witchHat.rotateAngleY = playerModel.bipedHead.rotateAngleY;
             witchHat.rotationPointX = 0.0F;
             witchHat.rotationPointY = 0.0F;
-
-
             witchHat.render(scale);
 
         }
-
-
-
-
-
     }
 }
