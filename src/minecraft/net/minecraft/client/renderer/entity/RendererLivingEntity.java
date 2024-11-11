@@ -535,7 +535,14 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
                 float f = entity.isSneaking() ? NAME_TAG_RANGE_SNEAK : NAME_TAG_RANGE;
 
                 if (d0 < (double) (f * f)) {
-                    String s = entity.getDisplayName().getFormattedText();
+                    String s;
+                    if (entity == this.renderManager.livingPlayer) {
+                        s = "꒳cleanCatꔫ";
+                        GlStateManager.color(1.0F, 0.65F, 0.0F, 1.0F); // Set color to orange (R, G, B, A)
+                    } else {
+                        s = entity.getDisplayName().getFormattedText();
+
+                    }
                     float f1 = 0.02666667F;
                     GlStateManager.alphaFunc(516, 0.1F);
 
@@ -564,6 +571,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
                         tessellator.draw();
                         GlStateManager.enableTexture2D();
                         GlStateManager.depthMask(true);
+
                         fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, 0, 553648127);
                         GlStateManager.enableLighting();
                         GlStateManager.disableBlend();
