@@ -537,7 +537,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
                 if (d0 < (double) (f * f)) {
                     String s;
                     if (entity == this.renderManager.livingPlayer) {
-                        s = "꒳cleanCatꔫ";
+                        s = ModInstances.getCustomName().getCustomName();
                         GlStateManager.color(1.0F, 0.65F, 0.0F, 1.0F); // Set color to orange (R, G, B, A)
                     } else {
                         s = entity.getDisplayName().getFormattedText();

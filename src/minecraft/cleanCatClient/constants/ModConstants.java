@@ -96,4 +96,7 @@ public class ModConstants {
 
     public static String TNT_TIMER = "TNT Timer";
     public static String TNT_TIMER_DESC = "Show the time of TNT explosion";
+
+    public static String CUSTOM_NAME = "Custom Name";
+    public static String CUSTOM_NAME_DESC = "Change your name";
 }

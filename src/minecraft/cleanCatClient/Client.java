@@ -25,7 +25,7 @@ public class Client {
     }
 
     public static final Logger logger = LogManager.getLogger(Client.class);
-    public static final String CLIENT_NAME = "cleanCat Client", CLIENT_VERSION = "1.0.0.h - 1.8.9",
+    public static final String CLIENT_NAME = "cleanCat Client", CLIENT_VERSION = "1.0.0.i - 1.8.9",
             CLIENT_BUILD = "2024.06.02", CLIENT_AUTHOR = "hoangcoderr",
             WINDOW_TITLE = CLIENT_NAME + " (" + CLIENT_VERSION + ")";
     private static DiscordRP discordRPC = new DiscordRP();

@@ -43,7 +43,9 @@ public class ModInstances {
     private static ChatShortcuts chatShortcuts;
     private static ItemCounter itemCounter;
     private static TNTTimer tntTimer;
+    private static CustomName customName;
     public static void register(HUDManager api) {
+        customName = new CustomName();
         tntTimer = new TNTTimer();
         itemCounter = new ItemCounter();
         api.register(itemCounter);
@@ -133,6 +135,11 @@ public class ModInstances {
         allMods.add(chatShortcuts);
         allMods.add(itemCounter);
         allMods.add(tntTimer);
+        allMods.add(customName);
+    }
+
+    public static CustomName getCustomName() {
+        return customName;
     }
 
     public static ItemCounter getItemCounter() {
