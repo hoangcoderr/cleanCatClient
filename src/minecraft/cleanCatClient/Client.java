@@ -30,17 +30,10 @@ public class Client {
             WINDOW_TITLE = CLIENT_NAME + " (" + CLIENT_VERSION + ")";
     private static DiscordRP discordRPC = new DiscordRP();
     private long startTime;
-    private WavyCapeRenderer wavyCapeRenderer;
+    private WavyCapeRenderer wavyCapeRenderer = new WavyCapeRenderer();
 
     public void init() {
-        logger.info("Starting " + CLIENT_NAME + " " + CLIENT_VERSION + "");
-        startTime = System.currentTimeMillis();
-        FileManager.init();
-        EventManager.register(this);
-        FontUtil.bootstrap();
-        wavyCapeRenderer = new WavyCapeRenderer();
         start();
-
     }
 
     public static DiscordRP getDiscordRPC() {
@@ -61,7 +54,12 @@ public class Client {
         Minecraft.centerY = new ScaledResolution(Minecraft.getMinecraft()).getScaledHeight() / 2;
         Minecraft.displayHeightBefore = new ScaledResolution(Minecraft.getMinecraft()).getScaledHeight();
         Minecraft.displayWidthBefore = new ScaledResolution(Minecraft.getMinecraft()).getScaledWidth();
+        FileManager.init();
+        logger.info("Starting " + CLIENT_NAME + " " + CLIENT_VERSION + "");
+        startTime = System.currentTimeMillis();
 
+        EventManager.register(this);
+        FontUtil.bootstrap();
 //
 //        char[] chars = new char[65536]; // Increase the range of characters
 //
