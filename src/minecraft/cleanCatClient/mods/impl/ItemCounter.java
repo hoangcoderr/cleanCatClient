@@ -17,7 +17,7 @@ public class ItemCounter extends ModDraggable {
     public ItemCounter() {
         super(ModConstants.ITEM_COUNTER, ModConstants.ITEM_COUNTER_DESC, ModCategory.RENDER);
         itemsToCount = new ArrayList<>();
-        initItemsToCount();
+        loadConfig();
     }
 
     public void initItemsToCount() {
@@ -34,8 +34,48 @@ public class ItemCounter extends ModDraggable {
         addItemToCount(goldIngot);
     }
 
+
+    @Override
+    public void loadConfig() {
+        String[] dataConfig = loadDataConfig();
+        if (dataConfig == null) {
+            return;
+        }
+        try {
+            itemsToCount.clear();
+            for (String itemName : dataConfig) {
+                net.minecraft.item.Item item = net.minecraft.item.Item.getByNameOrId(itemName);
+                ItemStack itemStack = new ItemStack(item);
+                if (itemStack != null) {
+                    addItemToCount(itemStack);
+                }
+            }
+        } catch (Exception e) {
+            ItemStack ironIngot = new ItemStack(net.minecraft.init.Items.iron_ingot);
+            addItemToCount(ironIngot);
+
+            //diamond
+            ItemStack diamond = new ItemStack(net.minecraft.init.Items.diamond);
+            addItemToCount(diamond);
+
+            //gold ingot
+            ItemStack goldIngot = new ItemStack(net.minecraft.init.Items.gold_ingot);
+            addItemToCount(goldIngot);
+            e.printStackTrace();
+        }
+    }
+    @Override
+    public void saveConfig() {
+        List<String> dataConfig = new ArrayList<>();
+        for (ItemStack item : itemsToCount) {
+            dataConfig.add(net.minecraft.item.Item.getIdFromItem(item.getItem()) + "");
+        }
+        saveDataConfig(dataConfig.toArray(new String[0]));
+    }
+
     public void addItemToCount(ItemStack item) {
         itemsToCount.add(item);
+        saveConfig();
     }
 
     public List<ItemStack> getItemsToCount() {
@@ -44,6 +84,7 @@ public class ItemCounter extends ModDraggable {
 
     public void setItemsToCount(List<ItemStack> itemsToCount) {
         this.itemsToCount = itemsToCount;
+        saveConfig();
     }
 
     @Override

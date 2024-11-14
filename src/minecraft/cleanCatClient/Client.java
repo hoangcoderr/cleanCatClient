@@ -60,23 +60,7 @@ public class Client {
 
         EventManager.register(this);
         FontUtil.bootstrap();
-//
-//        char[] chars = new char[65536]; // Increase the range of characters
-//
-//        for (int i = 0; i < 65536; i++) {
-//            chars[i] = (char) i;
-//        }
-//
-//        try {
-//            Font customFont = Font.createFont(Font.TRUETYPE_FONT, new File("C:\\Users\\lebui\\Downloads\\t.ttf")).deriveFont(20f);
-//            GlyphPage page = new GlyphPage(customFont, true, true); // Increase the texture size to 2048
-//            page.generateGlyphPage(chars);
-//            page.setupTexture();
-//
-//            fontRenderer = new GlyphPageFontRenderer(page, page, page, page);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+
     }
 
     @EventTarget
