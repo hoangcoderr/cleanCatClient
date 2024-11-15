@@ -25,7 +25,7 @@ public class Client {
     }
 
     public static final Logger logger = LogManager.getLogger(Client.class);
-    public static final String CLIENT_NAME = "cleanCat Client", CLIENT_VERSION = "1.0.0.i - 1.8.9",
+    public static final String CLIENT_NAME = "cleanCat Client", CLIENT_VERSION = "1.0.0.j - 1.8.9",
             CLIENT_BUILD = "2024.06.02", CLIENT_AUTHOR = "hoangcoderr",
             WINDOW_TITLE = CLIENT_NAME + " (" + CLIENT_VERSION + ")";
     private static DiscordRP discordRPC = new DiscordRP();
@@ -55,7 +55,7 @@ public class Client {
         Minecraft.displayHeightBefore = new ScaledResolution(Minecraft.getMinecraft()).getScaledHeight();
         Minecraft.displayWidthBefore = new ScaledResolution(Minecraft.getMinecraft()).getScaledWidth();
         FileManager.init();
-        logger.info("Starting " + CLIENT_NAME + " " + CLIENT_VERSION + "");
+        logger.info("Starting " + CLIENT_NAME + " " + CLIENT_VERSION);
         startTime = System.currentTimeMillis();
 
         EventManager.register(this);

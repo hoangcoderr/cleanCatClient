@@ -35,6 +35,7 @@ public class MainMenu extends GuiScreen
         this.buttonList.add(new ClientButton(2, 25, height / 2 + 15,250, 30,  "Multiplayer"));
         this.buttonList.add(new ClientButton(3, 25, height / 2 + 50,250, 30,  "Settings"));
         this.buttonList.add(new ClientButton(4, 25, height / 2 + 85, 250, 30, "Bye cleanCat"));
+        this.buttonList.add(new ClientButton(5, 25, height / 2 + 120, 250, 30, "Alt Manager"));
         super.initGui();
     }
 
@@ -54,6 +55,9 @@ public class MainMenu extends GuiScreen
                 break;
             case 4:
                 mc.shutdown();
+                break;
+            case 5:
+                mc.displayGuiScreen(new cleanCatClient.gui.auth.AltManagerGui());
                 break;
         }
         super.actionPerformed(button);
