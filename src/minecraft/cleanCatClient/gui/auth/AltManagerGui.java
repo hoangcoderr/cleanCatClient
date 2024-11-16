@@ -7,6 +7,7 @@ import cleanCatClient.gui.mainmenu.button.ClientButton;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Mouse;
 
@@ -18,6 +19,10 @@ public class AltManagerGui extends GuiScreen {
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
         super.drawScreen(mouseX, mouseY, partialTicks);
+        GlStateManager.pushMatrix();
+        GlStateManager.scale(2, 2, 1);
+        drawCenteredString(this.fontRendererObj, "Playing with: " +  mc.session.getUsername(), width / 4, 20, -1);
+        GlStateManager.popMatrix();
     }
 
     @Override

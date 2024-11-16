@@ -1,26 +1,25 @@
 package cleanCatClient.gui.auth;
-
 import cleanCatClient.gui.mainmenu.button.ClientButton;
 import cleanCatClient.utils.SessionChanger;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
 
 import java.io.IOException;
 
 public class GuiLogin extends GuiScreen {
     private GuiTextField username;
+    private boolean showSuccessMessage = false;
 
     @Override
     protected void actionPerformed(final ClientButton button) throws IOException {
         super.actionPerformed(button);
         if (button.id == 0) {
-            if(this.username.getText().equals("")) {
+            if (this.username.getText().equals("")) {
                 this.mc.displayGuiScreen(new GuiLogin());
             } else {
                 SessionChanger.getInstance().setUserOffline(this.username.getText());
+                showSuccessMessage = true;
             }
         }
     }
@@ -31,7 +30,10 @@ public class GuiLogin extends GuiScreen {
         final ScaledResolution sr = new ScaledResolution(this.mc);
         this.username.drawTextBox();
         Gui gui = new Gui();
-        gui.drawCenteredString(mc.fontRendererObj, "Username", (int)(this.width / 2), (int)(sr.getScaledHeight() / 2 - 65), -1);
+        gui.drawCenteredString(mc.fontRendererObj, "Username", this.width / 2, sr.getScaledHeight() / 2 - 65, -1);
+        if (showSuccessMessage) {
+            gui.drawCenteredString(mc.fontRendererObj, "Set name completely", this.width / 2, sr.getScaledHeight() / 2 - 85, 0x00FF00);
+        }
     }
 
     @Override
