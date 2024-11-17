@@ -20,12 +20,14 @@ public class CustomNameSettings extends ModSettings {
     public void initGui() {
         super.initGui();
         this.customNameField = new GuiTextField(0, mc.fontRendererObj, this.width / 2 - 100, this.height / 2 - 50, 200, 20);
+        this.customNameField.setText(ModInstances.getCustomName().getCustomName());
         this.setNameButton = new ClientButton(1, this.width / 2 - 100, this.height / 2, "Set Custom Name");
         this.buttonList.add(this.setNameButton);
     }
 
     @Override
     protected void actionPerformed(ClientButton button) {
+        super.actionPerformed(button);
         if (button.id == 1) {
             String customName = this.customNameField.getText();
             ModInstances.getCustomName().setCustomName(customName);

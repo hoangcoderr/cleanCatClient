@@ -26,21 +26,22 @@ public class ItemCounterSetting extends ModSettings {
     public void initGui() {
         super.initGui();
         int id = 0;
-        int y = 20;
+        int y = height / 2 - 50;
 
         // Initialize text field for item input
-        itemTextField = new GuiTextField(id++, fontRendererObj, width / 2 - 100, y, 200, 20);
+        itemTextField = new GuiTextField(id++, fontRendererObj, width / 2 , y, 200, 20);
         y += 30;
 
         // Initialize buttons
-        addButton = new ClientButton(id++, width / 2 - 100, y, 98, 20, "Thêm");
-        okButton = new ClientButton(id++, width / 2 + 2, y, 98, 20, "OK");
+        addButton = new ClientButton(id++, width / 2 , y, 98, 20, "Thêm");
+        okButton = new ClientButton(id++, width / 2 + 105, y, 98, 20, "OK");
         y += 30;
-        saveButton = new ClientButton(id++, width / 2 - 100, y, 200, 20, "Lưu");
+        saveButton = new ClientButton(id++, width / 2 , y, 200, 20, "Lưu");
         itemsToCount = ModInstances.getItemCounter().getItemsToCount();
         buttonList.add(addButton);
-        buttonList.add(okButton);
         buttonList.add(saveButton);
+        buttonList.add(okButton);
+
     }
 
 
@@ -67,20 +68,29 @@ public class ItemCounterSetting extends ModSettings {
             ItemStack item = itemsToCount.get(i);
 
             // Render the item icon
-            mc.getRenderItem().renderItemAndEffectIntoGUI(item, centerX - 110, y);
+            mc.getRenderItem().renderItemAndEffectIntoGUI(item, centerX - 210, y - 30);
 
             // Calculate the X position to center the text
             int itemNameWidth = fontRendererObj.getStringWidth(item.getDisplayName());
             int itemX = centerX - itemNameWidth / 2;
-            fontRendererObj.drawString(item.getDisplayName(), itemX, y + 5, 0xFFFFFF);
+            fontRendererObj.drawString(item.getDisplayName(), itemX - 150, y - 25, 0xFFFFFF);
 
             // Add delete button
-            ClientButton deleteButton = new ClientButton(100 + i, centerX + 110, y, 20, 20, "X");
+            ClientButton deleteButton = new ClientButton(100 + i, centerX - 50, y - 30, 20, 20, "X");
+            deleteButton.drawButton(mc, mouseX, mouseY);
+            addButton.drawButton(mc, mouseX, mouseY);
+            saveButton.drawButton(mc, mouseX, mouseY);
+            okButton.drawButton(mc, mouseX, mouseY);
             buttonList.add(deleteButton);
-
             y += 30;
         }
+        if (isItemNull) {
+            fontRendererObj.drawString("Item doesn't exist", centerX - 150, y, 0xFF0000);
+            //isItemNull = false;
+        }
     }
+
+    private boolean isItemNull = false;
 
     @Override
     protected void actionPerformed(ClientButton button) {
@@ -93,6 +103,10 @@ public class ItemCounterSetting extends ModSettings {
             if (newItem != null) {
                 ModInstances.getItemCounter().addItemToCount(newItem);
                 itemsToCount = ModInstances.getItemCounter().getItemsToCount();
+                isItemNull = false;
+            }
+            else {
+                isItemNull = true;
             }
             itemTextField.setVisible(false);
             okButton.visible = false;
