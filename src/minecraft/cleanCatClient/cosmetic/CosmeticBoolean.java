@@ -55,6 +55,10 @@ public class CosmeticBoolean {
         return new float[]{1.0f, 1.0f, 0.0f};
     }
 
+    public static float[] getBlazeColor(final AbstractClientPlayer player) {
+        return new float[]{1.0f, 0.0f, 0.0f};
+    }
+
     public static boolean shouldRenderDragonWing(final AbstractClientPlayer player) {
         //neu la ng choi moi render
         return player.getName().contains(Minecraft.getMinecraft().getSession().getUsername()) && dragonWing;

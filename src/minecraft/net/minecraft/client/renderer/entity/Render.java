@@ -3,7 +3,9 @@ package net.minecraft.client.renderer.entity;
 import cleanCatClient.mods.ModInstances;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
@@ -328,6 +330,7 @@ public abstract class Render<T extends Entity> implements IEntityRenderer
         return this.renderManager.getFontRenderer();
     }
 
+    private static final ResourceLocation logo = new ResourceLocation("cleanCatClient/Logo/clientLogo.png");
     public void renderLivingLabel(T entityIn, String str, double x, double y, double z, int maxDistance)
     {
         //if (true) return;
@@ -352,6 +355,10 @@ public abstract class Render<T extends Entity> implements IEntityRenderer
             Tessellator tessellator = Tessellator.getInstance();
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
             int i = 0;
+                if (entityIn instanceof AbstractClientPlayer) {
+                    Minecraft.getMinecraft().getTextureManager().bindTexture(logo);
+                    Gui.drawModalRectWithCustomSizedTexture(-fontrenderer.getStringWidth(entityIn.getDisplayName().getFormattedText()) / 2 - 11, (-1 / 2), 8, 8, 8, 8, 8, 8);
+                }
 
             if (str.equals("deadmau5"))
             {
