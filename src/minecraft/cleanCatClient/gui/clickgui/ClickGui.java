@@ -11,6 +11,7 @@ import cleanCatClient.gui.clickgui.settings.ModSettings;
 import cleanCatClient.gui.clickgui.settings.ModSettingsInstance;
 import cleanCatClient.gui.font.FontUtil;
 import cleanCatClient.mods.Mod;
+import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
@@ -39,23 +40,19 @@ public class ClickGui extends GuiScreen {
     public int getHeight() {
         return 250; // Assuming the height is fixed as 250 based on the initGui method
     }
-    private long animationStartTime;
-    private boolean isOpening;
-    private float animationProgress;
+
     int backgroundW = 200;
     int centerW;
     int centerH;
+
     public void resetScroll() {
         currentScroll = 0;
     }
+
     @Override
     public void initGui() {
         super.initGui();
-        animationStartTime = System.currentTimeMillis();
-        isOpening = true;
-        animationProgress = 0.0f;
-
-        // Existing initialization code
+        Minecraft.getMinecraft().entityRenderer.loadShader(new ResourceLocation("shaders/post/blur.json"));
         sr = new ScaledResolution(mc);
         centerW = sr.getScaledWidth() / 2;
         centerH = sr.getScaledHeight() / 2;
@@ -95,10 +92,9 @@ public class ClickGui extends GuiScreen {
 
     @Override
     public void onGuiClosed() {
+        Minecraft.getMinecraft().entityRenderer.loadEntityShader(null);
         super.onGuiClosed();
-        animationStartTime = System.currentTimeMillis();
-        isOpening = false;
-        animationProgress = 1.0f;
+
 
     }
 
@@ -124,19 +120,11 @@ public class ClickGui extends GuiScreen {
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         long currentTime = System.currentTimeMillis();
-        long elapsedTime = currentTime - animationStartTime;
         float animationDuration = 500.0f; // Animation duration in milliseconds
 
-        if (isOpening) {
-            animationProgress = Math.min(1.0f, elapsedTime / animationDuration);
-        } else {
-            animationProgress = Math.max(0.0f, 1.0f - (elapsedTime / animationDuration));
-        }
 
-        float scale = animationProgress;
         GL11.glPushMatrix();
         GL11.glTranslatef(centerW, centerH, 0);
-        GL11.glScalef(scale, scale, 1.0f);
         GL11.glTranslatef(-centerW, -centerH, 0);
 
         // Draw the GUI elements here

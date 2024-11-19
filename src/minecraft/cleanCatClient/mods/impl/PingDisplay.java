@@ -9,6 +9,7 @@ import cleanCatClient.utils.RenderUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ServerAddress;
 import net.minecraft.client.multiplayer.ServerData;
+import net.minecraft.server.MinecraftServer;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -48,28 +49,12 @@ public class PingDisplay extends ModDraggable {
 
     @Override
     public void render(ScreenPosition pos) {
-        long currentTime = System.currentTimeMillis();
-        ServerData server = Minecraft.getMinecraft().getCurrentServerData();
-
-        // Kiểm tra nếu đã qua 10 giây kể từ lần cập nhật ping cuối cùng
-        if (server != null && currentTime - lastPingTime >= 3000) {
-            lastPingTime = currentTime; // Cập nhật thời gian ping cuối cùng
-            executorService.submit(() -> {
-                try {
-                    int newPing = sendPing(server);
-                    ping.set(newPing);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
+        if(!MinecraftServer.getServer().isSinglePlayer()) {
+            font.drawStringWithShadow("[" + mc.getCurrentServerData().pingToServer + " ms]", pos.getAbsoluteX(), pos.getAbsoluteY(), -1);
+        } else {
+            font.drawStringWithShadow("[0 ms]", pos.getAbsoluteX(), pos.getAbsoluteY(), -1);
         }
-
-        // Vẽ ping
-        //RenderUtils.drawRect(pos.getAbsoluteX(), pos.getAbsoluteY(), getWidth(), getHeight());
-        //FontUtil.normal.drawStringWithShadow(ping.get() + " ms", pos.getAbsoluteX(), pos.getAbsoluteY(), -1);
-        mc.fontRendererObj.drawStringWithShadow(ping.get() + " ms", pos.getAbsoluteX(), pos.getAbsoluteY(), -1);
     }
-
     @Override
     public void renderDummy(ScreenPosition pos) {
         FontUtil.normal.drawStringWithShadow("1000 ms", pos.getAbsoluteX(), pos.getAbsoluteY(), -1);
