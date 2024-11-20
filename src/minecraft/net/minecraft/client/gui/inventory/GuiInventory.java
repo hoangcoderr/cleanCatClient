@@ -14,6 +14,7 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.ResourceLocation;
 
 public class GuiInventory extends InventoryEffectRenderer
 {
@@ -55,12 +56,38 @@ public class GuiInventory extends InventoryEffectRenderer
         this.fontRendererObj.drawString(I18n.format("container.crafting", new Object[0]), 86, 16, 4210752);
     }
 
-    public void drawScreen(int mouseX, int mouseY, float partialTicks)
-    {
+    private ResourceLocation res = new ResourceLocation("cleanCatClient/Logo/clientLogo.png");
+
+    @Override
+    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         super.drawScreen(mouseX, mouseY, partialTicks);
-        this.oldMouseX = (float)mouseX;
-        this.oldMouseY = (float)mouseY;
+        this.oldMouseX = (float) mouseX;
+        this.oldMouseY = (float) mouseY;
+
+        mc.getTextureManager().bindTexture(res);
+
+        // Kích thước gốc của logo
+        int logoWidth = 270;
+        int logoHeight = 270;
+
+        // Tỉ lệ thu nhỏ
+        float scale = 0.3f;
+
+        // Tính toán tọa độ căn giữa sau khi thu nhỏ
+        int x = (int) ((this.width - (logoWidth * scale)) / 2 / scale); // Căn giữa màn hình
+        int y = (int) (10 / scale); // Khoảng cách từ trên xuống, chia cho tỉ lệ
+
+        // Áp dụng thu nhỏ và vẽ hình ảnh
+        GlStateManager.pushMatrix();
+        GlStateManager.scale(scale, scale, 1.0f);
+
+        // Vẽ hình ảnh
+        this.drawTexturedModalRect(x, y, 0, 0, logoWidth, logoHeight);
+
+        GlStateManager.popMatrix(); // Khôi phục trạng thái ban đầu
     }
+
+
 
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY)
     {
