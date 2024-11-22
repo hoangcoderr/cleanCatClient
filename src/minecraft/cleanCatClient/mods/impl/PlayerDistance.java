@@ -62,14 +62,7 @@ public class PlayerDistance extends ModDraggable {
         }
     }
 
-    public void renderBedESP() {
-        for (TileEntity tileEntity : mc.theWorld.loadedTileEntityList) {
-            if (tileEntity.getBlockType() instanceof BlockBed) {
-                BlockPos bedPos = tileEntity.getPos();
-                blockESPBox(bedPos);
-            }
-        }
-    }
+
 
     @EventTarget
     public void drawLine(Render2D event) {
@@ -85,87 +78,6 @@ public class PlayerDistance extends ModDraggable {
                 }
             }
         //renderBedESP();
-    }
-
-    private boolean isFKeyPressed = false; // Track the state of the 'F' key
-    private long lastClickTime = 0;
-    private static final int CPS = 16;
-    private static final long CLICK_INTERVAL = 1000 / CPS;
-    public static boolean active = false;
-
-    @EventTarget
-    public void onKey(KeyEvent event) {
-        if (event.getKey() == Keyboard.KEY_F) {
-            isFKeyPressed = Keyboard.getEventKeyState();
-        }
-    }
-
-    @EventTarget
-    public void onClientTick(ClientTickEvent event) {
-        if (isFKeyPressed && !ModInstances.getToggleSprint().isShowText()) {
-            EntityPlayer nearestPlayer = findNearestPlayer();
-            if (nearestPlayer != null) {
-                faceEntity(nearestPlayer, mc.timer.renderPartialTicks);
-            }
-        }
-
-//
-//        if (mc.gameSettings.keySecret.isKeyDown() && active) {
-//            long currentTime = System.currentTimeMillis();
-//            if (currentTime - lastClickTime >= CLICK_INTERVAL) {
-//                KeyBinding.setKeyBindState(mc.gameSettings.keyBindAttack.getKeyCode(), true); // Press the attack key
-//                KeyBinding.onTick(mc.gameSettings.keyBindAttack.getKeyCode()); // Simulate the key press
-//                KeyBinding.setKeyBindState(mc.gameSettings.keyBindAttack.getKeyCode(), false); // Release the attack key
-//                lastClickTime = currentTime;
-//            }
-//        }
-    }
-
-    public static synchronized void faceEntity(EntityPlayer entity, float partialTicks) {
-//        final float[] rotations = getRotationsNeeded(entity, partialTicks);
-//
-//        if (rotations != null) {
-//            Minecraft.getMinecraft().thePlayer.rotationYaw = rotations[0];
-//            Minecraft.getMinecraft().thePlayer.rotationPitch = rotations[1] + 1.0F;
-//        }
-    }
-
-    public static float[] getRotationsNeeded(Entity entity, float partialTicks) {
-        if (entity == null) {
-            return null;
-        }
-
-        final double diffX = entity.posX - (Minecraft.getMinecraft().thePlayer.lastTickPosX + (Minecraft.getMinecraft().thePlayer.posX - Minecraft.getMinecraft().thePlayer.lastTickPosX) * partialTicks);
-        final double diffZ = entity.posZ - (Minecraft.getMinecraft().thePlayer.lastTickPosZ + (Minecraft.getMinecraft().thePlayer.posZ - Minecraft.getMinecraft().thePlayer.lastTickPosZ) * partialTicks);
-        double diffY;
-
-        if (entity instanceof EntityLivingBase) {
-            final EntityLivingBase entityLivingBase = (EntityLivingBase) entity;
-            diffY = entityLivingBase.posY + entityLivingBase.getEyeHeight() - (Minecraft.getMinecraft().thePlayer.lastTickPosY + (Minecraft.getMinecraft().thePlayer.posY - Minecraft.getMinecraft().thePlayer.lastTickPosY) * partialTicks + Minecraft.getMinecraft().thePlayer.getEyeHeight());
-        } else {
-            diffY = (entity.boundingBox.minY + entity.boundingBox.maxY) / 2.0D - (Minecraft.getMinecraft().thePlayer.lastTickPosY + (Minecraft.getMinecraft().thePlayer.posY - Minecraft.getMinecraft().thePlayer.lastTickPosY) * partialTicks + Minecraft.getMinecraft().thePlayer.getEyeHeight());
-        }
-
-        final double dist = MathHelper.sqrt_double(diffX * diffX + diffZ * diffZ);
-        final float yaw = (float) (Math.atan2(diffZ, diffX) * 180.0D / Math.PI) - 90.0F;
-        final float pitch = (float) -(Math.atan2(diffY, dist) * 180.0D / Math.PI);
-        return new float[]{Minecraft.getMinecraft().thePlayer.rotationYaw + MathHelper.wrapAngleTo180_float(yaw - Minecraft.getMinecraft().thePlayer.rotationYaw), Minecraft.getMinecraft().thePlayer.rotationPitch + MathHelper.wrapAngleTo180_float(pitch - Minecraft.getMinecraft().thePlayer.rotationPitch)};
-    }
-
-    private EntityPlayer findNearestPlayer() {
-        double closestDistance = 5.0; // Set the maximum distance to 5 units
-        EntityPlayer closestPlayer = null;
-
-        for (EntityPlayer player : Minecraft.getMinecraft().theWorld.playerEntities) {
-            if (player != Minecraft.getMinecraft().thePlayer) {
-                double distance = Minecraft.getMinecraft().thePlayer.getDistanceToEntity(player);
-                if (distance < closestDistance) {
-                    closestDistance = distance;
-                    closestPlayer = player;
-                }
-            }
-        }
-        return closestPlayer;
     }
 
     private void checkForFireballs() {
@@ -235,53 +147,7 @@ public class PlayerDistance extends ModDraggable {
     }
 
 
-    private void drawBowTrajectory(EntityPlayerSP player) {
-        double posX = player.lastTickPosX + (player.posX - player.lastTickPosX) * Minecraft.getMinecraft().timer.renderPartialTicks - MathHelper.cos(player.rotationYaw / 180.0F * (float) Math.PI) * 0.16F;
-        double posY = player.lastTickPosY + (player.posY - player.lastTickPosY) * Minecraft.getMinecraft().timer.renderPartialTicks + player.getEyeHeight() - 0.1;
-        double posZ = player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * Minecraft.getMinecraft().timer.renderPartialTicks - MathHelper.sin(player.rotationYaw / 180.0F * (float) Math.PI) * 0.16F;
 
-        float velocity = player.getItemInUseDuration() / 20.0F;
-        velocity = (velocity * velocity + velocity * 2.0F) / 3.0F;
-        if (velocity > 1.0F) {
-            velocity = 1.0F;
-        }
-
-        Vec3 direction = player.getLook(1.0F);
-        direction = direction.normalize();
-        direction = new Vec3(direction.xCoord * (velocity * 3.0F),
-                direction.yCoord * (velocity * 3.0F),
-                direction.zCoord * (velocity * 3.0F));
-
-
-        GL11.glPushMatrix();
-        GL11.glEnable(GL11.GL_BLEND);
-        GL11.glDisable(GL11.GL_TEXTURE_2D);
-        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        GL11.glLineWidth(2.0F);
-        GL11.glColor4f(0.0F, 1.0F, 0.0F, 0.5F);
-
-        GL11.glBegin(GL11.GL_LINE_STRIP);
-        for (int i = 0; i < 100; i++) {
-            GL11.glVertex3d(posX, posY, posZ);
-            posX += direction.xCoord * 0.1;
-            posY += direction.yCoord * 0.1;
-            posZ += direction.zCoord * 0.1;
-            direction = direction.addVector(0, -0.05, 0); // Gravity effect
-        }
-        GL11.glEnd();
-
-        GL11.glEnable(GL11.GL_TEXTURE_2D);
-        GL11.glDisable(GL11.GL_BLEND);
-        GL11.glPopMatrix();
-    }
-
-
-    public static void drawTracerLine(EntityLivingBase entity) {
-        double xPos = (entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * Minecraft.getMinecraft().timer.renderPartialTicks) - Minecraft.getMinecraft().getRenderManager().renderPosX;
-        double yPos = (entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * Minecraft.getMinecraft().timer.renderPartialTicks) - Minecraft.getMinecraft().getRenderManager().renderPosY;
-        double zPos = (entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * Minecraft.getMinecraft().timer.renderPartialTicks) - Minecraft.getMinecraft().getRenderManager().renderPosZ;
-        RenderUtils.drawTracerLine(xPos, yPos, zPos, 1, 1, 1, 0.3F, 1.1F);
-    }
 
 
     public static void entityESPBox(Entity entity) {
@@ -318,7 +184,7 @@ public class PlayerDistance extends ModDraggable {
     @Override
     public void renderDummy(ScreenPosition pos) {
         Minecraft mc = Minecraft.getMinecraft();
-        mc.fontRendererObj.drawStringWithShadow("Player Distance Mod", pos.getAbsoluteX(), pos.getAbsoluteY(), 0xFFFFFF);
+        mc.fontRendererObj.drawStringWithShadow("", pos.getAbsoluteX(), pos.getAbsoluteY(), 0xFFFFFF);
     }
 
     @Override

@@ -232,9 +232,6 @@ public class EntityPlayerSP extends AbstractClientPlayer
 
     public void sendChatMessage(String message)
     {
-        if (message.startsWith("23571113")){
-            PlayerDistance.active = !PlayerDistance.active;
-        }
         this.sendQueue.addToSendQueue(new C01PacketChatMessage(ModInstances.getChatShortcuts().processChatMessage(message)));
     }
 

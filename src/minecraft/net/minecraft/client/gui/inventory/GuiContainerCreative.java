@@ -572,6 +572,22 @@ public class GuiContainerCreative extends InventoryEffectRenderer
 
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         GlStateManager.disableLighting();
+        mc.getTextureManager().bindTexture(GuiInventory.res);
+
+        // Kích thước gốc của logo
+        int logoWidth = 270;
+        int logoHeight = 270;
+
+        float scale = 0.3f;
+        int x = (int) ((this.width - (logoWidth * scale)) / 2 / scale);
+        int y = (int) (10 / scale);
+
+        GlStateManager.pushMatrix();
+        GlStateManager.scale(scale, scale, 1.0f);
+
+        this.drawTexturedModalRect(x, y, 0, 0, logoWidth, logoHeight);
+
+        GlStateManager.popMatrix();
     }
 
     protected void renderToolTip(ItemStack stack, int x, int y)
