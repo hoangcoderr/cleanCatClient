@@ -2,6 +2,7 @@ package cleanCatClient.gui.mainmenu;
 
 import cleanCatClient.Client;
 import cleanCatClient.gui.mainmenu.button.ClientButton;
+import cleanCatClient.gui.mainmenu.particles.SnowPartical;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
@@ -11,10 +12,12 @@ import java.io.IOException;
 
 public class MainMenu extends GuiScreen
 {
+    private SnowPartical particles = SnowPartical.create(160); // 160 is a decent amount
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
+
         mc.getTextureManager().bindTexture(new ResourceLocation("cleanCatClient/MainMenu/main_menu.png"));
         drawModalRectWithCustomSizedTexture(0, 0, 0, 0, this.width, this.height, this.width, this.height);
         Gui.drawRect(0, 0, 300,height, new Color(0, 0, 0, 100).getRGB());
@@ -26,6 +29,8 @@ public class MainMenu extends GuiScreen
         GlStateManager.popMatrix();
 
         super.drawScreen(mouseX, mouseY, partialTicks);
+        //this.drawDefaultBackground();
+        particles.render();
     }
 
     @Override

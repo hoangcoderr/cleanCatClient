@@ -4,9 +4,11 @@ import cleanCatClient.Client;
 import cleanCatClient.gui.mainmenu.button.ClientButton;
 import cleanCatClient.gui.font.FontUtil;
 import cleanCatClient.mods.Mod;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.util.ResourceLocation;
 
 import java.awt.*;
 
@@ -24,6 +26,7 @@ public class ModSettings extends GuiScreen {
     @Override
     public void initGui() {
         super.initGui();
+        Minecraft.getMinecraft().entityRenderer.loadShader(new ResourceLocation("shaders/post/blur.json"));
 
         ScaledResolution sr = new ScaledResolution(mc);
         int centerW = sr.getScaledWidth() / 2;
@@ -73,6 +76,14 @@ public class ModSettings extends GuiScreen {
         } else if (button.id == 1) {
             mc.displayGuiScreen(null); // Close the GUI
         }
+    }
+
+    @Override
+    public void onGuiClosed() {
+        Minecraft.getMinecraft().entityRenderer.loadEntityShader(null);
+        super.onGuiClosed();
+
+
     }
 
 }
