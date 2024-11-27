@@ -5,7 +5,6 @@ import cleanCatClient.gui.font.FontUtil;
 import cleanCatClient.gui.hud.ScreenPosition;
 import cleanCatClient.mods.ModCategory;
 import cleanCatClient.mods.ModDraggable;
-import cleanCatClient.utils.RenderUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ServerAddress;
 import net.minecraft.client.multiplayer.ServerData;
@@ -18,8 +17,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class PingDisplay extends ModDraggable {
-    private final AtomicInteger ping = new AtomicInteger(-1);
-    private long lastPingTime = 0;
+    private final AtomicInteger ping = new AtomicInteger(-1); // Giá trị ping lưu trữ
+    private long lastPingTime = 0; // Thời gian cuối cùng ping được cập nhật
     private final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     public PingDisplay() {
@@ -27,47 +26,20 @@ public class PingDisplay extends ModDraggable {
     }
 
     @Override
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    @Override
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    @Override
     public int getWidth() {
-        return 30;
+        return 50;
     }
 
     @Override
     public int getHeight() {
-        return 10;
+        return 15;
     }
 
     @Override
     public void render(ScreenPosition pos) {
-        long currentTime = System.currentTimeMillis();
-        ServerData server = Minecraft.getMinecraft().getCurrentServerData();
-
-        // Kiểm tra nếu đã qua 10 giây kể từ lần cập nhật ping cuối cùng
-        if (server != null && currentTime - lastPingTime >= 3000) {
-            lastPingTime = currentTime; // Cập nhật thời gian ping cuối cùng
-            executorService.submit(() -> {
-                try {
-                    int newPing = sendPing(server);
-                    ping.set(newPing);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
-        }
-
-        // Vẽ ping
-        //RenderUtils.drawRect(pos.getAbsoluteX(), pos.getAbsoluteY(), getWidth(), getHeight());
-        //FontUtil.normal.drawStringWithShadow(ping.get() + " ms", pos.getAbsoluteX(), pos.getAbsoluteY(), -1);
-        mc.fontRendererObj.drawStringWithShadow(ping.get() + " ms", pos.getAbsoluteX(), pos.getAbsoluteY(), -1);
+        String pingText = ping.get() >= 0 ? ping.get() + " ms" : "Calculating...";
+        mc.fontRendererObj.drawStringWithShadow(pingText, pos.getAbsoluteX(), pos.getAbsoluteY(), -1);
+        updatePing();
     }
 
     @Override
@@ -75,16 +47,32 @@ public class PingDisplay extends ModDraggable {
         FontUtil.normal.drawStringWithShadow("1000 ms", pos.getAbsoluteX(), pos.getAbsoluteY(), -1);
     }
 
-    private int sendPing(ServerData server) throws IOException {
-        ServerAddress address = ServerAddress.fromString(server.serverIP);
-        Socket socket = new Socket();
-        socket.setSoTimeout(5000);
-        long timeBefore = System.currentTimeMillis();
-        try {
-            socket.connect(new InetSocketAddress(address.getIP(), address.getPort()));
-        } finally {
-            socket.close();
+    private void updatePing() {
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - lastPingTime > 5000) { // Cập nhật mỗi 5 giây
+            lastPingTime = currentTime;
+            executorService.submit(this::calculatePing);
         }
-        return (int) (System.currentTimeMillis() - timeBefore);
+    }
+
+    private void calculatePing() {
+        ServerData serverData = Minecraft.getMinecraft().getCurrentServerData();
+        if (serverData != null) {
+            try (Socket socket = new Socket()) {
+                String ip = ServerAddress.fromString(serverData.serverIP).getIP();
+                int port = ServerAddress.fromString(serverData.serverIP).getPort();
+                InetSocketAddress address = new InetSocketAddress(ip, port);
+
+                long startTime = System.currentTimeMillis();
+                socket.connect(address, 1000); // Thời gian chờ 1 giây
+                long endTime = System.currentTimeMillis();
+
+                ping.set((int) (endTime - startTime)); // Gán giá trị ping
+            } catch (IOException e) {
+                ping.set(-1); // Lỗi khi không thể kết nối
+            }
+        } else {
+            ping.set(-1); // Không ở server
+        }
     }
 }
