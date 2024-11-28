@@ -80,8 +80,9 @@ public class ClickEvent
         RUN_COMMAND("run_command", true),
         TWITCH_USER_INFO("twitch_user_info", false),
         SUGGEST_COMMAND("suggest_command", true),
-        CHANGE_PAGE("change_page", true);
-
+        CHANGE_PAGE("change_page", true),
+        COPY_TO_CLIPBOARD("copy_to_clipboard", true),
+        COPY_IMAGE_TO_CLIPBOARD("copy_image_to_clipboard", true);
         private static final Map<String, ClickEvent.Action> nameMapping = Maps.<String, ClickEvent.Action>newHashMap();
         private final boolean allowedInChat;
         private final String canonicalName;

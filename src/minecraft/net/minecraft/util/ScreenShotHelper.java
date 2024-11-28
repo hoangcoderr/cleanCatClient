@@ -33,10 +33,8 @@ public class ScreenShotHelper
         return saveScreenshot(gameDirectory, (String)null, width, height, buffer);
     }
 
-    public static IChatComponent saveScreenshot(File gameDirectory, String screenshotName, int width, int height, Framebuffer buffer)
-    {
-        try
-        {
+    public static IChatComponent saveScreenshot(File gameDirectory, String screenshotName, int width, int height, Framebuffer buffer) {
+        try {
             File file1 = new File(gameDirectory, "screenshots");
             file1.mkdir();
             Minecraft minecraft = Minecraft.getMinecraft();
@@ -46,8 +44,7 @@ public class ScreenShotHelper
             int k = Config.getScreenshotSize();
             boolean flag = OpenGlHelper.isFramebufferEnabled() && k > 1;
 
-            if (flag)
-            {
+            if (flag) {
                 Config.getGameSettings().guiScale = j * k;
                 resize(width * k, height * k);
                 GlStateManager.pushMatrix();
@@ -56,16 +53,14 @@ public class ScreenShotHelper
                 minecraft.entityRenderer.updateCameraAndRender(Config.renderPartialTicks, System.nanoTime());
             }
 
-            if (OpenGlHelper.isFramebufferEnabled())
-            {
+            if (OpenGlHelper.isFramebufferEnabled()) {
                 width = buffer.framebufferTextureWidth;
                 height = buffer.framebufferTextureHeight;
             }
 
             int l = width * height;
 
-            if (pixelBuffer == null || pixelBuffer.capacity() < l)
-            {
+            if (pixelBuffer == null || pixelBuffer.capacity() < l) {
                 pixelBuffer = BufferUtils.createIntBuffer(l);
                 pixelValues = new int[l];
             }
@@ -74,13 +69,10 @@ public class ScreenShotHelper
             GL11.glPixelStorei(GL11.GL_UNPACK_ALIGNMENT, 1);
             pixelBuffer.clear();
 
-            if (OpenGlHelper.isFramebufferEnabled())
-            {
+            if (OpenGlHelper.isFramebufferEnabled()) {
                 GlStateManager.bindTexture(buffer.framebufferTexture);
                 GL11.glGetTexImage(GL11.GL_TEXTURE_2D, 0, GL12.GL_BGRA, GL12.GL_UNSIGNED_INT_8_8_8_8_REV, (IntBuffer)pixelBuffer);
-            }
-            else
-            {
+            } else {
                 GL11.glReadPixels(0, 0, width, height, GL12.GL_BGRA, GL12.GL_UNSIGNED_INT_8_8_8_8_REV, (IntBuffer)pixelBuffer);
             }
 
@@ -88,27 +80,21 @@ public class ScreenShotHelper
             TextureUtil.processPixelValues(pixelValues, width, height);
             BufferedImage bufferedimage = null;
 
-            if (OpenGlHelper.isFramebufferEnabled())
-            {
+            if (OpenGlHelper.isFramebufferEnabled()) {
                 bufferedimage = new BufferedImage(buffer.framebufferWidth, buffer.framebufferHeight, 1);
                 int i1 = buffer.framebufferTextureHeight - buffer.framebufferHeight;
 
-                for (int j1 = i1; j1 < buffer.framebufferTextureHeight; ++j1)
-                {
-                    for (int k1 = 0; k1 < buffer.framebufferWidth; ++k1)
-                    {
+                for (int j1 = i1; j1 < buffer.framebufferTextureHeight; ++j1) {
+                    for (int k1 = 0; k1 < buffer.framebufferWidth; ++k1) {
                         bufferedimage.setRGB(k1, j1 - i1, pixelValues[j1 * buffer.framebufferTextureWidth + k1]);
                     }
                 }
-            }
-            else
-            {
+            } else {
                 bufferedimage = new BufferedImage(width, height, 1);
                 bufferedimage.setRGB(0, 0, width, height, pixelValues, 0, width);
             }
 
-            if (flag)
-            {
+            if (flag) {
                 minecraft.getFramebuffer().unbindFramebuffer();
                 GlStateManager.popMatrix();
                 Config.getGameSettings().guiScale = i;
@@ -117,26 +103,31 @@ public class ScreenShotHelper
 
             File file2;
 
-            if (screenshotName == null)
-            {
+            if (screenshotName == null) {
                 file2 = getTimestampedPNGFileForDirectory(file1);
-            }
-            else
-            {
+            } else {
                 file2 = new File(file1, screenshotName);
             }
 
             file2 = file2.getCanonicalFile();
             ImageIO.write(bufferedimage, "png", (File)file2);
-            IChatComponent ichatcomponent = new ChatComponentText(file2.getName());
-            ichatcomponent.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_FILE, file2.getAbsolutePath()));
-            ichatcomponent.getChatStyle().setUnderlined(Boolean.valueOf(true));
-            return new ChatComponentTranslation("screenshot.success", new Object[] {ichatcomponent});
-        }
-        catch (Exception exception)
-        {
-            logger.warn((String)"Couldn\'t save screenshot", (Throwable)exception);
-            return new ChatComponentTranslation("screenshot.failure", new Object[] {exception.getMessage()});
+
+
+            IChatComponent ichatcomponent = new ChatComponentText("");
+            IChatComponent copyComponent = new ChatComponentText("[Copy]");
+            copyComponent.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.COPY_IMAGE_TO_CLIPBOARD, file2.getAbsolutePath()));
+            copyComponent.getChatStyle().setUnderlined(true);
+            IChatComponent openComponent = new ChatComponentText("[Open image]");
+            openComponent.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_FILE, file2.getAbsolutePath()));
+            openComponent.getChatStyle().setUnderlined(true);
+
+            // Gắn các thành phần lại
+            ichatcomponent.appendSibling(copyComponent).appendText(" ").appendSibling(openComponent);
+
+            return new ChatComponentTranslation("screenshot.success", ichatcomponent);
+        } catch (Exception exception) {
+            logger.warn("Couldn't save screenshot", exception);
+            return new ChatComponentTranslation("screenshot.failure", exception.getMessage());
         }
     }
 

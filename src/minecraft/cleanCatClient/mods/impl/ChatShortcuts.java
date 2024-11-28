@@ -32,7 +32,7 @@ public class ChatShortcuts extends Mod {
             message = shortcuts.get(message);
         }
         if (message.toLowerCase().startsWith("/pc")){
-            return message.replace("/pc", "/pc &b&l");
+            return message.toLowerCase().replace("/pc", "/pc &b&l");
         }
         return message;
     }

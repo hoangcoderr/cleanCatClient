@@ -1,10 +1,11 @@
 package net.minecraft.client.gui;
 
-import java.awt.Toolkit;
+import java.awt.*;
 import java.awt.datatransfer.ClipboardOwner;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.Set;
 
 import cleanCatClient.gui.mainmenu.button.ClientButton;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.*;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -44,10 +45,10 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.stats.Achievement;
 import net.minecraft.stats.StatBase;
 import net.minecraft.stats.StatList;
-import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.IChatComponent;
 import tv.twitch.chat.ChatUserInfo;
+
+import javax.imageio.ImageIO;
+import cleanCatClient.utils.TransferableImage;
 
 public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 	private static final Logger LOGGER = LogManager.getLogger();
@@ -324,15 +325,47 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 					this.setText(clickevent.getValue(), true);
 				} else if (clickevent.getAction() == ClickEvent.Action.RUN_COMMAND) {
 					this.sendChatMessage(clickevent.getValue(), false);
-				} else if (clickevent.getAction() == ClickEvent.Action.TWITCH_USER_INFO) {
-					ChatUserInfo chatuserinfo = this.mc.getTwitchStream().func_152926_a(clickevent.getValue());
+				} else if (clickevent.getAction() == ClickEvent.Action.COPY_IMAGE_TO_CLIPBOARD) {
+					try {
+						// Kiểm tra nếu clipboard đã chứa dữ liệu là hình ảnh
+						Transferable transferable = Toolkit.getDefaultToolkit().getSystemClipboard().getContents(null);
+						if (transferable != null && transferable.isDataFlavorSupported(DataFlavor.imageFlavor)) {
+							// Lấy hình ảnh từ clipboard (nếu cần)
+							Image existingImage = (Image) transferable.getTransferData(DataFlavor.imageFlavor);
+							// Bạn có thể xử lý `existingImage` ở đây nếu cần
+						}
 
-					if (chatuserinfo != null) {
-						this.mc.displayGuiScreen(new GuiTwitchUserMode(this.mc.getTwitchStream(), chatuserinfo));
-					} else {
-						LOGGER.error("Tried to handle twitch user but couldn\'t find them!");
+						// Tạo hình ảnh mới từ đường dẫn
+						File imageFile = new File(clickevent.getValue()); // Giá trị chứa đường dẫn đến hình ảnh
+						if (imageFile.exists()) {
+							BufferedImage image = ImageIO.read(imageFile);
+
+							// Đưa hình ảnh vào clipboard
+							TransferableImage transferableImage = new TransferableImage(image);
+							Toolkit.getDefaultToolkit().getSystemClipboard().setContents(transferableImage, null);
+
+							// Thông báo sao chép thành công
+							Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText("Image copied to clipboard!"));
+						} else {
+							// Thông báo nếu tệp không tồn tại
+							Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText("Image file not found: " + clickevent.getValue()));
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+						Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText("Failed to copy image to clipboard: " + e.getMessage()));
 					}
-				} else {
+				}
+				else if (clickevent.getAction() == ClickEvent.Action.COPY_IMAGE_TO_CLIPBOARD){
+					try {
+						Transferable transferable = Toolkit.getDefaultToolkit().getSystemClipboard().getContents((Object) null);
+						if (transferable != null && transferable.isDataFlavorSupported(DataFlavor.imageFlavor)) {
+
+						}
+					}
+					catch (Exception var1) {
+						;
+					}
+				}else {
 					LOGGER.error("Don\'t know how to handle " + clickevent);
 				}
 

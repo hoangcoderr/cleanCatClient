@@ -1958,7 +1958,7 @@ attribute.name.generic.knockbackResistance=Knockback Resistance
 attribute.name.generic.movementSpeed=Speed
 attribute.name.generic.attackDamage=Attack Damage
 
-screenshot.success=Saved screenshot as %s
+screenshot.success=Saved screenshot %s
 screenshot.failure=Couldn't save screenshot: %s
 
 stream.user.mode.moderator=Moderator
