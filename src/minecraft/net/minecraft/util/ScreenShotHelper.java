@@ -116,13 +116,16 @@ public class ScreenShotHelper
             IChatComponent ichatcomponent = new ChatComponentText("");
             IChatComponent copyComponent = new ChatComponentText("[Copy]");
             copyComponent.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.COPY_IMAGE_TO_CLIPBOARD, file2.getAbsolutePath()));
-            copyComponent.getChatStyle().setUnderlined(true);
+            copyComponent.getChatStyle().setUnderlined(true).setColor(EnumChatFormatting.GREEN);
             IChatComponent openComponent = new ChatComponentText("[Open image]");
             openComponent.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_FILE, file2.getAbsolutePath()));
-            openComponent.getChatStyle().setUnderlined(true);
+            openComponent.getChatStyle().setUnderlined(true).setColor(EnumChatFormatting.GRAY);
+            IChatComponent deleteComponent = new ChatComponentText("[Delete]");
+            deleteComponent.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.DELETE_FILE, file2.getAbsolutePath()));
+            deleteComponent.getChatStyle().setUnderlined(true).setColor(EnumChatFormatting.RED);
 
             // Gắn các thành phần lại
-            ichatcomponent.appendSibling(copyComponent).appendText(" ").appendSibling(openComponent);
+            ichatcomponent.appendSibling(copyComponent).appendText(" ").appendSibling(openComponent).appendSibling(deleteComponent);
 
             return new ChatComponentTranslation("screenshot.success", ichatcomponent);
         } catch (Exception exception) {

@@ -365,7 +365,26 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 					catch (Exception var1) {
 						;
 					}
-				}else {
+				}else if (clickevent.getAction() == ClickEvent.Action.DELETE_FILE){
+					File file = new File(clickevent.getValue());
+					if (file.exists()) {
+						file.delete();
+					}
+
+					Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText("File deleted: " + clickevent.getValue()));
+				}
+				else if (clickevent.getAction() == ClickEvent.Action.COPY_TO_CLIPBOARD) {
+					this.setClipboardString(clickevent.getValue());
+				} else if (clickevent.getAction() == ClickEvent.Action.TWITCH_USER_INFO) {
+					ChatUserInfo chatuserinfo = this.mc.getTwitchStream().func_152926_a(clickevent.getValue());
+
+					if (chatuserinfo != null) {
+						this.mc.displayGuiScreen(new GuiTwitchUserMode(this.mc.getTwitchStream(), chatuserinfo));
+					} else {
+						LOGGER.error("Tried to handle twitch user but couldn\'t find them!");
+					}
+				}
+				else {
 					LOGGER.error("Don\'t know how to handle " + clickevent);
 				}
 
