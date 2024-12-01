@@ -71,6 +71,7 @@ public class PingDisplay extends ModDraggable {
             } catch (IOException e) {
                 ping.set(-1); // Lỗi khi không thể kết nối
             }
+            
         } else {
             ping.set(-1); // Không ở server
         }

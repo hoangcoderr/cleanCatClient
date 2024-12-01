@@ -20,11 +20,11 @@ package cleanCatClient.utils.openauth.microsoft;
 
 import com.google.gson.Gson;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.*;
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.Proxy;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
@@ -33,12 +33,17 @@ public class HttpClient
     public static final String MIME_TYPE_JSON = "application/json";
     public static final String MIME_TYPE_URLENCODED_FORM = "application/x-www-form-urlencoded";
 
-
     private final Gson gson;
+    private final Proxy proxy;
 
     public HttpClient()
     {
+        this(Proxy.NO_PROXY);
+    }
+    public HttpClient(Proxy proxy)
+    {
         this.gson = new Gson();
+        this.proxy = proxy;
     }
 
 
@@ -103,16 +108,58 @@ public class HttpClient
         }
 
         StringBuilder response = new StringBuilder();
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                response.append(line).append('\n');
+
+        try
+        {
+            InputStream inputStream = connection.getInputStream();
+
+            // check if the url corresponds to a related authentication url
+            if(this.checkUrl(connection.getURL()))
+            {
+                // then patch the input stream like in the old MicrosoftPatchedHttpURLConnection class.
+                ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+                int n;
+                byte[] data = new byte[8192];
+
+                while ((n = inputStream.read(data, 0, data.length)) != -1) {
+                    buffer.write(data, 0, n);
+                }
+
+                byte[] patched = buffer
+                        .toString("UTF-8")
+                        .replaceAll("integrity ?=", "integrity.disabled=")
+                        .replaceAll("setAttribute\\(\"integrity\"", "setAttribute(\"integrity.disabled\"")
+                        .getBytes(StandardCharsets.UTF_8);
+
+                inputStream = new ByteArrayInputStream(patched);
             }
-        } catch (IOException e) {
-            throw new MicrosoftAuthenticationException(e);
+
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
+                String line;
+                while ((line = br.readLine()) != null) {
+                    response.append(line).append('\n');
+                }
+            } catch (IOException e) {
+                throw new MicrosoftAuthenticationException(e);
+            }
+        } catch (IOException e)
+        {
+            throw new RuntimeException(e);
         }
 
         return response.toString();
+    }
+
+    private boolean checkUrl(URL url)
+    {
+        return (("login.microsoftonline.com".equals(url.getHost()) && url.getPath().endsWith("/oauth2/authorize"))
+                || ("login.live.com".equals(url.getHost()) && "/oauth20_authorize.srf".equals(url.getPath()))
+                || ("login.live.com".equals(url.getHost()) && "/ppsecure/post.srf".equals(url.getPath()))
+                || ("login.microsoftonline.com".equals(url.getHost()) && "/login.srf".equals(url.getPath()))
+                || ("login.microsoftonline.com".equals(url.getHost()) && url.getPath().endsWith("/login"))
+                || ("login.microsoftonline.com".equals(url.getHost()) && url.getPath().endsWith("/SAS/ProcessAuth"))
+                || ("login.microsoftonline.com".equals(url.getHost()) && url.getPath().endsWith("/federation/oauth2"))
+                || ("login.microsoftonline.com".equals(url.getHost()) && url.getPath().endsWith("/oauth2/v2.0/authorize")));
     }
 
     protected HttpURLConnection followRedirects(HttpURLConnection connection) throws MicrosoftAuthenticationException
@@ -134,7 +181,7 @@ public class HttpClient
             }
 
             try {
-                query.append(key).append('=').append(URLEncoder.encode(value, "UTF-8"));
+                query.append(key).append('=').append(URLEncoder.encode(value, StandardCharsets.UTF_8.name()));
             } catch (UnsupportedEncodingException ignored) {
                 // Can't happen
             }
@@ -147,7 +194,7 @@ public class HttpClient
     {
         HttpURLConnection connection;
         try {
-            connection = (HttpURLConnection) new URL(url).openConnection();
+            connection = (HttpURLConnection) new URL(url).openConnection(proxy);
         } catch (IOException e) {
             throw new MicrosoftAuthenticationException(e);
         }
@@ -157,6 +204,8 @@ public class HttpClient
                 "Chrome/71.0.3578.98 " +
                 "Safari/537.36";
 
+        connection.setConnectTimeout(30 * 1000); // 30s
+        connection.setReadTimeout(60 * 1000); // 60s
         connection.setRequestProperty("Accept-Language", "en-US");
         connection.setRequestProperty("Accept-Charset", "UTF-8");
         connection.setRequestProperty("User-Agent", userAgent);

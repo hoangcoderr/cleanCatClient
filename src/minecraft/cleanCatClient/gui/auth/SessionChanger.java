@@ -2,14 +2,14 @@ package cleanCatClient.gui.auth;
 
 import java.util.UUID;
 
+import cleanCatClient.utils.openauth.microsoft.MicrosoftAuthResult;
+import cleanCatClient.utils.openauth.microsoft.MicrosoftAuthenticationException;
+import cleanCatClient.utils.openauth.microsoft.MicrosoftAuthenticator;
 import com.mojang.authlib.Agent;
 import com.mojang.authlib.AuthenticationService;
 import com.mojang.authlib.UserAuthentication;
 import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
 import com.mojang.util.UUIDTypeAdapter;
-import cleanCatClient.utils.openauth.microsoft.MicrosoftAuthResult;
-import cleanCatClient.utils.openauth.microsoft.MicrosoftAuthenticationException;
-import cleanCatClient.utils.openauth.microsoft.MicrosoftAuthenticator;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Session;
 
@@ -59,11 +59,11 @@ public class SessionChanger {
 
 		MicrosoftAuthenticator authenticator = new MicrosoftAuthenticator();
 		try {
-			MicrosoftAuthResult acc = authenticator.loginWithCredentials(email, password);
+			MicrosoftAuthResult acc = authenticator.loginWithWebview();
 			Minecraft.getMinecraft().session = new Session(acc.getProfile().getName(), acc.getProfile().getId(), acc.getAccessToken(), "legacy");
 
 		} catch (MicrosoftAuthenticationException e) {
-
+			System.out.println("Error: " + e.getMessage());
 		}
 	}
 
