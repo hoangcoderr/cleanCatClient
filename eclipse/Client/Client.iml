@@ -415,6 +415,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="jfxrt" level="project" />
+    <orderEntry type="library" name="discord-rpc" level="project" />
+    <orderEntry type="library" name="lib" level="project" />
   </component>
 </module>
