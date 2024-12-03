@@ -19,8 +19,8 @@ import java.util.List;
  * @author refactoring
  */
 public class SnowPartical {
-    private static final int WIDTH = Display.getWidth();
-    private static final int HEIGHT = Display.getHeight();
+    public static  int WIDTH = Display.getWidth();
+    public static  int HEIGHT = Display.getHeight();
 
     private final List<Particle> particles = new ArrayList<>();
 
@@ -48,7 +48,7 @@ public class SnowPartical {
 
     private void createParticles() {
         for (int i = 0; i < particleCount; i++) {
-            float x = RandomUtils.nextFloat(0, WIDTH);
+            float x = RandomUtils.nextFloat(0, 1920);
             float speed = 1.0f + RandomUtils.nextFloat(0, 2);
             particles.add(new Particle(x, 0, speed));
         }

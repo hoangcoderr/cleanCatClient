@@ -25,6 +25,7 @@ import cleanCatClient.gui.hud.HUDManager;
 import cleanCatClient.gui.hud.IRenderer;
 import cleanCatClient.gui.hud.ScreenPosition;
 import cleanCatClient.gui.mainmenu.MainMenu;
+import cleanCatClient.gui.mainmenu.particles.SnowPartical;
 import cleanCatClient.mods.Mod;
 import cleanCatClient.mods.ModDraggable;
 import cleanCatClient.mods.ModInstances;
