@@ -78,6 +78,7 @@ public class Perspective extends Mod {
                     mc.gameSettings.thirdPersonView = 1;
                     targetFov = mc.gameSettings.fovSetting;
                     currentFov = 30.0F;
+                    if (isSmooth)
                     mc.gameSettings.fovSetting = currentFov;
                 } else if (!returnOnRelease) {
                     perspectiveToggled = false;
@@ -92,7 +93,8 @@ public class Perspective extends Mod {
         }
         if (e.getKey() == mc.gameSettings.keyBindTogglePerspective.getKeyCode()) {
             perspectiveToggled = false;
-            mc.gameSettings.fovSetting = targetFov;
+            if (isSmooth)
+                mc.gameSettings.fovSetting = targetFov;
         }
     }
 
@@ -107,7 +109,7 @@ public class Perspective extends Mod {
             mc.gameSettings.fovSetting = currentFov;
         }
         else if (!isSmooth){
-            mc.gameSettings.fovSetting = targetFov;
+            //mc.gameSettings.fovSetting = targetFov;
         }
     }
 //    @EventTarget
