@@ -47,20 +47,6 @@ public class PlayerDistance extends ModDraggable {
         this.height = height;
     }
 
-    private String getRelativePosition(EntityPlayer mainPlayer, EntityPlayer otherPlayer) {
-        double angle = Math.toDegrees(Math.atan2(otherPlayer.posZ - mainPlayer.posZ, otherPlayer.posX - mainPlayer.posX)) - mainPlayer.rotationYaw;
-        angle = (angle + 360) % 360;
-
-        if (angle >= 45 && angle < 135) {
-            return "trước mặt";
-        } else if (angle >= 135 && angle < 225) {
-            return "bên phải";
-        } else if (angle >= 225 && angle < 315) {
-            return "sau lưng";
-        } else {
-            return "bên trái";
-        }
-    }
 
 
 
@@ -106,10 +92,10 @@ public class PlayerDistance extends ModDraggable {
             Minecraft mc = Minecraft.getMinecraft();
             int yOffset = 0;
             for (EntityPlayer player : mc.theWorld.playerEntities) {
-                if (player != mc.thePlayer) {
+                if (player != mc.thePlayer && !player.getDisplayName().getFormattedText().equals("§k§r") && !player.getDisplayName().getFormattedText().equals("§f§r")) {
                     double distance = mc.thePlayer.getDistanceToEntity(player);
-                    String relativePosition = getRelativePosition(mc.thePlayer, player);
-                    String text = player.getDisplayName().getFormattedText() + ": " + String.format("%.1f", distance) + " blocks (" + relativePosition + ")";
+                    String text = player.getDisplayName().getFormattedText() + ": " + String.format("%.1f", distance) + " blocks";
+                   // System.out.println(player.getDisplayName().getFormattedText());
                     mc.fontRendererObj.drawStringWithShadow(text, pos.getAbsoluteX(), pos.getAbsoluteY() + yOffset, 0XFFFFFF);
                     yOffset += mc.fontRendererObj.FONT_HEIGHT + 2; // Move to the next line
                 }
@@ -117,36 +103,7 @@ public class PlayerDistance extends ModDraggable {
             }
             checkForFireballs();
         }
-
-
     }
-
-    public static void blockESPBox(BlockPos blockPos) {
-        Minecraft mc = Minecraft.getMinecraft();
-        double x = blockPos.getX() - mc.getRenderManager().renderPosX;
-        double y = blockPos.getY() - mc.getRenderManager().renderPosY;
-        double z = blockPos.getZ() - mc.getRenderManager().renderPosZ;
-
-        GL11.glPushMatrix();
-        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        GL11.glEnable(GL11.GL_BLEND);
-        GL11.glLineWidth(2.0F);
-        GL11.glDisable(GL11.GL_TEXTURE_2D);
-        GL11.glDisable(GL11.GL_DEPTH_TEST);
-        GL11.glDepthMask(false);
-
-        // Set color and draw bounding box
-        GL11.glColor4d(0, 0, 1, 0.5F);
-        RenderGlobal.drawSelectionBoundingBox(new AxisAlignedBB(x, y, z, x + 1.0, y + 0.5625, z + 1.0));
-
-        GL11.glEnable(GL11.GL_TEXTURE_2D);
-        GL11.glEnable(GL11.GL_DEPTH_TEST);
-        GL11.glDepthMask(true);
-        GL11.glDisable(GL11.GL_BLEND);
-        GL11.glPopMatrix();
-    }
-
-
 
 
 

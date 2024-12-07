@@ -1,5 +1,6 @@
 package net.minecraft.client.renderer.entity;
 
+import cleanCatClient.gui.font.FontUtil;
 import cleanCatClient.mods.ModInstances;
 import com.google.common.collect.Lists;
 

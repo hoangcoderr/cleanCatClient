@@ -1,5 +1,6 @@
 package net.minecraft.client.renderer.entity;
 
+import cleanCatClient.gui.font.FontUtil;
 import cleanCatClient.mods.ModInstances;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -302,6 +303,7 @@ public abstract class Render<T extends Entity> implements IEntityRenderer {
             FontRenderer fontrenderer = this.getFontRendererFromRenderManager();
             float f = 1.6F;
             float f1 = 0.016666668F * f;
+            //float f1 = 0.015f;
             GlStateManager.pushMatrix();
             GlStateManager.translate((float) x + 0.0F, (float) y + entityIn.height + 0.5F, (float) z);
             GL11.glNormal3f(0.0F, 1.0F, 0.0F);
@@ -318,15 +320,15 @@ public abstract class Render<T extends Entity> implements IEntityRenderer {
             int i = 0;
             if (entityIn instanceof AbstractClientPlayer) {
                     Minecraft.getMinecraft().getTextureManager().bindTexture(logo);
-                    Gui.drawModalRectWithCustomSizedTexture(-fontrenderer.getStringWidth(entityIn.getDisplayName().getFormattedText()) / 2 - 11, (-1 / 2), 8, 8, 8, 8, 8, 8);
-
+                    Gui.drawModalRectWithCustomSizedTexture(-(int)FontUtil.normal.getStringWidth(entityIn.getDisplayName().getFormattedText()) / 2 - 11, (-1 / 2), 8, 8, 8, 8, 8, 8);
             }
 
             if (str.equals("deadmau5")) {
                 i = -10;
             }
 
-            int j = fontrenderer.getStringWidth(str) / 2;
+            //int j = fontrenderer.getStringWidth(str) / 2;
+            int j = (int) FontUtil.normal.getStringWidth(str) / 2 - 4;
             GlStateManager.disableTexture2D();
             worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
             worldrenderer.pos((double) (-j - 1), (double) (-1 + i), 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
@@ -335,10 +337,16 @@ public abstract class Render<T extends Entity> implements IEntityRenderer {
             worldrenderer.pos((double) (j + 1), (double) (-1 + i), 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
             tessellator.draw();
             GlStateManager.enableTexture2D();
-            fontrenderer.drawString(str, -fontrenderer.getStringWidth(str) / 2, i, 553648127);
+            //fontrenderer.drawString(str, -fontrenderer.getStringWidth(str) / 2, i, 553648127);
+            GlStateManager.pushMatrix();
+            GlStateManager.translate(0,-1,0);
+            GlStateManager.scale(0.45f, 0.45f, 1);
+            FontUtil.getFontRenderer(35).drawString(str, -FontUtil.getFontRenderer(35).getStringWidth(str) / 2, i, 553648127);
             GlStateManager.enableDepth();
             GlStateManager.depthMask(true);
-            fontrenderer.drawString(str, -fontrenderer.getStringWidth(str) / 2, i, -1);
+            //fontrenderer.drawString(str, -fontrenderer.getStringWidth(str) / 2, i, -1);
+            FontUtil.getFontRenderer(35).drawString(str, -FontUtil.getFontRenderer(35).getStringWidth(str) / 2, i, -1);
+            GlStateManager.popMatrix();
             GlStateManager.enableLighting();
             GlStateManager.disableBlend();
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);

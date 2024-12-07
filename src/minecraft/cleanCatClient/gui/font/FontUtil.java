@@ -67,6 +67,7 @@ public class FontUtil {
         bold = new MinecraftFontRenderer(bold_, true, true);
         italic = new MinecraftFontRenderer(italic_, true, true);
         getFontRenderer(30);
+        getFontRenderer(35);
     }
 
     public static MinecraftFontRenderer getFontRenderer(int fontSize) {
