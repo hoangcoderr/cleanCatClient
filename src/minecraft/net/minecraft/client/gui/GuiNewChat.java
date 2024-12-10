@@ -8,6 +8,7 @@ import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.event.ClickEvent;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.MathHelper;
@@ -257,6 +258,11 @@ public class GuiNewChat extends Gui
 
                                 if (j1 > j)
                                 {
+                                    if (!ichatcomponent.getFormattedText().contains("invite") && !ichatcomponent.getFormattedText().contains("discord.gg") && !ichatcomponent.getFormattedText().contains("mời"))
+                                    {
+                                        ichatcomponent.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, ichatcomponent.getFormattedText()));
+                                    }
+
                                     return ichatcomponent;
                                 }
                             }

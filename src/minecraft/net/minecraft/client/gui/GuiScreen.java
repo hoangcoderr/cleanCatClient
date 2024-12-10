@@ -1,10 +1,7 @@
 package net.minecraft.client.gui;
 
 import java.awt.*;
-import java.awt.datatransfer.ClipboardOwner;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.StringSelection;
-import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -355,16 +352,12 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 						Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText("Failed to copy image to clipboard: " + e.getMessage()));
 					}
 				}
-				else if (clickevent.getAction() == ClickEvent.Action.COPY_IMAGE_TO_CLIPBOARD){
-					try {
-						Transferable transferable = Toolkit.getDefaultToolkit().getSystemClipboard().getContents((Object) null);
-						if (transferable != null && transferable.isDataFlavorSupported(DataFlavor.imageFlavor)) {
-
-						}
-					}
-					catch (Exception var1) {
-						;
-					}
+				else if (clickevent.getAction() == ClickEvent.Action.COPY_TO_CLIPBOARD){
+					String content = clickevent.getValue();
+					StringSelection stringSelection = new StringSelection(content);
+					Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+					clipboard.setContents(stringSelection, null);  // Sao chép vào clipboard
+					System.out.println("Text copied to clipboard: " + content);
 				}else if (clickevent.getAction() == ClickEvent.Action.DELETE_FILE){
 					File file = new File(clickevent.getValue());
 					if (file.exists()) {

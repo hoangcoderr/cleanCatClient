@@ -501,6 +501,7 @@ public class GuiIngame extends Gui {
             if (!ModInstances.getScoreboard().isHideRect())
                 drawRect(l1 - 2, k, l, k + this.getFontRenderer().FONT_HEIGHT, 1342177280);
             FontUtil.normal.drawString(s1, l1, k, new Color(255, 255, 255).getRGB());
+            //System.out.println(s1);
             if (!ModInstances.getScoreboard().isHideRedNumbers())
                 this.getFontRenderer().drawString(s2, l - this.getFontRenderer().getStringWidth(s2), k, 553648127);
 
