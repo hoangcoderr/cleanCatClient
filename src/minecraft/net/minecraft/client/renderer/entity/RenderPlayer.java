@@ -64,7 +64,7 @@ public class RenderPlayer extends RendererLivingEntity<AbstractClientPlayer> {
         this.addLayer(new CosmeticStarrySunsetCape(this));
         this.addLayer(new CosmeticAnimeGirlCape(this));
         this.addLayer(new CosmeticJumpingFrogCape(this));
-
+        this.addLayer(new CosmeticChillinBoy(this));
     }
 
     public void addWingLayer() {

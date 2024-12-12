@@ -119,12 +119,12 @@ public class ClientButton extends GuiButton {
         }
     }
 
-    @Override
-    public boolean mousePressed(Minecraft mc, int mouseX, int mouseY) {
-        boolean result = super.mousePressed(mc, mouseX, mouseY);
-        if (result) {
-            resetCursor();
-        }
-        return result;
-    }
+//    @Override
+//    public boolean mousePressed(Minecraft mc, int mouseX, int mouseY) {
+//        boolean result = super.mousePressed(mc, mouseX, mouseY);
+//        if (result) {
+//            resetCursor();
+//        }
+//        return result;
+//    }
 }

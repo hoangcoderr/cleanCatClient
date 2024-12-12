@@ -19,6 +19,7 @@ public class CosmeticBoolean {
     public static boolean dragonObsidianWing;
     public static boolean witchHat;
     public static boolean wavingCape;
+    public static boolean chillinBoy;
 
     static {
         CosmeticBoolean.snowcape = false;
@@ -30,10 +31,11 @@ public class CosmeticBoolean {
         CosmeticBoolean.dragonWing = false;
         CosmeticBoolean.satanWing = false;
         CosmeticBoolean.dragonBabyWing = false;
-        CosmeticBoolean.animeGirlCape = true;
+        CosmeticBoolean.animeGirlCape = false;
         CosmeticBoolean.dragonObsidianWing = true;
         CosmeticBoolean.witchHat = false;
         CosmeticBoolean.wavingCape = false;
+        CosmeticBoolean.chillinBoy = true;
     }
 
     public static boolean shouldRenderWitchHat(final AbstractClientPlayer player) {
@@ -115,6 +117,7 @@ public class CosmeticBoolean {
                 CosmeticBoolean.animeGirlCape = false;
                 CosmeticBoolean.jumpingFrogCape = false;
                 CosmeticBoolean.wavingCape = false;
+                CosmeticBoolean.chillinBoy = false;
 
 
                 break;
@@ -128,6 +131,7 @@ public class CosmeticBoolean {
                 CosmeticBoolean.animeGirlCape = false;
                 CosmeticBoolean.jumpingFrogCape = false;
                 CosmeticBoolean.wavingCape = false;
+                CosmeticBoolean.chillinBoy = false;
 
 
                 break;
@@ -141,6 +145,7 @@ public class CosmeticBoolean {
                 CosmeticBoolean.animeGirlCape = false;
                 CosmeticBoolean.jumpingFrogCape = false;
                 CosmeticBoolean.wavingCape = false;
+                CosmeticBoolean.chillinBoy = false;
 
 
                 break;
@@ -154,6 +159,7 @@ public class CosmeticBoolean {
                 CosmeticBoolean.animeGirlCape = false;
                 CosmeticBoolean.jumpingFrogCape = false;
                 CosmeticBoolean.wavingCape = false;
+                CosmeticBoolean.chillinBoy = false;
 
 
                 break;
@@ -167,6 +173,7 @@ public class CosmeticBoolean {
                 CosmeticBoolean.animeGirlCape = false;
                 CosmeticBoolean.jumpingFrogCape = false;
                 CosmeticBoolean.wavingCape = false;
+                CosmeticBoolean.chillinBoy = false;
 
                 break;
             case "Top Hat":
@@ -207,6 +214,7 @@ public class CosmeticBoolean {
                 CosmeticBoolean.badWolfCape = false;
                 CosmeticBoolean.starrySunsetCape = false;
                 CosmeticBoolean.jumpingFrogCape = false;                CosmeticBoolean.wavingCape = false;
+                CosmeticBoolean.chillinBoy = false;
 
                 break;
             case "Jumping Frog Cape":
@@ -217,6 +225,7 @@ public class CosmeticBoolean {
                 CosmeticBoolean.thuderCape = false;
                 CosmeticBoolean.badWolfCape = false;
                 CosmeticBoolean.starrySunsetCape = false;                CosmeticBoolean.wavingCape = false;
+                CosmeticBoolean.chillinBoy = false;
 
                 break;
             case "Waving Cape":
@@ -228,6 +237,7 @@ public class CosmeticBoolean {
                 CosmeticBoolean.thuderCape = false;
                 CosmeticBoolean.badWolfCape = false;
                 CosmeticBoolean.starrySunsetCape = false;
+                CosmeticBoolean.chillinBoy = false;
 
                 break;
             case "Dragon Obsidian Wings":
@@ -235,6 +245,17 @@ public class CosmeticBoolean {
                 CosmeticBoolean.dragonBabyWing = false;
                 CosmeticBoolean.dragonWing = false;
                 CosmeticBoolean.satanWing = false;
+                break;
+            case "Chillin Boy Cape":
+                CosmeticBoolean.chillinBoy = true;
+                CosmeticBoolean.wavingCape = false;
+                CosmeticBoolean.jumpingFrogCape = false;
+                CosmeticBoolean.animeGirlCape = false;
+                CosmeticBoolean.snowcape = false;
+                CosmeticBoolean.nornalCape = false;
+                CosmeticBoolean.thuderCape = false;
+                CosmeticBoolean.badWolfCape = false;
+                CosmeticBoolean.starrySunsetCape = false;
                 break;
             default:
                 break;
