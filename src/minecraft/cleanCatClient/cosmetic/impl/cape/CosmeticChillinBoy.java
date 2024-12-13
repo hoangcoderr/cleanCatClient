@@ -15,7 +15,7 @@ public class CosmeticChillinBoy implements LayerRenderer<AbstractClientPlayer> {
     public static AnimatedResourceLocation CAPEANIMATED;
 
     static {
-        CosmeticChillinBoy.CAPEANIMATED = new AnimatedResourceLocation("cleanCatClient/Cosmetic/chillinboy", 20, 20);
+        CosmeticChillinBoy.CAPEANIMATED = new AnimatedResourceLocation("cleanCatClient/Cosmetic/chillinboy", 16, 20);
     }
 
     public CosmeticChillinBoy(final RenderPlayer playerRendererIn) {

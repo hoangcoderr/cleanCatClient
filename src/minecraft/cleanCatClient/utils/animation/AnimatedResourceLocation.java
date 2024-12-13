@@ -16,7 +16,7 @@ public class AnimatedResourceLocation {
     public AnimatedResourceLocation(String folder, int frames, int fpt) {
         this.folder = folder;
         this.frames = frames;
-        this.fpt = 210;
+        this.fpt = fpt;
         textures = new ResourceLocation[frames];
 
         for(int i = 0; i < frames; i++) {
@@ -30,7 +30,7 @@ public class AnimatedResourceLocation {
     }
 
     public void update() {
-        if(currentTick > 100) {
+        if(currentTick > fpt) {
             currentTick = 0;
             currentFrame++;
             if(currentFrame > textures.length - 1) {

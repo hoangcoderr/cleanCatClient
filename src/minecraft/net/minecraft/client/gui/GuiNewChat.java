@@ -258,7 +258,7 @@ public class GuiNewChat extends Gui
 
                                 if (j1 > j)
                                 {
-                                    if (!ichatcomponent.getFormattedText().contains("lời mời")&&!ichatcomponent.getFormattedText().contains("invite") && !ichatcomponent.getFormattedText().contains("discord.gg") && !ichatcomponent.getFormattedText().contains("mời"))
+                                    if (!ichatcomponent.getFormattedText().contains("screenshot") && !ichatcomponent.getFormattedText().contains("lời mời")&&!ichatcomponent.getFormattedText().contains("invite") && !ichatcomponent.getFormattedText().contains("discord.gg") && !ichatcomponent.getFormattedText().contains("mời"))
                                     {
                                         ichatcomponent.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, ichatcomponent.getFormattedText()));
                                     }
