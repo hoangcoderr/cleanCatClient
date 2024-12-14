@@ -13,12 +13,9 @@ public class FontUtil {
     public static volatile int completed;
     public static MinecraftFontRenderer normal;
     public static MinecraftFontRenderer customSize;
-    public static MinecraftFontRenderer bold;
-    public static MinecraftFontRenderer italic;
+
     private static Font normal_;
     private static Font customSize_;
-    private static Font bold_;
-    private static Font italic_;
     private static Map<Integer, MinecraftFontRenderer> fontRenderers = new HashMap<>();
 
     private static Font getFont(Map<String, Font> locationMap, String location, int size, int style) {
@@ -50,8 +47,6 @@ public class FontUtil {
             Map<String, Font> locationMap = new HashMap<>();
             normal_ = getFont(locationMap, "font.ttf", 19, Font.PLAIN);
             customSize_ = getFont(locationMap, "font.ttf", 35, Font.PLAIN);
-            bold_ = getFont(locationMap, "font.ttf", 19, Font.BOLD);
-            italic_ = getFont(locationMap, "font.ttf", 19, Font.ITALIC);
             completed++;
         }).start();
 
@@ -64,10 +59,7 @@ public class FontUtil {
         }
         normal = new MinecraftFontRenderer(normal_, true, true);
         customSize = new MinecraftFontRenderer(customSize_, true, true);
-        bold = new MinecraftFontRenderer(bold_, true, true);
-        italic = new MinecraftFontRenderer(italic_, true, true);
         getFontRenderer(30);
-        getFontRenderer(35);
     }
 
     public static MinecraftFontRenderer getFontRenderer(int fontSize) {

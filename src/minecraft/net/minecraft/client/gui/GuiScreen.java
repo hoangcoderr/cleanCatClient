@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 import cleanCatClient.gui.mainmenu.button.ClientButton;
+import cleanCatClient.gui.notification.NotificationManager;
 import net.minecraft.util.*;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
@@ -74,6 +75,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 			((GuiLabel) this.labelList.get(j)).drawLabel(this.mc, mouseX, mouseY);
 		}
 		this.mc.getTextureManager().bindTexture(new ResourceLocation("cleanCatClient/Logo/clientLogo.png"));
+		NotificationManager.render();
 
 
 	}

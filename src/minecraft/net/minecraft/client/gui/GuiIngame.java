@@ -2,6 +2,7 @@ package net.minecraft.client.gui;
 
 import cleanCatClient.event.impl.RenderEvent;
 import cleanCatClient.gui.font.FontUtil;
+import cleanCatClient.gui.notification.NotificationManager;
 import cleanCatClient.mods.ModInstances;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;

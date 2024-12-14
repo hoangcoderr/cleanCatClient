@@ -85,11 +85,11 @@ public class ClientButton extends GuiButton {
             int textColor = this.hovered ? 16777120 : 14737632;
 
             // Manage cursor setting only when necessary
-            if (this.hovered) {
-                setCursorHand();
-            } else if (!this.hovered) {
-                resetCursor();
-            }
+//            if (this.hovered) {
+//                setCursorHand();
+//            } else if (!this.hovered) {
+//                resetCursor();
+//            }
 
             FontUtil.normal.drawCenteredString(this.displayString,
                     this.xPosition + this.width / 2,

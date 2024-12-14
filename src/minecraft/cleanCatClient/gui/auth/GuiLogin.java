@@ -1,5 +1,7 @@
 package cleanCatClient.gui.auth;
 import cleanCatClient.gui.mainmenu.button.ClientButton;
+import cleanCatClient.gui.notification.Notification;
+import cleanCatClient.gui.notification.NotificationManager;
 import cleanCatClient.utils.SessionChanger;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.resources.I18n;
@@ -9,7 +11,6 @@ import java.io.IOException;
 
 public class GuiLogin extends GuiScreen {
     private GuiTextField username;
-    private boolean showSuccessMessage = false;
 
     @Override
     protected void actionPerformed(final ClientButton button) throws IOException {
@@ -19,7 +20,7 @@ public class GuiLogin extends GuiScreen {
                 this.mc.displayGuiScreen(new GuiLogin());
             } else {
                 SessionChanger.getInstance().setUserOffline(this.username.getText());
-                showSuccessMessage = true;
+                NotificationManager.show(new Notification("Logged in as " + this.username.getText(), 3));
             }
         }
     }
@@ -31,9 +32,6 @@ public class GuiLogin extends GuiScreen {
         this.username.drawTextBox();
         Gui gui = new Gui();
         gui.drawCenteredString(mc.fontRendererObj, "Username", this.width / 2, sr.getScaledHeight() / 2 - 65, -1);
-        if (showSuccessMessage) {
-            gui.drawCenteredString(mc.fontRendererObj, "Set name completely", this.width / 2, sr.getScaledHeight() / 2 - 85, 0x00FF00);
-        }
     }
 
     @Override
