@@ -2,6 +2,8 @@ package cleanCatClient.gui.clickgui.settings.impl;
 
 import cleanCatClient.gui.clickgui.settings.ModSettings;
 import cleanCatClient.gui.mainmenu.button.ClientButton;
+import cleanCatClient.gui.notification.Notification;
+import cleanCatClient.gui.notification.NotificationManager;
 import cleanCatClient.mods.ModInstances;
 import cleanCatClient.mods.impl.ItemCounter;
 import net.minecraft.client.gui.GuiButton;
@@ -84,13 +86,9 @@ public class ItemCounterSetting extends ModSettings {
             buttonList.add(deleteButton);
             y += 30;
         }
-        if (isItemNull) {
-            fontRendererObj.drawString("Item doesn't exist", centerX - 150, y, 0xFF0000);
-            //isItemNull = false;
-        }
+
     }
 
-    private boolean isItemNull = false;
 
     @Override
     protected void actionPerformed(ClientButton button) {
@@ -103,10 +101,9 @@ public class ItemCounterSetting extends ModSettings {
             if (newItem != null) {
                 ModInstances.getItemCounter().addItemToCount(newItem);
                 itemsToCount = ModInstances.getItemCounter().getItemsToCount();
-                isItemNull = false;
             }
             else {
-                isItemNull = true;
+                NotificationManager.show(new Notification("Item doesn't exist", 3));
             }
             itemTextField.setVisible(false);
             okButton.visible = false;

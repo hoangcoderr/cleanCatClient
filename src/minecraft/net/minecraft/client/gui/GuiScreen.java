@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 import cleanCatClient.gui.mainmenu.button.ClientButton;
+import cleanCatClient.gui.notification.Notification;
 import cleanCatClient.gui.notification.NotificationManager;
 import net.minecraft.util.*;
 import org.apache.commons.lang3.StringUtils;
@@ -344,10 +345,10 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 							Toolkit.getDefaultToolkit().getSystemClipboard().setContents(transferableImage, null);
 
 							// Thông báo sao chép thành công
-							Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText("Image copied to clipboard!"));
+							NotificationManager.show(new Notification("Image copied to clipboard: " + clickevent.getValue(), 3));
 						} else {
 							// Thông báo nếu tệp không tồn tại
-							Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText("Image file not found: " + clickevent.getValue()));
+							NotificationManager.show(new Notification("File not found: " + clickevent.getValue(), 3));
 						}
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -360,13 +361,13 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 					Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
 					clipboard.setContents(stringSelection, null);  // Sao chép vào clipboard
 					System.out.println("Text copied to clipboard: " + content);
+					NotificationManager.show(new Notification("Text copied to clipboard: " + content, 3));
 				}else if (clickevent.getAction() == ClickEvent.Action.DELETE_FILE){
 					File file = new File(clickevent.getValue());
 					if (file.exists()) {
 						file.delete();
+						NotificationManager.show(new Notification("File deleted: " + clickevent.getValue(), 3));
 					}
-
-					Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText("File deleted: " + clickevent.getValue()));
 				}
 				else if (clickevent.getAction() == ClickEvent.Action.COPY_TO_CLIPBOARD) {
 					this.setClipboardString(clickevent.getValue());
