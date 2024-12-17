@@ -22,9 +22,6 @@ public class Perspective extends Mod {
     private float cameraPitch = 0.0F;
 
     private int previousPerspective = 0; // pref f5 state
-    long startTime;
-    long duration = 1000; // 1 second
-    float initialFov = 10.0F;
     private boolean isSmooth = false;
 
     public Perspective() {
@@ -69,7 +66,6 @@ public class Perspective extends Mod {
     public void keyboardEvent(KeyEvent e) {
         if (e.getKey() == keyBind) {
             if (Keyboard.getEventKeyState()) {
-
                 if (!perspectiveToggled) {
                     perspectiveToggled = true;
                     cameraYaw = mc.thePlayer.rotationYaw;

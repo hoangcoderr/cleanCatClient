@@ -10,6 +10,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
 import org.lwjgl.input.Keyboard;
 
+
 import java.io.*;
 
 public class Mod {
@@ -32,6 +33,15 @@ public class Mod {
         this.keyBind = loadKeyBind();
         this.category = category;
         setEnabled(isEnabled);
+    }
+
+    public int getKeyBind() {
+        return keyBind;
+    }
+
+    public void setKeyBind(int keyBind) {
+        this.keyBind = keyBind;
+        saveKeyBind(keyBind);
     }
 
     public ModCategory getCategory() {

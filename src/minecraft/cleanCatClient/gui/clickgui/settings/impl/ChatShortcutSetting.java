@@ -3,6 +3,8 @@ package cleanCatClient.gui.clickgui.settings.impl;
 import cleanCatClient.Client;
 import cleanCatClient.gui.clickgui.settings.ModSettings;
 import cleanCatClient.gui.mainmenu.button.ClientButton;
+import cleanCatClient.gui.notification.Notification;
+import cleanCatClient.gui.notification.NotificationManager;
 import cleanCatClient.mods.ModInstances;
 import cleanCatClient.mods.impl.ChatShortcuts;
 import net.minecraft.client.Minecraft;
@@ -30,7 +32,6 @@ public class ChatShortcutSetting extends ModSettings {
     private int backgroundW;
     private int backgroundH;
     private String successMessage;
-    private long successMessageTimer;
 
     public ChatShortcutSetting() {
         super(ModInstances.getChatShortcuts());
@@ -152,10 +153,7 @@ public class ChatShortcutSetting extends ModSettings {
         deleteButton.yPosition = rectY + backgroundH - deleteButton.height - 70; // Position the button above the add button
         deleteButton.drawButton(mc, mouseX, mouseY);
 
-        // Draw the success message if the timer is active
-        if (System.currentTimeMillis() - successMessageTimer < 2000) { // Display for 2 seconds
-            drawCenteredString(mc.fontRendererObj, successMessage, centerW, rectY - 20, Color.GREEN.getRGB());
-        }
+        NotificationManager.show(new Notification(successMessage, 2));
     }
 
     @Override
@@ -210,7 +208,6 @@ public class ChatShortcutSetting extends ModSettings {
         }
         chatShortcuts.setShortcuts(newShortcuts);
         successMessage = "Shortcuts saved successfully!";
-        successMessageTimer = System.currentTimeMillis();
         System.out.println("Shortcuts updated!");
     }
 }
