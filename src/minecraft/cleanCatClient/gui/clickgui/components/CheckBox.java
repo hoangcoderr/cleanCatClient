@@ -16,7 +16,7 @@ public class CheckBox {
     public CheckBox(int x, int y, int width, int height, String label, boolean checked) {
         this.x = x;
         this.y = y;
-        this.width = width / 3; // Reduce width
+        this.width = width / 5; // Reduce width
         this.height = height / 2; // Reduce height
         this.label = label;
         this.checked = checked;
@@ -31,7 +31,7 @@ public class CheckBox {
             updateAnimation();
         }
 
-        int drawX = x + (int) (animationProgress * (width / 2));
+        int drawX = x + (int) (animationProgress * (width - width / 3));
         Color currentColor = new Color(
                 (int) (uncheckedColor.getRed() * (1 - animationProgress) + checkedColor.getRed() * animationProgress),
                 (int) (uncheckedColor.getGreen() * (1 - animationProgress) + checkedColor.getGreen() * animationProgress),
@@ -39,7 +39,20 @@ public class CheckBox {
         );
 
         Gui.drawRoundedRect(x, y, x + width, y + height, 10, currentColor.getRGB());
-        Gui.drawRoundedRect(drawX, y, drawX + width / 2, y + height, 10, currentColor.darker().getRGB());
+        Gui.drawRoundedRect(drawX, y, drawX + width / 3, y + height, 10, currentColor.darker().getRGB());
+
+        // Calculate alpha values for "ON" and "OFF" text
+        int onAlpha = (int) (255 * animationProgress);
+        int offAlpha = 255 - onAlpha;
+
+        // Draw the "ON" and "OFF" text with transparency
+        if (checked) {
+            mc.fontRendererObj.drawStringWithShadow("ON", x + 5, y + (height / 2) - (mc.fontRendererObj.FONT_HEIGHT / 2), new Color(21, 134, 3, onAlpha).getRGB());
+        } else {
+            mc.fontRendererObj.drawStringWithShadow("OFF", x + width - mc.fontRendererObj.getStringWidth("OFF") - 5, y + (height / 2) - (mc.fontRendererObj.FONT_HEIGHT / 2), new Color(220, 13, 13, offAlpha).getRGB());
+        }
+
+
         mc.fontRendererObj.drawString(label, x - mc.fontRendererObj.getStringWidth(label) - 5, y + (height / 2) - (mc.fontRendererObj.FONT_HEIGHT / 2), 0xFFFFFFFF);
     }
 

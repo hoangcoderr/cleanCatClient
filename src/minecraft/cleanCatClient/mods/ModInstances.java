@@ -34,7 +34,7 @@ public class ModInstances {
     private static HitColor hitColor;
     private static OldAnimation oldAnimation;
     private static List<Mod> allMods = new ArrayList<>();
-    private static PlayerDistance playerDistanceMod;
+    private static ItemMaker itemMakerMod;
     private static TimeChanger timeChangerMod;
     private static ColorSaturation colorSaturation;
     private static MinimalViewBobbing minimalViewBobbing;
@@ -59,8 +59,8 @@ public class ModInstances {
 
         colorSaturation = new ColorSaturation();
         api.register(colorSaturation);
-        playerDistanceMod = new PlayerDistance();
-        api.register(playerDistanceMod);
+        itemMakerMod = new ItemMaker();
+        api.register(itemMakerMod);
 
         modArmorStatus = new ArmorStatus();
         api.register(modArmorStatus);
@@ -249,8 +249,8 @@ public class ModInstances {
         return hitColor;
     }
 
-    public static PlayerDistance getPlayerDistanceMod() {
-        return playerDistanceMod;
+    public static ItemMaker getPlayerDistanceMod() {
+        return itemMakerMod;
     }
 
     public static TimeChanger getTimeChangerMod() {

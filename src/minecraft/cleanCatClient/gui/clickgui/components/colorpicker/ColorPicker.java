@@ -44,6 +44,7 @@ public class ColorPicker {
 
     public void drawPicker(Minecraft mc, int mouseX, int mouseY) {
         int squareSize = 20; // Define the size of the small square
+        //Gui.drawRect(colorSlider.x - squareSize - 6, colorSlider.y - 1, colorSlider.x - 4, colorSlider.y + squareSize + 1, 0xFF000000);
         Gui.drawRoundedRect(colorSlider.x - squareSize - 5, colorSlider.y, colorSlider.x - 5, colorSlider.y + squareSize, 15, getColor());
         if (isPickerVisible) {
             colorSlider.drawSlider(mc, mouseX, mouseY);

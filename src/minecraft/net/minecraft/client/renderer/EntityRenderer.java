@@ -1,12 +1,8 @@
 package net.minecraft.client.renderer;
 
 import cleanCatClient.event.impl.Render2D;
-import cleanCatClient.event.impl.RenderEvent;
 import cleanCatClient.gui.mainmenu.MainMenu;
-import cleanCatClient.gui.notification.NotificationManager;
 import cleanCatClient.mods.ModInstances;
-import cleanCatClient.mods.impl.PlayerDistance;
-import cleanCatClient.mods.impl.oldanimations.SmoothSneaking;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.gson.JsonSyntaxException;
@@ -63,7 +59,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.event.ClickEvent;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.server.integrated.IntegratedServer;

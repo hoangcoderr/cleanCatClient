@@ -52,6 +52,24 @@ public class ModButton {
 
         // Draw the mod name text with a smaller font size
         FontUtil.normal.drawString(mod.name, textX, textY, new Color(243, 236, 236, 255).getRGB());
+
+        if (isMouseOver(mouseX, mouseY)) {
+            drawDescription(mouseX, mouseY, mod.description);
+        }
+    }
+
+    private void drawDescription(int mouseX, int mouseY, String description) {
+        int descriptionWidth = (int)FontUtil.normal.getStringWidth(description);
+        int descriptionHeight = 12; // Adjust as needed
+
+        int descriptionX = mouseX + 10; // Offset to the right of the mouse cursor
+        int descriptionY = mouseY - descriptionHeight - 5; // Offset above the mouse cursor
+
+        // Draw background rectangle for the description
+        Gui.drawRect(descriptionX - 2, descriptionY - 2, descriptionX + descriptionWidth + 2, descriptionY + descriptionHeight + 2, new Color(0, 0, 0, 150).getRGB());
+
+        // Draw the description text
+        FontUtil.normal.drawString(description, descriptionX, descriptionY, new Color(255, 255, 255, 255).getRGB());
     }
 
     private int getColor() {

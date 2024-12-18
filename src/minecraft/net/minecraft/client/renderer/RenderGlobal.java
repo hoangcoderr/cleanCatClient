@@ -1,7 +1,6 @@
 package net.minecraft.client.renderer;
 
 import cleanCatClient.mods.ModInstances;
-import cleanCatClient.mods.impl.PlayerDistance;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
