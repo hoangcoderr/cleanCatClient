@@ -3,6 +3,7 @@ package cleanCatClient.gui.mainmenu;
 import cleanCatClient.Client;
 import cleanCatClient.gui.mainmenu.button.ClientButton;
 import cleanCatClient.gui.mainmenu.particles.SnowPartical;
+import cleanCatClient.gui.mainmenu.updatechecker.UpdateChecker;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
@@ -36,6 +37,9 @@ public class MainMenu extends GuiScreen
     @Override
     public void initGui()
     {
+        UpdateChecker.checkForUpdates();
+
+
         this.buttonList.add(new ClientButton(1, 25, height / 2 - 20, 250, 30, "Singleplayer"));
         this.buttonList.add(new ClientButton(2, 25, height / 2 + 15,250, 30,  "Multiplayer"));
         this.buttonList.add(new ClientButton(3, 25, height / 2 + 50,250, 30,  "Settings"));
