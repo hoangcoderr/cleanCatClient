@@ -27,10 +27,7 @@ public class GuiIngestServers extends GuiScreen
         this.field_152310_f = I18n.format("options.stream.ingest.title", new Object[0]);
         this.field_152311_g = new GuiIngestServers.ServerList(this.mc);
 
-        if (!this.mc.getTwitchStream().func_152908_z())
-        {
-            this.mc.getTwitchStream().func_152909_x();
-        }
+
 
         this.buttonList.add(new ClientButton(1, this.width / 2 - 155, this.height - 24 - 6, 150, 20, I18n.format("gui.done", new Object[0])));
         this.buttonList.add(new ClientButton(2, this.width / 2 + 5, this.height - 24 - 6, 150, 20, I18n.format("options.stream.ingest.reset", new Object[0])));
@@ -44,10 +41,7 @@ public class GuiIngestServers extends GuiScreen
 
     public void onGuiClosed()
     {
-        if (this.mc.getTwitchStream().func_152908_z())
-        {
-            this.mc.getTwitchStream().func_152932_y().func_153039_l();
-        }
+
     }
 
     protected void actionPerformed(ClientButton button) throws IOException
@@ -84,7 +78,7 @@ public class GuiIngestServers extends GuiScreen
 
         protected int getSize()
         {
-            return this.mc.getTwitchStream().func_152925_v().length;
+            return 0;
         }
 
         protected void elementClicked(int slotIndex, boolean isDoubleClick, int mouseX, int mouseY)
@@ -95,7 +89,7 @@ public class GuiIngestServers extends GuiScreen
 
         protected boolean isSelected(int slotIndex)
         {
-            return this.mc.getTwitchStream().func_152925_v()[slotIndex].serverUrl.equals(this.mc.gameSettings.streamPreferredServer);
+            return false;
         }
 
         protected void drawBackground()

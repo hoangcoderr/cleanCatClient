@@ -44,10 +44,10 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.stats.Achievement;
 import net.minecraft.stats.StatBase;
 import net.minecraft.stats.StatList;
-import tv.twitch.chat.ChatUserInfo;
 
 import javax.imageio.ImageIO;
 import cleanCatClient.utils.TransferableImage;
+import tv.twitch.chat.ChatUserInfo;
 
 public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 	private static final Logger LOGGER = LogManager.getLogger();

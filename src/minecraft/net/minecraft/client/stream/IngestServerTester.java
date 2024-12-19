@@ -6,7 +6,7 @@ import tv.twitch.AuthToken;
 import tv.twitch.ErrorCode;
 import tv.twitch.broadcast.ArchivingState;
 import tv.twitch.broadcast.AudioParams;
-import tv.twitch.broadcast.ChannelInfo;
+    import tv.twitch.broadcast.ChannelInfo;
 import tv.twitch.broadcast.EncodingCpuUsage;
 import tv.twitch.broadcast.FrameBuffer;
 import tv.twitch.broadcast.GameInfoList;

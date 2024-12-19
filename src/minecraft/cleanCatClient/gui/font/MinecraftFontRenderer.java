@@ -3,6 +3,7 @@ package cleanCatClient.gui.font;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import org.lwjgl.opengl.GL11;
+import cleanCatClient.gui.font.CFont;
 
 import java.awt.*;
 import java.util.ArrayList;
