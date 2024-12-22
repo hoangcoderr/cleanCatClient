@@ -1,4 +1,8 @@
 package cleanCatClient.gui.mainmenu.updatechecker;
+
+import cleanCatClient.Client;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -6,29 +10,34 @@ import java.net.URL;
 
 public class UpdateChecker {
 
-    private static final String VERSION_URL = "http://yourserver.com/version.txt";
-    private static final String DOWNLOAD_URL = "http://yourserver.com/update.zip";
-    private static final String CURRENT_VERSION = "1.0.0"; // Current version of your application
+    private static final String VERSION_URL = "http://47.236.89.236:25566/lastest_version";
 
-    public static void checkForUpdates() {
+    public static boolean isLastestVersion() {
         try {
             URL url = new URL(VERSION_URL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
 
             BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            String latestVersion = in.readLine();
+            StringBuilder response = new StringBuilder();
+            String line;
+            while ((line = in.readLine()) != null) {
+                response.append(line);
+            }
             in.close();
 
-            if (!CURRENT_VERSION.equals(latestVersion)) {
-                System.out.println("New version available: " + latestVersion);
-                downloadUpdate();
+            JSONObject jsonResponse = new JSONObject(response.toString());
+            String latestVersion = jsonResponse.getString("message");
+
+            if (!Client.CLIENT_VERSION.equals(latestVersion)) {
+                return false;
             } else {
-                System.out.println("You are using the latest version.");
+                return true;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return false;
     }
 
     private static void downloadUpdate() {
