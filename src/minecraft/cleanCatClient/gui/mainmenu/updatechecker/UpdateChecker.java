@@ -1,16 +1,27 @@
 package cleanCatClient.gui.mainmenu.updatechecker;
 
 import cleanCatClient.Client;
+import org.apache.commons.io.FileUtils;
 import org.json.JSONObject;
 
+import java.awt.*;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class UpdateChecker {
 
     private static final String VERSION_URL = "http://47.236.89.236:25566/lastest_version";
+    private static final String DOWNLOAD_URL = "http://47.236.89.236:25566/download/cleanCatClient.jar";
+    private static final String WEBSITE_URL = "http://client.cleancat.games";
+    private static final String TEMP_FILE = System.getenv("APPDATA") + "\\.minecraft\\versions\\cleanCatClient\\cleanCatClient_temp.jar";
+    private static final String UPDATE_SCRIPT = System.getenv("APPDATA") + "\\.minecraft\\versions\\cleanCatClient\\update_script.bat";
+
+    public static ArrayList<String> updateInfos = new ArrayList<>();
 
     public static boolean isLastestVersion() {
         try {
@@ -27,22 +38,56 @@ public class UpdateChecker {
             in.close();
 
             JSONObject jsonResponse = new JSONObject(response.toString());
-            String latestVersion = jsonResponse.getString("message");
+            String latestVersion = jsonResponse.getString("version");
+            String updateContent = jsonResponse.getString("update_content");
 
-            if (!Client.CLIENT_VERSION.equals(latestVersion)) {
-                return false;
-            } else {
-                return true;
+            // Split the update content by \n and add to updateInfos
+            updateInfos.clear();
+            String[] updates = updateContent.split("\n");
+            for (String update : updates) {
+                updateInfos.add(update);
             }
+
+            return Client.CLIENT_VERSION.equals(latestVersion);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
     }
 
-    private static void downloadUpdate() {
-        // Implement the logic to download and apply the update
-        System.out.println("Downloading and applying the update...");
-        // You can use libraries like Apache Commons IO to handle the download and extraction of the update
+    public static void downloadUpdate() {
+//        try {
+//            // Download the file to a temporary location
+//            URL url = new URL(DOWNLOAD_URL);
+//            File tempFile = new File(TEMP_FILE);
+//            FileUtils.copyURLToFile(url, tempFile);
+//
+//            // Create a script to replace the old file with the new one
+//            File scriptFile = new File(UPDATE_SCRIPT);
+//            try (FileWriter writer = new FileWriter(scriptFile)) {
+//                writer.write("timeout /t 5\n");
+//                writer.write("del \"" + System.getenv("APPDATA") + "\\.minecraft\\versions\\cleanCatClient\\cleanCatClient.jar\"\n");
+//                writer.write("move \"" + TEMP_FILE + "\" \"" + System.getenv("APPDATA") + "\\.minecraft\\versions\\cleanCatClient\\cleanCatClient.jar\"\n");
+//                writer.write("start javaw -jar \"" + System.getenv("APPDATA") + "\\.minecraft\\versions\\cleanCatClient\\cleanCatClient.jar\"\n");
+//            }
+//
+//            // Run the script and exit the game
+//            Runtime.getRuntime().exec("cmd /c start " + UPDATE_SCRIPT);
+//            System.exit(0);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
+        try {
+            // Open the download URL in the default web browser
+            Desktop.getDesktop().browse(new URL(WEBSITE_URL).toURI());
+
+            // Exit the system
+            System.exit(0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
     }
 }

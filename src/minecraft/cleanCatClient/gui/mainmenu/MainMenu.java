@@ -34,17 +34,23 @@ public class MainMenu extends GuiScreen {
         particles.render();
 
         if (showUpdateMenu) {
-            //drawRect(0, 0, this.width, this.height, new Color(0, 0, 0, 150).getRGB());
             drawDefaultBackground();
             drawCenteredString(mc.fontRendererObj, "New version released!", width / 2, height / 2 - 30, Color.WHITE.getRGB());
-            drawCenteredString(mc.fontRendererObj, "Let's download the latest version.", width / 2, height / 2 - 10, Color.WHITE.getRGB());
+            drawCenteredString(mc.fontRendererObj, "<<<<===Changelogs===>>>>", width / 2, height / 2 - 10, Color.WHITE.getRGB());
+
+            int yOffset = height / 2 + 10;
+            for (String update : UpdateChecker.updateInfos) {
+                drawCenteredString(mc.fontRendererObj, update, width / 2, yOffset, Color.WHITE.getRGB());
+                yOffset += 10; // Adjust the spacing between lines as needed
+            }
+
             yesButton.drawButton(mc, mouseX, mouseY);
             noButton.drawButton(mc, mouseX, mouseY);
         }
     }
-
     @Override
     public void initGui() {
+        int yOff = height / 2 + 10 + 10 * UpdateChecker.updateInfos.size();
         this.buttonList.add(new ClientButton(1, 25, height / 2 - 20, 250, 30, "Singleplayer"));
         this.buttonList.add(new ClientButton(2, 25, height / 2 + 15, 250, 30, "Multiplayer"));
         this.buttonList.add(new ClientButton(3, 25, height / 2 + 50, 250, 30, "Settings"));
@@ -54,8 +60,8 @@ public class MainMenu extends GuiScreen {
         if (!UpdateChecker.isLastestVersion()) {
             showUpdateMenu = true;
             System.out.println("New version available, showing update menu.");
-            yesButton = new ClientButton(6, width / 2 - 50, height / 2 + 10, 40, 20, "Yes");
-            noButton = new ClientButton(7, width / 2 + 10, height / 2 + 10, 40, 20, "No");
+            yesButton = new ClientButton(6, width / 2 - 50, yOff, 40, 20, "Yes");
+            noButton = new ClientButton(7, width / 2 + 10, yOff, 40, 20, "No");
             this.buttonList.add(yesButton);
             this.buttonList.add(noButton);
         } else {
@@ -85,7 +91,13 @@ public class MainMenu extends GuiScreen {
                 break;
             case 6:
                 // Logic to download the update
-                //UpdateChecker.downloadUpdate();
+                new Thread(() -> {
+                    try {
+                        UpdateChecker.downloadUpdate();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }).start();
                 break;
             case 7:
                 showUpdateMenu = false;

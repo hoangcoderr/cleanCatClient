@@ -2,6 +2,8 @@
 package cleanCatClient;
 
 import cleanCatClient.cosmetic.impl.cape.realistic.WavyCapeRenderer;
+import cleanCatClient.gui.mainmenu.MainMenu;
+import cleanCatClient.gui.mainmenu.updatechecker.UpdateChecker;
 import cleanCatClient.utils.discordrpc.DiscordRP;
 import cleanCatClient.event.EventManager;
 import cleanCatClient.event.EventTarget;
@@ -25,7 +27,7 @@ public class Client {
     }
 
     public static final Logger logger = LogManager.getLogger(Client.class);
-    public static final String CLIENT_NAME = "cleanCat Client", CLIENT_VERSION = "1.0.0.o - 1.8.9",
+    public static final String CLIENT_NAME = "cleanCat Client", CLIENT_VERSION = "1.0.0.p - 1.8.9",
             CLIENT_BUILD = "2024.06.02", CLIENT_AUTHOR = "hoangcoderr",
             WINDOW_TITLE = CLIENT_NAME + " (" + CLIENT_VERSION + ")";
     private static DiscordRP discordRPC = new DiscordRP();
@@ -60,7 +62,6 @@ public class Client {
 
         EventManager.register(this);
         FontUtil.bootstrap();
-
     }
 
     @EventTarget
