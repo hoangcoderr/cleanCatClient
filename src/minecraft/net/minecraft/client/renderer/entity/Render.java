@@ -341,11 +341,11 @@ public abstract class Render<T extends Entity> implements IEntityRenderer {
             GlStateManager.pushMatrix();
             GlStateManager.translate(0,-1,0);
             GlStateManager.scale(0.45f, 0.45f, 1);
-            FontUtil.getFontRenderer(35).drawString(str, -FontUtil.getFontRenderer(35).getStringWidth(str) / 2, i, 553648127);
+            FontUtil.getFontRenderer(35).drawStringWithShadow(str, -FontUtil.getFontRenderer(35).getStringWidth(str) / 2, i, 553648127);
             GlStateManager.enableDepth();
             GlStateManager.depthMask(true);
             //fontrenderer.drawString(str, -fontrenderer.getStringWidth(str) / 2, i, -1);
-            FontUtil.getFontRenderer(35).drawString(str, -FontUtil.getFontRenderer(35).getStringWidth(str) / 2, i, -1);
+            FontUtil.getFontRenderer(35).drawStringWithShadow(str, -FontUtil.getFontRenderer(35).getStringWidth(str) / 2, i, -1);
             GlStateManager.popMatrix();
             GlStateManager.enableLighting();
             GlStateManager.disableBlend();

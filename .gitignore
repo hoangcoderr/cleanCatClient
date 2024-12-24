@@ -7,3 +7,5 @@ src/minecraft/cleanCatClient/mods/impl/PlayerDistance.java
 
 src/minecraft/cleanCatClient/mods/impl/ItemMaker.java
 /target
+tools/addByte.py
+tools/FontDataImported.java

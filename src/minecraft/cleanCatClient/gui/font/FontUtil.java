@@ -37,34 +37,46 @@ public class FontUtil {
         return font;
     }
 
-    public static boolean hasLoaded() {
-        return completed >= 1;
-    }
+//    public static boolean hasLoaded() {
+//        return completed >= 1;
+//    }
 
     public static void bootstrap() {
-        new Thread(() -> {
-            Map<String, Font> locationMap = new HashMap<>();
-            normal_ = getFont(locationMap, "font.ttf", 19, Font.PLAIN);
-            completed++;
-        }).start();
 
-        while (!hasLoaded()) {
-            try {
-                Thread.sleep(5);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        normal = new MinecraftFontRenderer(normal_, true, true);
-        getFontRenderer(30);
-        getFontRenderer(35);
+            Map<String, Font> locationMap = new HashMap<>();
+            normal_ = getFont(locationMap, "font.ttf", 1, Font.PLAIN);
+//            completed++;
+
+
+//        final Font[] f35 = new Font[1];
+//        final Font[] f30 = new Font[1];
+//        new Thread(() -> {
+//            Map<String, Font> locationMap = new HashMap<>();
+//            f35[0] = getFont(locationMap, "font_35.ttf", 35, Font.PLAIN);
+//            completed++;
+//        }).start();
+//
+//        new Thread(() -> {
+//            Map<String, Font> locationMap = new HashMap<>();
+//            f30[0] = getFont(locationMap, "font_30.ttf", 35, Font.PLAIN);
+//            completed++;
+//        }).start();
+
+
+        normal = new MinecraftFontRenderer(normal_.deriveFont(19F), true, true);
+        MinecraftFontRenderer customFontRenderer = new MinecraftFontRenderer(normal_.deriveFont(30f), true, true);
+        fontRenderers.put(30, customFontRenderer);
+        customFontRenderer = new MinecraftFontRenderer(normal_.deriveFont(35f), true, true);
+        fontRenderers.put(35, customFontRenderer);
     }
+
+
 
     public static MinecraftFontRenderer getFontRenderer(int fontSize) {
         if (!fontRenderers.containsKey(fontSize)) {
             Map<String, Font> locationMap = new HashMap<>();
-            Font customFont = getFont(locationMap, "font.ttf", fontSize, Font.PLAIN);
-            MinecraftFontRenderer customFontRenderer = new MinecraftFontRenderer(customFont, true, true);
+
+            MinecraftFontRenderer customFontRenderer = new MinecraftFontRenderer(normal_.deriveFont((float)fontSize), true, true);
             fontRenderers.put(fontSize, customFontRenderer);
         }
         return fontRenderers.get(fontSize);
