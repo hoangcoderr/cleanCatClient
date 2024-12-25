@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 
 public class CFont {
     float imgSize = 4096;
-    CharData[] charData = new CharData[131072];
+    CharData[] charData = new CharData[20082];
     Font font;
     boolean antiAlias, fractionalMetrics;
     int fontHeight = -1, charOffset = 0;

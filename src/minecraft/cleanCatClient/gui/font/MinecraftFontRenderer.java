@@ -1,5 +1,6 @@
 package cleanCatClient.gui.font;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import org.lwjgl.opengl.GL11;
@@ -8,11 +9,12 @@ import cleanCatClient.gui.font.CFont;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class MinecraftFontRenderer extends CFont {
-    CFont.CharData[] boldChars = new CFont.CharData[131072],
-            italicChars = new CFont.CharData[131072],
-            boldItalicChars = new CFont.CharData[131072];
+    CFont.CharData[] boldChars = new CFont.CharData[20082],
+            italicChars = new CFont.CharData[20082],
+            boldItalicChars = new CFont.CharData[20082];
     int[] colorCode = new int[32];
     String colorcodeIdentifiers = "0123456789abcdefklmnor";
     DynamicTexture texBold, texItalic, texItalicBold;
@@ -86,14 +88,13 @@ public class MinecraftFontRenderer extends CFont {
 
         CFont.CharData[] currentData = this.charData;
         float alpha = (float) (color >> 24 & 255) / 255f;
-        boolean randomCase = false,
-                bold = false,
-                italic = false,
-                strikethrough = false,
-                underline = false,
-                render = true;
+        boolean randomCase = false, bold = false, italic = false, strikethrough = false, underline = false;
+        boolean limitedRandom = false; // Cờ cho random giới hạn
+        char[] limitedChars = {'!', 'i', 'l', 'I', '|'}; // Mảng ký tự giới hạn
+
         x *= 2;
         y = (y - 3) * 2;
+
         GL11.glPushMatrix();
         GlStateManager.scale(0.5, 0.5, 0.5);
         GlStateManager.enableBlend();
@@ -101,7 +102,8 @@ public class MinecraftFontRenderer extends CFont {
         GlStateManager.color((float) (color >> 16 & 255) / 255f, (float) (color >> 8 & 255) / 255f, (float) (color & 255) / 255f, alpha);
         GlStateManager.enableTexture2D();
         GlStateManager.bindTexture(this.tex.getGlTextureId());
-        GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.tex.getGlTextureId());
+
+        Random random = new Random();
 
         for (int index = 0; index < text.length(); index++) {
             char character = text.charAt(index);
@@ -119,6 +121,7 @@ public class MinecraftFontRenderer extends CFont {
                     bold = false;
                     italic = false;
                     randomCase = false;
+                    limitedRandom = false;
                     underline = false;
                     strikethrough = false;
                     GlStateManager.bindTexture(this.tex.getGlTextureId());
@@ -164,6 +167,7 @@ public class MinecraftFontRenderer extends CFont {
                     bold = false;
                     italic = false;
                     randomCase = false;
+                    limitedRandom = false;
                     underline = false;
                     strikethrough = false;
                     GlStateManager.color((float) (color >> 16 & 255) / 255f, (float) (color >> 8 & 255) / 255f, (float) (color & 255) / 255f, alpha);
@@ -173,6 +177,26 @@ public class MinecraftFontRenderer extends CFont {
 
                 ++index;
             } else if (character < currentData.length) {
+                if (randomCase) {
+                    int k = Minecraft.getMinecraft().fontRendererObj.getCharWidth(character);
+                    char c1;
+                    while (true)
+                    {
+
+                        int j = random.nextInt("\u00c0\u00c1\u00c2\u00c8\u00ca\u00cb\u00cd\u00d3\u00d4\u00d5\u00da\u00df\u00e3\u00f5\u011f\u0130\u0131\u0152\u0153\u015e\u015f\u0174\u0175\u017e\u0207\u0000\u0000\u0000\u0000\u0000\u0000\u0000 !\"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u0000\u00c7\u00fc\u00e9\u00e2\u00e4\u00e0\u00e5\u00e7\u00ea\u00eb\u00e8\u00ef\u00ee\u00ec\u00c4\u00c5\u00c9\u00e6\u00c6\u00f4\u00f6\u00f2\u00fb\u00f9\u00ff\u00d6\u00dc\u00f8\u00a3\u00d8\u00d7\u0192\u00e1\u00ed\u00f3\u00fa\u00f1\u00d1\u00aa\u00ba\u00bf\u00ae\u00ac\u00bd\u00bc\u00a1\u00ab\u00bb\u2591\u2592\u2593\u2502\u2524\u2561\u2562\u2556\u2555\u2563\u2551\u2557\u255d\u255c\u255b\u2510\u2514\u2534\u252c\u251c\u2500\u253c\u255e\u255f\u255a\u2554\u2569\u2566\u2560\u2550\u256c\u2567\u2568\u2564\u2565\u2559\u2558\u2552\u2553\u256b\u256a\u2518\u250c\u2588\u2584\u258c\u2590\u2580\u03b1\u03b2\u0393\u03c0\u03a3\u03c3\u03bc\u03c4\u03a6\u0398\u03a9\u03b4\u221e\u2205\u2208\u2229\u2261\u00b1\u2265\u2264\u2320\u2321\u00f7\u2248\u00b0\u2219\u00b7\u221a\u207f\u00b2\u25a0\u0000".length());
+                        c1 = "\u00c0\u00c1\u00c2\u00c8\u00ca\u00cb\u00cd\u00d3\u00d4\u00d5\u00da\u00df\u00e3\u00f5\u011f\u0130\u0131\u0152\u0153\u015e\u015f\u0174\u0175\u017e\u0207\u0000\u0000\u0000\u0000\u0000\u0000\u0000 !\"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u0000\u00c7\u00fc\u00e9\u00e2\u00e4\u00e0\u00e5\u00e7\u00ea\u00eb\u00e8\u00ef\u00ee\u00ec\u00c4\u00c5\u00c9\u00e6\u00c6\u00f4\u00f6\u00f2\u00fb\u00f9\u00ff\u00d6\u00dc\u00f8\u00a3\u00d8\u00d7\u0192\u00e1\u00ed\u00f3\u00fa\u00f1\u00d1\u00aa\u00ba\u00bf\u00ae\u00ac\u00bd\u00bc\u00a1\u00ab\u00bb\u2591\u2592\u2593\u2502\u2524\u2561\u2562\u2556\u2555\u2563\u2551\u2557\u255d\u255c\u255b\u2510\u2514\u2534\u252c\u251c\u2500\u253c\u255e\u255f\u255a\u2554\u2569\u2566\u2560\u2550\u256c\u2567\u2568\u2564\u2565\u2559\u2558\u2552\u2553\u256b\u256a\u2518\u250c\u2588\u2584\u258c\u2590\u2580\u03b1\u03b2\u0393\u03c0\u03a3\u03c3\u03bc\u03c4\u03a6\u0398\u03a9\u03b4\u221e\u2205\u2208\u2229\u2261\u00b1\u2265\u2264\u2320\u2321\u00f7\u2248\u00b0\u2219\u00b7\u221a\u207f\u00b2\u25a0\u0000".charAt(j);
+
+                        if (k == Minecraft.getMinecraft().fontRendererObj.getCharWidth(c1))
+                        {
+                            break;
+                        }
+                    }
+
+                    character = c1;
+                } else if (limitedRandom) {
+                    character = limitedChars[random.nextInt(limitedChars.length)]; // Random trong mảng giới hạn
+                }
+
                 GL11.glBegin(GL11.GL_TRIANGLES);
                 this.drawChar(currentData, character, (float) x, (float) y);
                 GL11.glEnd();
@@ -194,6 +218,9 @@ public class MinecraftFontRenderer extends CFont {
         GL11.glColor4f(1, 1, 1, 1);
         return (float) x / 2f;
     }
+
+
+
 
     public float drawSmoothString(String text, double x, double y, int color, boolean shadow) {
         x -= 1;
@@ -650,6 +677,7 @@ public class MinecraftFontRenderer extends CFont {
             }
         }
     }
+
 
     public String trimStringToWidth(String text, int width, boolean custom) {
         StringBuilder buffer = new StringBuilder();

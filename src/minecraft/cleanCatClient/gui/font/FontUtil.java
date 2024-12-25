@@ -37,30 +37,12 @@ public class FontUtil {
         return font;
     }
 
-//    public static boolean hasLoaded() {
-//        return completed >= 1;
-//    }
 
     public static void bootstrap() {
 
             Map<String, Font> locationMap = new HashMap<>();
             normal_ = getFont(locationMap, "font.ttf", 1, Font.PLAIN);
-//            completed++;
 
-
-//        final Font[] f35 = new Font[1];
-//        final Font[] f30 = new Font[1];
-//        new Thread(() -> {
-//            Map<String, Font> locationMap = new HashMap<>();
-//            f35[0] = getFont(locationMap, "font_35.ttf", 35, Font.PLAIN);
-//            completed++;
-//        }).start();
-//
-//        new Thread(() -> {
-//            Map<String, Font> locationMap = new HashMap<>();
-//            f30[0] = getFont(locationMap, "font_30.ttf", 35, Font.PLAIN);
-//            completed++;
-//        }).start();
 
 
         normal = new MinecraftFontRenderer(normal_.deriveFont(19F), true, true);
