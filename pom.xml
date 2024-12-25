@@ -223,8 +223,22 @@
             <groupId>javax.vecmath</groupId>
             <version>1.5.2</version>
         </dependency>
+<dependency>
+    <groupId>local.library</groupId>
+    <artifactId>minecraft</artifactId>
+    <version>1.8.9</version>
+    <scope>system</scope>
+    <systemPath>C:/Users/lebui/OneDrive/Desktop/cleanCatClient/workspace/jars/versions/1.8.9/1.8.9.jar</systemPath>
+</dependency>
     </dependencies>
     <build>
+        <sourceDirectory>src/minecraft</sourceDirectory>
+        <resources>
+            <resource>
+                <directory>src/minecraft/assets</directory>
+            </resource>
+        </resources>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

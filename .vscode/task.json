@@ -1,0 +1,15 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build with Maven",
+            "type": "shell",
+            "command": "mvn clean install",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$maven"]
+        }
+    ]
+}
