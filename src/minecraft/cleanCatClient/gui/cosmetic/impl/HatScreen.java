@@ -16,7 +16,7 @@ public class HatScreen extends GuiScreen {
         hatNames = new ArrayList<>();
         buttons = new ArrayList<>();
         hatNames.add("Top Hat");
-        hatNames.add("Witch Hat");
+        hatNames.add("Wool Hat");
 
     }
 

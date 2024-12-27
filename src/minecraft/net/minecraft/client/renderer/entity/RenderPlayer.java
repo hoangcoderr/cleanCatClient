@@ -2,7 +2,7 @@ package net.minecraft.client.renderer.entity;
 
 import cleanCatClient.cosmetic.impl.cape.*;
 import cleanCatClient.cosmetic.impl.hat.CosmeticTopHat;
-import cleanCatClient.cosmetic.impl.hat.CosmeticWitchHat;
+import cleanCatClient.cosmetic.impl.hat.CosmeticWoolHat;
 //import cleanCatClient.cosmetic.impl.other.BlazeCosmetic;
 import cleanCatClient.cosmetic.impl.wing.CosmeticDragonBabyWings;
 import cleanCatClient.cosmetic.impl.wing.CosmeticDragonObsidianWings;
@@ -52,7 +52,7 @@ public class RenderPlayer extends RendererLivingEntity<AbstractClientPlayer> {
     }
 
     public void addHatLayer() {
-        this.addLayer(new CosmeticWitchHat(this));
+        this.addLayer(new CosmeticWoolHat(this));
         this.addLayer(new CosmeticTopHat(this));
 
     }

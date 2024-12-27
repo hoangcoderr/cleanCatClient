@@ -22,6 +22,7 @@ public class FullBright extends Mod {
         if (enabled) {
             mc.gameSettings.gammaSetting = 1000;
             this.oldBrightness = mc.gameSettings.saturation;
+            mc.fontRendererObj.printLoadedCharacters();
         } else {
             mc.gameSettings.saturation = this.oldBrightness;
 

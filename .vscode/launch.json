@@ -7,10 +7,8 @@
             "request": "launch",
             "mainClass": "Start",
             "vmArgs": "-Djava.library.path=C:\\Users\\lebui\\OneDrive\\Desktop\\cleanCatClient\\workspace\\jars\\versions\\1.8.9\\1.8.9-natives",
-            "cwd": "E:\\Game\\minecraft",
-            "java": {
-                "home": "C:\\Program Files\\Java\\jre1.8.0_421\\bin"  // Replace with your Java path
-            }
+            "cwd": "E:\\Game\\minecraft"
+
         }
     ]
 }

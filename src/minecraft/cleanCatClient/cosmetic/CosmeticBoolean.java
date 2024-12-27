@@ -27,13 +27,13 @@ public class CosmeticBoolean {
         CosmeticBoolean.thuderCape = false;
         CosmeticBoolean.badWolfCape = false;
         CosmeticBoolean.starrySunsetCape = false;
-        CosmeticBoolean.topHat = true;
+        CosmeticBoolean.topHat = false;
         CosmeticBoolean.dragonWing = false;
         CosmeticBoolean.satanWing = false;
         CosmeticBoolean.dragonBabyWing = false;
         CosmeticBoolean.animeGirlCape = false;
         CosmeticBoolean.dragonObsidianWing = true;
-        CosmeticBoolean.witchHat = false;
+        CosmeticBoolean.witchHat = true;
         CosmeticBoolean.wavingCape = false;
         CosmeticBoolean.chillinBoy = true;
     }
@@ -180,7 +180,7 @@ public class CosmeticBoolean {
                 CosmeticBoolean.topHat = true;
                 CosmeticBoolean.witchHat = false;
                 break;
-            case "Witch Hat":
+            case "Wool Hat":
                 CosmeticBoolean.witchHat = true;
                 CosmeticBoolean.topHat = false;
                 break;
