@@ -361,7 +361,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 					Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
 					clipboard.setContents(stringSelection, null);  // Sao chép vào clipboard
 					System.out.println("Text copied to clipboard: " + content);
-					NotificationManager.show(new Notification("Text copied to clipboard: " + content, 3));
+					//NotificationManager.show(new Notification("Text copied to clipboard: " + content, 3));
 				}else if (clickevent.getAction() == ClickEvent.Action.DELETE_FILE){
 					File file = new File(clickevent.getValue());
 					if (file.exists()) {

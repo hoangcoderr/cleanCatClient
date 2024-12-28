@@ -383,6 +383,8 @@ public class GuiIngame extends Gui {
         }
     }
 
+
+
     public void renderSelectedItem(ScaledResolution scaledRes) {
         this.mc.mcProfiler.startSection("selectedItemName");
 
@@ -418,6 +420,7 @@ public class GuiIngame extends Gui {
 
         this.mc.mcProfiler.endSection();
     }
+
 
     public void renderDemo(ScaledResolution scaledRes) {
         this.mc.mcProfiler.startSection("demo");

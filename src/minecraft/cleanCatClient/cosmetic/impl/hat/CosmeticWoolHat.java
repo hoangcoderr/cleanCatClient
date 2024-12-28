@@ -13,12 +13,16 @@ import org.lwjgl.opengl.GL11;
 
 public class CosmeticWoolHat extends CosmeticBase {
 
-    private final ModelWoolHat modelWoolHat;
+    private ModelWoolHat modelWoolHat;
     private static final ResourceLocation TEXTURE = new ResourceLocation("cleanCatClient/Cosmetic/witchhat/hat.png");
 
     public CosmeticWoolHat(RenderPlayer renderPlayer) {
         super(renderPlayer);
         modelWoolHat = new ModelWoolHat(renderPlayer);
+    }
+
+    public void reload() {
+        modelWoolHat = new ModelWoolHat(playerRenderer);
     }
 
     @Override
@@ -31,6 +35,7 @@ public class CosmeticWoolHat extends CosmeticBase {
 
             if (player.isSneaking()) {
                 GL11.glTranslated(0, 0.225D, 0);
+                //reload();
             }
 
 
@@ -61,22 +66,22 @@ public class CosmeticWoolHat extends CosmeticBase {
             ModelRenderer santaHatTop0 = new ModelRenderer(playerModel, 0, 0);
             santaHatTop0.addBox(-4F, -1F, -4F, 9, 3, 8);
             santaHatTop0.setRotationPoint(0.2892F, 8.72718F, 0);
-            santaHatTop0.rotateAngleZ = (float) Math.toRadians(-20);
+            santaHatTop0.rotateAngleX = (float) Math.toRadians(-20);
 
             ModelRenderer santaHatTop1 = new ModelRenderer(playerModel, 0, 0);
             santaHatTop1.addBox(-3F, -1F, -3F, 6, 4, 6);
             santaHatTop1.setRotationPoint(1.03024F, 9.75039F, 0);
-            santaHatTop1.rotateAngleZ = (float) Math.toRadians(-50);
+            santaHatTop1.rotateAngleX = (float) Math.toRadians(-50);
 
             ModelRenderer santaHatTop2 = new ModelRenderer(playerModel, 0, 0);
             santaHatTop2.addBox(-0.5F, 2F, -1.5F, 3, 3, 3);
             santaHatTop2.setRotationPoint(0.53024F, 10.61642F, 0);
-            santaHatTop2.rotateAngleZ = (float) Math.toRadians(-60);
+            santaHatTop2.rotateAngleX = (float) Math.toRadians(-60);
 
             ModelRenderer santaHatTop3 = new ModelRenderer(playerModel, 0, 16);
             santaHatTop3.addBox(-0.90192F, -1.83013F, -2F, 4, 4, 4);
-            santaHatTop3.setRotationPoint(5.78024F, 12.11642F, 0);
-            santaHatTop3.rotateAngleZ = (float) Math.toRadians(15);
+            santaHatTop3.setRotationPoint(0.0F, 12.11642F, -5.67F);
+            santaHatTop3.rotateAngleX = (float) Math.toRadians(-15);
 
             // Add submodels to the main model
             this.woolHat.addChild(santaHatBase);
@@ -85,7 +90,7 @@ public class CosmeticWoolHat extends CosmeticBase {
             this.woolHat.addChild(santaHatTop2);
             this.woolHat.addChild(santaHatTop3);
         }
-          //  woolHat = new ModelAdapterWitch().getModelRenderer(new ModelWitch(0.0F), "hat");
+        //  woolHat = new ModelAdapterWitch().getModelRenderer(new ModelWitch(0.0F), "hat");
 
 
         @Override
