@@ -4,6 +4,7 @@ import cleanCatClient.Client;
 import cleanCatClient.gui.mainmenu.button.ClientButton;
 import cleanCatClient.gui.mainmenu.particles.SnowPartical;
 import cleanCatClient.gui.mainmenu.updatechecker.UpdateChecker;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
@@ -57,7 +58,7 @@ public class MainMenu extends GuiScreen {
         this.buttonList.add(new ClientButton(4, 25, height / 2 + 85, 250, 30, "Bye cleanCat"));
         this.buttonList.add(new ClientButton(5, 25, height / 2 + 120, 250, 30, "Alt Manager"));
 
-        if (!UpdateChecker.isLastestVersion()) {
+        if (!UpdateChecker.isLastestVersion(Minecraft.getMinecraft().getSession().getUsername())) {
             showUpdateMenu = true;
             System.out.println("New version available, showing update menu.");
             yesButton = new ClientButton(6, width / 2 - 50, yOff, 40, 20, "Yes");

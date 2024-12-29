@@ -50,6 +50,7 @@ public class FontUtil {
         fontRenderers.put(30, customFontRenderer);
         customFontRenderer = new MinecraftFontRenderer(normal_.deriveFont(35f), true, true);
         fontRenderers.put(35, customFontRenderer);
+
     }
 
 

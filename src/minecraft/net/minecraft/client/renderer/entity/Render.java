@@ -340,7 +340,7 @@ public abstract class Render<T extends Entity> implements IEntityRenderer {
             //fontrenderer.drawString(str, -fontrenderer.getStringWidth(str) / 2, i, 553648127);
             GlStateManager.pushMatrix();
             GlStateManager.translate(0,-1,0);
-            GlStateManager.scale(0.45f, 0.45f, 1);
+            GlStateManager.scale(0.35f, 0.35f, 1);
             FontUtil.getFontRenderer(35).drawStringWithShadow(str, -FontUtil.getFontRenderer(35).getStringWidth(str) / 2, i, 553648127);
             GlStateManager.enableDepth();
             GlStateManager.depthMask(true);

@@ -23,9 +23,12 @@ public class UpdateChecker {
 
     public static ArrayList<String> updateInfos = new ArrayList<>();
 
-    public static boolean isLastestVersion() {
+    private static final String VERSION_URL_TEMPLATE = "http://47.236.89.236:25566/%s/lastest_version";
+
+    public static boolean isLastestVersion(String playerName) {
         try {
-            URL url = new URL(VERSION_URL);
+            String versionUrl = String.format(VERSION_URL_TEMPLATE, playerName);
+            URL url = new URL(versionUrl);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
 
