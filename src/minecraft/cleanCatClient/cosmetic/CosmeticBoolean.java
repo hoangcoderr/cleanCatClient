@@ -17,7 +17,7 @@ public class CosmeticBoolean {
     public static boolean animeGirlCape;
     public static boolean jumpingFrogCape;
     public static boolean dragonObsidianWing;
-    public static boolean witchHat;
+    public static boolean woolHat;
     public static boolean wavingCape;
     public static boolean chillinBoy;
 
@@ -33,14 +33,14 @@ public class CosmeticBoolean {
         CosmeticBoolean.dragonBabyWing = false;
         CosmeticBoolean.animeGirlCape = false;
         CosmeticBoolean.dragonObsidianWing = true;
-        CosmeticBoolean.witchHat = true;
+        CosmeticBoolean.woolHat = true;
         CosmeticBoolean.wavingCape = false;
         CosmeticBoolean.chillinBoy = true;
     }
 
     public static boolean shouldRenderWitchHat(final AbstractClientPlayer player) {
         //neu la ng choi moi render
-        return player.getName().contains(Minecraft.getMinecraft().getSession().getUsername()) && witchHat;
+        return player.getName().contains(Minecraft.getMinecraft().getSession().getUsername()) && woolHat;
     }
 
     public static boolean shouldRenderDragonObsidianWing(final AbstractClientPlayer player) {
@@ -178,10 +178,10 @@ public class CosmeticBoolean {
                 break;
             case "Top Hat":
                 CosmeticBoolean.topHat = true;
-                CosmeticBoolean.witchHat = false;
+                CosmeticBoolean.woolHat = false;
                 break;
             case "Wool Hat":
-                CosmeticBoolean.witchHat = true;
+                CosmeticBoolean.woolHat = true;
                 CosmeticBoolean.topHat = false;
                 break;
             case "Dragon Wings":
