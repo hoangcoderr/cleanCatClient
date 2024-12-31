@@ -12,7 +12,7 @@ public class ModSettingsInstance {
     private static ArmorStatusSetting armorStatusSetting;
     private static BlockOverlaySettings blockOverlaySettings;
     private static BossBarSettings bossBarSettings;
-    private static CustomCrossHairSettings customCrosshairSettings ;
+    private static CustomCrossHairSettings customCrosshairSettings;
     private static FPSSetting fpsSettings;
     private static GlintColorSetting glintColorSettings;
     private static HitColorSetting hitColorSettings;
@@ -33,8 +33,11 @@ public class ModSettingsInstance {
     private static ItemCounterSetting itemCounterSetting;
     private static TNTTimerSettings tntTimerSettings;
     private static CustomNameSettings customNameSettings;
+    private static ParticlesMultiplierSettings particlesMultiplierSettings;
     private static List<ModSettings> allSettings = new ArrayList<>();
-    public static void register(){
+
+    public static void register() {
+        particlesMultiplierSettings = new ParticlesMultiplierSettings();
         customNameSettings = new CustomNameSettings();
         tntTimerSettings = new TNTTimerSettings();
         chatShortcutSetting = new ChatShortcutSetting();
@@ -79,10 +82,12 @@ public class ModSettingsInstance {
                 armorStatusSetting, blockOverlaySettings, bossBarSettings, customCrosshairSettings, fpsSettings,
                 glintColorSettings, hitColorSettings, keystrokesSettings, lazyChunkLoadingSettings, noHurtCamSettings,
                 oldAnimationSettings, perspectiveSettings, pingDisplaySettings, potionStatusSettings,
-                scoreboardSettings, toggleSprintSettings, timeChangerSettings, colorSaturationSettings, itemPhysicsSetting, coordinateDisplaySettings,chatShortcutSetting,itemCounterSetting,tntTimerSettings,customNameSettings
+                scoreboardSettings, toggleSprintSettings, timeChangerSettings, colorSaturationSettings, itemPhysicsSetting, coordinateDisplaySettings, chatShortcutSetting, itemCounterSetting, tntTimerSettings, customNameSettings,
+                particlesMultiplierSettings
         );
     }
-    public static List<ModSettings> getAllSettings(){
+
+    public static List<ModSettings> getAllSettings() {
         return allSettings;
     }
 

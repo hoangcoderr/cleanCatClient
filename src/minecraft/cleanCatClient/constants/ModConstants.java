@@ -99,4 +99,7 @@ public class ModConstants {
 
     public static String CUSTOM_NAME = "Custom Name";
     public static String CUSTOM_NAME_DESC = "Change your name";
+
+    public static String PARTICLES_MULTIPLIER = "Particles Multiplier";
+    public static String PARTICLES_MULTIPLIER_DESC = "Change the amount of particles";
 }

@@ -44,7 +44,9 @@ public class ModInstances {
     private static ItemCounter itemCounter;
     private static TNTTimer tntTimer;
     private static CustomName customName;
+    private static ParticlesMultiplier particlesMultiplier;
     public static void register(HUDManager api) {
+        particlesMultiplier = new ParticlesMultiplier();
         customName = new CustomName();
         tntTimer = new TNTTimer();
         itemCounter = new ItemCounter();
@@ -136,6 +138,11 @@ public class ModInstances {
         allMods.add(itemCounter);
         allMods.add(tntTimer);
         allMods.add(customName);
+        allMods.add(particlesMultiplier);
+    }
+
+    public static ParticlesMultiplier getParticlesMultiplier() {
+        return particlesMultiplier;
     }
 
     public static CustomName getCustomName() {

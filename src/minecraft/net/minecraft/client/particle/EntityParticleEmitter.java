@@ -1,5 +1,6 @@
 package net.minecraft.client.particle;
 
+import cleanCatClient.mods.ModInstances;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.EnumParticleTypes;
@@ -27,7 +28,7 @@ public class EntityParticleEmitter extends EntityFX
 
     public void onUpdate()
     {
-        for (int i = 0; i < 16; ++i)
+        for (int i = 0; i < ModInstances.getParticlesMultiplier().getMultiplier(); ++i)
         {
             double d0 = (double)(this.rand.nextFloat() * 2.0F - 1.0F);
             double d1 = (double)(this.rand.nextFloat() * 2.0F - 1.0F);
