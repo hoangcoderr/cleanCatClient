@@ -26,6 +26,8 @@ public class TimeChangerSettings extends ModSettings {
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         super.drawScreen(mouseX, mouseY, partialTicks);
         timeSlider.drawSlider(Minecraft.getMinecraft(), mouseX, mouseY);
+        ModInstances.getTimeChangerMod().setTime((long) timeSlider.getCurrentValue());
+
     }
 
     @Override
@@ -40,7 +42,6 @@ public class TimeChangerSettings extends ModSettings {
     public void mouseReleased(int mouseX, int mouseY, int state) {
         super.mouseReleased(mouseX, mouseY, state);
         timeSlider.mouseReleased(mouseX, mouseY, state);
-        ModInstances.getTimeChangerMod().setTime((long) timeSlider.getCurrentValue());
 
     }
 }

@@ -15,6 +15,9 @@ import java.util.ArrayList;
 
 public class Keystrokes extends ModDraggable {
 
+
+    private Color downColor = new Color(0, 0, 0, 34);
+    private Color upColor = new Color(12, 12, 12, 15);
     private static final Key W = new Key("W", Minecraft.getMinecraft().gameSettings.keyBindForward, 21, 1, 18, 18);
     private static final Key A = new Key("A", Minecraft.getMinecraft().gameSettings.keyBindLeft, 1, 21, 18, 18);
     private static final Key S = new Key("S", Minecraft.getMinecraft().gameSettings.keyBindBack, 21, 21, 18, 18);
@@ -183,7 +186,7 @@ public class Keystrokes extends ModDraggable {
                     pos.getAbsoluteY() + key.getY(),
                     pos.getAbsoluteX() + key.getX() + key.getWidth(),
                     pos.getAbsoluteY() + key.getY() + key.getHeight(),
-                    key.isDown() ? new Color(255, 255, 255, 102).getRGB() : new Color(0, 0, 0, 102).getRGB());
+                    !key.isDown() ? upColor.getRGB() : downColor.getRGB());
 //            FontUtil.normal.drawString(
 //                    key.getName(),
 //                    pos.getAbsoluteX() + key.getX() + key.getWidth() / 2 - textWidth / 2,
@@ -206,7 +209,7 @@ public class Keystrokes extends ModDraggable {
                     pos.getAbsoluteY() + key.getY(),
                     pos.getAbsoluteX() + key.getX() + key.getWidth(),
                     pos.getAbsoluteY() + key.getY() + key.getHeight(),
-                    key.isDown() ? new Color(255, 255, 255, 102).getRGB() : new Color(0, 0, 0, 102).getRGB());
+                    !key.isDown() ? upColor.getRGB() : downColor.getRGB());
 //            FontUtil.normal.drawString(
 //                    key.getName().equals("LMB") ? "" + mc.getCPS() : "" + mc.getRightCps(),
 //                    pos.getAbsoluteX() + key.getX() + key.getWidth() / 2 - textWidth / 2,
