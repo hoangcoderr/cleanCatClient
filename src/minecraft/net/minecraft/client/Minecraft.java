@@ -495,6 +495,9 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         this.loadingScreen = new LoadingScreenRenderer(this);
 
         if (this.gameSettings.fullScreen && !this.fullscreen) {
+            ScaledResolution scaledresolution = new ScaledResolution(this);
+            displayHeightBefore = scaledresolution.getScaledHeight();
+            displayWidthBefore = scaledresolution.getScaledWidth();
             this.toggleFullscreen();
         }
 
@@ -1063,6 +1066,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
             }
         }
 
+
     }
 
     public int getLimitFramerate() {
@@ -1483,9 +1487,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
             for (IRenderer ren: h.getRegisteredRenderers()) {
                 HUDConfigScreen.adjustRendererPosition(ren);
             }
-            ScaledResolution scaledresolution = new ScaledResolution(this);
-            displayHeightBefore = scaledresolution.getScaledHeight();
-            displayWidthBefore = scaledresolution.getScaledWidth();
+
 
         } catch (Exception exception) {
             logger.error((String) "Couldn\'t toggle fullscreen", (Throwable) exception);
@@ -1509,8 +1511,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
             for (IRenderer ren: h.getRegisteredRenderers()) {
                 HUDConfigScreen.adjustRendererPosition(ren);
             }
-            displayHeightBefore = scaledresolution.getScaledHeight();
-            displayWidthBefore = scaledresolution.getScaledWidth();
+
         }
 
 
@@ -2769,6 +2770,9 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
                     } else if (i == this.gameSettings.keyBindStreamToggleMic.getKeyCode()) {
                         this.stream.muteMicrophone(true);
                     } else if (i == this.gameSettings.keyBindFullscreen.getKeyCode()) {
+                        ScaledResolution scaledresolution = new ScaledResolution(this);
+                        displayHeightBefore = scaledresolution.getScaledHeight();
+                        displayWidthBefore = scaledresolution.getScaledWidth();
                         this.toggleFullscreen();
                     } else if (i == this.gameSettings.keyBindScreenshot.getKeyCode()) {
                         this.ingameGUI.getChatGUI().printChatMessage(ScreenShotHelper.saveScreenshot(this.mcDataDir,

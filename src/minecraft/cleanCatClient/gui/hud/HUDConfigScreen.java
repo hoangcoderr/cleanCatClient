@@ -1,10 +1,12 @@
 package cleanCatClient.gui.hud;
 
+import cleanCatClient.gui.font.FontUtil;
 import cleanCatClient.gui.mainmenu.button.ClientButton;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
+import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
 
 import java.io.IOException;
@@ -67,7 +69,9 @@ public class HUDConfigScreen extends GuiScreen {
             this.renderers.put(ren, pos);
         }
     }
+
     private static double relativeX, relativeY;
+
     public static void adjustRendererPosition(IRenderer ren) {
         ScreenPosition pos = ren.load();
         if (pos == null) {
@@ -78,6 +82,7 @@ public class HUDConfigScreen extends GuiScreen {
     }
 
     private static void adjustBound(IRenderer renderer, ScreenPosition pos) {
+        System.out.println("--------------------------------------------");
         ScaledResolution res = new ScaledResolution(Minecraft.getMinecraft());
 
         int screenWidth = res.getScaledWidth();
@@ -88,13 +93,15 @@ public class HUDConfigScreen extends GuiScreen {
         double relativeY = (double) pos.getAbsoluteY() / Minecraft.displayHeightBefore;
 
 // Khi độ phân giải màn hình thay đổi, tính toán lại vị trí dựa trên tỷ lệ này
-        int absoluteX = (int) (relativeX * screenWidth);
-        int absoluteY = (int) (relativeY * screenHeight);
+        int absoluteX = (int) (screenWidth * relativeX);
+        int absoluteY = (int) (screenHeight * relativeY);
 
 // Đảm bảo rằng tọa độ không vượt quá giới hạn màn hình
         absoluteX = Math.max(0, Math.min(absoluteX, Math.max(screenWidth - renderer.getWidth(), 0)));
         absoluteY = Math.max(0, Math.min(absoluteY, Math.max(screenHeight - renderer.getHeight(), 0)));
 
+        System.out.println("Absolute: " + absoluteX + " " + absoluteY);
+        System.out.println("Scaled: " + screenWidth / Minecraft.displayWidthBefore + " " + screenHeight / Minecraft.displayHeightBefore);
 // Đặt lại tọa độ tuyệt đối cho đối tượng
         pos.setAbsolute(absoluteX, absoluteY);
 
@@ -115,7 +122,6 @@ public class HUDConfigScreen extends GuiScreen {
             int height = renderer.getHeight();
 
 
-
             // Adjusting the size of the Gui.drawRect when dragging
             if (dragged && hovered) {
                 width += mouseX - prevX;
@@ -123,6 +129,7 @@ public class HUDConfigScreen extends GuiScreen {
             }
 
             Gui.drawRect(pos.getAbsoluteX(), pos.getAbsoluteY(), pos.getAbsoluteX() + width, pos.getAbsoluteY() + height, 0x33FFFFFF);
+            //FontUtil.normal.drawString(pos.getAbsoluteX() + " " + pos.getAbsoluteY(), pos.getAbsoluteX(), pos.getAbsoluteY(), -1);
             this.drawHollowRect(pos.getAbsoluteX(), pos.getAbsoluteY(), width, height, 0x88FFFFFF);
 
             renderer.renderDummy(pos);
