@@ -88,24 +88,48 @@ public class HUDConfigScreen extends GuiScreen {
         int screenWidth = res.getScaledWidth();
         int screenHeight = res.getScaledHeight();
         System.out.println(Minecraft.displayWidthBefore + " " + Minecraft.displayHeightBefore);
-// Tính toán tỷ lệ của tọa độ hiện tại dựa trên màn hình hiện tại
-        double relativeX = (double) pos.getAbsoluteX() / Minecraft.displayWidthBefore;
-        double relativeY = (double) pos.getAbsoluteY() / Minecraft.displayHeightBefore;
 
-// Khi độ phân giải màn hình thay đổi, tính toán lại vị trí dựa trên tỷ lệ này
-        int absoluteX = (int) (screenWidth * relativeX);
-        int absoluteY = (int) (screenHeight * relativeY);
+        // Tính toán khoảng cách đến các viền màn hình trước khi đổi kích thước
+        int distanceToRight = Minecraft.displayWidthBefore - pos.getAbsoluteX() - renderer.getWidth();
+        int distanceToBottom = Minecraft.displayHeightBefore - pos.getAbsoluteY() - renderer.getHeight();
+        int distanceToLeft = pos.getAbsoluteX(); // Khoảng cách đến viền trái
+        int distanceToTop = pos.getAbsoluteY();  // Khoảng cách đến viền trên
 
-// Đảm bảo rằng tọa độ không vượt quá giới hạn màn hình
+        // Chuyển đổi khoảng cách thành tỷ lệ so với kích thước màn hình trước khi đổi
+        double relativeDistanceToRight = (double) distanceToRight / Minecraft.displayWidthBefore;
+        double relativeDistanceToBottom = (double) distanceToBottom / Minecraft.displayHeightBefore;
+        double relativeDistanceToLeft = (double) distanceToLeft / Minecraft.displayWidthBefore;
+        double relativeDistanceToTop = (double) distanceToTop / Minecraft.displayHeightBefore;
+
+        // Tính toán lại khoảng cách tuyệt đối với viền dựa trên tỷ lệ và kích thước mới
+        int newDistanceToRight = (int) (screenWidth * relativeDistanceToRight);
+        int newDistanceToBottom = (int) (screenHeight * relativeDistanceToBottom);
+        int newDistanceToLeft = (int) (screenWidth * relativeDistanceToLeft);
+        int newDistanceToTop = (int) (screenHeight * relativeDistanceToTop);
+
+        // Tính tọa độ mới dựa trên khoảng cách đến viền
+        int absoluteX = newDistanceToLeft; // Mặc định từ viền trái
+        int absoluteY = newDistanceToTop;  // Mặc định từ viền trên
+
+        // Nếu khoảng cách đến viền phải và dưới được ưu tiên, áp dụng logic khác
+        if (distanceToRight < distanceToLeft) {
+            absoluteX = screenWidth - newDistanceToRight - renderer.getWidth();
+        }
+        if (distanceToBottom < distanceToTop) {
+            absoluteY = screenHeight - newDistanceToBottom - renderer.getHeight();
+        }
+
+        // Đảm bảo rằng tọa độ không vượt quá giới hạn màn hình
         absoluteX = Math.max(0, Math.min(absoluteX, Math.max(screenWidth - renderer.getWidth(), 0)));
         absoluteY = Math.max(0, Math.min(absoluteY, Math.max(screenHeight - renderer.getHeight(), 0)));
 
         System.out.println("Absolute: " + absoluteX + " " + absoluteY);
         System.out.println("Scaled: " + screenWidth / Minecraft.displayWidthBefore + " " + screenHeight / Minecraft.displayHeightBefore);
-// Đặt lại tọa độ tuyệt đối cho đối tượng
-        pos.setAbsolute(absoluteX, absoluteY);
 
+        // Đặt lại tọa độ tuyệt đối cho đối tượng
+        pos.setAbsolute(absoluteX, absoluteY);
     }
+
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
@@ -123,10 +147,7 @@ public class HUDConfigScreen extends GuiScreen {
 
 
             // Adjusting the size of the Gui.drawRect when dragging
-            if (dragged && hovered) {
-                width += mouseX - prevX;
-                height += mouseY - prevY;
-            }
+
 
             Gui.drawRect(pos.getAbsoluteX(), pos.getAbsoluteY(), pos.getAbsoluteX() + width, pos.getAbsoluteY() + height, 0x33FFFFFF);
             //FontUtil.normal.drawString(pos.getAbsoluteX() + " " + pos.getAbsoluteY(), pos.getAbsoluteX(), pos.getAbsoluteY(), -1);
@@ -242,12 +263,7 @@ public class HUDConfigScreen extends GuiScreen {
 
         loadMouseOver(x, y);
 
-        // Check if the click is on the small red square (bottom-right corner)
-        if (selectedRenderer.isPresent()) {
-            IRenderer renderer = selectedRenderer.get();
-            ScreenPosition pos = renderers.get(renderer);
 
-        }
 
         super.mouseClicked(x, y, button);
     }
