@@ -165,7 +165,7 @@ public class HUDConfigScreen extends GuiScreen {
                 if (dragged) {
                     pos.setAbsolute(pos.getAbsoluteX() + mouseX - this.prevX, pos.getAbsoluteY() + mouseY - this.prevY);
 
-                    adjustBounds(renderer, pos);
+                    //adjustBounds(renderer, pos);
 
                     this.prevX = mouseX;
                     this.prevY = mouseY;

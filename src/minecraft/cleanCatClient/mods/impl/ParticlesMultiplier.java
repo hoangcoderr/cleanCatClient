@@ -12,9 +12,31 @@ import net.minecraft.client.particle.EntityFX;
 public class ParticlesMultiplier extends Mod {
     public ParticlesMultiplier() {
         super(ModConstants.PARTICLES_MULTIPLIER, ModConstants.PARTICLES_MULTIPLIER_DESC, ModCategory.RENDER);
+        loadConfig();
     }
     private float multiplier = 16;
     private float savedMultiplier = 16;
+
+    @Override
+    public void loadConfig() {
+        String[] dataConfig = loadDataConfig();
+        if (dataConfig == null) {
+            return;
+        }
+        try {
+            this.multiplier = Float.parseFloat(dataConfig[0]);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            this.multiplier = 16;
+        }
+    }
+
+    @Override
+    public void saveConfig() {
+        String[] dataConfig = new String[1];
+        dataConfig[0] = String.valueOf(this.multiplier);
+        saveDataConfig(dataConfig);
+    }
 
     @Override
     public void setEnabled(boolean enabled) {
@@ -28,25 +50,10 @@ public class ParticlesMultiplier extends Mod {
             multiplier = savedMultiplier;
         }
     }
-//    @EventTarget
-//    public void onClientTick(Render2D event) {
-//        if (this.isEnabled()) {
-//            Minecraft mc = Minecraft.getMinecraft();
-//            if (mc.theWorld != null) {
-//                for (int i = 0; i < mc.theWorld.loadedEntityList.size(); i++) {
-//                    if (mc.theWorld.loadedEntityList.get(i) instanceof EntityFX) {
-//                        EntityFX particle = (EntityFX) mc.theWorld.loadedEntityList.get(i);
-//                        for (int j = 0; j < multiplier - 1; j++) {
-//                            mc.effectRenderer.addEffect(particle);
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
 
     public void setMultiplier(float multiplier) {
         this.multiplier = multiplier;
+        saveConfig();
     }
 
     public float getMultiplier() {
