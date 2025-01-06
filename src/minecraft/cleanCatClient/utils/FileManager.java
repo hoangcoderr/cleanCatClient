@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import org.lwjgl.Sys;
 
 import java.io.*;
+import java.lang.reflect.Type;
 
 public class FileManager {
     private static Gson gson;
@@ -49,6 +50,36 @@ public class FileManager {
         catch (Exception e) {
             e.printStackTrace();
             return false;
+        }
+    }
+
+
+    public static <T> T readAFromJson(final File file, final Type typeOfT) {
+        if (!file.exists()) {
+            System.out.println("File does not exist: " + file.getName());
+            return null;
+        }
+
+        try (FileInputStream fileInputStream = new FileInputStream(file);
+             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+             BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
+
+            StringBuilder builder = new StringBuilder();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                builder.append(line);
+            }
+
+            String json = builder.toString();
+            if (json.isEmpty()) {
+                System.out.println("File is empty: " + file.getName());
+                return null;
+            }
+
+            return gson.fromJson(json, typeOfT);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 

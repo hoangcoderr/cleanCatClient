@@ -10,7 +10,6 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
 import org.lwjgl.input.Keyboard;
 
-
 import java.io.*;
 
 public class Mod {
@@ -29,9 +28,19 @@ public class Mod {
         this.mc = Minecraft.getMinecraft();
         this.font = mc.fontRendererObj;
         this.client = Client.getInstance();
-        this.isEnabled = loadModState();
-        this.keyBind = loadKeyBind();
         this.category = category;
+
+        ModData modData = ModManager.getModData(name);
+        //System.out.println("ModData: " + modData.name + " " + modData.state + " " + modData.keyBind);
+        if (modData != null) {
+            this.isEnabled = modData.state;
+            this.keyBind = modData.keyBind;
+        } else {
+            System.out.println("ModData is null. Creating a new one.");
+            this.isEnabled = false;
+            this.keyBind = Keyboard.KEY_NONE;
+        }
+
         setEnabled(isEnabled);
     }
 
@@ -41,7 +50,7 @@ public class Mod {
 
     public void setKeyBind(int keyBind) {
         this.keyBind = keyBind;
-        saveKeyBind(keyBind);
+        saveModData();
     }
 
     public ModCategory getCategory() {
@@ -50,6 +59,39 @@ public class Mod {
 
     public int getCategoryId() {
         return category.getId();
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.isEnabled = enabled;
+
+        if (enabled) {
+            EventManager.register(this);
+        } else {
+            EventManager.unregister(this);
+        }
+        saveModData();
+    }
+
+    public boolean isEnabled() {
+        return isEnabled;
+    }
+
+    private void saveModData() {
+        ModData modData = new ModData(isEnabled, keyBind);
+        ModManager.setModData(name, modData);
+    }
+
+    public File getFolder() {
+        final File folder = new File(FileManager.getModsDirectory(), this.getClass().getSimpleName());
+        folder.mkdirs();
+        return folder;
+    }
+
+    public void loadConfig(){
+
+    }
+    public void saveConfig(){
+
     }
 
     public String[] loadDataConfig() {
@@ -91,61 +133,4 @@ public class Mod {
             e.printStackTrace();
         }
     }
-
-    public void loadConfig() {
-    }
-
-    public void saveConfig() {
-    }
-
-    private int loadKeyBind() {
-        File keyBindFile = new File(getFolder(), "keybind.json");
-        if (!keyBindFile.exists()) {
-            saveKeyBind(Keyboard.KEY_NONE);
-            return Keyboard.KEY_NONE;
-        }
-        Integer keyBind = FileManager.readFromJson(keyBindFile, Integer.class);
-        return keyBind != null ? keyBind : Keyboard.KEY_NONE;
-    }
-
-    protected void saveKeyBind(int keyBind) {
-        FileManager.writeJsonToFile(new File(getFolder(), "keybind.json"), keyBind);
-    }
-
-    private boolean loadModState() {
-        File stateFile = new File(getFolder(), "state.json");
-        if (!stateFile.exists()) {
-            saveModState(false);
-            return false;
-        }
-        Boolean state = FileManager.readFromJson(stateFile, Boolean.class);
-        return state != null ? state : false;
-    }
-
-    protected void saveModState(boolean state) {
-        FileManager.writeJsonToFile(new File(getFolder(), "state.json"), state);
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.isEnabled = enabled;
-
-        if (enabled) {
-            EventManager.register(this);
-        } else {
-            EventManager.unregister(this);
-        }
-        saveModState(enabled);
-        System.out.println("Saved mod " + getFolder());
-    }
-
-    public boolean isEnabled() {
-        return isEnabled;
-    }
-
-    public File getFolder() {
-        final File folder = new File(FileManager.getModsDirectory(), this.getClass().getSimpleName());
-        folder.mkdirs();
-        return folder;
-    }
-
 }

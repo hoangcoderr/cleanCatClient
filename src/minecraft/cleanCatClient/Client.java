@@ -2,8 +2,7 @@
 package cleanCatClient;
 
 import cleanCatClient.cosmetic.impl.cape.realistic.WavyCapeRenderer;
-import cleanCatClient.gui.mainmenu.MainMenu;
-import cleanCatClient.gui.mainmenu.updatechecker.UpdateChecker;
+import cleanCatClient.mods.ModManager;
 import cleanCatClient.utils.discordrpc.DiscordRP;
 import cleanCatClient.event.EventManager;
 import cleanCatClient.event.EventTarget;
@@ -48,9 +47,13 @@ public class Client {
 
 
     public void start() {
+        ModManager.loadModsConfig();
+
         hudManager = HUDManager.getInstance();
         ModInstances.register(hudManager);
         ModSettingsInstance.register();
+
+
         //SessionChanger.getInstance().setUser("hi", "hi");
         Minecraft.centerX = new ScaledResolution(Minecraft.getMinecraft()).getScaledWidth() / 2;
         Minecraft.centerY = new ScaledResolution(Minecraft.getMinecraft()).getScaledHeight() / 2;
@@ -62,6 +65,7 @@ public class Client {
 
         EventManager.register(this);
         FontUtil.bootstrap();
+
     }
 
     @EventTarget

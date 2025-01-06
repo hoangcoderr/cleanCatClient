@@ -49,6 +49,8 @@ public class ParticlesMultiplier extends Mod {
         else {
             multiplier = savedMultiplier;
         }
+
+        saveConfig();
     }
 
     public void setMultiplier(float multiplier) {
