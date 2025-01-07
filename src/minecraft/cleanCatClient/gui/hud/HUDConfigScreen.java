@@ -82,52 +82,46 @@ public class HUDConfigScreen extends GuiScreen {
     }
 
     private static void adjustBound(IRenderer renderer, ScreenPosition pos) {
-        System.out.println("--------------------------------------------");
         ScaledResolution res = new ScaledResolution(Minecraft.getMinecraft());
-
         int screenWidth = res.getScaledWidth();
         int screenHeight = res.getScaledHeight();
-        System.out.println(Minecraft.displayWidthBefore + " " + Minecraft.displayHeightBefore);
 
-        // Tính toán khoảng cách đến các viền màn hình trước khi đổi kích thước
-        int distanceToRight = Minecraft.displayWidthBefore - pos.getAbsoluteX() - renderer.getWidth();
-        int distanceToBottom = Minecraft.displayHeightBefore - pos.getAbsoluteY() - renderer.getHeight();
-        int distanceToLeft = pos.getAbsoluteX(); // Khoảng cách đến viền trái
-        int distanceToTop = pos.getAbsoluteY();  // Khoảng cách đến viền trên
+        // Lấy vị trí hiện tại
+        int currentX = pos.getAbsoluteX();
+        int currentY = pos.getAbsoluteY();
 
-        // Chuyển đổi khoảng cách thành tỷ lệ so với kích thước màn hình trước khi đổi
-        double relativeDistanceToRight = (double) distanceToRight / Minecraft.displayWidthBefore;
-        double relativeDistanceToBottom = (double) distanceToBottom / Minecraft.displayHeightBefore;
-        double relativeDistanceToLeft = (double) distanceToLeft / Minecraft.displayWidthBefore;
-        double relativeDistanceToTop = (double) distanceToTop / Minecraft.displayHeightBefore;
+        // Tính tỷ lệ scale cho cả width và height
+        double scaleX = (double) screenWidth / Minecraft.displayWidthBefore;
+        double scaleY = (double) screenHeight / Minecraft.displayHeightBefore;
 
-        // Tính toán lại khoảng cách tuyệt đối với viền dựa trên tỷ lệ và kích thước mới
-        int newDistanceToRight = (int) (screenWidth * relativeDistanceToRight);
-        int newDistanceToBottom = (int) (screenHeight * relativeDistanceToBottom);
-        int newDistanceToLeft = (int) (screenWidth * relativeDistanceToLeft);
-        int newDistanceToTop = (int) (screenHeight * relativeDistanceToTop);
+        // Tính toán vị trí mới, sử dụng Math.round để tránh lỗi làm tròn
+        int newX = (int) Math.round(currentX * scaleX);
+        int newY = (int) Math.round(currentY * scaleY);
 
-        // Tính tọa độ mới dựa trên khoảng cách đến viền
-        int absoluteX = newDistanceToLeft; // Mặc định từ viền trái
-        int absoluteY = newDistanceToTop;  // Mặc định từ viền trên
-
-        // Nếu khoảng cách đến viền phải và dưới được ưu tiên, áp dụng logic khác
-        if (distanceToRight < distanceToLeft) {
-            absoluteX = screenWidth - newDistanceToRight - renderer.getWidth();
-        }
-        if (distanceToBottom < distanceToTop) {
-            absoluteY = screenHeight - newDistanceToBottom - renderer.getHeight();
+        // Kiểm tra xem element có đang bám vào cạnh phải không
+        boolean isSnapToRight = (Minecraft.displayWidthBefore - currentX - renderer.getWidth()) < 10;
+        if (isSnapToRight) {
+            // Nếu đang bám cạnh phải, tính lại vị trí từ cạnh phải
+            newX = screenWidth - renderer.getWidth();
         }
 
-        // Đảm bảo rằng tọa độ không vượt quá giới hạn màn hình
-        absoluteX = Math.max(0, Math.min(absoluteX, Math.max(screenWidth - renderer.getWidth(), 0)));
-        absoluteY = Math.max(0, Math.min(absoluteY, Math.max(screenHeight - renderer.getHeight(), 0)));
+        // Kiểm tra xem element có đang bám vào cạnh dưới không
+        boolean isSnapToBottom = (Minecraft.displayHeightBefore - currentY - renderer.getHeight()) < 10;
+        if (isSnapToBottom) {
+            // Nếu đang bám cạnh dưới, tính lại vị trí từ cạnh dưới
+            newY = screenHeight - renderer.getHeight();
+        }
 
-        System.out.println("Absolute: " + absoluteX + " " + absoluteY);
-        System.out.println("Scaled: " + screenWidth / Minecraft.displayWidthBefore + " " + screenHeight / Minecraft.displayHeightBefore);
+        // Đảm bảo vị trí không vượt quá màn hình
+        newX = Math.max(0, Math.min(newX, screenWidth - renderer.getWidth()));
+        newY = Math.max(0, Math.min(newY, screenHeight - renderer.getHeight()));
 
-        // Đặt lại tọa độ tuyệt đối cho đối tượng
-        pos.setAbsolute(absoluteX, absoluteY);
+        // Debug info
+        System.out.println("Original position: " + currentX + ", " + currentY);
+        System.out.println("New position: " + newX + ", " + newY);
+        System.out.println("Scale factors: " + scaleX + ", " + scaleY);
+
+        pos.setAbsolute(newX, newY);
     }
 
 
@@ -165,7 +159,7 @@ public class HUDConfigScreen extends GuiScreen {
                 if (dragged) {
                     pos.setAbsolute(pos.getAbsoluteX() + mouseX - this.prevX, pos.getAbsoluteY() + mouseY - this.prevY);
 
-                    //adjustBounds(renderer, pos);
+                    adjustBounds(renderer, pos);
 
                     this.prevX = mouseX;
                     this.prevY = mouseY;
