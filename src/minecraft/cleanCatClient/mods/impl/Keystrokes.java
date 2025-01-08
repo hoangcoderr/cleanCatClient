@@ -7,6 +7,7 @@ import cleanCatClient.mods.ModCategory;
 import cleanCatClient.mods.ModDraggable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.settings.KeyBinding;
 import org.lwjgl.input.Mouse;
 
@@ -16,8 +17,8 @@ import java.util.ArrayList;
 public class Keystrokes extends ModDraggable {
 
 
-    private Color downColor = new Color(0, 0, 0, 34);
-    private Color upColor = new Color(12, 12, 12, 15);
+    private Color downColor = new Color(0, 0, 0, 26);
+    private Color upColor = new Color(12, 12, 12, 6);
     private static final Key W = new Key("W", Minecraft.getMinecraft().gameSettings.keyBindForward, 21, 1, 18, 18);
     private static final Key A = new Key("A", Minecraft.getMinecraft().gameSettings.keyBindLeft, 1, 21, 18, 18);
     private static final Key S = new Key("S", Minecraft.getMinecraft().gameSettings.keyBindBack, 21, 21, 18, 18);
@@ -204,29 +205,41 @@ public class Keystrokes extends ModDraggable {
 
     private void renderMouseKeys(ScreenPosition pos, MouseKey[] mouseKeys) {
         for (MouseKey key : mouseKeys) {
-            int textWidth = font.getStringWidth(key.getName());
+            key.updateCPS();
+            int nameWidth = font.getStringWidth(key.getName());
+            int cpsWidth = font.getStringWidth("" + key.getCPS());
+
+            // Draw the background rectangle
             Gui.drawRect(pos.getAbsoluteX() + key.getX(),
                     pos.getAbsoluteY() + key.getY(),
                     pos.getAbsoluteX() + key.getX() + key.getWidth(),
                     pos.getAbsoluteY() + key.getY() + key.getHeight(),
                     !key.isDown() ? upColor.getRGB() : downColor.getRGB());
-//            FontUtil.normal.drawString(
-//                    key.getName().equals("LMB") ? "" + mc.getCPS() : "" + mc.getRightCps(),
-//                    pos.getAbsoluteX() + key.getX() + key.getWidth() / 2 - textWidth / 2,
-//                    pos.getAbsoluteY() + key.getY() + (key.getHeight() - 10) / 2,
-//                    key.isDown() ? Color.BLACK.getRGB() : Color.WHITE.getRGB()
-//            );
+
+            // Draw the name of the mouse button (larger font)
             mc.fontRendererObj.drawStringWithShadow(
-                    key.getName().equals("LMB") ? "" + mc.getCPS() : "" + mc.getRightCps(),
-                    pos.getAbsoluteX() + key.getX() + key.getWidth() / 2 - textWidth / 2,
-                    pos.getAbsoluteY() + key.getY() + (key.getHeight() - 10) / 2,
+                    key.getName(),
+                    pos.getAbsoluteX() + key.getX() + key.getWidth() / 2 - nameWidth / 2,
+                    pos.getAbsoluteY() + key.getY() + 2, // Adjust the Y position as needed
                     key.isDown() ? Color.BLACK.getRGB() : Color.WHITE.getRGB()
             );
+
+            // Draw the CPS value (smaller font)
+            GlStateManager.pushMatrix();
+            GlStateManager.scale(0.8, 0.8, 0.8); // Scale down to 50%
+            mc.fontRendererObj.drawStringWithShadow(
+                    "" + key.getCPS(),
+                    (pos.getAbsoluteX() + key.getX() + key.getWidth() / 2 - cpsWidth / 2) / 0.8f,
+                    (pos.getAbsoluteY() + key.getY() + key.getHeight() - 5) / 0.8f, // Adjust the Y position as needed
+                    key.isDown() ? Color.BLACK.getRGB() : Color.WHITE.getRGB()
+            );
+            GlStateManager.popMatrix();
         }
     }
 
     @Override
     public void render(ScreenPosition pos) {
+
         renderKeys(pos, mode.keys);
         renderMouseKeys(pos, mode.mouseKeys);
     }

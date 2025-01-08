@@ -31,7 +31,8 @@ public class ChatShortcutSetting extends ModSettings {
     private ClientButton deleteButton;
     private int backgroundW;
     private int backgroundH;
-    private String successMessage;
+    private String successMessage = "Shortcuts saved successfully!";
+
 
     public ChatShortcutSetting() {
         super(ModInstances.getChatShortcuts());
@@ -51,7 +52,7 @@ public class ChatShortcutSetting extends ModSettings {
 
     private void initializeTextFields() {
         textFields = new ArrayList<>();
-        int yPosition = 30; // Starting Y position for the text fields
+        int yPosition = 50; // Starting Y position for the text fields
 
         for (Map.Entry<String, String> entry : chatShortcuts.getShortcuts().entrySet()) {
             GuiTextField keyField = new GuiTextField(0, mc.fontRendererObj, 10, yPosition, 95, 20);
@@ -96,7 +97,7 @@ public class ChatShortcutSetting extends ModSettings {
         for (GuiTextField textField : textFields) {
             textField.setFocused(false);
             textField.setCanLoseFocus(true);
-            textField.setMaxStringLength(50);
+            textField.setMaxStringLength(200);
         }
         backgroundW = Client.INSTANCE.clickGui.getWidth();
         backgroundH = Client.INSTANCE.clickGui.getHeight();
@@ -153,7 +154,7 @@ public class ChatShortcutSetting extends ModSettings {
         deleteButton.yPosition = rectY + backgroundH - deleteButton.height - 70; // Position the button above the add button
         deleteButton.drawButton(mc, mouseX, mouseY);
 
-        NotificationManager.show(new Notification(successMessage, 2));
+        NotificationManager.render();
     }
 
     @Override
@@ -191,6 +192,7 @@ public class ChatShortcutSetting extends ModSettings {
             updateShortcuts();
         } else if (button.id == addButton.id) {
             addNewTextFields();
+            NotificationManager.show(new Notification(successMessage, 2));
         } else if (button.id == deleteButton.id) {
             deleteLastTextFields();
         }
@@ -207,7 +209,6 @@ public class ChatShortcutSetting extends ModSettings {
             }
         }
         chatShortcuts.setShortcuts(newShortcuts);
-        successMessage = "Shortcuts saved successfully!";
         System.out.println("Shortcuts updated!");
     }
 }
