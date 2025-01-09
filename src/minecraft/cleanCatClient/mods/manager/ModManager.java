@@ -1,4 +1,4 @@
-package cleanCatClient.mods;
+package cleanCatClient.mods.manager;
 
 import cleanCatClient.utils.FileManager;
 import com.google.gson.reflect.TypeToken;

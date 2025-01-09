@@ -1,4 +1,4 @@
-package cleanCatClient.mods;
+package cleanCatClient.mods.manager;
 
 public class ModData {
     public String name;
