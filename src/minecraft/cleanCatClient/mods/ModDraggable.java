@@ -8,7 +8,7 @@ import net.minecraft.client.gui.ScaledResolution;
 
 import java.io.File;
 
-public abstract class ModDraggable extends Mod implements IRenderer {
+public abstract class   ModDraggable extends Mod implements IRenderer {
 
     protected ScreenPosition pos;
     protected int width = 100;

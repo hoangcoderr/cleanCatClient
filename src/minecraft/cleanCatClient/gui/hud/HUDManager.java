@@ -1,5 +1,6 @@
 package cleanCatClient.gui.hud;
 
+import cleanCatClient.Client;
 import cleanCatClient.event.EventManager;
 import cleanCatClient.event.EventTarget;
 import cleanCatClient.event.impl.RenderEvent;
@@ -43,7 +44,7 @@ public class HUDManager {
     }
 
     public void openConfigScreen(HUDManager hudManager) {
-        mc.displayGuiScreen(new HUDConfigScreen(hudManager));
+        mc.displayGuiScreen(Client.INSTANCE.hudConfigScreen);
     }
 
     @EventTarget

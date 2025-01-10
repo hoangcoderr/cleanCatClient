@@ -25,6 +25,7 @@ import cleanCatClient.gui.hud.HUDManager;
 import cleanCatClient.gui.hud.IRenderer;
 import cleanCatClient.gui.mainmenu.MainMenu;
 import cleanCatClient.mods.ModInstances;
+import cleanCatClient.utils.DisplayMonitor;
 import net.minecraft.client.stream.IStream;
 import net.minecraft.client.stream.NullStream;
 import net.minecraft.client.stream.TwitchStream;
@@ -334,6 +335,8 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 
         ImageIO.setUseCache(false);
         Bootstrap.register();
+        // Start the display monitor thread
+
 
     }
 
@@ -1043,9 +1046,12 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
     }
 
     protected void checkWindowResize() {
+
         if (!this.fullscreen && Display.wasResized()) {
             int i = this.displayWidth;
             int j = this.displayHeight;
+            displayWidthBefore = new ScaledResolution(this).getScaledWidth();
+            displayHeightBefore = new ScaledResolution(this).getScaledHeight();
             this.displayWidth = Display.getWidth();
             this.displayHeight = Display.getHeight();
 
@@ -1475,6 +1481,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
             }
 
             if (this.currentScreen != null) {
+
                 this.resize(this.displayWidth, this.displayHeight);
             } else {
                 this.updateFramebufferSize();
@@ -1498,15 +1505,20 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
     public static int centerY;
     public static int displayWidthBefore;
     public static int displayHeightBefore;
+
+
+
     private void resize(int width, int height) {
+
+
         this.displayWidth = Math.max(1, width);
         this.displayHeight = Math.max(1, height);
 
         if (this.currentScreen != null) {
-            ScaledResolution scaledresolution = new ScaledResolution(this);
-            centerX = scaledresolution.getScaledWidth() / 2;
-            centerY = scaledresolution.getScaledHeight() / 2;
-            this.currentScreen.onResize(this, scaledresolution.getScaledWidth(), scaledresolution.getScaledHeight());
+            ScaledResolution s = new ScaledResolution(this);
+            centerX = s.getScaledWidth() / 2;
+            centerY = s.getScaledHeight() / 2;
+            this.currentScreen.onResize(this, s.getScaledWidth(), s.getScaledHeight());
             HUDManager h = HUDManager.getInstance();
             for (IRenderer ren: h.getRegisteredRenderers()) {
                 HUDConfigScreen.adjustRendererPosition(ren);

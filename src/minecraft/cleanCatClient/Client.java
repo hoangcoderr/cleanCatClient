@@ -2,7 +2,9 @@
 package cleanCatClient;
 
 import cleanCatClient.cosmetic.impl.cape.realistic.WavyCapeRenderer;
-import cleanCatClient.mods.ModManager;
+import cleanCatClient.gui.hud.HUDConfigScreen;
+import cleanCatClient.mods.manager.ModConfigManager;
+import cleanCatClient.mods.manager.ModManager;
 import cleanCatClient.utils.discordrpc.DiscordRP;
 import cleanCatClient.event.EventManager;
 import cleanCatClient.event.EventTarget;
@@ -45,9 +47,11 @@ public class Client {
 
     public ClickGui clickGui = new ClickGui();
 
+    public HUDConfigScreen hudConfigScreen;
 
     public void start() {
         ModManager.loadModsConfig();
+        ModConfigManager.loadAllConfigs();
 
         hudManager = HUDManager.getInstance();
         ModInstances.register(hudManager);
@@ -65,7 +69,7 @@ public class Client {
 
         EventManager.register(this);
         FontUtil.bootstrap();
-
+        hudConfigScreen = new HUDConfigScreen(hudManager);
     }
 
     @EventTarget

@@ -47,6 +47,7 @@ public class ScreenPosition {
     public void setAbsolute(int x, int y) {
         this.x = x;
         this.y = y;
+
     }
 
     public void setRelative(double x, double y) {
