@@ -258,7 +258,7 @@ public class GuiNewChat extends Gui
 
                                 if (j1 > j)
                                 {
-                                    if (!ichatcomponent.getFormattedText().contains("[Copy]") && !ichatcomponent.getFormattedText().contains("[Open image]") && !ichatcomponent.getFormattedText().contains("[Delete]") && !ichatcomponent.getFormattedText().contains("lời")&&!ichatcomponent.getFormattedText().contains("invite") && !ichatcomponent.getFormattedText().contains("discord.gg") && !ichatcomponent.getFormattedText().contains("mời"))
+                                    if (!ichatcomponent.getFormattedText().contains("[Copy]") && !ichatcomponent.getFormattedText().contains("[Open image]") && !ichatcomponent.getFormattedText().contains("[Delete]") && !ichatcomponent.getFormattedText().contains("lời")&&!ichatcomponent.getFormattedText().contains("invite") && !ichatcomponent.getFormattedText().contains("discord.gg") && !ichatcomponent.getFormattedText().contains("mời") && !ichatcomponent.getFormattedText().toLowerCase().contains("bấm") &&!ichatcomponent.getFormattedText().toLowerCase().contains("click") )
                                     {
                                         ichatcomponent.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, ichatcomponent.getFormattedText()));
                                     }

@@ -26,8 +26,8 @@ public class Scoreboard extends ModDraggable {
     public void loadConfig() {
         String[] dataConfig = loadDataConfig();
         if (dataConfig == null) {
-            pos = ScreenPosition.fromRelativePosition(0.915, 0.43); // Set position to the middle right of the screen
-            savePositionToFile();
+            isHideRect = false;
+            isHideRedNumbers = false;
             return;
         }
         try {
