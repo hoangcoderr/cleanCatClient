@@ -88,45 +88,34 @@ public class HUDConfigScreen extends GuiScreen {
         ScaledResolution res = new ScaledResolution(Minecraft.getMinecraft());
         int screenWidth = res.getScaledWidth();
         int screenHeight = res.getScaledHeight();
-
-
-        int distanceToRight = Minecraft.displayWidthBefore - pos.getAbsoluteX() - renderer.getWidth();
-        int distanceToBottom = Minecraft.displayHeightBefore - pos.getAbsoluteY() - renderer.getHeight();
-        int distanceToLeft = pos.getAbsoluteX(); // Khoảng cách đến viền trái
-        int distanceToTop = pos.getAbsoluteY();  // Khoảng cách đến viền trên
-        // Chuyển đổi khoảng cách thành tỷ lệ so với kích thước màn hình trước khi đổi
-        double relativeDistanceToRight = (double) distanceToRight / Minecraft.displayWidthBefore;
-        double relativeDistanceToBottom = (double) distanceToBottom / Minecraft.displayHeightBefore;
-        double relativeDistanceToLeft = (double) distanceToLeft / Minecraft.displayWidthBefore;
-        double relativeDistanceToTop = (double) distanceToTop / Minecraft.displayHeightBefore;
-        // Tính toán lại khoảng cách tuyệt đối với viền dựa trên tỷ lệ và kích thước mới
-        int newDistanceToRight = (int) (screenWidth * relativeDistanceToRight);
-        int newDistanceToBottom = (int) (screenHeight * relativeDistanceToBottom);
-        int newDistanceToLeft = (int) (screenWidth * relativeDistanceToLeft);
-        int newDistanceToTop = (int) (screenHeight * relativeDistanceToTop);
-        // Tính tọa độ mới dựa trên khoảng cách đến viền
-        int absoluteX = newDistanceToLeft; // Mặc định từ viền trái
-        int absoluteY = newDistanceToTop;  // Mặc định từ viền trên
-        // Nếu khoảng cách đến viền phải và dưới được ưu tiên, áp dụng logic khác
-        if (distanceToRight < distanceToLeft) {
-            absoluteX = screenWidth - newDistanceToRight - renderer.getWidth();
+    
+        // Store relative positions (as percentages)
+        double relativeX = (double) pos.getAbsoluteX() / Minecraft.displayWidthBefore;
+        double relativeY = (double) pos.getAbsoluteY() / Minecraft.displayHeightBefore;
+    
+        // Check if element was snapped to edges
+        boolean isSnapToRight = (Minecraft.displayWidthBefore - pos.getAbsoluteX() - renderer.getWidth()) < 10;
+        boolean isSnapToBottom = (Minecraft.displayHeightBefore - pos.getAbsoluteY() - renderer.getHeight()) < 10;
+    
+        int newX, newY;
+        
+        if (isSnapToRight) {
+            newX = screenWidth - renderer.getWidth();
+        } else {
+            newX = (int) (relativeX * screenWidth);
         }
-        if (distanceToBottom < distanceToTop) {
-            absoluteY = screenHeight - newDistanceToBottom - renderer.getHeight();
+    
+        if (isSnapToBottom) {
+            newY = screenHeight - renderer.getHeight();
+        } else {
+            newY = (int) (relativeY * screenHeight);
         }
-
-// Đảm bảo rằng tọa độ không vượt quá giới hạn màn hình
-        // Đảm bảo rằng tọa độ không vượt quá giới hạn màn hình
-        absoluteX = Math.max(0, Math.min(absoluteX, Math.max(screenWidth - renderer.getWidth(), 0)));
-        absoluteY = Math.max(0, Math.min(absoluteY, Math.max(screenHeight - renderer.getHeight(), 0)));
-
-        System.out.println("Absolute: " + absoluteX + " " + absoluteY);
-        System.out.println("Scaled: " + screenWidth / Minecraft.displayWidthBefore + " " + screenHeight / Minecraft.displayHeightBefore);
-// Đặt lại tọa độ tuyệt đối cho đối tượng
-        pos.setAbsolute(absoluteX, absoluteY);
-
-        // Đặt lại tọa độ tuyệt đối cho đối tượng
-        pos.setAbsolute(absoluteX, absoluteY);
+    
+        // Ensure bounds
+        newX = Math.max(0, Math.min(newX, screenWidth - renderer.getWidth()));
+        newY = Math.max(0, Math.min(newY, screenHeight - renderer.getHeight()));
+    
+        pos.setAbsolute(newX, newY);
     }
 
 
@@ -262,7 +251,6 @@ public class HUDConfigScreen extends GuiScreen {
         dragged = true;
 
         loadMouseOver(x, y);
-
 
 
         super.mouseClicked(x, y, button);
