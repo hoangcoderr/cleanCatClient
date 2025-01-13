@@ -61,6 +61,8 @@ public class Keystrokes extends ModDraggable {
         }
     }
 
+
+
     private static class Key {
         private final String name;
         private final KeyBinding keyBinding;
@@ -143,6 +145,22 @@ public class Keystrokes extends ModDraggable {
         loadConfig();
     }
 
+    public Color getDownColor() {
+        return downColor;
+    }
+
+    public void setDownColor(Color downColor) {
+        this.downColor = downColor;
+    }
+
+    public Color getUpColor() {
+        return upColor;
+    }
+
+    public void setUpColor(Color upColor) {
+        this.upColor = upColor;
+    }
+
     public void loadConfig() {
         String[] dataConfig = loadDataConfig();
         if (dataConfig == null) {
@@ -150,15 +168,21 @@ public class Keystrokes extends ModDraggable {
         }
         try {
             this.mode = KeystrokesMode.valueOf(dataConfig[0]);
+            this.upColor = new Color(Integer.parseInt(dataConfig[1]));
+            this.downColor = new Color(Integer.parseInt(dataConfig[2]));
         } catch (Exception e) {
             e.printStackTrace();
             this.mode = KeystrokesMode.WASD_JUMP_MOUSE;
+            this.upColor = new Color(12, 12, 12, 6);
+            this.downColor = new Color(0, 0, 0, 26);
         }
     }
 
     public void saveConfig() {
         String[] dataConfig = new String[1];
         dataConfig[0] = this.mode.name();
+        dataConfig[1] = String.valueOf(this.upColor.getRGB());
+        dataConfig[2] = String.valueOf(this.downColor.getRGB());
         saveDataConfig(dataConfig);
     }
 
