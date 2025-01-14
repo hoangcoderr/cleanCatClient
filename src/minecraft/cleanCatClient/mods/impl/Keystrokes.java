@@ -179,7 +179,7 @@ public class Keystrokes extends ModDraggable {
     }
 
     public void saveConfig() {
-        String[] dataConfig = new String[1];
+        String[] dataConfig = new String[3];
         dataConfig[0] = this.mode.name();
         dataConfig[1] = String.valueOf(this.upColor.getRGB());
         dataConfig[2] = String.valueOf(this.downColor.getRGB());

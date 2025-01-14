@@ -31,6 +31,8 @@ public class KeyStrokeSetting extends ModSettings {
         customComboBox.reloadPosition(Minecraft.centerX - 50, Minecraft.centerY - 50);
         upColorPicker.reloadPosition(Minecraft.centerX - 50, Minecraft.centerY + 30);
         downColorPicker.reloadPosition(Minecraft.centerX - 50, Minecraft.centerY + 60);
+        upColorPicker.setColor(keystrokes.getUpColor().getRGB());
+        downColorPicker.setColor(keystrokes.getDownColor().getRGB());
     }
 
     @Override
