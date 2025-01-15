@@ -3,8 +3,12 @@ package net.minecraft.client.gui;
 import cleanCatClient.Client;
 import cleanCatClient.gui.font.FontUtil;
 import com.google.common.collect.Lists;
+
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
@@ -126,6 +130,7 @@ public class GuiNewChat extends Gui
 
     public void printChatMessage(IChatComponent chatComponent)
     {
+        //System.out.println(chatComponent.getUnformattedText());
         this.printChatMessageWithOptionalDeletion(chatComponent, 0);
     }
 
@@ -134,22 +139,32 @@ public class GuiNewChat extends Gui
         this.setChatLine(chatComponent, chatLineId, this.mc.ingameGUI.getUpdateCounter(), false);
         logger.info("[CHAT] " + chatComponent.getUnformattedText());
     }
+    private String lastMessage = "";
+    private int lastMessageCount = 0;
 
-    private void setChatLine(IChatComponent chatComponent, int chatLineId, int updateCounter, boolean displayOnly)
-    {
-        if (chatLineId != 0)
-        {
-            this.deleteChatLine(chatLineId);
+    private void setChatLine(IChatComponent chatComponent, int chatLineId, int updateCounter, boolean displayOnly) {
+        String message = chatComponent.getUnformattedText();
+
+        if (message.equals(lastMessage)) {
+            lastMessageCount++;
+            message = message + " [x" + lastMessageCount + "]";
+            chatComponent = new ChatComponentText(message);
+            // Remove the last message before adding the updated one
+            if (!this.drawnChatLines.isEmpty()) {
+                this.drawnChatLines.remove(0);
+            }
+        } else {
+            lastMessage = message;
+            lastMessageCount = 1;
         }
 
-        int i = MathHelper.floor_float((float)this.getChatWidth() / this.getChatScale());
+        int i = MathHelper.floor_float((float) this.getChatWidth() / this.getChatScale());
         List<IChatComponent> list = GuiUtilRenderComponents.splitText(chatComponent, i, this.mc.fontRendererObj, false, false);
+
         boolean flag = this.getChatOpen();
 
-        for (IChatComponent ichatcomponent : list)
-        {
-            if (flag && this.scrollPos > 0)
-            {
+        for (IChatComponent ichatcomponent : list) {
+            if (flag && this.scrollPos > 0) {
                 this.isScrolled = true;
                 this.scroll(1);
             }
@@ -157,17 +172,14 @@ public class GuiNewChat extends Gui
             this.drawnChatLines.add(0, new ChatLine(updateCounter, ichatcomponent, chatLineId));
         }
 
-        while (this.drawnChatLines.size() > 100)
-        {
+        while (this.drawnChatLines.size() > 100) {
             this.drawnChatLines.remove(this.drawnChatLines.size() - 1);
         }
 
-        if (!displayOnly)
-        {
+        if (!displayOnly) {
             this.chatLines.add(0, new ChatLine(updateCounter, chatComponent, chatLineId));
 
-            while (this.chatLines.size() > 100)
-            {
+            while (this.chatLines.size() > 100) {
                 this.chatLines.remove(this.chatLines.size() - 1);
             }
         }

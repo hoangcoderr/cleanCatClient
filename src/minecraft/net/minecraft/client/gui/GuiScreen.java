@@ -331,7 +331,8 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 						Transferable transferable = Toolkit.getDefaultToolkit().getSystemClipboard().getContents(null);
 						if (transferable != null && transferable.isDataFlavorSupported(DataFlavor.imageFlavor)) {
 							// Lấy hình ảnh từ clipboard (nếu cần)
-							Image existingImage = (Image) transferable.getTransferData(DataFlavor.imageFlavor);
+							NotificationManager.show(new Notification("No image", 3));
+
 							// Bạn có thể xử lý `existingImage` ở đây nếu cần
 						}
 
