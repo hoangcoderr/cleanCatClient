@@ -320,19 +320,6 @@ public class FontRenderer implements IResourceManagerReloadListener {
         this.strikethroughStyle = false;
     }
 
-    public void printLoadedCharacters() {
-        StringBuilder loadedCharacters = new StringBuilder();
-        for (int i = 0; i < this.charWidth.length; i++) {
-            if (this.charWidth[i] > 0) {
-                loadedCharacters.append(i).append('\n');
-            }
-        }
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\lebui\\Documents\\a.txt"))) {
-            writer.write("Loaded characters:\n" + loadedCharacters.toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     private void renderStringAtPos(String text, boolean shadow) {
         for (int i = 0; i < text.length(); ++i) {

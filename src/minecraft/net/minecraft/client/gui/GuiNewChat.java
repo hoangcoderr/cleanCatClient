@@ -147,8 +147,8 @@ public class GuiNewChat extends Gui
 
         if (message.equals(lastMessage)) {
             lastMessageCount++;
-            message = message + " [x" + lastMessageCount + "]";
-            chatComponent = new ChatComponentText(message);
+            IChatComponent repetitionIndicator = new ChatComponentText(" [x" + lastMessageCount + "]");
+            chatComponent.appendSibling(repetitionIndicator);
             // Remove the last message before adding the updated one
             if (!this.drawnChatLines.isEmpty()) {
                 this.drawnChatLines.remove(0);
@@ -156,6 +156,10 @@ public class GuiNewChat extends Gui
         } else {
             lastMessage = message;
             lastMessageCount = 1;
+        }
+        if (!chatComponent.getFormattedText().contains("[Copy]") && !chatComponent.getFormattedText().contains("[Open image]") && !chatComponent.getFormattedText().contains("[Delete]") && !chatComponent.getFormattedText().contains("lời")&&!chatComponent.getFormattedText().contains("invite") && !chatComponent.getFormattedText().contains("discord.gg") && !chatComponent.getFormattedText().contains("mời") && !chatComponent.getFormattedText().toLowerCase().contains("bấm") &&!chatComponent.getFormattedText().toLowerCase().contains("click") )
+        {
+            chatComponent.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, chatComponent.getUnformattedText()));
         }
 
         int i = MathHelper.floor_float((float) this.getChatWidth() / this.getChatScale());
@@ -270,10 +274,7 @@ public class GuiNewChat extends Gui
 
                                 if (j1 > j)
                                 {
-                                    if (!ichatcomponent.getFormattedText().contains("[Copy]") && !ichatcomponent.getFormattedText().contains("[Open image]") && !ichatcomponent.getFormattedText().contains("[Delete]") && !ichatcomponent.getFormattedText().contains("lời")&&!ichatcomponent.getFormattedText().contains("invite") && !ichatcomponent.getFormattedText().contains("discord.gg") && !ichatcomponent.getFormattedText().contains("mời") && !ichatcomponent.getFormattedText().toLowerCase().contains("bấm") &&!ichatcomponent.getFormattedText().toLowerCase().contains("click") )
-                                    {
-                                        ichatcomponent.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, ichatcomponent.getFormattedText()));
-                                    }
+
 
                                     return ichatcomponent;
                                 }
