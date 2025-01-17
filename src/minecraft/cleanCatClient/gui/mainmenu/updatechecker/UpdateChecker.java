@@ -15,15 +15,13 @@ import java.util.ArrayList;
 
 public class UpdateChecker {
 
-    private static final String VERSION_URL = "http://47.236.89.236:25566/lastest_version";
-    private static final String DOWNLOAD_URL = "http://47.236.89.236:25566/download/cleanCatClient.jar";
-    private static final String WEBSITE_URL = "http://client.cleancat.games";
-    private static final String TEMP_FILE = System.getenv("APPDATA") + "\\.minecraft\\versions\\cleanCatClient\\cleanCatClient_temp.jar";
-    private static final String UPDATE_SCRIPT = System.getenv("APPDATA") + "\\.minecraft\\versions\\cleanCatClient\\update_script.bat";
+
+    private static final String WEBSITE_URL = "http://cleancat.games";
+
 
     public static ArrayList<String> updateInfos = new ArrayList<>();
 
-    private static final String VERSION_URL_TEMPLATE = "http://47.236.89.236:25566/%s/lastest_version";
+    private static final String VERSION_URL_TEMPLATE = "http://api.cleancat.games/%s/lastest_version";
 
     public static boolean isLastestVersion(String playerName) {
         try {

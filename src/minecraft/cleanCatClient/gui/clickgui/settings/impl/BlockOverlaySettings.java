@@ -10,7 +10,7 @@ import net.minecraft.client.Minecraft;
 
 import java.io.IOException;
 
-public class BlockOverlaySettings extends ModSettings {
+public class    BlockOverlaySettings extends ModSettings {
     private CheckBox checkBoxIsOutline;
     private CheckBox checkBoxIsInline;
     private ColorPicker outlineColorPicker;
