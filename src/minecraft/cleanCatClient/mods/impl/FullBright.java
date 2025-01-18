@@ -5,6 +5,7 @@ import cleanCatClient.event.EventTarget;
 import cleanCatClient.event.impl.ClientTickEvent;
 import cleanCatClient.mods.Mod;
 import cleanCatClient.mods.ModCategory;
+import net.minecraft.client.Minecraft;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import org.lwjgl.Sys;
@@ -21,9 +22,12 @@ public class FullBright extends Mod {
         super.setEnabled(enabled);
         if (enabled) {
             mc.gameSettings.gammaSetting = 1000;
+            mc.gameSettings.saveOptions();
+
             this.oldBrightness = mc.gameSettings.saturation;
         } else {
             mc.gameSettings.saturation = this.oldBrightness;
+
 
         }
     }
