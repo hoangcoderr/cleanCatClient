@@ -13,16 +13,14 @@ import java.util.Arrays;
 
 public class KeyStrokeSetting extends ModSettings {
     private ComboBox customComboBox;
-    private Keystrokes keystrokes;
     private ColorPicker upColorPicker;
     private ColorPicker downColorPicker;
 
     public KeyStrokeSetting() {
         super(ModInstances.getKeystrokes());
-        this.keystrokes = ModInstances.getKeystrokes();
         this.customComboBox = new ComboBox(Minecraft.centerX - 50, Minecraft.centerY - 50, 100, 20, Arrays.asList("WASD", "WASD_MOUSE", "WASD_JUMP", "WASD_JUMP_MOUSE"));
-        this.upColorPicker = new ColorPicker(Minecraft.centerX - 50, Minecraft.centerY + 30, 100, 20);
-        this.downColorPicker = new ColorPicker(Minecraft.centerX - 50, Minecraft.centerY + 60, 100, 20);
+        this.upColorPicker = new ColorPicker(Minecraft.centerX - 50, Minecraft.centerY + 30, 100, 50);
+        this.downColorPicker = new ColorPicker(Minecraft.centerX - 50, Minecraft.centerY + 60, 100, 50);
     }
 
     @Override
@@ -31,8 +29,8 @@ public class KeyStrokeSetting extends ModSettings {
         customComboBox.reloadPosition(Minecraft.centerX - 50, Minecraft.centerY - 50);
         upColorPicker.reloadPosition(Minecraft.centerX - 50, Minecraft.centerY + 30);
         downColorPicker.reloadPosition(Minecraft.centerX - 50, Minecraft.centerY + 60);
-        upColorPicker.setColor(keystrokes.getUpColor().getRGB());
-        downColorPicker.setColor(keystrokes.getDownColor().getRGB());
+        upColorPicker.setColor(ModInstances.getKeystrokes().getUpColor().getRGB());
+        downColorPicker.setColor(ModInstances.getKeystrokes().getDownColor().getRGB());
     }
 
     @Override
@@ -50,6 +48,15 @@ public class KeyStrokeSetting extends ModSettings {
         upColorPicker.mouseClicked(mouseX, mouseY, mouseButton);
         downColorPicker.mouseClicked(mouseX, mouseY, mouseButton);
         updateKeystrokesMode();
+        //updateColors();
+    }
+
+    @Override
+    protected void mouseReleased(int mouseX, int mouseY, int state) {
+        super.mouseReleased(mouseX, mouseY, state);
+        upColorPicker.mouseReleased(mouseX, mouseY, state);
+        downColorPicker.mouseReleased(mouseX, mouseY, state);
+        updateKeystrokesMode();
         updateColors();
     }
 
@@ -57,22 +64,33 @@ public class KeyStrokeSetting extends ModSettings {
         String selectedItem = customComboBox.getSelectedItem();
         switch (selectedItem) {
             case "WASD":
-                keystrokes.setMode(Keystrokes.KeystrokesMode.WASD);
+                ModInstances.getKeystrokes().setMode(Keystrokes.KeystrokesMode.WASD);
                 break;
             case "WASD_MOUSE":
-                keystrokes.setMode(Keystrokes.KeystrokesMode.WASD_MOUSE);
+                ModInstances.getKeystrokes().setMode(Keystrokes.KeystrokesMode.WASD_MOUSE);
                 break;
             case "WASD_JUMP":
-                keystrokes.setMode(Keystrokes.KeystrokesMode.WASD_JUMP);
+                ModInstances.getKeystrokes().setMode(Keystrokes.KeystrokesMode.WASD_JUMP);
                 break;
             case "WASD_JUMP_MOUSE":
-                keystrokes.setMode(Keystrokes.KeystrokesMode.WASD_JUMP_MOUSE);
+                ModInstances.getKeystrokes().setMode(Keystrokes.KeystrokesMode.WASD_JUMP_MOUSE);
                 break;
         }
     }
 
     private void updateColors() {
-        keystrokes.setUpColor(new Color(upColorPicker.getColor()));
-        keystrokes.setDownColor(new Color(downColorPicker.getColor()));
+        int upColorValue = upColorPicker.getColor();
+        int downColorValue = downColorPicker.getColor();
+
+        // Extract the alpha component from the color values
+        int upAlpha = (upColorValue >> 24) & 0xFF;
+        int downAlpha = (downColorValue >> 24) & 0xFF;
+
+        // Create new Color objects with the alpha component
+        Color upColor = new Color((upColorValue & 0x00FFFFFF) | (upAlpha << 24), true);
+        Color downColor = new Color((downColorValue & 0x00FFFFFF) | (downAlpha << 24), true);
+
+        ModInstances.getKeystrokes().setUpColor(upColor);
+        ModInstances.getKeystrokes().setDownColor(downColor);
     }
 }

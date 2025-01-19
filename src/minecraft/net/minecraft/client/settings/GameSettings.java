@@ -310,6 +310,7 @@ public class GameSettings
         this.loadOptions();
         Config.initGameSettings(this);
         addClientKeybinds();
+
     }
 
     private void addClientKeybinds() {
