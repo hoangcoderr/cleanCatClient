@@ -5,6 +5,7 @@ import cleanCatClient.cosmetic.impl.cape.realistic.WavyCapeRenderer;
 import cleanCatClient.gui.hud.HUDConfigScreen;
 import cleanCatClient.mods.manager.ModConfigManager;
 import cleanCatClient.mods.manager.ModManager;
+import cleanCatClient.mods.manager.ModPosManager;
 import cleanCatClient.utils.discordrpc.DiscordRP;
 import cleanCatClient.event.EventManager;
 import cleanCatClient.event.EventTarget;
@@ -28,7 +29,7 @@ public class Client {
     }
 
     public static final Logger logger = LogManager.getLogger(Client.class);
-    public static final String CLIENT_NAME = "cleanCat Client", CLIENT_VERSION = "1.0.0.v - 1.8.9",
+    public static final String CLIENT_NAME = "cleanCat Client", CLIENT_VERSION = "1.0.0.w - 1.8.9",
             CLIENT_BUILD = "2024.06.02", CLIENT_AUTHOR = "hoangcoderr",
             WINDOW_TITLE = CLIENT_NAME + " (" + CLIENT_VERSION + ")";
     private static DiscordRP discordRPC = new DiscordRP();
@@ -52,6 +53,7 @@ public class Client {
     public void start() {
         ModManager.loadModsConfig();
         ModConfigManager.loadAllConfigs();
+        ModPosManager.loadAllPositions();
 
         hudManager = HUDManager.getInstance();
         ModInstances.register(hudManager);
