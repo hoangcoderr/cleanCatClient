@@ -68,6 +68,7 @@ public class MainMenu extends GuiScreen {
         } else {
             System.out.println("No new version available.");
         }
+        UpdateChecker.isShownUpdate = true;
 
         super.initGui();
     }

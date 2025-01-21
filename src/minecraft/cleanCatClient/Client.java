@@ -90,7 +90,6 @@ public class Client {
         Minecraft.getMinecraft().displayGuiScreen(clickGui);
     }
 
-    // src/minecraft/cleanCatClient/Client.java
     public void shutdown() {
         long elapsedTime = System.currentTimeMillis() - startTime;
         long seconds = (elapsedTime / 1000) % 60;
