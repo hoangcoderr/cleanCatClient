@@ -14,7 +14,6 @@ import java.io.IOException;
 
 public class MainMenu extends GuiScreen {
     private SnowPartical particles = SnowPartical.create(160); // 160 is a decent amount
-    private boolean showUpdateMenu = false;
 
     private ClientButton yesButton;
     private ClientButton noButton;
@@ -34,7 +33,7 @@ public class MainMenu extends GuiScreen {
         super.drawScreen(mouseX, mouseY, partialTicks);
         particles.render();
 
-        if (showUpdateMenu) {
+        if (UpdateChecker.isShownUpdate) {
             drawDefaultBackground();
             drawCenteredString(mc.fontRendererObj, "New version released!", width / 2, height / 2 - 30, Color.WHITE.getRGB());
             drawCenteredString(mc.fontRendererObj, "<<<<===Changelogs===>>>>", width / 2, height / 2 - 10, Color.WHITE.getRGB());
@@ -44,11 +43,11 @@ public class MainMenu extends GuiScreen {
                 drawCenteredString(mc.fontRendererObj, update, width / 2, yOffset, Color.WHITE.getRGB());
                 yOffset += 10; // Adjust the spacing between lines as needed
             }
-
             yesButton.drawButton(mc, mouseX, mouseY);
             noButton.drawButton(mc, mouseX, mouseY);
         }
     }
+
     @Override
     public void initGui() {
         int yOff = height / 2 + 10 + 10 * UpdateChecker.updateInfos.size();
@@ -58,8 +57,7 @@ public class MainMenu extends GuiScreen {
         this.buttonList.add(new ClientButton(4, 25, height / 2 + 85, 250, 30, "Bye cleanCat"));
         this.buttonList.add(new ClientButton(5, 25, height / 2 + 120, 250, 30, "Alt Manager"));
 
-        if (!UpdateChecker.isLastestVersion(Minecraft.getMinecraft().getSession().getUsername())) {
-            showUpdateMenu = true;
+        if (UpdateChecker.isShownUpdate && !UpdateChecker.isLastestVersion(Minecraft.getMinecraft().getSession().getUsername())) {
             System.out.println("New version available, showing update menu.");
             yesButton = new ClientButton(6, width / 2 - 50, yOff, 40, 20, "Yes");
             noButton = new ClientButton(7, width / 2 + 10, yOff, 40, 20, "No");
@@ -68,7 +66,7 @@ public class MainMenu extends GuiScreen {
         } else {
             System.out.println("No new version available.");
         }
-        UpdateChecker.isShownUpdate = true;
+
 
         super.initGui();
     }
@@ -102,9 +100,11 @@ public class MainMenu extends GuiScreen {
                 }).start();
                 break;
             case 7:
-                showUpdateMenu = false;
+                UpdateChecker.isShownUpdate = false;
                 buttonList.remove(yesButton);
                 buttonList.remove(noButton);
+                yesButton = null;
+                noButton = null;
                 break;
         }
         super.actionPerformed(button);

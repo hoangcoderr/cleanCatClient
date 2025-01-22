@@ -23,12 +23,10 @@ public class UpdateChecker {
 
     private static final String VERSION_URL_TEMPLATE = "http://api.cleancat.games/%s/lastest_version";
 
-    public static boolean isShownUpdate = false;
+    public static boolean isShownUpdate = true;
 
     public static boolean isLastestVersion(String playerName) {
-        if (isShownUpdate) {
-            return isShownUpdate;
-        }
+
         try {
             String versionUrl = String.format(VERSION_URL_TEMPLATE, playerName);
             URL url = new URL(versionUrl);
@@ -53,12 +51,11 @@ public class UpdateChecker {
             for (String update : updates) {
                 updateInfos.add(update);
             }
-
             return Client.CLIENT_VERSION.equals(latestVersion);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return false;
+        return true;
     }
 
     public static void downloadUpdate() {
