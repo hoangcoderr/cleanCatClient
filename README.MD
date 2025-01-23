@@ -2,7 +2,7 @@
 
 cleanCatClient is an open-source Minecraft PvP client for version 1.8.9. It includes various features to enhance your gameplay experience.
 
-## Features## Features
+## Features
 
 - **ArmorStatus**: Displays the status of your armor.
 - **BlockOverlay**: Adds an overlay to the blocks you are looking at.
@@ -21,19 +21,25 @@ cleanCatClient is an open-source Minecraft PvP client for version 1.8.9. It incl
 - **HitColor**: Changes the color when hitting an entity.
 - **PoisonStatus**: Displays the status of poison effects.
 - **FPSBoost**: Optimizes settings to increase FPS.
+- **ChatShortCut**: Provides shortcuts for chat commands.
+- **AntiSpam**: Reduces chat spam.
+- **Coordinate**: Displays your current coordinates.
+- **Minimal View Bobbing**: Minimizes the view bobbing effect.
+- **And a lot of features**: Includes many more features to enhance your gameplay.
+
 ## Installation
 
 1. Download the latest release from the [releases page](https://github.com/hoangcoderr/cleanCatClient/releases).
 2. Extract the downloaded zip file.
-3. Move the extracted folder to your Minecraft mods directory.
-   - On Windows: `%appdata%/.minecraft/mods`
-   - On MacOS: `~/Library/Application Support/minecraft/mods`
-   - On Linux: `~/.minecraft/mods`
-4. Launch Minecraft with the Forge profile.
+3. Move the extracted folder to your Minecraft versions directory.
+   - On Windows: `%appdata%/.minecraft/versions`
+   - On MacOS: `~/Library/Application Support/minecraft/versions`
+   - On Linux: `~/.minecraft/versions`
+4. Launch Minecraft with the cleanCatClient profile.
 
-## Usage as mod
+## Usage
 
-1. Open Minecraft and select the Forge profile.
+1. Open Minecraft and select the cleanCatClient profile.
 2. Once in-game, press the configured key to open the ClickGui (default is `RSHIFT`).
 3. Configure the features as per your preference.
 
