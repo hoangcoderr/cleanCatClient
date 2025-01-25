@@ -1,6 +1,9 @@
 package cleanCatClient.utils;
 import java.util.UUID;
 
+import cleanCatClient.utils.openauth.microsoft.MicrosoftAuthResult;
+import cleanCatClient.utils.openauth.microsoft.MicrosoftAuthenticationException;
+import cleanCatClient.utils.openauth.microsoft.MicrosoftAuthenticator;
 import com.mojang.authlib.Agent;
 import com.mojang.authlib.AuthenticationService;
 import com.mojang.authlib.UserAuthentication;
@@ -49,6 +52,18 @@ public class SessionChanger {
             }
         }
 
+    }
+
+    public void setUserMicrosoft(String email, String password) {
+
+        MicrosoftAuthenticator authenticator = new MicrosoftAuthenticator();
+        try {
+            MicrosoftAuthResult acc = authenticator.loginWithWebview();
+            Minecraft.getMinecraft().session = new Session(acc.getProfile().getName(), acc.getProfile().getId(), acc.getAccessToken(), "legacy");
+
+        } catch (MicrosoftAuthenticationException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
     }
 
     //Sets the session.

@@ -2,7 +2,7 @@ package cleanCatClient.gui.auth.microsoft;
 
 import cleanCatClient.gui.auth.mojang.GuiLoginMojang;
 import cleanCatClient.gui.mainmenu.button.ClientButton;
-import cleanCatClient.gui.auth.SessionChanger;
+import cleanCatClient.utils.SessionChanger;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.resources.I18n;
 import org.lwjgl.input.Keyboard;
