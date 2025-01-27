@@ -65,6 +65,7 @@ public class MainMenu extends GuiScreen {
             this.buttonList.add(noButton);
         } else {
             System.out.println("No new version available.");
+            UpdateChecker.isShownUpdate = false;
         }
 
 

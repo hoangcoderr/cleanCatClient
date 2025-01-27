@@ -51,6 +51,7 @@ public class UpdateChecker {
             for (String update : updates) {
                 updateInfos.add(update);
             }
+            //isShownUpdate = false;
             return Client.CLIENT_VERSION.equals(latestVersion);
         } catch (Exception e) {
             e.printStackTrace();
