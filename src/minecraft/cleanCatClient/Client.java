@@ -34,8 +34,6 @@ public class Client {
             WINDOW_TITLE = CLIENT_NAME + " (" + CLIENT_VERSION + ")";
     private static DiscordRP discordRPC = new DiscordRP();
     private long startTime;
-    private WavyCapeRenderer wavyCapeRenderer = new WavyCapeRenderer();
-
     public void init() {
         start();
     }
@@ -81,13 +79,9 @@ public class Client {
             hudManager.openConfigScreen(hudManager);
         }
         if (Minecraft.getMinecraft().gameSettings.CLIENT_GUI_MOD_TOGGLE.isPressed()) {
-            openClickGui();
+            Minecraft.getMinecraft().displayGuiScreen(clickGui);
         }
 
-    }
-
-    public void openClickGui() {
-        Minecraft.getMinecraft().displayGuiScreen(clickGui);
     }
 
     public void shutdown() {

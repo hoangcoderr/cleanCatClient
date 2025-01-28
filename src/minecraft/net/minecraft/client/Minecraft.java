@@ -25,7 +25,6 @@ import cleanCatClient.gui.hud.HUDManager;
 import cleanCatClient.gui.hud.IRenderer;
 import cleanCatClient.gui.mainmenu.MainMenu;
 import cleanCatClient.mods.ModInstances;
-import cleanCatClient.utils.DisplayMonitor;
 import net.minecraft.client.stream.IStream;
 import net.minecraft.client.stream.NullStream;
 import net.minecraft.client.stream.TwitchStream;

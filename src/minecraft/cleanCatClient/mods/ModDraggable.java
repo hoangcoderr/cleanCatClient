@@ -30,17 +30,6 @@ public abstract class ModDraggable extends Mod implements IRenderer {
         return pos;
     }
 
-    public final int getLineOffset(ScreenPosition pos, int lineNum) {
-        return pos.getAbsoluteY() + getLineOffset(lineNum);
-    }
-
-    public void setScreenPosition(ScreenPosition pos) {
-        this.pos = pos;
-    }
-
-    public ScreenPosition getScreenPosition() {
-        return this.pos;
-    }
 
     private int getLineOffset(int lineNum) {
         return (font.FONT_HEIGHT + 3) * lineNum;
