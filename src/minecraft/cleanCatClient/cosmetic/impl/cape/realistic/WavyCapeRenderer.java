@@ -6,6 +6,7 @@ import cleanCatClient.event.EventTarget;
 import cleanCatClient.event.impl.EventRenderPlayer;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
@@ -44,22 +45,27 @@ public class WavyCapeRenderer {
             nodes.add(list);
         }
     }
+
     private ResourceLocation capeTex = new ResourceLocation("cleanCatClient/Cosmetic/wavycape/cape.png");
+
     @EventTarget
     public void onRenderPlayer(final EventRenderPlayer e) {
         if (mc.theWorld == null) return;
         final double partialTicks = e.getPartialRenderTick();
         final EntityPlayer player = e.getPlayer();
         if (player == null || player != (EntityPlayer) mc.thePlayer) return;
-        if (CosmeticBoolean.wavingCape) {
+        if (CosmeticBoolean.shouldRenderCosmetic(1, 14,(AbstractClientPlayer) player)) {
             final Entity viewer = mc.getRenderViewEntity();
             final double pX = player.lastTickPosX + (player.posX - player.lastTickPosX) * partialTicks;
             final double pY = player.lastTickPosY + (player.posY - player.lastTickPosY) * partialTicks;
             final double pZ = player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * partialTicks;
             if (nodes.size() < 1) resetNodes(player);
-            for (final List<Node> nodes2 : nodes) for (final Node node : nodes2) {
-                double gravity = 0.04;
-                node.aY -= gravity / 2; node.update(pX, pY, pZ, player); }
+            for (final List<Node> nodes2 : nodes)
+                for (final Node node : nodes2) {
+                    double gravity = 0.04;
+                    node.aY -= gravity / 2;
+                    node.update(pX, pY, pZ, player);
+                }
             updateFixedNodes(pX, pY, pZ, player);
             {
                 for (int step = 0; step < updateSteps; step++)
@@ -120,24 +126,27 @@ public class WavyCapeRenderer {
             GL11.glBindTexture(GL11.GL_TEXTURE_2D, simpleTexture.getGlTextureId());
             mc.getRenderEngine().bindTexture(capeTex);
             GL11.glPopMatrix();
-            for (int i = 0; i < nodes.size(); i++) for (int j = 0; j < horzNodes; j++) {
-                final Node node = nodes.get(i).get(j);
-                if (i + 1 < nodes.size() && j + 1 < horzNodes) {
-                    GlStateManager.color(1F, 1F, 1F, 1F);
-                    renderNodeConnection(vX, vY, vZ, node, nodes.get(i + 1).get(j), nodes.get(i).get(j + 1), nodes.get(i + 1).get(j + 1), true);
-                    GlStateManager.color(1F, 1F, 1F, 1F);
-                    renderNodeConnection(vX, vY, vZ, node, nodes.get(i + 1).get(j), nodes.get(i).get(j + 1), nodes.get(i + 1).get(j + 1), false);
+            for (int i = 0; i < nodes.size(); i++)
+                for (int j = 0; j < horzNodes; j++) {
+                    final Node node = nodes.get(i).get(j);
+                    if (i + 1 < nodes.size() && j + 1 < horzNodes) {
+                        GlStateManager.color(1F, 1F, 1F, 1F);
+                        renderNodeConnection(vX, vY, vZ, node, nodes.get(i + 1).get(j), nodes.get(i).get(j + 1), nodes.get(i + 1).get(j + 1), true);
+                        GlStateManager.color(1F, 1F, 1F, 1F);
+                        renderNodeConnection(vX, vY, vZ, node, nodes.get(i + 1).get(j), nodes.get(i).get(j + 1), nodes.get(i + 1).get(j + 1), false);
+                    }
                 }
-            }
             GlStateManager.color(1F, 1F, 1F, 1F);
-            for (int i = 0; i < nodes.size(); i++) if (i + 1 < nodes.size()) {
-                renderSideConnection(vX, vY, vZ, nodes.get(i).get(0), nodes.get(i + 1).get(0));
-                renderSideConnection(vX, vY, vZ, nodes.get(i).get(horzNodes - 1), nodes.get(i + 1).get(horzNodes - 1));
-            }
-            for (int j = 0; j < horzNodes; j++) if (j + 1 < horzNodes) {
-                renderSideConnection(vX, vY, vZ, nodes.get(0).get(j), nodes.get(0).get(j + 1));
-                renderSideConnection(vX, vY, vZ, nodes.get(nodes.size() - 1).get(j), nodes.get(nodes.size() - 1).get(j + 1));
-            }
+            for (int i = 0; i < nodes.size(); i++)
+                if (i + 1 < nodes.size()) {
+                    renderSideConnection(vX, vY, vZ, nodes.get(i).get(0), nodes.get(i + 1).get(0));
+                    renderSideConnection(vX, vY, vZ, nodes.get(i).get(horzNodes - 1), nodes.get(i + 1).get(horzNodes - 1));
+                }
+            for (int j = 0; j < horzNodes; j++)
+                if (j + 1 < horzNodes) {
+                    renderSideConnection(vX, vY, vZ, nodes.get(0).get(j), nodes.get(0).get(j + 1));
+                    renderSideConnection(vX, vY, vZ, nodes.get(nodes.size() - 1).get(j), nodes.get(nodes.size() - 1).get(j + 1));
+                }
             GL20.glUseProgram(0);
             GL11.glBindTexture(GL11.GL_TEXTURE_2D, currTex);
             GL11.glEnable(GL11.GL_CULL_FACE);
@@ -148,7 +157,9 @@ public class WavyCapeRenderer {
         }
     }
 
-    private Vec3 node2vec(final Node node) { return new Vec3(node.x, node.y, node.z); }
+    private Vec3 node2vec(final Node node) {
+        return new Vec3(node.x, node.y, node.z);
+    }
 
     private void renderSideConnection(double pX, double pY, double pZ, Node node1, Node node2) {
         Tessellator tessellator = Tessellator.getInstance();
@@ -184,7 +195,9 @@ public class WavyCapeRenderer {
         tessellator.draw();
     }
 
-    private Vec3 scale(final Vec3 vector, final double amount) { return new Vec3(vector.xCoord * amount, vector.yCoord * amount, vector.zCoord * amount); }
+    private Vec3 scale(final Vec3 vector, final double amount) {
+        return new Vec3(vector.xCoord * amount, vector.yCoord * amount, vector.zCoord * amount);
+    }
 
     private void updateNode(final Node node, final List<Node> struct, final List<Node> shear, final List<Node> bend) {
         final double shearDist = 1.414 * targetDist;

@@ -7,18 +7,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import cleanCatClient.cosmetic.CosmeticBoolean;
+import cleanCatClient.cosmetic.Cosmetic;
 
 public class WingScreen extends GuiScreen {
-    private List<String> wingNames;
+    private List<Cosmetic> wings;
     private List<GuiButton> buttons;
 
     public WingScreen() {
-        wingNames = new ArrayList<>();
+        wings = new ArrayList<>();
         buttons = new ArrayList<>();
-        wingNames.add("Dragon Wings");
-        wingNames.add("Satan Wings");
-        wingNames.add("Baby Dragon Wings");
-        wingNames.add("Dragon Obsidian Wings");
+        wings.add(new Cosmetic(3, 7, "Dragon Wing", false));
+        wings.add(new Cosmetic(3, 8, "Satan Wing", false));
+        wings.add(new Cosmetic(3, 9, "Dragon Baby Wing", false));
+        wings.add(new Cosmetic(3, 12, "Dragon Obsidian Wing", false));
     }
 
     @Override
@@ -29,10 +30,10 @@ public class WingScreen extends GuiScreen {
         int startX = (this.width - (buttonWidth * 3 + padding * 2)) / 2;
         int startY = (this.height - (buttonHeight * 5 + padding * 4)) / 2;
 
-        for (int i = 0; i < wingNames.size(); i++) {
+        for (int i = 0; i < wings.size(); i++) {
             int x = startX + (i % 3) * (buttonWidth + padding);
             int y = startY + (i / 3) * (buttonHeight + padding);
-            ClientButton button = new ClientButton(i, x, y, buttonWidth, buttonHeight, wingNames.get(i));
+            ClientButton button = new ClientButton(i, x, y, buttonWidth, buttonHeight, wings.get(i).getName());
             this.buttonList.add(button);
             buttons.add(button);
         }
@@ -40,10 +41,9 @@ public class WingScreen extends GuiScreen {
 
     @Override
     protected void actionPerformed(ClientButton button) throws IOException {
-        String capeName = wingNames.get(button.id);
-        // Gọi hàm CosmeticBoolean.set<ten cape>
-        System.out.println(capeName);
-        CosmeticBoolean.set(capeName);
+        Cosmetic wing = wings.get(button.id);
+        System.out.println(wing.getName());
+        CosmeticBoolean.set(wing.getType(), wing.getId(), !wing.isEnabled());
     }
 
     @Override

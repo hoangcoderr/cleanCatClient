@@ -7,17 +7,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import cleanCatClient.cosmetic.CosmeticBoolean;
+import cleanCatClient.cosmetic.Cosmetic;
 
 public class HatScreen extends GuiScreen {
-    private List<String> hatNames;
+    private List<Cosmetic> hats;
     private List<GuiButton> buttons;
 
     public HatScreen() {
-        hatNames = new ArrayList<>();
+        hats = new ArrayList<>();
         buttons = new ArrayList<>();
-        hatNames.add("Top Hat");
-        hatNames.add("Wool Hat");
-
+        hats.add(new Cosmetic(2, 6, "Top Hat", false));
+        hats.add(new Cosmetic(2, 13, "Wool Hat", false));
     }
 
     @Override
@@ -28,10 +28,10 @@ public class HatScreen extends GuiScreen {
         int startX = (this.width - (buttonWidth * 3 + padding * 2)) / 2;
         int startY = (this.height - (buttonHeight * 5 + padding * 4)) / 2;
 
-        for (int i = 0; i < hatNames.size(); i++) {
+        for (int i = 0; i < hats.size(); i++) {
             int x = startX + (i % 3) * (buttonWidth + padding);
             int y = startY + (i / 3) * (buttonHeight + padding);
-            ClientButton button = new ClientButton(i, x, y, buttonWidth, buttonHeight, hatNames.get(i));
+            ClientButton button = new ClientButton(i, x, y, buttonWidth, buttonHeight, hats.get(i).getName());
             this.buttonList.add(button);
             buttons.add(button);
         }
@@ -39,10 +39,9 @@ public class HatScreen extends GuiScreen {
 
     @Override
     protected void actionPerformed(ClientButton button) throws IOException {
-        String capeName = hatNames.get(button.id);
-        // Gọi hàm CosmeticBoolean.set<ten cape>
-        System.out.println(capeName);
-        CosmeticBoolean.set(capeName);
+        Cosmetic hat = hats.get(button.id);
+        System.out.println(hat.getName());
+        CosmeticBoolean.set(hat.getType(), hat.getId(), !hat.isEnabled());
     }
 
     @Override

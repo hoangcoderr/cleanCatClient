@@ -1,5 +1,6 @@
 package cleanCatClient.gui.cosmetic.impl;
 
+import cleanCatClient.cosmetic.Cosmetic;
 import cleanCatClient.gui.mainmenu.button.ClientButton;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -9,21 +10,21 @@ import java.util.List;
 import cleanCatClient.cosmetic.CosmeticBoolean;
 
 public class CapeScreen extends GuiScreen {
-    private List<String> capeNames;
+    private List<Cosmetic> capes;
     private List<GuiButton> buttons;
 
     public CapeScreen() {
-        capeNames = new ArrayList<>();
+        capes = new ArrayList<>();
         buttons = new ArrayList<>();
-        capeNames.add("Snow Cape");
-        capeNames.add("Nornal Cape");
-        capeNames.add("Thuder Cape");
-        capeNames.add("Bad Wolf Cape");
-        capeNames.add("Starry Sunset Cape");
-        capeNames.add("Anime Girl Cape");
-        capeNames.add("Jumping Frog Cape");
-        capeNames.add("Waving Cape");
-        capeNames.add("Chillin Boy Cape");
+        capes.add(new Cosmetic(1, 1, "Snow Cape", false));
+        capes.add(new Cosmetic(1, 2, "Normal Cape", false));
+        capes.add(new Cosmetic(1, 3, "Thunder Cape", false));
+        capes.add(new Cosmetic(1, 4, "Bad Wolf Cape", false));
+        capes.add(new Cosmetic(1, 5, "Starry Sunset Cape", false));
+        capes.add(new Cosmetic(1, 10, "Anime Girl Cape", false));
+        capes.add(new Cosmetic(1, 11, "Jumping Frog Cape", false));
+        capes.add(new Cosmetic(1, 14, "Waving Cape", false));
+        capes.add(new Cosmetic(1, 15, "Chillin Boy", false));
     }
 
     @Override
@@ -34,10 +35,10 @@ public class CapeScreen extends GuiScreen {
         int startX = (this.width - (buttonWidth * 3 + padding * 2)) / 2;
         int startY = (this.height - (buttonHeight * 5 + padding * 4)) / 2;
 
-        for (int i = 0; i < capeNames.size(); i++) {
+        for (int i = 0; i < capes.size(); i++) {
             int x = startX + (i % 3) * (buttonWidth + padding);
             int y = startY + (i / 3) * (buttonHeight + padding);
-            ClientButton button = new ClientButton(i, x, y, buttonWidth, buttonHeight, capeNames.get(i));
+            ClientButton button = new ClientButton(i, x, y, buttonWidth, buttonHeight, capes.get(i).getName());
             this.buttonList.add(button);
             buttons.add(button);
         }
@@ -45,10 +46,9 @@ public class CapeScreen extends GuiScreen {
 
     @Override
     protected void actionPerformed(ClientButton button) throws IOException {
-        String capeName = capeNames.get(button.id);
-        // Gọi hàm CosmeticBoolean.set<ten cape>
-        System.out.println(capeName);
-        CosmeticBoolean.set(capeName);
+        Cosmetic cape = capes.get(button.id);
+        System.out.println(cape.getName());
+        CosmeticBoolean.set(cape.getType(), cape.getId(), !cape.isEnabled());
     }
 
     @Override

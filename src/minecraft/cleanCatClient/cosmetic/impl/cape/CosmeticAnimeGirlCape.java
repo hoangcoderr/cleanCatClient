@@ -24,7 +24,7 @@ public class CosmeticAnimeGirlCape implements LayerRenderer<AbstractClientPlayer
 
     @Override
     public void doRenderLayer(final AbstractClientPlayer entitylivingbaseIn, final float p_177141_2_, final float p_177141_3_, final float partialTicks, final float p_177141_5_, final float p_177141_6_, final float p_177141_7_, final float scale) {
-        if (CosmeticBoolean.animeGirlCape && entitylivingbaseIn.hasPlayerInfo() && !entitylivingbaseIn.isInvisible() && entitylivingbaseIn.isWearing(EnumPlayerModelParts.CAPE) && entitylivingbaseIn.getName().equals(Minecraft.getMinecraft().session.getUsername()) && entitylivingbaseIn.getName().equals(Minecraft.getMinecraft().session.getUsername())) {
+        if (CosmeticBoolean.shouldRenderCosmetic(1,10,entitylivingbaseIn) && entitylivingbaseIn.hasPlayerInfo() && !entitylivingbaseIn.isInvisible() && entitylivingbaseIn.isWearing(EnumPlayerModelParts.CAPE) && entitylivingbaseIn.getName().equals(Minecraft.getMinecraft().session.getUsername()) && entitylivingbaseIn.getName().equals(Minecraft.getMinecraft().session.getUsername())) {
             GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
             this.playerRenderer.bindTexture(CosmeticAnimeGirlCape.CAPEANIMATED.getTexture());
             GlStateManager.pushMatrix();

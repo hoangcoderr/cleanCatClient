@@ -19,7 +19,7 @@ public class LayerCape implements LayerRenderer<AbstractClientPlayer>
 
     public void doRenderLayer(AbstractClientPlayer entitylivingbaseIn, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale)
     {
-        if (entitylivingbaseIn.hasPlayerInfo() && !entitylivingbaseIn.isInvisible() && entitylivingbaseIn.getName().equals(Minecraft.getMinecraft().getSession().getUsername()) && CosmeticBoolean.NornalCape())
+        if (entitylivingbaseIn.hasPlayerInfo() && !entitylivingbaseIn.isInvisible() && entitylivingbaseIn.getName().equals(Minecraft.getMinecraft().getSession().getUsername()) && CosmeticBoolean.shouldRenderCosmetic(1,2, entitylivingbaseIn) && entitylivingbaseIn.isWearing(EnumPlayerModelParts.CAPE))
         {
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
             this.playerRenderer.bindTexture(entitylivingbaseIn.getLocationCape());

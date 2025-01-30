@@ -27,7 +27,7 @@ public class CosmeticWoolHat extends CosmeticBase {
 
     @Override
     public void render(AbstractClientPlayer player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float headYaw, float headPitch, float scale) {
-        if (CosmeticBoolean.shouldRenderWitchHat(player)) {
+        if (CosmeticBoolean.shouldRenderCosmetic(2, 13, player)) {
             GlStateManager.pushMatrix();
             playerRenderer.bindTexture(TEXTURE);
 
@@ -39,8 +39,7 @@ public class CosmeticWoolHat extends CosmeticBase {
             }
 
 
-
-            float[] color = CosmeticBoolean.getWitchHatColor(player);
+            float[] color = {1, 1, 1};
             GL11.glColor3f(color[0], color[1], color[2]);
             GL11.glScalef(-1f, -1f, -1f);
             modelWoolHat.render(player, limbSwing, limbSwingAmount, ageInTicks, headYaw, headPitch, scale);
@@ -52,6 +51,7 @@ public class CosmeticWoolHat extends CosmeticBase {
     private class ModelWoolHat extends CosmeticModelBase {
 
         private ModelRenderer woolHat;
+
         public ModelWoolHat(RenderPlayer player) {
             super(player);
             this.woolHat = new ModelRenderer(playerModel, 0, 0);

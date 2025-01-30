@@ -24,7 +24,7 @@ public class CosmeticDragonBabyWings extends CosmeticBase {
 
     @Override
     public void render(AbstractClientPlayer player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-        if (CosmeticBoolean.shouldRenderDragonBabyWing(player)) {
+        if (CosmeticBoolean.shouldRenderCosmetic(3,9,player)) {
             this.modelSatanWings.RenderWings(player.isSneaking(), player, 1);
         }
 

@@ -1,25 +1,47 @@
 package cleanCatClient.cosmetic;
 
-import net.minecraft.client.entity.AbstractClientPlayer;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.util.ResourceLocation;
-import java.awt.Color;
-import net.minecraft.client.renderer.entity.RenderPlayer;
+public class Cosmetic {
+    private int type;
+    private int id;
+    private String name;
+    private boolean enabled;
 
-public class Cosmetic
-{
-    public Cosmetic(final RenderPlayer renderPlayer) {
+    public Cosmetic(int type, int id, String name, boolean enabled) {
+        this.type = type;
+        this.id = id;
+        this.name = name;
+        this.enabled = enabled;
     }
-    
-    protected ModelRenderer bindTextureAndColor(final Color color, final ResourceLocation resourceLocation, final ModelRenderer colorModel, final ModelRenderer playerSkinModel) {
-        final boolean flag = false;
-        if (!flag) {
-            Minecraft.getMinecraft().getTextureManager().bindTexture(resourceLocation);
-        }
-        return colorModel;
+
+    public int getType() {
+        return type;
     }
-    
-    public void render(final AbstractClientPlayer player, final float limbSwing, final float limbSwingAmount, final float partialTicks, final float ageInTicks, final float headYaw, final float headPitch, final float scale) {
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }

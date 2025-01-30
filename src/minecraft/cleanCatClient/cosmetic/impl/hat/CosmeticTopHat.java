@@ -25,15 +25,15 @@ public class CosmeticTopHat extends CosmeticBase {
     @Override
     public void render(AbstractClientPlayer player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float headYaw, float headPitch, float scale) {
 
-        if(CosmeticBoolean.shouldRenderTopHat(player)) {
+        if (CosmeticBoolean.shouldRenderCosmetic(2, 6, player)) {
             GlStateManager.pushMatrix();
             playerRenderer.bindTexture(TEXTURE);
 
-            if(player.isSneaking()) {
+            if (player.isSneaking()) {
                 GL11.glTranslated(0, 0.225D, 0);
             }
 
-            float[] color = CosmeticBoolean.getTopHatColor(player);
+            float[] color = {1, 1, 1};
             GL11.glColor3f(color[0], color[1], color[2]);
             modelTopHat.render(player, limbSwing, limbSwingAmount, ageInTicks, headYaw, headPitch, scale);
             GL11.glColor3f(1, 1, 1);
@@ -41,7 +41,6 @@ public class CosmeticTopHat extends CosmeticBase {
         }
 
     }
-
 
 
     private class ModelTopHat extends CosmeticModelBase {

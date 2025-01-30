@@ -26,7 +26,7 @@ public class CosmeticDragonWings extends CosmeticBase {
 
     @Override
     public void render(AbstractClientPlayer player, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale, float partialTicks) {
-        if (!player.isInvisible() && CosmeticBoolean.shouldRenderDragonWing(player)) {
+        if (!player.isInvisible() && CosmeticBoolean.shouldRenderCosmetic(3,7,player)) {
             this.modelDragonWing.renderWings(player, partialTicks);
         }
     }
@@ -76,7 +76,7 @@ public class CosmeticDragonWings extends CosmeticBase {
                 GL11.glTranslated(0D, 0.125D, 0D);
             }
 
-            float[] colors = CosmeticBoolean.getDragonWingColor();
+            float[] colors = {0.0F, 0.0F, 0.0F};
             GL11.glColor3f(colors[0], colors[1], colors[2]);
             Minecraft.getMinecraft().getTextureManager().bindTexture(TEXTURE);
             for (int j = 0; j < 2; ++j) {
