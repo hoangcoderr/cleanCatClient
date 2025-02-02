@@ -6,6 +6,8 @@ import net.minecraft.client.gui.GuiScreen;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 import cleanCatClient.cosmetic.CosmeticBoolean;
 import cleanCatClient.cosmetic.Cosmetic;
 
@@ -16,8 +18,13 @@ public class HatScreen extends GuiScreen {
     public HatScreen() {
         hats = new ArrayList<>();
         buttons = new ArrayList<>();
-        hats.add(new Cosmetic(2, 6, "Top Hat", false));
-        hats.add(new Cosmetic(2, 13, "Wool Hat", false));
+        Map<Integer, Cosmetic> allCosmetics = CosmeticBoolean.getAllCosmetics();
+
+        for (Cosmetic cosmetic : allCosmetics.values()) {
+            if (cosmetic.getType() == 2) {
+                hats.add(cosmetic);
+            }
+        }
     }
 
     @Override

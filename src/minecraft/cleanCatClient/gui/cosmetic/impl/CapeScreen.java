@@ -1,13 +1,14 @@
 package cleanCatClient.gui.cosmetic.impl;
 
 import cleanCatClient.cosmetic.Cosmetic;
+import cleanCatClient.cosmetic.CosmeticBoolean;
 import cleanCatClient.gui.mainmenu.button.ClientButton;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import cleanCatClient.cosmetic.CosmeticBoolean;
+import java.util.Map;
 
 public class CapeScreen extends GuiScreen {
     private List<Cosmetic> capes;
@@ -16,15 +17,12 @@ public class CapeScreen extends GuiScreen {
     public CapeScreen() {
         capes = new ArrayList<>();
         buttons = new ArrayList<>();
-        capes.add(new Cosmetic(1, 1, "Snow Cape", false));
-        capes.add(new Cosmetic(1, 2, "Normal Cape", false));
-        capes.add(new Cosmetic(1, 3, "Thunder Cape", false));
-        capes.add(new Cosmetic(1, 4, "Bad Wolf Cape", false));
-        capes.add(new Cosmetic(1, 5, "Starry Sunset Cape", false));
-        capes.add(new Cosmetic(1, 10, "Anime Girl Cape", false));
-        capes.add(new Cosmetic(1, 11, "Jumping Frog Cape", false));
-        capes.add(new Cosmetic(1, 14, "Waving Cape", false));
-        capes.add(new Cosmetic(1, 15, "Chillin Boy", false));
+        Map<Integer, Cosmetic> allCosmetics = CosmeticBoolean.getAllCosmetics();
+        for (Cosmetic cosmetic : allCosmetics.values()) {
+            if (cosmetic.getType() == 1) {
+                capes.add(cosmetic);
+            }
+        }
     }
 
     @Override

@@ -6,6 +6,8 @@ import net.minecraft.client.gui.GuiScreen;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 import cleanCatClient.cosmetic.CosmeticBoolean;
 import cleanCatClient.cosmetic.Cosmetic;
 
@@ -16,10 +18,12 @@ public class WingScreen extends GuiScreen {
     public WingScreen() {
         wings = new ArrayList<>();
         buttons = new ArrayList<>();
-        wings.add(new Cosmetic(3, 7, "Dragon Wing", false));
-        wings.add(new Cosmetic(3, 8, "Satan Wing", false));
-        wings.add(new Cosmetic(3, 9, "Dragon Baby Wing", false));
-        wings.add(new Cosmetic(3, 12, "Dragon Obsidian Wing", false));
+        Map<Integer, Cosmetic> allCosmetics = CosmeticBoolean.getAllCosmetics();
+        for (Cosmetic cosmetic : allCosmetics.values()) {
+            if (cosmetic.getType() == 3) {
+                wings.add(cosmetic);
+            }
+        }
     }
 
     @Override
