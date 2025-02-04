@@ -180,7 +180,7 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
                 GlStateManager.disableLighting();
                 GlStateManager.blendFunc(768, 1);
                 float f2 = 0.76F;
-                GlStateManager.color(customGlint[0], customGlint[1], customGlint[2], 1.0F);
+                GlStateManager.color(customGlint[0], customGlint[1], customGlint[2], customGlint[3]);
                 GlStateManager.matrixMode(5890);
                 GlStateManager.loadIdentity();
                 float f3 = 0.33333334F;

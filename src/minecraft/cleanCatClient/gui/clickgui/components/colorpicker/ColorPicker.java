@@ -22,13 +22,6 @@ public class ColorPicker {
         return colorSlider;
     }
 
-    public void setPickerVisible(boolean pickerVisible) {
-        isPickerVisible = pickerVisible;
-    }
-
-    public boolean isPickerVisible() {
-        return isPickerVisible;
-    }
 
     public ColorPicker(int x, int y, int width, int height) {
         colorSquare = new ColorSquare(x + 60, y, width - 60, height);
@@ -44,10 +37,21 @@ public class ColorPicker {
 
     public void drawPicker(Minecraft mc, int mouseX, int mouseY) {
         int squareSize = 20; // Define the size of the small square
-        // Draw the black border
-        Gui.drawRoundedRect(colorSlider.x - squareSize - 6, colorSlider.y - 1, colorSlider.x - 4, colorSlider.y + squareSize + 1, 15, 0xFF000000);
-        // Draw the original rectangle
+
+// Draw top border
+        Gui.drawRect(colorSlider.x - squareSize - 6, colorSlider.y - 1, colorSlider.x - 4, colorSlider.y, Color.BLACK.getRGB());
+// Draw bottom border
+        Gui.drawRect(colorSlider.x - squareSize - 6, colorSlider.y + squareSize, colorSlider.x - 4, colorSlider.y + squareSize + 1, Color.BLACK.getRGB());
+// Draw left border
+        Gui.drawRect(colorSlider.x - squareSize - 6, colorSlider.y, colorSlider.x - squareSize - 5, colorSlider.y + squareSize, Color.BLACK.getRGB());
+// Draw right border
+        Gui.drawRect(colorSlider.x - 5, colorSlider.y, colorSlider.x - 4, colorSlider.y + squareSize, Color.BLACK.getRGB());
+
+// Draw the original rounded rectangle
         Gui.drawRoundedRect(colorSlider.x - squareSize - 5, colorSlider.y, colorSlider.x - 5, colorSlider.y + squareSize, 15, getColor());
+        if (isPickerVisible) {
+            // Additional drawing code
+        }
         if (isPickerVisible) {
             colorSlider.drawSlider(mc, mouseX, mouseY);
             transparencySlider.drawSlider(mc, mouseX, mouseY);
@@ -83,6 +87,7 @@ public class ColorPicker {
             colorSquare.mouseClicked(mouseX, mouseY, mouseButton);
         }
     }
+
     public void mouseReleased(int mouseX, int mouseY, int state) {
         if (isPickerVisible) {
             colorSlider.mouseReleased(mouseX, mouseY, state);

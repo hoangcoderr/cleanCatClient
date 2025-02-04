@@ -12,9 +12,9 @@ public class GlintColor extends Mod {
         loadConfig();
     }
 
-    private static final Color DEFAULT_COLOR = new Color(128, 64,204);
+    private static final Color DEFAULT_COLOR = new Color(128, 64,204,1);
 
-    private Color customColor = new Color(204,64,64);
+    private Color customColor = new Color(204,64,64,1);
 
     public Color getColor(){
         if (isEnabled()){
@@ -23,8 +23,8 @@ public class GlintColor extends Mod {
         return DEFAULT_COLOR;
     }
 
-    public void setColor(int color) {
-        this.customColor = new Color(color);
+    public void setColor(Color color) {
+        this.customColor = color;
         saveConfig();
     }
 
