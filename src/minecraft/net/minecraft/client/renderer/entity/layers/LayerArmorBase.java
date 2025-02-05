@@ -173,14 +173,14 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
             float f1 = 0.5F;
             GlStateManager.color(f1, f1, f1, 1.0F);
 
-            float[] customGlint = ModInstances.getGlintColor().getColor().getRGBColorComponents(null);
+            float[] customGlint = ModInstances.getGlintColor().getColor().getRGBColorComponents((float[])null);
 
             for (int i = 0; i < 2; ++i)
             {
                 GlStateManager.disableLighting();
                 GlStateManager.blendFunc(768, 1);
                 float f2 = 0.76F;
-                GlStateManager.color(customGlint[0], customGlint[1], customGlint[2], customGlint[3]);
+                GlStateManager.color(customGlint[0], customGlint[1], customGlint[2], 0.8F);
                 GlStateManager.matrixMode(5890);
                 GlStateManager.loadIdentity();
                 float f3 = 0.33333334F;

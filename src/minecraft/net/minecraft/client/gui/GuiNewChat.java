@@ -2,6 +2,7 @@ package net.minecraft.client.gui;
 
 import cleanCatClient.Client;
 import cleanCatClient.gui.font.FontUtil;
+import cleanCatClient.utils.PlayerUtils;
 import com.google.common.collect.Lists;
 
 import java.util.HashMap;
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.event.ClickEvent;
@@ -86,12 +88,18 @@ public class GuiNewChat extends Gui
                             {
                                 int i2 = 0;
                                 int j2 = -i1 * 9;
-                                //drawRect(i2, j2 - 9, i2 + l + 4, j2, l1 / 2 << 24);
+                                drawRect(i2, j2 - 9, i2 + l + 4, j2, l1 / 2 << 24);
                                 String s = chatline.getChatComponent().getFormattedText();
+                                PlayerUtils.renderPlayerHead(chatline, i2, j2 - 8, l1);
+
                                 //System.out.println(s);
                                 GlStateManager.enableBlend();
-                                FontUtil.normal.drawStringWithShadow(s, (float)i2, (float)(j2 - 8), 16777215 + (l1 << 24));
-                                GlStateManager.disableAlpha();
+                                FontUtil.normal.drawStringWithShadow(
+                                        chatline.getChatComponent().getFormattedText(),
+                                        (float)(i2 + 10),
+                                        (float)(j2 - 8),
+                                        16777215 + (l1 << 24)
+                                );                                GlStateManager.disableAlpha();
                                 GlStateManager.disableBlend();
                             }
                         }
