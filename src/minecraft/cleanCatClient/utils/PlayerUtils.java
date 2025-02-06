@@ -9,12 +9,14 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.ResourceLocation;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
 public class PlayerUtils {
     private static Minecraft mc = Minecraft.getMinecraft();
+    private static Map<String, NetworkPlayerInfo> playerInfoCache = new HashMap<>();
 
     public static String extractPlayerName(IChatComponent component) {
         String text = component.getUnformattedText();
@@ -43,7 +45,14 @@ public class PlayerUtils {
         String playerName = extractPlayerName(chatLine.getChatComponent());
 
         if (playerName != null) {
-            NetworkPlayerInfo playerInfo = mc.getNetHandler().getPlayerInfo(playerName);
+            NetworkPlayerInfo playerInfo = playerInfoCache.get(playerName);
+
+            if (playerInfo == null) {
+                playerInfo = mc.getNetHandler().getPlayerInfo(playerName);
+                if (playerInfo != null) {
+                    playerInfoCache.put(playerName, playerInfo);
+                }
+            }
 
             if (playerInfo != null) {
                 mc.getTextureManager().bindTexture(playerInfo.getLocationSkin());

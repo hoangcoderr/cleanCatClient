@@ -51,15 +51,7 @@ public class PotionStatus extends ModDraggable {
     private long lastUpdateTime = 0;
     private static final long UPDATE_INTERVAL = 1000; // Update every 1000 milliseconds (1 second)
 
-    private int getPotionColor(Potion potion) {
-        long currentTime = System.currentTimeMillis();
-        if (currentTime - lastUpdateTime > UPDATE_INTERVAL) {
-            Random random = new Random();
-            lastColor = random.nextInt(0xFFFFFF + 1); // Generate a random color
-            lastUpdateTime = currentTime;
-        }
-        return lastColor;
-    }
+
 
     @Override
     public void render(ScreenPosition pos) {
@@ -70,7 +62,7 @@ public class PotionStatus extends ModDraggable {
 
         for (PotionEffect effect : effects) {
             Potion potion = Potion.potionTypes[effect.getPotionID()];
-            int color = getPotionColor(potion);
+            int color = RenderUtils.getRamdomColor();
 
             String name = I18n.format(potion.getName(), new Object[0]);
 
