@@ -102,4 +102,7 @@ public class ModConstants {
 
     public static String PARTICLES_MULTIPLIER = "Particles Multiplier";
     public static String PARTICLES_MULTIPLIER_DESC = "Change the amount of particles";
+
+    public static String CPS = "CPS";
+    public static String CPS_DESC = "Show your clicks per second";
 }

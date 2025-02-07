@@ -34,9 +34,11 @@ public class ModSettingsInstance {
     private static TNTTimerSettings tntTimerSettings;
     private static CustomNameSettings customNameSettings;
     private static ParticlesMultiplierSettings particlesMultiplierSettings;
+    private static CPSSettings cpsSettings;
     private static List<ModSettings> allSettings = new ArrayList<>();
 
     public static void register() {
+        cpsSettings = new CPSSettings();
         particlesMultiplierSettings = new ParticlesMultiplierSettings();
         customNameSettings = new CustomNameSettings();
         tntTimerSettings = new TNTTimerSettings();
@@ -83,7 +85,7 @@ public class ModSettingsInstance {
                 glintColorSettings, hitColorSettings, keystrokesSettings, lazyChunkLoadingSettings, noHurtCamSettings,
                 oldAnimationSettings, perspectiveSettings, pingDisplaySettings, potionStatusSettings,
                 scoreboardSettings, toggleSprintSettings, timeChangerSettings, colorSaturationSettings, itemPhysicsSetting, coordinateDisplaySettings, chatShortcutSetting, itemCounterSetting, tntTimerSettings, customNameSettings,
-                particlesMultiplierSettings
+                particlesMultiplierSettings, cpsSettings
         );
     }
 

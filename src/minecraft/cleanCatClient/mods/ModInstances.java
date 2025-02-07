@@ -45,7 +45,12 @@ public class ModInstances {
     private static TNTTimer tntTimer;
     private static CustomName customName;
     private static ParticlesMultiplier particlesMultiplier;
+    private static CPS cps;
+
     public static void register(HUDManager api) {
+        cps = new CPS();
+        api.register(cps);
+
         particlesMultiplier = new ParticlesMultiplier();
         customName = new CustomName();
         tntTimer = new TNTTimer();
@@ -139,6 +144,11 @@ public class ModInstances {
         allMods.add(tntTimer);
         allMods.add(customName);
         allMods.add(particlesMultiplier);
+        allMods.add(cps);
+    }
+
+    public static CPS getCps() {
+        return cps;
     }
 
     public static ParticlesMultiplier getParticlesMultiplier() {
@@ -156,9 +166,11 @@ public class ModInstances {
     public static TNTTimer getTntTimer() {
         return tntTimer;
     }
+
     public static ChatShortcuts getChatShortcuts() {
         return chatShortcuts;
     }
+
     public static CoordinateDisplay getCoordinateDisplay() {
         return coordinateDisplay;
     }
@@ -166,9 +178,11 @@ public class ModInstances {
     public static ItemPhysics getItemPhysics() {
         return itemPhysics;
     }
+
     public static List<Mod> getAllMods() {
         return allMods;
     }
+
     public static ArmorStatus getArmorStatus() {
         return modArmorStatus;
     }
@@ -224,6 +238,7 @@ public class ModInstances {
     public static Scoreboard getScoreboard() {
         return modScoreboard;
     }
+
     public static LeftHand getLeftHand() {
         return leftHand;
     }

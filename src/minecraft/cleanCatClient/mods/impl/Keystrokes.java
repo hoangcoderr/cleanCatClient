@@ -106,7 +106,6 @@ public class Keystrokes extends ModDraggable {
     }
 
     private static class MouseKey extends Key {
-        private int CPS;
         private ArrayList<Long> clicks = new ArrayList<Long>();
         private long lastPressed;
         private boolean wasPressed;

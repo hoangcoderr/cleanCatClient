@@ -62,7 +62,7 @@ public class PotionStatus extends ModDraggable {
 
         for (PotionEffect effect : effects) {
             Potion potion = Potion.potionTypes[effect.getPotionID()];
-            int color = RenderUtils.getRamdomColor();
+            int color = RenderUtils.getRandomColor();
 
             String name = I18n.format(potion.getName(), new Object[0]);
 

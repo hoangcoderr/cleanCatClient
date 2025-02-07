@@ -51,7 +51,7 @@ public class PlayerUtils {
                 playerInfo = mc.getNetHandler().getPlayerInfo(playerName);
                 if (playerInfo != null) {
                     playerInfoCache.put(playerName, playerInfo);
-                }
+                }   
             }
 
             if (playerInfo != null) {
