@@ -2,7 +2,6 @@ package cleanCatClient.mods.impl;
 
 import cleanCatClient.constants.ModConstants;
 import cleanCatClient.gui.hud.ScreenPosition;
-import cleanCatClient.mods.Mod;
 import cleanCatClient.mods.ModCategory;
 import cleanCatClient.mods.ModDraggable;
 
@@ -10,6 +9,8 @@ public class Scoreboard extends ModDraggable {
     public Scoreboard() {
         super(ModConstants.SCOREBOARD, ModConstants.SCOREBOARD_DESC, ModCategory.RENDER);
         loadConfig();
+        setHeight(0); // Initialize height
+        setWidth(0);  // Initialize width
     }
 
     @Override
@@ -68,18 +69,8 @@ public class Scoreboard extends ModDraggable {
     }
 
     @Override
-    public int getWidth() {
-        return 100; // Example width
-    }
-
-    @Override
-    public int getHeight() {
-        return 100; // Example height
-    }
-
-    @Override
     public void render(ScreenPosition pos) {
-
+        // Render logic
     }
 
     @Override

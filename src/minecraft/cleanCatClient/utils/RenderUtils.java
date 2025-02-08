@@ -73,6 +73,6 @@ public class RenderUtils {
 
         lastColor = (r << 16) | (g << 8) | b;
         return lastColor;
-    }
+    }   
 
 }
