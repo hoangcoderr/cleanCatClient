@@ -487,11 +487,17 @@ public class GuiIngame extends Gui {
         }
 
         int i1 = collection.size() * this.getFontRenderer().FONT_HEIGHT;
-        //int j1 = scaledRes.getScaledHeight() / 2 + i1 / 3;
         int j1 = ModInstances.getScoreboard().getPos().getAbsoluteY();
         int k1 = 3;
-        //int l1 = scaledRes.getScaledWidth() - i - k1;
         int l1 = ModInstances.getScoreboard().getPos().getAbsoluteX();
+        int screenWidth = scaledRes.getScaledWidth();
+        int maxAllowedX = screenWidth - i - k1 - 1;
+
+        // Adjust the X position if it exceeds the maximum allowed value
+        if (l1 > maxAllowedX) {
+            l1 = maxAllowedX;
+        }
+
         int j = 0;
 
         for (Score score1 : collection) {
@@ -507,18 +513,17 @@ public class GuiIngame extends Gui {
             if (!ModInstances.getScoreboard().isHideRect())
                 drawRect(l1 - 2, k, l, k + this.getFontRenderer().FONT_HEIGHT, 1342177280);
             FontUtil.normal.drawString(s1, l1, k, new Color(255, 255, 255).getRGB());
-            //System.out.println(s1);
             if (!ModInstances.getScoreboard().isHideRedNumbers())
                 this.getFontRenderer().drawString(s2, l - this.getFontRenderer().getStringWidth(s2), k, 553648127);
 
             if (j == collection.size()) {
                 String s3 = objective.getDisplayName();
                 if (!ModInstances.getScoreboard().isHideRect()) {
-                    int firstRowPosition = j1 + this.getFontRenderer().FONT_HEIGHT; // Calculate the position for the first row
+                    int firstRowPosition = j1 + this.getFontRenderer().FONT_HEIGHT;
                     drawRect(l1 - 2, firstRowPosition - this.getFontRenderer().FONT_HEIGHT - 1, l, firstRowPosition - 1, 1610612736);
                     drawRect(l1 - 2, firstRowPosition - 1, l, firstRowPosition, 1342177280);
                 }
-                FontUtil.normal.drawString(s3, l1 + i / 2 - this.getFontRenderer().getStringWidth(s3) / 2, k - j * this.getFontRenderer().FONT_HEIGHT,  new Color(255, 255, 255).getRGB());
+                FontUtil.normal.drawString(s3, l1 + i / 2 - this.getFontRenderer().getStringWidth(s3) / 2, k - j * this.getFontRenderer().FONT_HEIGHT, new Color(255, 255, 255).getRGB());
             }
         }
     }
