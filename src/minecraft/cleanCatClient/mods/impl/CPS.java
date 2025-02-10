@@ -55,21 +55,21 @@ public class CPS extends ModDraggable {
         leftButton.updateCPS();
         rightButton.updateCPS();
 
-       FontUtil.normal.drawStringWithShadow(leftButton.getCPS() + " | " + rightButton.getCPS() + " CPS", pos.getAbsoluteX(), pos.getAbsoluteY(), -1);
+        mc.fontRendererObj.drawStringWithShadow(leftButton.getCPS() + " | " + rightButton.getCPS() + " CPS", pos.getAbsoluteX(), pos.getAbsoluteY(), -1);
     }
 
     @Override
     public void renderDummy(ScreenPosition pos) {
-        FontUtil.normal.drawStringWithShadow("10 | 20 CPS", pos.getAbsoluteX(), pos.getAbsoluteY(), -1);
+        mc.fontRendererObj.drawStringWithShadow("10 | 20 CPS", pos.getAbsoluteX(), pos.getAbsoluteY(), -1);
     }
 
     @Override
     public int getWidth() {
-        return (int)FontUtil.normal.getStringWidth(leftButton.getCPS() + " | " + rightButton.getCPS() + " CPS");
+        return mc.fontRendererObj.getStringWidth(leftButton.getCPS() + " | " + rightButton.getCPS() + " CPS");
     }
 
     @Override
     public int getHeight() {
-        return FontUtil.normal.getHeight();
+        return mc.fontRendererObj.FONT_HEIGHT;
     }
 }

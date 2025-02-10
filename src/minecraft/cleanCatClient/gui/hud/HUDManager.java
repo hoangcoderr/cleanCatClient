@@ -45,7 +45,10 @@ public class HUDManager {
 
     public void openConfigScreen(HUDManager hudManager) {
         mc.displayGuiScreen(Client.INSTANCE.hudConfigScreen);
+
     }
+
+
 
     @EventTarget
     public void onRender(RenderEvent e) {

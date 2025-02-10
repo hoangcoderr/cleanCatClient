@@ -1489,11 +1489,11 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
             Display.setFullscreen(this.fullscreen);
             Display.setVSyncEnabled(this.gameSettings.enableVsync);
             this.updateDisplay();
+
             HUDManager h = HUDManager.getInstance();
             for (IRenderer ren: h.getRegisteredRenderers()) {
                 HUDConfigScreen.adjustRendererPosition(ren);
             }
-
 
         } catch (Exception exception) {
             logger.error((String) "Couldn\'t toggle fullscreen", (Throwable) exception);
@@ -2784,6 +2784,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
                         ScaledResolution scaledresolution = new ScaledResolution(this);
                         displayHeightBefore = scaledresolution.getScaledHeight();
                         displayWidthBefore = scaledresolution.getScaledWidth();
+
                         this.toggleFullscreen();
                     } else if (i == this.gameSettings.keyBindScreenshot.getKeyCode()) {
                         this.ingameGUI.getChatGUI().printChatMessage(ScreenShotHelper.saveScreenshot(this.mcDataDir,
