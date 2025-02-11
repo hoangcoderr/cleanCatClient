@@ -6,6 +6,7 @@ import cleanCatClient.mods.ModCategory;
 import cleanCatClient.mods.ModDraggable;
 import cleanCatClient.gui.hud.ScreenPosition;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class CPS extends ModDraggable {
@@ -15,7 +16,6 @@ public class CPS extends ModDraggable {
         private final ArrayList<Long> clicks = new ArrayList<>();
         private long lastPressed;
         private boolean wasPressed;
-
 
         public MouseButton(int buttonCode, String name) {
             this.buttonCode = buttonCode;
@@ -45,9 +45,11 @@ public class CPS extends ModDraggable {
 
     private final MouseButton leftButton = new MouseButton(0, "LMB");
     private final MouseButton rightButton = new MouseButton(1, "RMB");
+    private Color color = new Color(255, 255, 255, 255);
 
     public CPS() {
         super(ModConstants.CPS, ModConstants.CPS_DESC, ModCategory.RENDER);
+        loadConfig();
     }
 
     @Override
@@ -55,12 +57,12 @@ public class CPS extends ModDraggable {
         leftButton.updateCPS();
         rightButton.updateCPS();
 
-        mc.fontRendererObj.drawStringWithShadow(leftButton.getCPS() + " | " + rightButton.getCPS() + " CPS", pos.getAbsoluteX(), pos.getAbsoluteY(), -1);
+        mc.fontRendererObj.drawStringWithShadow(leftButton.getCPS() + " | " + rightButton.getCPS() + " CPS", pos.getAbsoluteX(), pos.getAbsoluteY(), color.getRGB());
     }
 
     @Override
     public void renderDummy(ScreenPosition pos) {
-        mc.fontRendererObj.drawStringWithShadow("10 | 20 CPS", pos.getAbsoluteX(), pos.getAbsoluteY(), -1);
+        mc.fontRendererObj.drawStringWithShadow("10 | 20 CPS", pos.getAbsoluteX(), pos.getAbsoluteY(), color.getRGB());
     }
 
     @Override
@@ -71,5 +73,31 @@ public class CPS extends ModDraggable {
     @Override
     public int getHeight() {
         return mc.fontRendererObj.FONT_HEIGHT;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+        saveConfig();
+    }
+
+    public void loadConfig() {
+        // Load color from config (example implementation)
+        String colorStr[] = loadDataConfig();
+        if (colorStr != null) {
+            try {
+                this.color = new Color(Integer.parseInt(colorStr[0]));
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void saveConfig() {
+        // Save color to config (example implementation)
+        saveDataConfig(new String[] {Integer.toString(this.color.getRGB())});
     }
 }
