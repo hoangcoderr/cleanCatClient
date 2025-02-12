@@ -8,20 +8,18 @@ import cleanCatClient.gui.notification.NotificationManager;
 import cleanCatClient.mods.ModInstances;
 import cleanCatClient.mods.impl.ChatShortcuts;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.ScaledResolution;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ChatShortcutSetting extends ModSettings {
+public class ChatShortcutSettings extends ModSettings {
     private List<GuiTextField> textFields;
     private ChatShortcuts chatShortcuts;
     private ClientButton saveButton;
@@ -34,7 +32,7 @@ public class ChatShortcutSetting extends ModSettings {
     private String successMessage = "Shortcuts saved successfully!";
 
 
-    public ChatShortcutSetting() {
+    public ChatShortcutSettings() {
         super(ModInstances.getChatShortcuts());
         chatShortcuts = ModInstances.getChatShortcuts();
         initializeTextFields();

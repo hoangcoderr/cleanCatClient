@@ -24,54 +24,54 @@ public class RenderEntityItem extends Render<EntityItem> {
         this.shadowOpaque = 0.75F;
     }
 
-    private int func_177077_a(EntityItem itemIn, double p_177077_2_, double p_177077_4_, double p_177077_6_, float p_177077_8_, IBakedModel p_177077_9_) {
+    private int renderEntityItem(EntityItem itemIn, double x, double y, double z, float partialTicks, IBakedModel model) {
         ItemStack itemstack = itemIn.getEntityItem();
         Item item = itemstack.getItem();
-
         if (item == null) {
             return 0;
         } else {
-            boolean flag = p_177077_9_.isGui3d();
+            boolean flag = model.isGui3d();
             int i = this.getItemGroup(itemstack);
             float f = 0.25F;
             if (ModInstances.getItemPhysics().isEnabled()) {
-                float f1 = -0.125f; //MathHelper.sin(((float)itemIn.getAge() + p_177077_8_) / 10.0F + itemIn.hoverStart) * 0.1F + 0.1F;
+                float f1 = -0.125f;
                 if (!flag) f1 = -0.175f;
 
-                float f2 = p_177077_9_.getItemCameraTransforms().getTransform(ItemCameraTransforms.TransformType.GROUND).scale.y;
-                GlStateManager.translate((float) p_177077_2_, (float) p_177077_4_ + f1 + 0.25F * f2, (float) p_177077_6_);
+                float f2 = model.getItemCameraTransforms().getTransform(ItemCameraTransforms.TransformType.GROUND).scale.y;
+                GlStateManager.translate((float) x, (float) y + f1 + 0.25F * f2, (float) z);
 
                 if (flag || this.renderManager.options != null) {
-                    float f3 = (((float) itemIn.getAge() + p_177077_8_) / 20.0F + itemIn.hoverStart) * (180F / (float) Math.PI);
-                    if (ModInstances.getItemPhysics().isSpin())
+                    float f3 = (((float) itemIn.getAge() + partialTicks) / 20.0F + itemIn.hoverStart) * (180F / (float) Math.PI);
+                    if (ModInstances.getItemPhysics().isSpin()) {
                         GlStateManager.rotate(f3, 0.0F, 1.0F, 0.0F);
-                }
+                    } else if (ModInstances.getItemPhysics().isRandomAngle()) {
+                        float uniqueAngle = (itemIn.getEntityId() % 360) * 100 + (field_177079_e.nextFloat() * 20 - 10);
+                        GlStateManager.rotate(uniqueAngle, 0.0F, 1.0F, 0.0F);
+                    }
 
+                }
                 if (!flag) {
                     float f6 = -0.0F * (float) (i - 1) * 0.5F;
                     float f4 = -0.0F * (float) (i - 1) * 0.5F;
                     float f5 = -0.046875F * (float) (i - 1) * 0.5F;
-                    //GlStateManager.translate(f6, f4, f5);
 
                     if (itemIn.onGround) {
                         GlStateManager.rotate(180, 0.0f, 1.0f, 1.0f);
-
                     }
-
                 }
 
                 float speed = 40;
                 if (!itemIn.onGround) {
-                    float rotAmount = ((itemIn.getAge() + p_177077_8_) * speed) % 360;
+                    float rotAmount = ((itemIn.getAge() + partialTicks) * speed) % 360;
                     GlStateManager.rotate(rotAmount, 1f, 0f, 1f);
                 }
             } else {
-                float f1 = MathHelper.sin(((float) itemIn.getAge() + p_177077_8_) / 10.0F + itemIn.hoverStart) * 0.1F + 0.1F;
-                float f2 = p_177077_9_.getItemCameraTransforms().getTransform(ItemCameraTransforms.TransformType.GROUND).scale.y;
-                GlStateManager.translate((float) p_177077_2_, (float) p_177077_4_ + f1 + 0.25F * f2, (float) p_177077_6_);
+                float f1 = MathHelper.sin(((float) itemIn.getAge() + partialTicks) / 10.0F + itemIn.hoverStart) * 0.1F + 0.1F;
+                float f2 = model.getItemCameraTransforms().getTransform(ItemCameraTransforms.TransformType.GROUND).scale.y;
+                GlStateManager.translate((float) x, (float) y + f1 + 0.25F * f2, (float) z);
 
                 if (flag || this.renderManager.options != null) {
-                    float f3 = (((float) itemIn.getAge() + p_177077_8_) / 20.0F + itemIn.hoverStart) * (180F / (float) Math.PI);
+                    float f3 = (((float) itemIn.getAge() + partialTicks) / 20.0F + itemIn.hoverStart) * (180F / (float) Math.PI);
                     GlStateManager.rotate(f3, 0.0F, 1.0F, 0.0F);
                 }
 
@@ -119,7 +119,7 @@ public class RenderEntityItem extends Render<EntityItem> {
         GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
         GlStateManager.pushMatrix();
         IBakedModel ibakedmodel = this.itemRenderer.getItemModelMesher().getItemModel(itemstack);
-        int i = this.func_177077_a(entity, x, y, z, partialTicks, ibakedmodel);
+        int i = this.renderEntityItem(entity, x, y, z, partialTicks, ibakedmodel);
 
         for (int j = 0; j < i; ++j) {
             if (ibakedmodel.isGui3d()) {

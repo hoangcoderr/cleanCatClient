@@ -10,11 +10,11 @@ import net.minecraft.client.Minecraft;
 
 import java.io.IOException;
 
-public class PerspectiveSetting extends ModSettings {
+public class PerspectiveSettings extends ModSettings {
     private CheckBox smooth;
     private KeyBindSetting keyBindSetting;
 
-    public PerspectiveSetting() {
+    public PerspectiveSettings() {
         super(ModInstances.getPerspective());
         this.smooth = new CheckBox(Minecraft.centerX - 100, Minecraft.centerY - 50, 200, 20, "Smooth", ModInstances.getPerspective().isSmooth());
         this.keyBindSetting = new KeyBindSetting(Minecraft.centerX - 100, Minecraft.centerY - 20, 200, 20, "Key Bind", ModInstances.getPerspective().getKeyBind());

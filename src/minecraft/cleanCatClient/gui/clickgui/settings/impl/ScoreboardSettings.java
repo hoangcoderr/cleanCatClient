@@ -8,11 +8,11 @@ import net.minecraft.client.Minecraft;
 
 import java.io.IOException;
 
-public class ScoreboardSetting extends ModSettings {
+public class ScoreboardSettings extends ModSettings {
     private CheckBox hideRedNumbers;
     private CheckBox hideRect;
     private Slider slider;
-    public ScoreboardSetting() {
+    public ScoreboardSettings() {
         super(ModInstances.getScoreboard());
         hideRedNumbers = new CheckBox(Minecraft.centerX - 100, Minecraft.centerY - 45, 150, 20, "Hide Red Numbers", ModInstances.getScoreboard().isHideRedNumbers());
         hideRect = new CheckBox(Minecraft.centerX - 25, Minecraft.centerY - 5, 150, 20, "Hide Rect", ModInstances.getScoreboard().isHideRect());

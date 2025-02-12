@@ -8,10 +8,10 @@ import net.minecraft.client.Minecraft;
 
 import java.io.IOException;
 
-public class ToggleSprintSetting extends ModSettings {
+public class ToggleSprintSettings extends ModSettings {
     private CheckBox showTextCheckBox;
     private ColorPicker colorPicker;
-    public ToggleSprintSetting() {
+    public ToggleSprintSettings() {
         super(ModInstances.getToggleSprint());
         showTextCheckBox = new CheckBox(Minecraft.centerX - 100, Minecraft.centerY - 40, 150, 20, "Show Text", ModInstances.getToggleSprint().isShowText());
         colorPicker = new ColorPicker(Minecraft.centerX - 100, Minecraft.centerY , 160, 100);

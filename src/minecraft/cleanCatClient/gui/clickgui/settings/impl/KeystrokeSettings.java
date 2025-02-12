@@ -11,12 +11,12 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.Arrays;
 
-public class KeyStrokeSetting extends ModSettings {
+public class KeystrokeSettings extends ModSettings {
     private ComboBox customComboBox;
     private ColorPicker upColorPicker;
     private ColorPicker downColorPicker;
 
-    public KeyStrokeSetting() {
+    public KeystrokeSettings() {
         super(ModInstances.getKeystrokes());
         this.customComboBox = new ComboBox(Minecraft.centerX - 50, Minecraft.centerY - 50, 100, 20, Arrays.asList("WASD", "WASD_MOUSE", "WASD_JUMP", "WASD_JUMP_MOUSE"));
         this.upColorPicker = new ColorPicker(Minecraft.centerX - 50, Minecraft.centerY + 30, 100, 50);

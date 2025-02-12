@@ -6,19 +6,37 @@ import cleanCatClient.mods.ModCategory;
 
 public class ItemPhysics extends Mod {
     private boolean spin = true;
-    public ItemPhysics(){
+    private boolean randomAngle = false;
+
+    public ItemPhysics() {
         super(ModConstants.ITEM_PHYSICS, ModConstants.ITEM_PHYSICS_DESC, ModCategory.WORLD);
         loadConfig();
     }
 
-    public boolean isSpin() {
-        return spin;
+    public boolean isRandomAngle() {
+        return randomAngle;
+    }
+
+    public void setRandomAngle(boolean randomAngle) {
+        this.randomAngle = randomAngle;
+        if (randomAngle) {
+            this.spin = false;
+        }
+        saveConfig();
     }
 
     public void setSpin(boolean spin) {
         this.spin = spin;
+        if (spin) {
+            this.randomAngle = false;
+        }
         saveConfig();
     }
+    public boolean isSpin() {
+        return spin;
+    }
+
+
 
     public void loadConfig() {
         String[] dataConfig = loadDataConfig();
@@ -35,7 +53,7 @@ public class ItemPhysics extends Mod {
 
     public void saveConfig() {
         saveDataConfig(new String[]{
-            String.valueOf(isSpin())
+                String.valueOf(isSpin()), String.valueOf(isRandomAngle())
         });
     }
 }

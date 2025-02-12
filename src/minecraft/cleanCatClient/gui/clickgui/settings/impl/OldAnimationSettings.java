@@ -2,20 +2,18 @@ package cleanCatClient.gui.clickgui.settings.impl;
 
 import cleanCatClient.gui.clickgui.components.CheckBox;
 import cleanCatClient.gui.clickgui.settings.ModSettings;
-import cleanCatClient.gui.font.FontUtil;
 import cleanCatClient.mods.ModInstances;
-import cleanCatClient.mods.impl.oldanimations.OldAnimation;
 import net.minecraft.client.Minecraft;
 
 import java.io.IOException;
 
-public class OldAnimationSetting extends ModSettings {
+public class OldAnimationSettings extends ModSettings {
     // Add the CheckBox fields
     private CheckBox leftHandCheckBox;
     private CheckBox smoothSneakingCheckBox;
     private CheckBox swingAnimationCheckBox;
 
-    public OldAnimationSetting() {
+    public OldAnimationSettings() {
         super(ModInstances.getOldAnimation());
 
         // Initialize the CheckBoxes

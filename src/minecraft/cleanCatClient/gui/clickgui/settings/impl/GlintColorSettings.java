@@ -6,14 +6,16 @@ import cleanCatClient.gui.font.FontUtil;
 import cleanCatClient.mods.ModInstances;
 import net.minecraft.client.Minecraft;
 
+import java.awt.Color;
 import java.io.IOException;
 
-public class HitColorSetting extends ModSettings {
+public class GlintColorSettings extends ModSettings {
     private ColorPicker colorPicker;
-    public HitColorSetting() {
-        super(ModInstances.getHitColor());
+
+    public GlintColorSettings() {
+        super(ModInstances.getGlintColor());
         this.colorPicker = new ColorPicker(Minecraft.centerX, Minecraft.centerY, 150, 100);
-        this.colorPicker.setColor(ModInstances.getHitColor().getSaveColor());
+        this.colorPicker.setColor(ModInstances.getGlintColor().getColor().getRGB());
     }
 
     @Override
@@ -39,8 +41,18 @@ public class HitColorSetting extends ModSettings {
     protected void mouseReleased(int mouseX, int mouseY, int state) {
         super.mouseReleased(mouseX, mouseY, state);
         this.colorPicker.mouseReleased(mouseX, mouseY, state);
-        ModInstances.getHitColor().setColor(this.colorPicker.getColor());
+        updateGlintColor();
     }
 
+    private void updateGlintColor() {
+        int colorValue = this.colorPicker.getColor();
 
+        // Extract the alpha component from the color value
+        int alpha = (colorValue >> 24) & 0xFF;
+
+        // Create a new Color object with the alpha component
+        Color color = new Color((colorValue & 0x00FFFFFF) | (alpha << 24), true);
+
+        ModInstances.getGlintColor().setColor(color);
+    }
 }

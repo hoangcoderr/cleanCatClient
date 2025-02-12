@@ -1,35 +1,33 @@
 package cleanCatClient.gui.clickgui.settings;
 
 import cleanCatClient.gui.clickgui.settings.impl.*;
-import cleanCatClient.mods.impl.CustomName;
-import cleanCatClient.mods.impl.TNTTimer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class ModSettingsInstance {
-    private static ArmorStatusSetting armorStatusSetting;
+    private static ArmorStatusSettings armorStatusSetting;
     private static BlockOverlaySettings blockOverlaySettings;
     private static BossBarSettings bossBarSettings;
     private static CustomCrossHairSettings customCrosshairSettings;
-    private static FPSSetting fpsSettings;
-    private static GlintColorSetting glintColorSettings;
-    private static HitColorSetting hitColorSettings;
-    private static KeyStrokeSetting keystrokesSettings;
+    private static FPSSettings fpsSettings;
+    private static GlintColorSettings glintColorSettings;
+    private static HitColorSettings hitColorSettings;
+    private static KeystrokeSettings keystrokesSettings;
     private static LazyChunkLoadingSetting lazyChunkLoadingSettings;
-    private static NoHurtCamSetting noHurtCamSettings;
-    private static OldAnimationSetting oldAnimationSettings;
-    private static PerspectiveSetting perspectiveSettings;
-    private static PingDisplaySetting pingDisplaySettings;
-    private static PoisonStatusSetting potionStatusSettings;
-    private static ScoreboardSetting scoreboardSettings;
-    private static ToggleSprintSetting toggleSprintSettings;
+    private static NoHurtCamSettings noHurtCamSettings;
+    private static OldAnimationSettings oldAnimationSettings;
+    private static PerspectiveSettings perspectiveSettings;
+    private static PingDisplaySettings pingDisplaySettings;
+    private static PoisonStatusSettings potionStatusSettings;
+    private static ScoreboardSettings scoreboardSettings;
+    private static ToggleSprintSettings toggleSprintSettings;
     private static TimeChangerSettings timeChangerSettings;
     private static ColorSaturationSettings colorSaturationSettings;
-    private static ItemPhysicsSetting itemPhysicsSetting;
+    private static ItemPhysicsSettings itemPhysicsSetting;
     private static CoordinateDisplaySettings coordinateDisplaySettings;
-    private static ChatShortcutSetting chatShortcutSetting;
+    private static ChatShortcutSettings chatShortcutSetting;
     private static ItemCounterSetting itemCounterSetting;
     private static TNTTimerSettings tntTimerSettings;
     private static CustomNameSettings customNameSettings;
@@ -42,26 +40,26 @@ public class ModSettingsInstance {
         particlesMultiplierSettings = new ParticlesMultiplierSettings();
         customNameSettings = new CustomNameSettings();
         tntTimerSettings = new TNTTimerSettings();
-        chatShortcutSetting = new ChatShortcutSetting();
-        armorStatusSetting = new ArmorStatusSetting();
+        chatShortcutSetting = new ChatShortcutSettings();
+        armorStatusSetting = new ArmorStatusSettings();
         blockOverlaySettings = new BlockOverlaySettings();
         bossBarSettings = new BossBarSettings();
         customCrosshairSettings = new CustomCrossHairSettings();
-        fpsSettings = new FPSSetting();
-        glintColorSettings = new GlintColorSetting();
-        hitColorSettings = new HitColorSetting();
-        keystrokesSettings = new KeyStrokeSetting();
+        fpsSettings = new FPSSettings();
+        glintColorSettings = new GlintColorSettings();
+        hitColorSettings = new HitColorSettings();
+        keystrokesSettings = new KeystrokeSettings();
         lazyChunkLoadingSettings = new LazyChunkLoadingSetting();
-        noHurtCamSettings = new NoHurtCamSetting();
-        oldAnimationSettings = new OldAnimationSetting();
-        perspectiveSettings = new PerspectiveSetting();
-        pingDisplaySettings = new PingDisplaySetting();
-        potionStatusSettings = new PoisonStatusSetting();
-        scoreboardSettings = new ScoreboardSetting();
-        toggleSprintSettings = new ToggleSprintSetting();
+        noHurtCamSettings = new NoHurtCamSettings();
+        oldAnimationSettings = new OldAnimationSettings();
+        perspectiveSettings = new PerspectiveSettings();
+        pingDisplaySettings = new PingDisplaySettings();
+        potionStatusSettings = new PoisonStatusSettings();
+        scoreboardSettings = new ScoreboardSettings();
+        toggleSprintSettings = new ToggleSprintSettings();
         timeChangerSettings = new TimeChangerSettings();
         colorSaturationSettings = new ColorSaturationSettings();
-        itemPhysicsSetting = new ItemPhysicsSetting();
+        itemPhysicsSetting = new ItemPhysicsSettings();
         coordinateDisplaySettings = new CoordinateDisplaySettings();
         itemCounterSetting = new ItemCounterSetting();
 //        allSettings.add(armorStatusSetting);
@@ -93,7 +91,7 @@ public class ModSettingsInstance {
         return allSettings;
     }
 
-    public static ArmorStatusSetting getArmorStatusSettings() {
+    public static ArmorStatusSettings getArmorStatusSettings() {
         return armorStatusSetting;
     }
 
@@ -109,19 +107,19 @@ public class ModSettingsInstance {
         return customCrosshairSettings;
     }
 
-    public static FPSSetting getFpsSettings() {
+    public static FPSSettings getFpsSettings() {
         return fpsSettings;
     }
 
-    public static GlintColorSetting getGlintColorSettings() {
+    public static GlintColorSettings getGlintColorSettings() {
         return glintColorSettings;
     }
 
-    public static HitColorSetting getHitColorSettings() {
+    public static HitColorSettings getHitColorSettings() {
         return hitColorSettings;
     }
 
-    public static KeyStrokeSetting getKeystrokesSettings() {
+    public static KeystrokeSettings getKeystrokesSettings() {
         return keystrokesSettings;
     }
 
@@ -129,31 +127,31 @@ public class ModSettingsInstance {
         return lazyChunkLoadingSettings;
     }
 
-    public static NoHurtCamSetting getNoHurtCamSettings() {
+    public static NoHurtCamSettings getNoHurtCamSettings() {
         return noHurtCamSettings;
     }
 
-    public static OldAnimationSetting getOldAnimationSettings() {
+    public static OldAnimationSettings getOldAnimationSettings() {
         return oldAnimationSettings;
     }
 
-    public static PerspectiveSetting getPerspectiveSettings() {
+    public static PerspectiveSettings getPerspectiveSettings() {
         return perspectiveSettings;
     }
 
-    public static PingDisplaySetting getPingDisplaySettings() {
+    public static PingDisplaySettings getPingDisplaySettings() {
         return pingDisplaySettings;
     }
 
-    public static PoisonStatusSetting getPotionStatusSettings() {
+    public static PoisonStatusSettings getPotionStatusSettings() {
         return potionStatusSettings;
     }
 
-    public static ScoreboardSetting getScoreboardSettings() {
+    public static ScoreboardSettings getScoreboardSettings() {
         return scoreboardSettings;
     }
 
-    public static ToggleSprintSetting getToggleSprintSettings() {
+    public static ToggleSprintSettings getToggleSprintSettings() {
         return toggleSprintSettings;
     }
 

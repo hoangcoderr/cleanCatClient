@@ -1,22 +1,17 @@
 package cleanCatClient.gui.clickgui.settings.impl;
 
-import cleanCatClient.gui.clickgui.components.CheckBox;
-import cleanCatClient.gui.clickgui.components.Slider;
 import cleanCatClient.gui.clickgui.components.colorpicker.ColorPicker;
 import cleanCatClient.gui.clickgui.settings.ModSettings;
-import cleanCatClient.gui.font.FontUtil;
 import cleanCatClient.mods.ModInstances;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.GlStateManager;
 
 import java.io.IOException;
 
-public class FPSSetting extends ModSettings {
+public class FPSSettings extends ModSettings {
     private ColorPicker colorPicker;
     private int colorPickerX;
     private int colorPickerY;
-    public FPSSetting() {
+    public FPSSettings() {
         super(ModInstances.getFPS());
         colorPickerX = Minecraft.centerX - 20;
         colorPickerY = Minecraft.centerY - 50;
