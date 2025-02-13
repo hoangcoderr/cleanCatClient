@@ -68,7 +68,8 @@ public class MainMenu extends GuiScreen {
             UpdateChecker.isShownUpdate = false;
         }
 
-
+//        Minecraft.displayHeightBefore = new ScaledResolution(Minecraft.getMinecraft()).getScaledHeight();
+//        Minecraft.displayWidthBefore = new ScaledResolution(Minecraft.getMinecraft()).getScaledWidth();
         super.initGui();
     }
 
