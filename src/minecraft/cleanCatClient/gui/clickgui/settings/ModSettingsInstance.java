@@ -91,69 +91,7 @@ public class ModSettingsInstance {
         return allSettings;
     }
 
-    public static ArmorStatusSettings getArmorStatusSettings() {
-        return armorStatusSetting;
-    }
 
-    public static BlockOverlaySettings getBlockOverlaySettings() {
-        return blockOverlaySettings;
-    }
-
-    public static BossBarSettings getBossBarSettings() {
-        return bossBarSettings;
-    }
-
-    public static CustomCrossHairSettings getCustomCrosshairSettings() {
-        return customCrosshairSettings;
-    }
-
-    public static FPSSettings getFpsSettings() {
-        return fpsSettings;
-    }
-
-    public static GlintColorSettings getGlintColorSettings() {
-        return glintColorSettings;
-    }
-
-    public static HitColorSettings getHitColorSettings() {
-        return hitColorSettings;
-    }
-
-    public static KeystrokeSettings getKeystrokesSettings() {
-        return keystrokesSettings;
-    }
-
-    public static LazyChunkLoadingSetting getLazyChunkLoadingSettings() {
-        return lazyChunkLoadingSettings;
-    }
-
-    public static NoHurtCamSettings getNoHurtCamSettings() {
-        return noHurtCamSettings;
-    }
-
-    public static OldAnimationSettings getOldAnimationSettings() {
-        return oldAnimationSettings;
-    }
-
-    public static PerspectiveSettings getPerspectiveSettings() {
-        return perspectiveSettings;
-    }
-
-    public static PingDisplaySettings getPingDisplaySettings() {
-        return pingDisplaySettings;
-    }
-
-    public static PoisonStatusSettings getPotionStatusSettings() {
-        return potionStatusSettings;
-    }
-
-    public static ScoreboardSettings getScoreboardSettings() {
-        return scoreboardSettings;
-    }
-
-    public static ToggleSprintSettings getToggleSprintSettings() {
-        return toggleSprintSettings;
-    }
 
 
 }

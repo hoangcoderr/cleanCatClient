@@ -51,7 +51,7 @@ public class PingDisplay extends ModDraggable {
 
     private void updatePing() {
         long currentTime = System.currentTimeMillis();
-        if (currentTime - lastPingTime > 5000) { // Cập nhật mỗi 5 giây
+        if (currentTime - lastPingTime > 3000) { // Cập nhật mỗi 5 giây
             lastPingTime = currentTime;
             executorService.submit(this::calculatePing);    
         }

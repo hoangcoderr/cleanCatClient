@@ -88,6 +88,8 @@ public class ClickGui extends GuiScreen {
         addSettingsModButton(ModInstances.getMinimalViewBobbing(), 1, 340, 20, spaceBetween);
         addSettingsModButton(ModInstances.getLazyChunkLoading(), 2, 340, 20, spaceBetween);
         addSettingsModButton(ModInstances.getDisableBlockParticles(), 3, 340, 20, spaceBetween);
+        addSettingsModButton(ModInstances.getNoHurtCam(), 4, 340, 20, spaceBetween);
+        addSettingsModButton(ModInstances.getBossBar(), 5, 340, 20, spaceBetween);
     }
 
     @Override
