@@ -66,7 +66,6 @@ public class RenderUtils {
         int g2 = (targetColor >> 8) & 0xFF;
         int b2 = targetColor & 0xFF;
 
-        // Lerp giữa màu hiện tại và màu mục tiêua
         int r = (int) (r1 + (r2 - r1) * LERP_FACTOR);
         int g = (int) (g1 + (g2 - g1) * LERP_FACTOR);
         int b = (int) (b1 + (b2 - b1) * LERP_FACTOR);

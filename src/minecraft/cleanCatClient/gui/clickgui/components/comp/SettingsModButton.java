@@ -4,6 +4,7 @@ import java.awt.*;
 
 import cleanCatClient.gui.font.FontUtil;
 import cleanCatClient.mods.Mod;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 
 public class SettingsModButton {
@@ -37,8 +38,16 @@ public class SettingsModButton {
         int toggleY = y + (h / 2) - 7; // Adjusted position to accommodate larger size
         int toggleWidth = 30; // Increased width
         int toggleHeight = 14; // Height remains the same
-        Color toggleColor = mod.isEnabled() ? new Color(131, 255, 92, 255) : new Color(255, 64, 59, 255);
+        Color toggleColor = mod.isEnabled() ? new Color(92, 255, 100, 255) : new Color(255, 64, 59, 255);
         Gui.drawRoundedRect(toggleX, toggleY, toggleX + toggleWidth, toggleY + toggleHeight, 7, toggleColor.getRGB());
+
+        // Draw the "on" or "off" text in the middle of the toggle switch
+        String toggleText = mod.isEnabled() ? "ON" : "OFF";
+        int color = mod.isEnabled() ? new Color(92, 255, 100, 255).getRGB() : new Color(255, 64, 59, 255).getRGB();
+        int textWidthToggle =(int) FontUtil.normal.getStringWidth(toggleText);
+        int textXToggle = toggleX + (toggleWidth - textWidthToggle) / 2;
+        int textYToggle = toggleY + (toggleHeight - 8) / 2; // 8 is the approximate height of the text
+        Minecraft.getMinecraft().fontRendererObj.drawStringWithShadow(toggleText, textXToggle, textYToggle, color);
 
         // Calculate the width and height of the mod name text
         double textWidth = FontUtil.normal.getStringWidth(mod.name);

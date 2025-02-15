@@ -28,29 +28,63 @@ public class ModButton {
     }
 
     public void render(int mouseX, int mouseY) {
-        // Determine the color based on hover state
+        // Existing outer borders remain the same
         Color borderColor = isMouseOver(mouseX, mouseY) ? new Color(255, 255, 255, 150) : new Color(255, 255, 255, 50);
         Color innerBorderColor = isMouseOver(mouseX, mouseY) ? new Color(77, 76, 76, 150) : new Color(77, 76, 76, 97);
 
-        // Draw the light white border (outer border)
         Gui.drawRoundedRect(x - 2, y - 2, x + w + 2, y + h + 2, 10, borderColor.getRGB());
-
-        // Draw the dark border (inner border)
         Gui.drawRoundedRect(x, y, x + w, y + h, 8, innerBorderColor.getRGB());
 
-        // Adjust the width of the rounded rectangle to be nearly the same as the width of the ModButton
-        int rectWidth = w - 10; // Adjust this value as needed
-        Gui.drawRoundedRect(x + 5, (y + h) - 18, x + 5 + rectWidth, (y + h) - 7, 8, getColor());
+        int rectWidth = w - 10;
+        int toggleX = x + 5;
+        int toggleY = (y + h) - 18;
+        int toggleHeight = 11;
 
-        // Calculate the width and height of the mod name text
-        double textWidth = FontUtil.normal.getStringWidth(mod.name);
+        Color baseColor = mod.isEnabled() ? new Color(131, 255, 92) : new Color(255, 64, 59);
+
+        // Border color matching base color
+        Color toggleBorderColor = new Color(
+                baseColor.getRed(),
+                baseColor.getGreen(),
+                baseColor.getBlue(),
+                100
+        );
+
+        // Draw border
+        Gui.drawRoundedRect(toggleX - 1, toggleY - 1, toggleX + rectWidth + 1, toggleY + toggleHeight + 1, 3, toggleBorderColor.getRGB());
+
+        boolean isHoveringToggle = mouseX >= toggleX && mouseX <= toggleX + rectWidth &&
+                mouseY >= toggleY && mouseY <= toggleY + toggleHeight;
+
+        Color toggleColor = new Color(
+                baseColor.getRed(),
+                baseColor.getGreen(),
+                baseColor.getBlue(),
+                isHoveringToggle ? 200 : 255
+        );
+
+        // Draw toggle button background
+        Gui.drawRoundedRect(toggleX, toggleY, toggleX + rectWidth, toggleY + toggleHeight, 2, toggleColor.getRGB());
+
+        // Add ON/OFF text - always visible
+        String toggleText = mod.isEnabled() ? "ON" : "OFF";
+        double textWidth = FontUtil.normal.getStringWidth(toggleText);
+
+        // Center the text
+        double toggleTextX = toggleX + (rectWidth - textWidth) / 2;
+        double toggleTextY = toggleY + (toggleHeight - 8) / 2;
+
+        // Text is always visible with full opacity, only slightly dimmed on hover
+        int textOpacity = isHoveringToggle ? 230 : 255;
+        Color textColor = new Color(255, 255, 255, textOpacity);
+        FontUtil.normal.drawStringWithShadow(toggleText, toggleTextX, (int)toggleTextY, getColor() + 100 );
+
+        // Rest of the existing render code
+            textWidth = FontUtil.normal.getStringWidth(mod.name);
         int textHeight = 12;
-
-        // Calculate the position to center the text
         double textX = x + (w - textWidth) / 2;
         int textY = y + (h - textHeight) / 2 - 30;
 
-        // Draw the mod name text with a smaller font size
         FontUtil.normal.drawString(mod.name, textX, textY, new Color(243, 236, 236, 255).getRGB());
 
         if (isMouseOver(mouseX, mouseY)) {
