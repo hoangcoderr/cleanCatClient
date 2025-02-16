@@ -8,7 +8,7 @@ import net.minecraft.client.Minecraft;
 import java.io.IOException;
 
 public class ColorSaturationSettings extends ModSettings {
-    private Slider saturationSlider;
+    private final Slider saturationSlider;
     public ColorSaturationSettings() {
         super(ModInstances.getColorSaturation());
         saturationSlider = new Slider(Minecraft.centerX, Minecraft.centerY, 100, 10, 0, 2, ModInstances.getColorSaturation().s, 0.1F);

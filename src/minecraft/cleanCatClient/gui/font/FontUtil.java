@@ -15,7 +15,7 @@ public class FontUtil {
     public static MinecraftFontRenderer customSize;
 
     private static Font normal_;
-    private static Map<Integer, MinecraftFontRenderer> fontRenderers = new HashMap<>();
+    private static final Map<Integer, MinecraftFontRenderer> fontRenderers = new HashMap<>();
 
     private static Font getFont(Map<String, Font> locationMap, String location, int size, int style) {
         Font font = null;

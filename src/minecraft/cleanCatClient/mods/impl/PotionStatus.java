@@ -1,6 +1,6 @@
 package cleanCatClient.mods.impl;
 
-import cleanCatClient.constants.ModConstants;
+import cleanCatClient.mods.ModConstants;
 import cleanCatClient.gui.font.FontUtil;
 import cleanCatClient.gui.hud.ScreenPosition;
 import cleanCatClient.mods.ModCategory;
@@ -9,15 +9,12 @@ import cleanCatClient.utils.RenderUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import org.lwjgl.opengl.GL11;
-import net.minecraft.util.ResourceLocation;
 
 import java.util.Collection;
-import java.util.Random;
 
 public class PotionStatus extends ModDraggable {
 
@@ -47,8 +44,8 @@ public class PotionStatus extends ModDraggable {
     }
 
 
-    private int lastColor = 0;
-    private long lastUpdateTime = 0;
+    private final int lastColor = 0;
+    private final long lastUpdateTime = 0;
     private static final long UPDATE_INTERVAL = 1000; // Update every 1000 milliseconds (1 second)
 
 
@@ -64,14 +61,14 @@ public class PotionStatus extends ModDraggable {
             Potion potion = Potion.potionTypes[effect.getPotionID()];
             int color = RenderUtils.getRandomColor();
 
-            String name = I18n.format(potion.getName(), new Object[0]);
+            String name = I18n.format(potion.getName());
 
             if (effect.getAmplifier() == 1) {
-                name = name + " " + I18n.format("enchantment.level.2", new Object[0]);
+                name = name + " " + I18n.format("enchantment.level.2");
             } else if (effect.getAmplifier() == 2) {
-                name = name + " " + I18n.format("enchantment.level.3", new Object[0]);
+                name = name + " " + I18n.format("enchantment.level.3");
             } else if (effect.getAmplifier() == 3) {
-                name = name + " " + I18n.format("enchantment.level.4", new Object[0]);
+                name = name + " " + I18n.format("enchantment.level.4");
             }
             String durationString = Potion.getDurationString(effect);
             GL11.glPushMatrix();

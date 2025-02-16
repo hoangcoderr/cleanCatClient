@@ -1,8 +1,7 @@
 package cleanCatClient.mods.impl;
-import cleanCatClient.constants.ModConstants;
+import cleanCatClient.mods.ModConstants;
 import cleanCatClient.mods.Mod;
 import cleanCatClient.mods.ModCategory;
-import cleanCatClient.mods.ModInstances;
 
 public class DisableBlockParticles extends Mod{
     public DisableBlockParticles() {

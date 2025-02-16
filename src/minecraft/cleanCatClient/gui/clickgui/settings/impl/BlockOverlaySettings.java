@@ -11,11 +11,11 @@ import net.minecraft.client.Minecraft;
 import java.io.IOException;
 
 public class    BlockOverlaySettings extends ModSettings {
-    private CheckBox checkBoxIsOutline;
-    private CheckBox checkBoxIsInline;
-    private ColorPicker outlineColorPicker;
-    private ColorPicker inlineColorPicker;
-    private Slider slider;
+    private final CheckBox checkBoxIsOutline;
+    private final CheckBox checkBoxIsInline;
+    private final ColorPicker outlineColorPicker;
+    private final ColorPicker inlineColorPicker;
+    private final Slider slider;
     public BlockOverlaySettings() {
         super(ModInstances.getBlockOverlay());
         this.checkBoxIsOutline = new CheckBox(Minecraft.centerX - 100, Minecraft.centerY - 45, 150, 20, "Enable Outline", ModInstances.getBlockOverlay().isOutline());
@@ -49,17 +49,9 @@ public class    BlockOverlaySettings extends ModSettings {
     }
 
     private void updateSettings() {
-        if (checkBoxIsOutline.isChecked()) {
-            ModInstances.getBlockOverlay().setOutline(true);
-        } else {
-            ModInstances.getBlockOverlay().setOutline(false);
-        }
+        ModInstances.getBlockOverlay().setOutline(checkBoxIsOutline.isChecked());
 
-        if (checkBoxIsInline.isChecked()) {
-            ModInstances.getBlockOverlay().setFill(true);
-        } else {
-            ModInstances.getBlockOverlay().setFill(false);
-        }
+        ModInstances.getBlockOverlay().setFill(checkBoxIsInline.isChecked());
 
     }
 

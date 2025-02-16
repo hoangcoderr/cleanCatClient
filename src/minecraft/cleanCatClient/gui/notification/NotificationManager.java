@@ -5,7 +5,7 @@ import cleanCatClient.gui.notification.Notification;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class NotificationManager {
-    private static LinkedBlockingQueue<Notification> pendingNotifications = new LinkedBlockingQueue<>();
+    private static final LinkedBlockingQueue<Notification> pendingNotifications = new LinkedBlockingQueue<>();
     private static Notification currentNotification = null;
 
     public static void show(Notification notification) {

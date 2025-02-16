@@ -1,17 +1,10 @@
 package cleanCatClient.mods.impl;
 
-import cleanCatClient.constants.ModConstants;
-import cleanCatClient.gui.font.FontUtil;
+import cleanCatClient.mods.ModConstants;
 import cleanCatClient.gui.hud.ScreenPosition;
 import cleanCatClient.mods.ModCategory;
 import cleanCatClient.mods.ModDraggable;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiIngame;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
 import org.lwjgl.opengl.GL11;
 
 public class CustomCrosshair extends ModDraggable {

@@ -13,13 +13,13 @@ import java.io.IOException;
 
 public class CustomCrossHairSettings extends ModSettings {
     //private CheckBox dotCheckBox;
-    private Slider gapSlider;
-    private Slider thicknessSlider;
-    private Slider lengthSlider;
-    private ColorPicker colorPicker;
-    private CheckBox dotCheckBox;
-    private CheckBox plusCheckBox;
-    private CheckBox arrowCheckBox;
+    private final Slider gapSlider;
+    private final Slider thicknessSlider;
+    private final Slider lengthSlider;
+    private final ColorPicker colorPicker;
+    private final CheckBox dotCheckBox;
+    private final CheckBox plusCheckBox;
+    private final CheckBox arrowCheckBox;
 
     public CustomCrossHairSettings() {
         super(ModInstances.getCustomCrosshair());

@@ -15,8 +15,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class PlayerUtils {
-    private static Minecraft mc = Minecraft.getMinecraft();
-    private static Map<String, NetworkPlayerInfo> playerInfoCache = new HashMap<>();
+    private static final Minecraft mc = Minecraft.getMinecraft();
+    private static final Map<String, NetworkPlayerInfo> playerInfoCache = new HashMap<>();
 
     public static String extractPlayerName(IChatComponent component) {
         String text = component.getUnformattedText();

@@ -1,7 +1,7 @@
 package cleanCatClient.gui.hud;
 
 public interface IRenderConfig {
-    public void save(ScreenPosition pos);
+    void save(ScreenPosition pos);
 
-    public ScreenPosition load();
+    ScreenPosition load();
 }

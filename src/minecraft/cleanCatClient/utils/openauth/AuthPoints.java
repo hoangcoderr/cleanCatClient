@@ -38,27 +38,27 @@ public class AuthPoints {
     /**
      * The server authenticate point
      */
-    private String authenticatePoint;
+    private final String authenticatePoint;
 
     /**
      * The server refresh point
      */
-    private String refreshPoint;
+    private final String refreshPoint;
 
     /**
      * The server validate point
      */
-    private String validatePoint;
+    private final String validatePoint;
 
     /**
      * The server signout point
      */
-    private String signoutPoint;
+    private final String signoutPoint;
 
     /**
      * The server invalidate point
      */
-    private String invalidatePoint;
+    private final String invalidatePoint;
 
     /**
      * AuthPoints constructor

@@ -61,11 +61,11 @@ public class ClickGui extends GuiScreen {
         backgroundW = 250;
         int backgroundH = 250;
 
-        this.clickGuiCategoryButton.add(new ClickGuiCategoryButton(centerW - 250, centerH - 85, 120, 25, "Player", 0));
-        this.clickGuiCategoryButton.add(new ClickGuiCategoryButton(centerW - 250, centerH - 55, 120, 25, "World", 1));
-        this.clickGuiCategoryButton.add(new ClickGuiCategoryButton(centerW - 250, centerH - 25, 120, 25, "Render", 2));
-        this.clickGuiCategoryButton.add(new ClickGuiCategoryButton(centerW - 250, centerH + 5, 120, 25, "Util", 3));
-        this.clickGuiCategoryButton.add(new ClickGuiCategoryButton(centerW - 250, centerH + 35, 120, 25, "HudManager", 4));
+        clickGuiCategoryButton.add(new ClickGuiCategoryButton(centerW - 250, centerH - 85, 120, 25, "Player", 0));
+        clickGuiCategoryButton.add(new ClickGuiCategoryButton(centerW - 250, centerH - 55, 120, 25, "World", 1));
+        clickGuiCategoryButton.add(new ClickGuiCategoryButton(centerW - 250, centerH - 25, 120, 25, "Render", 2));
+        clickGuiCategoryButton.add(new ClickGuiCategoryButton(centerW - 250, centerH + 5, 120, 25, "Util", 3));
+        clickGuiCategoryButton.add(new ClickGuiCategoryButton(centerW - 250, centerH + 35, 120, 25, "HudManager", 4));
 
         int modButtonSize = 90;
         int spaceBetween = 10;
@@ -106,7 +106,7 @@ public class ClickGui extends GuiScreen {
         int x = centerW + col * (size + spaceBetween);
         int y = centerH + row * (size + spaceBetween);
 
-        this.modButtonToRender.add(new ModButton(x, y, size, size, mod, categoryID, settings));
+        modButtonToRender.add(new ModButton(x, y, size, size, mod, categoryID, settings));
     }
 
     // Add this method to the ClickGui class
@@ -114,7 +114,7 @@ public class ClickGui extends GuiScreen {
         int y = centerH - 90 + index * (height + spaceBetween);
         int x = centerW - backgroundW + 130; // Adjust x position to avoid overlapping with category buttons
 
-        this.settingsModButton.add(new SettingsModButton(x, y, width, height, mod));
+        settingsModButton.add(new SettingsModButton(x, y, width, height, mod));
     }
 
     private int currentScroll = 0;

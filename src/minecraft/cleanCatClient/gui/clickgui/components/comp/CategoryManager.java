@@ -1,8 +1,8 @@
 package cleanCatClient.gui.clickgui.components.comp;
 
-import java.util.ArrayList;
-
 import cleanCatClient.gui.clickgui.ClickGui;
+
+import java.util.ArrayList;
 
 public class CategoryManager {
 	

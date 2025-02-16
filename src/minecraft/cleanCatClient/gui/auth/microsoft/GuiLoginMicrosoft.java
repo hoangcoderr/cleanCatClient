@@ -30,7 +30,7 @@ public class GuiLoginMicrosoft extends GuiScreen {
         this.username.drawTextBox();
         this.password.drawTextBox();
         Gui gui = new Gui();
-        gui.drawCenteredString(this.mc.fontRendererObj, "Email & Password", (int)(this.width / 2), (int)(sr.getScaledHeight() / 2 - 65), -1);
+        gui.drawCenteredString(this.mc.fontRendererObj, "Email & Password", this.width / 2, sr.getScaledHeight() / 2 - 65, -1);
         super.drawScreen(x2, y2, z2);
     }
 
@@ -38,7 +38,7 @@ public class GuiLoginMicrosoft extends GuiScreen {
     public void initGui() {
         final ScaledResolution sr = new ScaledResolution(this.mc);
         this.buttonList.clear();
-        this.buttonList.add(new ClientButton(0, this.width / 2 - 50 - 10, this.height / 2, 120, 20, I18n.format("Login Microsoft", new Object[0])));
+        this.buttonList.add(new ClientButton(0, this.width / 2 - 50 - 10, this.height / 2, 120, 20, I18n.format("Login Microsoft")));
         (this.username = new GuiTextField(100, this.fontRendererObj, this.width / 2 - 50 - 10, sr.getScaledHeight() / 2 - 50, 120, 20)).setFocused(true);
         (this.password = new GuiTextField(100, this.fontRendererObj, this.width / 2 - 50 - 10, sr.getScaledHeight() / 2 - 25, 120, 20)).setFocused(false);
         Keyboard.enableRepeatEvents(true);

@@ -11,6 +11,7 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Set;
 
 public class HUDManager {
@@ -23,14 +24,12 @@ public class HUDManager {
         EventManager.register(instance);
         return instance;
     }
-    private Set<IRenderer> registeredRenderers = Sets.newHashSet();
+    private final Set<IRenderer> registeredRenderers = Sets.newHashSet();
 
-    private Minecraft mc = Minecraft.getMinecraft();
+    private final Minecraft mc = Minecraft.getMinecraft();
 
     public void register(IRenderer... renderers) {
-        for (IRenderer render : renderers) {
-            registeredRenderers.add(render);
-        }
+        Collections.addAll(registeredRenderers, renderers);
     }
 
     public void unregister(IRenderer... renderers) {

@@ -5,8 +5,11 @@ import net.minecraft.client.gui.Gui;
 import org.lwjgl.input.Keyboard;
 
 public class KeyBindSetting {
-    private int x, y, width, height;
-    private String label;
+    private int x;
+    private int y;
+    private final int width;
+    private final int height;
+    private final String label;
     private int keyBind;
     private boolean listening = false;
 

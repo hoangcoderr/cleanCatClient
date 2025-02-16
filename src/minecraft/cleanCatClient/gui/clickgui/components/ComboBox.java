@@ -6,8 +6,11 @@ import java.awt.Color;
 import java.util.List;
 
 public class ComboBox {
-    private int x, y, width, height;
-    private List<String> items;
+    private int x;
+    private int y;
+    private final int width;
+    private final int height;
+    private final List<String> items;
     private String selectedItem;
     private boolean isOpen;
 

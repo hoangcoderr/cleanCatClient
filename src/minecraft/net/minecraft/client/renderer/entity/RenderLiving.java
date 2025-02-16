@@ -1,7 +1,5 @@
 package net.minecraft.client.renderer.entity;
 
-import cleanCatClient.constants.ModConstants;
-import cleanCatClient.mods.ModInstances;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -14,7 +12,6 @@ import net.minecraft.entity.EntityHanging;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.src.Config;
 import net.optifine.shaders.Shaders;
-import org.lwjgl.opengl.GL11;
 
 public abstract class RenderLiving<T extends EntityLiving> extends RendererLivingEntity<T> {
     public RenderLiving(RenderManager rendermanagerIn, ModelBase modelbaseIn, float shadowsizeIn) {

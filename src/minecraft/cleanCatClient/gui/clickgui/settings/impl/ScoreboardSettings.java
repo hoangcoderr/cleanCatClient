@@ -9,8 +9,8 @@ import net.minecraft.client.Minecraft;
 import java.io.IOException;
 
 public class ScoreboardSettings extends ModSettings {
-    private CheckBox hideRedNumbers;
-    private CheckBox hideRect;
+    private final CheckBox hideRedNumbers;
+    private final CheckBox hideRect;
     private Slider slider;
     public ScoreboardSettings() {
         super(ModInstances.getScoreboard());
@@ -33,17 +33,9 @@ public class ScoreboardSettings extends ModSettings {
     }
 
     private void updateSettings() {
-        if (hideRedNumbers.isChecked()) {
-            ModInstances.getScoreboard().setHideRedNumbers(true);
-        } else {
-            ModInstances.getScoreboard().setHideRedNumbers(false);
-        }
+        ModInstances.getScoreboard().setHideRedNumbers(hideRedNumbers.isChecked());
 
-        if (hideRect.isChecked()) {
-            ModInstances.getScoreboard().setHideRect(true);
-        } else {
-            ModInstances.getScoreboard().setHideRect(false);
-        }
+        ModInstances.getScoreboard().setHideRect(hideRect.isChecked());
     }
 
     @Override

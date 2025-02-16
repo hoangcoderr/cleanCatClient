@@ -1,15 +1,11 @@
 package cleanCatClient.mods.impl;
 
-import cleanCatClient.constants.ModConstants;
+import cleanCatClient.mods.ModConstants;
 import cleanCatClient.gui.font.FontUtil;
 import cleanCatClient.gui.hud.ScreenPosition;
 import cleanCatClient.mods.ModCategory;
 import cleanCatClient.mods.ModDraggable;
-import cleanCatClient.mods.ModInstances;
-import cleanCatClient.utils.RenderUtils;
-import net.minecraft.client.renderer.GlStateManager;
-
-import java.awt.*;
+import net.minecraft.client.Minecraft;
 
 public class FPS extends ModDraggable {
     private int color = -1;
@@ -66,7 +62,7 @@ public class FPS extends ModDraggable {
     public void render(ScreenPosition pos) {
         //RenderUtils.drawRect(pos.getAbsoluteX(), pos.getAbsoluteY(), getWidth(), getHeight());
         //FontUtil.normal.drawStringWithShadow("FPS: " + mc.getDebugFPS(), pos.getAbsoluteX(), pos.getAbsoluteY(), color);
-        mc.fontRendererObj.drawStringWithShadow("FPS: " + mc.getDebugFPS(), pos.getAbsoluteX(), pos.getAbsoluteY(), color);
+        mc.fontRendererObj.drawStringWithShadow("FPS: " + Minecraft.getDebugFPS(), pos.getAbsoluteX(), pos.getAbsoluteY(), color);
     }
 
     @Override

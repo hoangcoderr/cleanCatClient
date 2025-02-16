@@ -20,7 +20,7 @@ public class Mod {
     protected final FontRenderer font;
     protected final Client client;
     protected int keyBind = Keyboard.KEY_NONE;
-    private ModCategory category;
+    private final ModCategory category;
 
     public Mod(String name, String description, ModCategory category) {
         this.name = name;

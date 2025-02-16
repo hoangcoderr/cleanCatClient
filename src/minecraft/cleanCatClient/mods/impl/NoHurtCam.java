@@ -1,8 +1,6 @@
 package cleanCatClient.mods.impl;
 
-import cleanCatClient.constants.ModConstants;
-import cleanCatClient.event.EventTarget;
-import cleanCatClient.event.impl.ClientTickEvent;
+import cleanCatClient.mods.ModConstants;
 import cleanCatClient.mods.Mod;
 import cleanCatClient.mods.ModCategory;
 import net.minecraft.client.Minecraft;

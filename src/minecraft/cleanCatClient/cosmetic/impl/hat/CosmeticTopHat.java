@@ -45,8 +45,8 @@ public class CosmeticTopHat extends CosmeticBase {
 
     private class ModelTopHat extends CosmeticModelBase {
 
-        private ModelRenderer rim;
-        private ModelRenderer pointy;
+        private final ModelRenderer rim;
+        private final ModelRenderer pointy;
 
         public ModelTopHat(RenderPlayer player) {
             super(player);

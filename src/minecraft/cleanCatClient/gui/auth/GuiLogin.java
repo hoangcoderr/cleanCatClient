@@ -44,7 +44,7 @@ public class GuiLogin extends GuiScreen {
         super.initGui();
         final ScaledResolution sr = new ScaledResolution(this.mc);
         this.buttonList.clear();
-        this.buttonList.add(new ClientButton(0, this.width / 2 - 50 - 10, this.height / 2 - 20, 120, 20, I18n.format("Login (Cracked)", new Object[0])));
+        this.buttonList.add(new ClientButton(0, this.width / 2 - 50 - 10, this.height / 2 - 20, 120, 20, I18n.format("Login (Cracked)")));
         this.buttonList.add(new ClientButton(1, this.width / 2 - 50 - 10, this.height / 2 + 10, 120, 20, "Back to Main Screen"));
         (this.username = new GuiTextField(100, this.fontRendererObj, this.width / 2 - 50 - 10, sr.getScaledHeight() / 2 - 50, 120, 20)).setFocused(true);
         Keyboard.enableRepeatEvents(true);

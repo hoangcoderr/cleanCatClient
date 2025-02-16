@@ -1,12 +1,12 @@
 package cleanCatClient.gui.clickgui.components.comp;
 
-import java.awt.*;
-
 import cleanCatClient.gui.clickgui.settings.ModSettings;
 import cleanCatClient.gui.font.FontUtil;
 import cleanCatClient.mods.Mod;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
+
+import java.awt.*;
 
 public class ModButton {
 
@@ -126,11 +126,7 @@ public class ModButton {
 
         if (button == 0) {
             if (mouseX >= rectX1 && mouseX <= rectX2 && mouseY >= rectY1 && mouseY <= rectY2) {
-                if (mod.isEnabled()) {
-                    mod.setEnabled(false);
-                } else {
-                    mod.setEnabled(true);
-                }
+                mod.setEnabled(!mod.isEnabled());
             } else if (isMouseOver(mouseX, mouseY)) {
                 Minecraft.getMinecraft().displayGuiScreen(modSettings);
             }

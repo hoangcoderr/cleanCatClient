@@ -1,16 +1,10 @@
 package cleanCatClient.mods.impl;
 
-import cleanCatClient.constants.ModConstants;
-import cleanCatClient.event.EventTarget;
-import cleanCatClient.event.impl.ClientTickEvent;
+import cleanCatClient.mods.ModConstants;
 import cleanCatClient.gui.font.FontUtil;
 import cleanCatClient.gui.hud.ScreenPosition;
 import cleanCatClient.mods.ModCategory;
 import cleanCatClient.mods.ModDraggable;
-import cleanCatClient.utils.RenderUtils;
-import net.minecraft.client.Minecraft;
-import net.minecraft.potion.Potion;
-import net.minecraft.world.MinecraftException;
 
 public class ToggleSprint extends ModDraggable {
     public boolean flyBoost = false;

@@ -11,7 +11,7 @@ public class AnimatedResourceLocation {
     private int currentTick = 0;
     private int currentFrame = 0;
 
-    private ResourceLocation[] textures;
+    private final ResourceLocation[] textures;
 
     public AnimatedResourceLocation(String folder, int frames, int fpt) {
         this.folder = folder;

@@ -1,8 +1,7 @@
 package cleanCatClient.mods.impl;
 
 import cleanCatClient.gui.hud.ScreenPosition;
-import cleanCatClient.mods.Mod;
-import cleanCatClient.constants.ModConstants;
+import cleanCatClient.mods.ModConstants;
 import cleanCatClient.mods.ModCategory;
 import cleanCatClient.mods.ModDraggable;
 import net.minecraft.client.Minecraft;

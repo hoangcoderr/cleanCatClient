@@ -10,7 +10,7 @@ import java.awt.Color;
 import java.io.IOException;
 
 public class GlintColorSettings extends ModSettings {
-    private ColorPicker colorPicker;
+    private final ColorPicker colorPicker;
 
     public GlintColorSettings() {
         super(ModInstances.getGlintColor());

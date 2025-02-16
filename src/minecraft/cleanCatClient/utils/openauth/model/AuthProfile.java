@@ -29,12 +29,12 @@ public class AuthProfile {
     /**
      * The profile name
      */
-    private String name;
+    private final String name;
 
     /**
      * The profile UUID
      */
-    private String id;
+    private final String id;
 
     /**
      * Blank auth profile

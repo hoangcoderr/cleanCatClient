@@ -63,10 +63,10 @@ public class CosmeticSatanWings extends CosmeticBase {
             for (k = 0; (float) k < 32.0F; ++k) {
                 f1 = (float) k / 32.0F;
                 f2 = 1.0F + -1.0F * f1 - 0.015625F;
-                worldrenderer.pos((double) f1, 0.0D, -0.078125D).tex((double) f2, 1.0D).normal(-1.0F, 0.0F, 0.0F).endVertex();
-                worldrenderer.pos((double) f1, 0.0D, 0.0D).tex((double) f2, 1.0D).normal(-1.0F, 0.0F, 0.0F).endVertex();
-                worldrenderer.pos((double) f1, 1.0D, 0.0D).tex((double) f2, 0.0D).normal(-1.0F, 0.0F, 0.0F).endVertex();
-                worldrenderer.pos((double) f1, 1.0D, -0.078125D).tex((double) f2, 0.0D).normal(-1.0F, 0.0F, 0.0F).endVertex();
+                worldrenderer.pos(f1, 0.0D, -0.078125D).tex(f2, 1.0D).normal(-1.0F, 0.0F, 0.0F).endVertex();
+                worldrenderer.pos(f1, 0.0D, 0.0D).tex(f2, 1.0D).normal(-1.0F, 0.0F, 0.0F).endVertex();
+                worldrenderer.pos(f1, 1.0D, 0.0D).tex(f2, 0.0D).normal(-1.0F, 0.0F, 0.0F).endVertex();
+                worldrenderer.pos(f1, 1.0D, -0.078125D).tex(f2, 0.0D).normal(-1.0F, 0.0F, 0.0F).endVertex();
             }
 
             tessellator.draw();
@@ -76,10 +76,10 @@ public class CosmeticSatanWings extends CosmeticBase {
                 f1 = (float) k / 32.0F;
                 f2 = 1.0F + -1.0F * f1 - 0.015625F;
                 f1 += 0.03125F;
-                worldrenderer.pos((double) f1, 1.0D, -0.078125D).tex((double) f2, 0.0D).normal(1.0F, 0.0F, 0.0F).endVertex();
-                worldrenderer.pos((double) f1, 1.0D, 0.0D).tex((double) f2, 0.0D).normal(1.0F, 0.0F, 0.0F).endVertex();
-                worldrenderer.pos((double) f1, 0.0D, 0.0D).tex((double) f2, 1.0D).normal(1.0F, 0.0F, 0.0F).endVertex();
-                worldrenderer.pos((double) f1, 0.0D, -0.078125D).tex((double) f2, 1.0D).normal(1.0F, 0.0F, 0.0F).endVertex();
+                worldrenderer.pos(f1, 1.0D, -0.078125D).tex(f2, 0.0D).normal(1.0F, 0.0F, 0.0F).endVertex();
+                worldrenderer.pos(f1, 1.0D, 0.0D).tex(f2, 0.0D).normal(1.0F, 0.0F, 0.0F).endVertex();
+                worldrenderer.pos(f1, 0.0D, 0.0D).tex(f2, 1.0D).normal(1.0F, 0.0F, 0.0F).endVertex();
+                worldrenderer.pos(f1, 0.0D, -0.078125D).tex(f2, 1.0D).normal(1.0F, 0.0F, 0.0F).endVertex();
             }
 
             tessellator.draw();
@@ -89,10 +89,10 @@ public class CosmeticSatanWings extends CosmeticBase {
                 f1 = (float) k / 32.0F;
                 f2 = 1.0F + -1.0F * f1 - 0.015625F;
                 f1 += 0.03125F;
-                worldrenderer.pos(0.0D, (double) f1, 0.0D).tex(1.0D, (double) f2).normal(0.0F, 1.0F, 0.0F).endVertex();
-                worldrenderer.pos(1.0D, (double) f1, 0.0D).tex(0.0D, (double) f2).normal(0.0F, 1.0F, 0.0F).endVertex();
-                worldrenderer.pos(1.0D, (double) f1, -0.078125D).tex(0.0D, (double) f2).normal(0.0F, 1.0F, 0.0F).endVertex();
-                worldrenderer.pos(0.0D, (double) f1, -0.078125D).tex(1.0D, (double) f2).normal(0.0F, 1.0F, 0.0F).endVertex();
+                worldrenderer.pos(0.0D, f1, 0.0D).tex(1.0D, f2).normal(0.0F, 1.0F, 0.0F).endVertex();
+                worldrenderer.pos(1.0D, f1, 0.0D).tex(0.0D, f2).normal(0.0F, 1.0F, 0.0F).endVertex();
+                worldrenderer.pos(1.0D, f1, -0.078125D).tex(0.0D, f2).normal(0.0F, 1.0F, 0.0F).endVertex();
+                worldrenderer.pos(0.0D, f1, -0.078125D).tex(1.0D, f2).normal(0.0F, 1.0F, 0.0F).endVertex();
             }
 
             tessellator.draw();
@@ -101,10 +101,10 @@ public class CosmeticSatanWings extends CosmeticBase {
             for (k = 0; (float) k < 32.0F; ++k) {
                 f1 = (float) k / 32.0F;
                 f2 = 1.0F + -1.0F * f1 - 0.015625F;
-                worldrenderer.pos(1.0D, (double) f1, 0.0D).tex(0.0D, (double) f2).normal(0.0F, -1.0F, 0.0F).endVertex();
-                worldrenderer.pos(0.0D, (double) f1, 0.0D).tex(1.0D, (double) f2).normal(0.0F, -1.0F, 0.0F).endVertex();
-                worldrenderer.pos(0.0D, (double) f1, -0.078125D).tex(1.0D, (double) f2).normal(0.0F, -1.0F, 0.0F).endVertex();
-                worldrenderer.pos(1.0D, (double) f1, -0.078125D).tex(0.0D, (double) f2).normal(0.0F, -1.0F, 0.0F).endVertex();
+                worldrenderer.pos(1.0D, f1, 0.0D).tex(0.0D, f2).normal(0.0F, -1.0F, 0.0F).endVertex();
+                worldrenderer.pos(0.0D, f1, 0.0D).tex(1.0D, f2).normal(0.0F, -1.0F, 0.0F).endVertex();
+                worldrenderer.pos(0.0D, f1, -0.078125D).tex(1.0D, f2).normal(0.0F, -1.0F, 0.0F).endVertex();
+                worldrenderer.pos(1.0D, f1, -0.078125D).tex(0.0D, f2).normal(0.0F, -1.0F, 0.0F).endVertex();
             }
 
             tessellator.draw();

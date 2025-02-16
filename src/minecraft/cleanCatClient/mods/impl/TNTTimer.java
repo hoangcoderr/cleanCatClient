@@ -1,6 +1,6 @@
 package cleanCatClient.mods.impl;
 
-import cleanCatClient.constants.ModConstants;
+import cleanCatClient.mods.ModConstants;
 import cleanCatClient.event.EventTarget;
 import cleanCatClient.event.impl.Render2D;
 import cleanCatClient.mods.Mod;

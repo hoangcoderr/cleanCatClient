@@ -32,7 +32,7 @@ public class Client {
     public static final String CLIENT_NAME = "cleanCat Client", CLIENT_VERSION = "1.0.0.z - 1.8.9",
             CLIENT_BUILD = "2024.06.02", CLIENT_AUTHOR = "hoangcoderr",
             WINDOW_TITLE = CLIENT_NAME + " (" + CLIENT_VERSION + ")";
-    private static DiscordRP discordRPC = new DiscordRP();
+    private static final DiscordRP discordRPC = new DiscordRP();
     private long startTime;
     public void init() {
         start();
@@ -90,7 +90,7 @@ public class Client {
         long minutes = (elapsedTime / (1000 * 60)) % 60;
         long hours = (elapsedTime / (1000 * 60 * 60)) % 24;
 
-        logger.info("Shutting down " + CLIENT_NAME + " " + CLIENT_VERSION + "");
+        logger.info("Shutting down " + CLIENT_NAME + " " + CLIENT_VERSION);
         logger.info(String.format("Elapsed time: %d hours, %d minutes, %d seconds", hours, minutes, seconds));
         discordRPC.shutdown();
     }

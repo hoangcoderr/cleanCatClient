@@ -20,14 +20,14 @@ import org.lwjgl.opengl.GL11;
 import static org.lwjgl.opengl.Display.getWidth;
 
 public class Notification {
-    private String messsage;
+    private final String messsage;
     private long start;
 
-    private long fadedIn;
-    private long fadeOut;
-    private long end;
+    private final long fadedIn;
+    private final long fadeOut;
+    private final long end;
 
-    private int length;
+    private final int length;
     private final MinecraftFontRenderer font = FontUtil.normal;
     private final ScaledResolution sr = new ScaledResolution(Minecraft.getMinecraft());
 
@@ -35,8 +35,8 @@ public class Notification {
         this.messsage = messsage;
         this.length = length;
 
-        fadedIn = 200 * length;
-        fadeOut = fadedIn + 500 * length;
+        fadedIn = 200L * length;
+        fadeOut = fadedIn + 500L * length;
         end = fadeOut + fadedIn;
     }
 
@@ -70,7 +70,7 @@ public class Notification {
         int y = (int) offset;
         Gui.drawRoundedRect(x, y, x + width, y + height, 7, new Color(0, 0, 0, 120).getRGB());
         GL11.glColor3f(1.0F, 1.0F, 1.0F);
-        font.drawString(messsage, x + 10, (int) y + 6, Color.WHITE.getRGB());
+        font.drawString(messsage, x + 10, y + 6, Color.WHITE.getRGB());
     }
 
     public static void drawRect(double left, double top, double right, double bottom, int color) {

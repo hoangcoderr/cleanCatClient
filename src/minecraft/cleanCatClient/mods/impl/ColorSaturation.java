@@ -1,23 +1,15 @@
 package cleanCatClient.mods.impl;
 
-import cleanCatClient.event.EventTarget;
 import cleanCatClient.gui.hud.ScreenPosition;
-import cleanCatClient.mods.Mod;
 import cleanCatClient.mods.ModCategory;
-import cleanCatClient.constants.ModConstants;
+import cleanCatClient.mods.ModConstants;
 import cleanCatClient.mods.ModDraggable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.shader.Shader;
 import net.minecraft.client.shader.ShaderUniform;
 import net.minecraft.util.ResourceLocation;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonPrimitive;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 

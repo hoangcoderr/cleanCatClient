@@ -5,9 +5,14 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 
 public class Slider {
-    private int x, y, width, height;
-    private float minValue, maxValue, currentValue;
-    private float step;
+    private int x;
+    private int y;
+    private final int width;
+    private final int height;
+    private final float minValue;
+    private final float maxValue;
+    private float currentValue;
+    private final float step;
     private boolean dragging;
 
     public Slider(int x, int y, int width, int height, float minValue, float maxValue, float currentValue, float step) {

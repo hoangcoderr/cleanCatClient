@@ -1,6 +1,6 @@
 package cleanCatClient.mods.impl.oldanimations;
 
-import cleanCatClient.constants.ModConstants;
+import cleanCatClient.mods.ModConstants;
 import cleanCatClient.event.EventTarget;
 import cleanCatClient.event.impl.ClientTickEvent;
 import cleanCatClient.mods.Mod;

@@ -50,7 +50,7 @@ public class CosmeticWoolHat extends CosmeticBase {
 
     private class ModelWoolHat extends CosmeticModelBase {
 
-        private ModelRenderer woolHat;
+        private final ModelRenderer woolHat;
 
         public ModelWoolHat(RenderPlayer player) {
             super(player);

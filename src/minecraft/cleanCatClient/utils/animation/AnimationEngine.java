@@ -76,7 +76,6 @@ public class AnimationEngine {
                 if (animationValue > endValue)
                     animationValue = endValue;
                 this.prevTime = System.currentTimeMillis();
-                return;
             } else {
                 if (animationValue <= endValue) {
                     animationValue = endValue;
@@ -89,7 +88,6 @@ public class AnimationEngine {
                 if (animationValue < endValue)
                     animationValue = endValue;
                 this.prevTime = System.currentTimeMillis();
-                return;
             }
         }
         else if (resetUsingBackWardsAnimation) {
@@ -109,7 +107,6 @@ public class AnimationEngine {
             if (animationValue < startValue)
                 reset();
             this.prevTime = System.currentTimeMillis();
-            return;
 
         }
 

@@ -1,13 +1,11 @@
 package cleanCatClient.mods.impl;
 
-import cleanCatClient.constants.ModConstants;
+import cleanCatClient.mods.ModConstants;
 import cleanCatClient.mods.Mod;
 import cleanCatClient.mods.ModCategory;
 
-import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 
 public class ChatShortcuts extends Mod {
     private Map<String, String> shortcuts;

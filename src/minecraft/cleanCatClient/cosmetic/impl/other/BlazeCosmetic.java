@@ -43,7 +43,7 @@ public class BlazeCosmetic extends CosmeticBase
 
     private static class BlazeModel extends CosmeticModelBase
     {
-        private ModelRenderer[] blazeSticks = new ModelRenderer[12];
+        private final ModelRenderer[] blazeSticks = new ModelRenderer[12];
 
         public BlazeModel(RenderPlayer player)
         {

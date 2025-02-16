@@ -29,17 +29,17 @@ public class AuthError {
     /**
      * Short description of the error
      */
-    private String error;
+    private final String error;
 
     /**
      * Longer description wich can be shown to the user
      */
-    private String errorMessage;
+    private final String errorMessage;
 
     /**
      * Cause of the error (optional)
      */
-    private String cause;
+    private final String cause;
 
     /**
      * Auth Error constructor

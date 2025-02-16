@@ -9,7 +9,7 @@ import net.minecraft.client.Minecraft;
 import java.io.IOException;
 
 public class HitColorSettings extends ModSettings {
-    private ColorPicker colorPicker;
+    private final ColorPicker colorPicker;
     public HitColorSettings() {
         super(ModInstances.getHitColor());
         this.colorPicker = new ColorPicker(Minecraft.centerX, Minecraft.centerY, 150, 100);

@@ -5,11 +5,14 @@ import net.minecraft.client.gui.Gui;
 import java.awt.Color;
 
 public class CheckBox {
-    private int x, y, width, height;
-    private String label;
+    private int x;
+    private int y;
+    private final int width;
+    private final int height;
+    private final String label;
     private boolean checked;
-    private Color checkedColor;
-    private Color uncheckedColor;
+    private final Color checkedColor;
+    private final Color uncheckedColor;
     private boolean isAnimating;
     private float animationProgress;
 

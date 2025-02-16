@@ -86,7 +86,10 @@ public class SnowPartical {
 
     private class Particle {
 
-        private float x, y, speed, alpha;
+        private final float x;
+        private float y;
+        private final float speed;
+        private float alpha;
 
         /**
          * Creates a new particle with the specified position and speed.

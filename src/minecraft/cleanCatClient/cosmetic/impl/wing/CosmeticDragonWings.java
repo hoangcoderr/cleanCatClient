@@ -82,10 +82,10 @@ public class CosmeticDragonWings extends CosmeticBase {
             for (int j = 0; j < 2; ++j) {
                 GL11.glEnable(GL11.GL_CULL_FACE);
                 float f11 = (System.currentTimeMillis() % 1000) / 1000F * (float) Math.PI * 2.0F;
-                this.wing.rotateAngleX = (float) Math.toRadians(-80F) - (float) Math.cos((double) f11) * 0.2F;
+                this.wing.rotateAngleX = (float) Math.toRadians(-80F) - (float) Math.cos(f11) * 0.2F;
                 this.wing.rotateAngleY = (float) Math.toRadians(20F) + (float) Math.sin(f11) * 0.4F;
                 this.wing.rotateAngleZ = (float) Math.toRadians(20F);
-                this.wingTip.rotateAngleZ = -((float) (Math.sin((double) (f11 + 2.0F)) + 0.5D)) * 0.75F;
+                this.wingTip.rotateAngleZ = -((float) (Math.sin(f11 + 2.0F) + 0.5D)) * 0.75F;
                 this.wing.render(0.0625F);
                 GL11.glScalef(-1.0F, 1.0F, 1.0F);
 

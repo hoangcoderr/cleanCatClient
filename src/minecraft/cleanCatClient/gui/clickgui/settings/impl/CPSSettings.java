@@ -14,7 +14,7 @@ import java.awt.*;
 import java.io.IOException;
 
 public class CPSSettings extends ModSettings {
-    private ColorPicker colorPicker;
+    private final ColorPicker colorPicker;
     private int colorPickerX;
     private int colorPickerY;
     public CPSSettings() {

@@ -11,8 +11,8 @@ import java.util.List;
 import java.util.Map;
 
 public class CapeScreen extends GuiScreen {
-    private List<Cosmetic> capes;
-    private List<GuiButton> buttons;
+    private final List<Cosmetic> capes;
+    private final List<GuiButton> buttons;
 
     public CapeScreen() {
         capes = new ArrayList<>();

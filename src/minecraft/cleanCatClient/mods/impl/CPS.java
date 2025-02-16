@@ -1,7 +1,6 @@
 package cleanCatClient.mods.impl;
 
-import cleanCatClient.constants.ModConstants;
-import cleanCatClient.gui.font.FontUtil;
+import cleanCatClient.mods.ModConstants;
 import cleanCatClient.mods.ModCategory;
 import cleanCatClient.mods.ModDraggable;
 import cleanCatClient.gui.hud.ScreenPosition;
@@ -86,7 +85,7 @@ public class CPS extends ModDraggable {
 
     public void loadConfig() {
         // Load color from config (example implementation)
-        String colorStr[] = loadDataConfig();
+        String[] colorStr = loadDataConfig();
         if (colorStr != null) {
             try {
                 this.color = new Color(Integer.parseInt(colorStr[0]));

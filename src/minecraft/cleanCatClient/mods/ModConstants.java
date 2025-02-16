@@ -1,4 +1,4 @@
-package cleanCatClient.constants;
+package cleanCatClient.mods;
 
 public class ModConstants {
     public static String TOGGLE_SPRINT = "Toggle Sprint";

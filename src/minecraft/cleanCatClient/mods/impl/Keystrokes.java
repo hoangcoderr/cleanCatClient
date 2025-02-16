@@ -1,7 +1,6 @@
 package cleanCatClient.mods.impl;
 
-import cleanCatClient.constants.ModConstants;
-import cleanCatClient.gui.font.FontUtil;
+import cleanCatClient.mods.ModConstants;
 import cleanCatClient.gui.hud.ScreenPosition;
 import cleanCatClient.mods.ModCategory;
 import cleanCatClient.mods.ModDraggable;
@@ -27,7 +26,7 @@ public class Keystrokes extends ModDraggable {
     private static final MouseKey LMB = new MouseKey("LMB", Minecraft.getMinecraft().gameSettings.keyBindAttack, 1, 61, 28, 18);
     private static final MouseKey RMB = new MouseKey("RMB", Minecraft.getMinecraft().gameSettings.keyBindUseItem, 31, 61, 28, 18);
 
-    public static enum KeystrokesMode {
+    public enum KeystrokesMode {
         WASD(new Key[]{W, A, S, D}, new MouseKey[]{}),
         WASD_MOUSE(new Key[]{W, A, S, D}, new MouseKey[]{new MouseKey("LMB", Minecraft.getMinecraft().gameSettings.keyBindAttack, 1, 41, 28, 18), new MouseKey("RMB", Minecraft.getMinecraft().gameSettings.keyBindUseItem, 31, 41, 28, 18)}),
         WASD_JUMP(new Key[]{W, A, S, D, SPACE}, new MouseKey[]{}),
@@ -38,7 +37,7 @@ public class Keystrokes extends ModDraggable {
         private int width;
         private int height;
 
-        private KeystrokesMode(Key[] keys, MouseKey[] mouseKeys) {
+        KeystrokesMode(Key[] keys, MouseKey[] mouseKeys) {
             this.keys = keys;
             this.mouseKeys = mouseKeys;
 
@@ -106,7 +105,7 @@ public class Keystrokes extends ModDraggable {
     }
 
     private static class MouseKey extends Key {
-        private ArrayList<Long> clicks = new ArrayList<Long>();
+        private final ArrayList<Long> clicks = new ArrayList<Long>();
         private long lastPressed;
         private boolean wasPressed;
 

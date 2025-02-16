@@ -48,7 +48,7 @@ public class HUDConfigScreen extends GuiScreen {
         super.actionPerformed(button);
     }
 
-    private HUDManager api = HUDManager.getInstance();
+    private final HUDManager api = HUDManager.getInstance();
 
     public HUDConfigScreen(HUDManager api) {
         for (IRenderer ren : api.getRegisteredRenderers()) {
@@ -233,7 +233,8 @@ public class HUDConfigScreen extends GuiScreen {
 
     private class MouseOverFinder implements Predicate<IRenderer> {
 
-        private int mouseX, mouseY;
+        private final int mouseX;
+        private final int mouseY;
 
         public MouseOverFinder(int x, int y) {
             this.mouseX = x;
@@ -250,11 +251,7 @@ public class HUDConfigScreen extends GuiScreen {
 
             if (mouseX >= absoluteX && mouseX <= absoluteX + renderer.getWidth()) {
 
-                if (mouseY >= absoluteY && mouseY <= absoluteY + renderer.getHeight()) {
-
-                    return true;
-
-                }
+                return mouseY >= absoluteY && mouseY <= absoluteY + renderer.getHeight();
 
             }
 

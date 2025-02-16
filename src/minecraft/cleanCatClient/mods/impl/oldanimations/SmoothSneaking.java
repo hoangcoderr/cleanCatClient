@@ -1,6 +1,6 @@
 package cleanCatClient.mods.impl.oldanimations;
 
-import cleanCatClient.constants.ModConstants;
+import cleanCatClient.mods.ModConstants;
 import cleanCatClient.event.EventTarget;
 import cleanCatClient.event.impl.ClientTickEvent;
 import cleanCatClient.mods.Mod;
@@ -17,7 +17,7 @@ public class SmoothSneaking extends Mod {
 
     private static final float START_HEIGHT = 1.62f;
     private static final float END_HEIGHT = 1.54f;
-    private Minecraft mc = Minecraft.getMinecraft();
+    private final Minecraft mc = Minecraft.getMinecraft();
     private float eyeHeight;
     private float lastEyeHeight;
 

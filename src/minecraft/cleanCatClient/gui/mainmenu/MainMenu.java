@@ -13,7 +13,7 @@ import java.awt.*;
 import java.io.IOException;
 
 public class MainMenu extends GuiScreen {
-    private SnowPartical particles = SnowPartical.create(160); // 160 is a decent amount
+    private final SnowPartical particles = SnowPartical.create(160); // 160 is a decent amount
 
     private ClientButton yesButton;
     private ClientButton noButton;

@@ -31,22 +31,22 @@ public class AuthResponse {
     /**
      * The access token
      */
-    private String accessToken;
+    private final String accessToken;
 
     /**
      * The client token (same as the one given by the request)
      */
-    private String clientToken;
+    private final String clientToken;
 
     /**
      * All available profiles
      */
-    private AuthProfile[] availableProfiles;
+    private final AuthProfile[] availableProfiles;
 
     /**
      * The current selected profile from the agent
      */
-    private AuthProfile selectedProfile;
+    private final AuthProfile selectedProfile;
 
     /**
      * Auth Response constructor

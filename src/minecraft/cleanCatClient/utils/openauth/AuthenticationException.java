@@ -31,7 +31,7 @@ public class AuthenticationException extends Exception {
     /**
      * The given JSON model instance of the error
      */
-    private AuthError model;
+    private final AuthError model;
 
     /**
      * Create a new Authentication Exception

@@ -46,14 +46,14 @@ public class WavyCapeRenderer {
         }
     }
 
-    private ResourceLocation capeTex = new ResourceLocation("cleanCatClient/Cosmetic/wavycape/cape.png");
+    private final ResourceLocation capeTex = new ResourceLocation("cleanCatClient/Cosmetic/wavycape/cape.png");
 
     @EventTarget
     public void onRenderPlayer(final EventRenderPlayer e) {
         if (mc.theWorld == null) return;
         final double partialTicks = e.getPartialRenderTick();
         final EntityPlayer player = e.getPlayer();
-        if (player == null || player != (EntityPlayer) mc.thePlayer) return;
+        if (player == null || player != mc.thePlayer) return;
         if (CosmeticBoolean.shouldRenderCosmetic(1, 14,(AbstractClientPlayer) player)) {
             final Entity viewer = mc.getRenderViewEntity();
             final double pX = player.lastTickPosX + (player.posX - player.lastTickPosX) * partialTicks;

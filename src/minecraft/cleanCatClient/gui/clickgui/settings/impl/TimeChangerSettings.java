@@ -8,7 +8,7 @@ import net.minecraft.client.Minecraft;
 import java.io.IOException;
 
 public class TimeChangerSettings extends ModSettings {
-    private Slider timeSlider;
+    private final Slider timeSlider;
     public TimeChangerSettings() {
         super(ModInstances.getTimeChangerMod());
         timeSlider = new Slider(Minecraft.centerX - 100, Minecraft.centerY + 20, 150, 20, 1, 20000, ModInstances.getTimeChangerMod().getTime(), 100);

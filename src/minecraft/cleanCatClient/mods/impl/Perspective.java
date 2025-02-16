@@ -1,18 +1,13 @@
 package cleanCatClient.mods.impl;
 
-import cleanCatClient.constants.ModConstants;
+import cleanCatClient.mods.ModConstants;
 import cleanCatClient.event.EventTarget;
-import cleanCatClient.event.impl.ClientTickEvent;
 import cleanCatClient.event.impl.KeyEvent;
 import cleanCatClient.event.impl.Render2D;
 import cleanCatClient.mods.Mod;
 import cleanCatClient.mods.ModCategory;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.settings.KeyBinding;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
-
-import java.security.Key;
 
 public class Perspective extends Mod {
     private boolean returnOnRelease = true; // hold down the key = true

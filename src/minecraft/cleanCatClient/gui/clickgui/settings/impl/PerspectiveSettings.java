@@ -11,8 +11,8 @@ import net.minecraft.client.Minecraft;
 import java.io.IOException;
 
 public class PerspectiveSettings extends ModSettings {
-    private CheckBox smooth;
-    private KeyBindSetting keyBindSetting;
+    private final CheckBox smooth;
+    private final KeyBindSetting keyBindSetting;
 
     public PerspectiveSettings() {
         super(ModInstances.getPerspective());
@@ -41,11 +41,7 @@ public class PerspectiveSettings extends ModSettings {
     }
 
     private void updateSettings() {
-        if (smooth.isChecked()) {
-            ModInstances.getPerspective().setSmooth(true);
-        } else {
-            ModInstances.getPerspective().setSmooth(false);
-        }
+        ModInstances.getPerspective().setSmooth(smooth.isChecked());
         ModInstances.getPerspective().setKeyBind(keyBindSetting.getKeyBind());
     }
 

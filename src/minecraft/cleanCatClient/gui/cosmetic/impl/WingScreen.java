@@ -12,8 +12,8 @@ import cleanCatClient.cosmetic.CosmeticBoolean;
 import cleanCatClient.cosmetic.Cosmetic;
 
 public class WingScreen extends GuiScreen {
-    private List<Cosmetic> wings;
-    private List<GuiButton> buttons;
+    private final List<Cosmetic> wings;
+    private final List<GuiButton> buttons;
 
     public WingScreen() {
         wings = new ArrayList<>();

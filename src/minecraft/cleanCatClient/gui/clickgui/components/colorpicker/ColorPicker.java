@@ -7,9 +7,9 @@ import net.minecraft.client.gui.Gui;
 import java.awt.*;
 
 public class ColorPicker {
-    private ColorSlider colorSlider;
-    private ColorSlider transparencySlider;
-    private ColorSquare colorSquare;
+    private final ColorSlider colorSlider;
+    private final ColorSlider transparencySlider;
+    private final ColorSquare colorSquare;
     private boolean isPickerVisible = false;
 
     // Define rectangle's position and dimensions as class variables

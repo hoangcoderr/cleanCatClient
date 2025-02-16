@@ -8,7 +8,7 @@ public class ColorSlider {
     public int x, y, width, height;
     private float sliderValue;
     private boolean dragging;
-    private String label;
+    private final String label;
 
     public ColorSlider(int x, int y, int width, int height, String label) {
         this.x = x;

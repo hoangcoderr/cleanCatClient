@@ -12,6 +12,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class UpdateChecker {
 
@@ -48,9 +49,7 @@ public class UpdateChecker {
             // Split the update content by \n and add to updateInfos
             updateInfos.clear();
             String[] updates = updateContent.split("\n");
-            for (String update : updates) {
-                updateInfos.add(update);
-            }
+            Collections.addAll(updateInfos, updates);
             //isShownUpdate = false;
             return Client.CLIENT_VERSION.equals(latestVersion);
         } catch (Exception e) {

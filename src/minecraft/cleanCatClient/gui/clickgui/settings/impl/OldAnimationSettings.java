@@ -9,9 +9,9 @@ import java.io.IOException;
 
 public class OldAnimationSettings extends ModSettings {
     // Add the CheckBox fields
-    private CheckBox leftHandCheckBox;
-    private CheckBox smoothSneakingCheckBox;
-    private CheckBox swingAnimationCheckBox;
+    private final CheckBox leftHandCheckBox;
+    private final CheckBox smoothSneakingCheckBox;
+    private final CheckBox swingAnimationCheckBox;
 
     public OldAnimationSettings() {
         super(ModInstances.getOldAnimation());

@@ -21,7 +21,7 @@ import java.util.Map;
 
 public class ChatShortcutSettings extends ModSettings {
     private List<GuiTextField> textFields;
-    private ChatShortcuts chatShortcuts;
+    private final ChatShortcuts chatShortcuts;
     private ClientButton saveButton;
     private int scrollOffset;
     private int maxScroll;
@@ -29,7 +29,7 @@ public class ChatShortcutSettings extends ModSettings {
     private ClientButton deleteButton;
     private int backgroundW;
     private int backgroundH;
-    private String successMessage = "Shortcuts saved successfully!";
+    private final String successMessage = "Shortcuts saved successfully!";
 
 
     public ChatShortcutSettings() {

@@ -8,7 +8,7 @@ import net.minecraft.client.Minecraft;
 import java.io.IOException;
 
 public class FPSSettings extends ModSettings {
-    private ColorPicker colorPicker;
+    private final ColorPicker colorPicker;
     private int colorPickerX;
     private int colorPickerY;
     public FPSSettings() {

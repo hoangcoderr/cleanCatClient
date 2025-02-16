@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class CoordinateDisplaySettings extends ModSettings {
 
-    private ColorPicker colorPicker;
+    private final ColorPicker colorPicker;
     private int colorPickerX;
     private int colorPickerY;
     public CoordinateDisplaySettings() {

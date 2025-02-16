@@ -1,7 +1,5 @@
 package cleanCatClient.gui.clickgui.components.comp;
 
-import java.awt.Color;
-
 import cleanCatClient.Client;
 import cleanCatClient.gui.clickgui.ClickGui;
 import cleanCatClient.gui.font.FontUtil;
@@ -10,15 +8,17 @@ import cleanCatClient.utils.animation.AnimationEngine;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 
+import java.awt.*;
+
 public class ClickGuiCategoryButton extends CategoryManager{
 	public int x,y,w,h,r;
-	private String name;
+	private final String name;
 	private boolean isOnThisPage = false;
 	//this is use for the categorymanager toknow which page this is on
 	private int number = 0;
 	CategoryManager categoryManager;
 	
-	private AnimationEngine animation = new AnimationEngine(x, x+w, 500,false);
+	private final AnimationEngine animation = new AnimationEngine(x, x+w, 500,false);
 	
 	public ClickGuiCategoryButton(int x, int y, int w, int h, String name, int number) {
 		this.x = x;

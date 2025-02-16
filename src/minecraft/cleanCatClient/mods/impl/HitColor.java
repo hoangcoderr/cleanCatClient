@@ -1,7 +1,7 @@
 package cleanCatClient.mods.impl;
 
 import cleanCatClient.mods.Mod;
-import cleanCatClient.constants.ModConstants;
+import cleanCatClient.mods.ModConstants;
 import cleanCatClient.mods.ModCategory;
 
 import java.awt.*;

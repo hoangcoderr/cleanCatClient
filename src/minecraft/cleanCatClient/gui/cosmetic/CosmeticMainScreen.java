@@ -22,7 +22,7 @@ public class CosmeticMainScreen extends GuiScreen {
     private float lastMouseX;
     private float lastMouseY;
     private float rotationYaw = 180.0F;
-    private float rotationPitch = 0.0F;
+    private final float rotationPitch = 0.0F;
 
     @Override
     public void initGui() {

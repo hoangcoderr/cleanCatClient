@@ -8,8 +8,8 @@ import net.minecraft.client.Minecraft;
 import java.io.IOException;
 
 public class ItemPhysicsSettings extends ModSettings {
-    private CheckBox cbSpin;
-    private CheckBox cbRandomAngle;
+    private final CheckBox cbSpin;
+    private final CheckBox cbRandomAngle;
     public ItemPhysicsSettings() {
         super(ModInstances.getItemPhysics());
         cbSpin = new CheckBox(Minecraft.centerX - 150, Minecraft.centerY - 60, 150, 20, "Spin", ModInstances.getItemPhysics().isSpin());

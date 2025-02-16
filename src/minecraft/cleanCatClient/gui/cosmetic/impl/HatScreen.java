@@ -12,8 +12,8 @@ import cleanCatClient.cosmetic.CosmeticBoolean;
 import cleanCatClient.cosmetic.Cosmetic;
 
 public class HatScreen extends GuiScreen {
-    private List<Cosmetic> hats;
-    private List<GuiButton> buttons;
+    private final List<Cosmetic> hats;
+    private final List<GuiButton> buttons;
 
     public HatScreen() {
         hats = new ArrayList<>();

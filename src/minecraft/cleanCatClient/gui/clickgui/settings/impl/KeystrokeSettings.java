@@ -12,9 +12,9 @@ import java.io.IOException;
 import java.util.Arrays;
 
 public class KeystrokeSettings extends ModSettings {
-    private ComboBox customComboBox;
-    private ColorPicker upColorPicker;
-    private ColorPicker downColorPicker;
+    private final ComboBox customComboBox;
+    private final ColorPicker upColorPicker;
+    private final ColorPicker downColorPicker;
 
     public KeystrokeSettings() {
         super(ModInstances.getKeystrokes());

@@ -1,6 +1,6 @@
 package cleanCatClient.mods.impl;
 
-import cleanCatClient.constants.ModConstants;
+import cleanCatClient.mods.ModConstants;
 import cleanCatClient.gui.font.FontUtil;
 import cleanCatClient.gui.hud.ScreenPosition;
 import cleanCatClient.mods.ModCategory;
@@ -90,7 +90,7 @@ public class PingDisplay extends ModDraggable {
 
     public void loadConfig() {
         // Load color from config (example implementation)
-        String colorStr[] = loadDataConfig();
+        String[] colorStr = loadDataConfig();
         if (colorStr != null) {
             try {
                 this.color = new Color(Integer.parseInt(colorStr[0]));

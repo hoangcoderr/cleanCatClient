@@ -33,7 +33,7 @@ public class ModInstances {
     private static BossBar modBossBar;
     private static HitColor hitColor;
     private static OldAnimation oldAnimation;
-    private static List<Mod> allMods = new ArrayList<>();
+    private static final List<Mod> allMods = new ArrayList<>();
     private static ItemMaker itemMakerMod;
     private static TimeChanger timeChangerMod;
     private static ColorSaturation colorSaturation;

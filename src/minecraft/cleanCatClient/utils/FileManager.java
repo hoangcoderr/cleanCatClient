@@ -86,8 +86,8 @@ public class FileManager {
     public static <T extends Object> T readFromJson(final File file, final Class<T> c) {
         try {
             FileInputStream fileInputStream = new FileInputStream(file);
-            InputStreamReader inputStreamReader = new InputStreamReader((InputStream)fileInputStream);
-            BufferedReader bufferedReader = new BufferedReader((Reader)inputStreamReader);
+            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             StringBuilder builder = new StringBuilder();
             String line;
             while ((line = bufferedReader.readLine()) != null) {
