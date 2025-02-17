@@ -5,7 +5,6 @@ import cleanCatClient.gui.clickgui.components.Slider;
 import cleanCatClient.gui.clickgui.components.colorpicker.ColorPicker;
 import cleanCatClient.gui.clickgui.settings.ModSettings;
 import cleanCatClient.gui.font.FontUtil;
-import cleanCatClient.gui.hud.ScreenPosition;
 import cleanCatClient.mods.ModInstances;
 import net.minecraft.client.Minecraft;
 

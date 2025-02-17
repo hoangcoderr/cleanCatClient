@@ -1,6 +1,5 @@
 package cleanCatClient.gui.auth.microsoft;
 
-import cleanCatClient.gui.auth.mojang.GuiLoginMojang;
 import cleanCatClient.gui.mainmenu.button.ClientButton;
 import cleanCatClient.utils.SessionChanger;
 import net.minecraft.client.gui.*;

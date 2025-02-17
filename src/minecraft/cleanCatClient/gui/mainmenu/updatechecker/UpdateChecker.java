@@ -1,13 +1,10 @@
 package cleanCatClient.gui.mainmenu.updatechecker;
 
 import cleanCatClient.Client;
-import org.apache.commons.io.FileUtils;
 import org.json.JSONObject;
 
 import java.awt.*;
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;

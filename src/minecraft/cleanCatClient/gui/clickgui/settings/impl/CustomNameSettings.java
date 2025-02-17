@@ -1,10 +1,8 @@
 package cleanCatClient.gui.clickgui.settings.impl;
 
-import cleanCatClient.Client;
 import cleanCatClient.gui.clickgui.settings.ModSettings;
 import cleanCatClient.gui.mainmenu.button.ClientButton;
 import cleanCatClient.mods.ModInstances;
-import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
 import org.lwjgl.input.Keyboard;
 

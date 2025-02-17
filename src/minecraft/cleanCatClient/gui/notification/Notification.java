@@ -3,21 +3,16 @@ package cleanCatClient.gui.notification;
 import cleanCatClient.gui.font.FontUtil;
 import cleanCatClient.gui.font.MinecraftFontRenderer;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.util.ResourceLocation;
 
 import java.awt.Color;
 
 import org.lwjgl.opengl.GL11;
-
-import static org.lwjgl.opengl.Display.getWidth;
 
 public class Notification {
     private final String messsage;

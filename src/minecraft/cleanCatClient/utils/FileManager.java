@@ -1,7 +1,6 @@
 package cleanCatClient.utils;
 
 import com.google.gson.Gson;
-import org.lwjgl.Sys;
 
 import java.io.*;
 import java.lang.reflect.Type;

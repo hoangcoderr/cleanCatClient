@@ -3,8 +3,6 @@ package cleanCatClient.gui.clickgui.settings;
 import cleanCatClient.Client;
 import cleanCatClient.gui.mainmenu.button.ClientButton;
 import cleanCatClient.gui.font.FontUtil;
-import cleanCatClient.gui.notification.Notification;
-import cleanCatClient.gui.notification.NotificationManager;
 import cleanCatClient.mods.Mod;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;

@@ -6,9 +6,7 @@ import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
 
-import org.lwjgl.BufferUtils;
 import org.lwjgl.input.Cursor;
-import org.lwjgl.input.Mouse;
 
 
 import org.lwjgl.input.*;
@@ -17,7 +15,6 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import java.awt.image.BufferedImage;
 

@@ -5,8 +5,6 @@ import cleanCatClient.gui.mainmenu.button.ClientButton;
 import cleanCatClient.gui.notification.Notification;
 import cleanCatClient.gui.notification.NotificationManager;
 import cleanCatClient.mods.ModInstances;
-import cleanCatClient.mods.impl.ItemCounter;
-import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;

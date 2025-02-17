@@ -1,7 +1,6 @@
 package cleanCatClient.cosmetic.impl.other;
 
 import cleanCatClient.cosmetic.CosmeticBase;
-import cleanCatClient.cosmetic.CosmeticBoolean;
 import cleanCatClient.cosmetic.CosmeticModelBase;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.model.ModelPlayer;
@@ -11,7 +10,6 @@ import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.GL11;
 
 
 import java.awt.*;

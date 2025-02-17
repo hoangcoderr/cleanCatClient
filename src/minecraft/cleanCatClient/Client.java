@@ -1,7 +1,6 @@
 // src/minecraft/cleanCatClient/Client.java
 package cleanCatClient;
 
-import cleanCatClient.cosmetic.impl.cape.realistic.WavyCapeRenderer;
 import cleanCatClient.gui.hud.HUDConfigScreen;
 import cleanCatClient.mods.manager.ModConfigManager;
 import cleanCatClient.mods.manager.ModManager;

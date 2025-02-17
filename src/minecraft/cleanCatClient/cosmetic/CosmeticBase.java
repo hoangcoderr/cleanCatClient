@@ -1,6 +1,5 @@
 package cleanCatClient.cosmetic;
 
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.util.ResourceLocation;

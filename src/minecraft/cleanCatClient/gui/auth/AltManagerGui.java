@@ -4,14 +4,8 @@ import cleanCatClient.gui.mainmenu.MainMenu;
 import cleanCatClient.gui.auth.microsoft.GuiLoginMicrosoft;
 import cleanCatClient.gui.auth.mojang.GuiLoginMojang;
 import cleanCatClient.gui.mainmenu.button.ClientButton;
-import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.util.ResourceLocation;
-import org.lwjgl.input.Mouse;
-
-import java.awt.*;
 
 public class AltManagerGui extends GuiScreen {
 
