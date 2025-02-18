@@ -52,8 +52,9 @@ public class ItemPhysics extends Mod {
     }
 
     public void saveConfig() {
-        saveDataConfig(new String[]{
-                String.valueOf(isSpin()), String.valueOf(isRandomAngle())
-        });
+        String[] dataConfig = new String[2];
+        dataConfig[0] = String.valueOf(spin);
+        dataConfig[1] = String.valueOf(randomAngle);
+        saveDataConfig(dataConfig);
     }
 }
