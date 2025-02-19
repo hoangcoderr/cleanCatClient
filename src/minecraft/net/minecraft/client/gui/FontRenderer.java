@@ -164,7 +164,6 @@ public class FontRenderer implements IResourceManagerReloadListener {
             }
 
             if (i1 == 65) {
-                i1 = i1;
             }
 
             if (i1 == 32) {

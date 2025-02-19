@@ -46,11 +46,5 @@ public class CosmeticBoolean {
         return new HashMap<>(cosmetics);
     }
 
-    public static Cosmetic getCosmetic(int type, int id) {
-        Cosmetic cosmetic = cosmetics.get(id);
-        if (cosmetic != null && cosmetic.getType() == type) {
-            return cosmetic;
-        }
-        return null;
-    }
+
 }

@@ -13,8 +13,8 @@ import org.lwjgl.input.Keyboard;
 import java.io.*;
 
 public class Mod {
-    public String name;
-    public String description;
+    public final String name;
+    public final String description;
     private boolean isEnabled = false;
     protected final Minecraft mc;
     protected final FontRenderer font;

@@ -30,10 +30,6 @@ public abstract class CosmeticBase implements LayerRenderer<AbstractClientPlayer
         return false;
     }
     
-    public ModelRenderer bindTextureAndColor(final Color color, final ResourceLocation resourceLocation, final ModelRenderer colorModel, final ModelRenderer playerSkinModel) {
-        final boolean flag = false;
-        Minecraft.getMinecraft().getTextureManager().bindTexture(resourceLocation);
-        return colorModel;
-    }
+
 
 }
