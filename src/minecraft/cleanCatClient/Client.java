@@ -47,10 +47,19 @@ public class Client {
 
     public HUDConfigScreen hudConfigScreen;
 
+    public ModManager modManager;
+    public ModConfigManager modConfigManager;
+    public ModPosManager modPosManager;
+
     public void start() {
-        ModManager.loadModsConfig();
-        ModConfigManager.loadAllConfigs();
-        ModPosManager.loadAllPositions();
+        modManager = new ModManager();
+        modManager.loadAll();
+
+        modConfigManager = new ModConfigManager();
+        modConfigManager.loadAll();
+
+        modPosManager = new ModPosManager();
+        modPosManager.loadAll();
 
         hudManager = HUDManager.getInstance();
         ModInstances.register(hudManager);

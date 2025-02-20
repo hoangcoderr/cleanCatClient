@@ -1,3 +1,4 @@
+// Sửa đổi lớp ModConfigManager
 package cleanCatClient.mods.manager;
 
 import cleanCatClient.utils.FileManager;
@@ -8,11 +9,12 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ModConfigManager {
+public class ModConfigManager implements IConfigManager<String[]> {
     private static final File MOD_CONFIGS_FILE = new File(FileManager.getModsDirectory(), "mod_configs.json");
     private static Map<String, String[]> modsConfigs = new HashMap<>();
 
-    public static void loadAllConfigs() {
+    @Override
+    public void loadAll() {
         Type type = new TypeToken<Map<String, String[]>>() {}.getType();
         modsConfigs = FileManager.readAFromJson(MOD_CONFIGS_FILE, type);
         if (modsConfigs == null) {
@@ -21,16 +23,19 @@ public class ModConfigManager {
         }
     }
 
-    public static void saveAllConfigs() {
+    @Override
+    public void saveAll() {
         FileManager.writeJsonToFile(MOD_CONFIGS_FILE, modsConfigs);
     }
 
-    public static String[] getModConfig(String modName) {
+    @Override
+    public String[] getConfig(String modName) {
         return modsConfigs.get(modName);
     }
 
-    public static void saveModConfig(String modName, String[] data) {
+    @Override
+    public void setConfig(String modName, String[] data) {
         modsConfigs.put(modName, data);
-        saveAllConfigs();
+        saveAll();
     }
 }

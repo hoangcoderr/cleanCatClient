@@ -1,5 +1,6 @@
 package cleanCatClient.mods;
 
+import cleanCatClient.Client;
 import cleanCatClient.gui.hud.IRenderer;
 import cleanCatClient.gui.hud.ScreenPosition;
 import cleanCatClient.mods.manager.ModPosManager;
@@ -12,7 +13,7 @@ public abstract class ModDraggable extends Mod implements IRenderer {
 
     public ModDraggable(String name, String description, ModCategory category) {
         super(name, description, category);
-        pos = ModPosManager.getPosition(name);
+        pos = Client.getInstance().modPosManager.getConfig(name);
         if (pos == null) {
             pos = ScreenPosition.fromRelativePosition(0.5, 0.5);
             savePositionToFile();
@@ -36,7 +37,7 @@ public abstract class ModDraggable extends Mod implements IRenderer {
     }
 
     protected void savePositionToFile() {
-        ModPosManager.setPosition(this.name, this.pos);
+        Client.getInstance().modPosManager.setConfig(this.name, this.pos);
     }
 
     public int getWidth() {

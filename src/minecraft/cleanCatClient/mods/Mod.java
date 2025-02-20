@@ -30,7 +30,7 @@ public class Mod {
         this.client = Client.getInstance();
         this.category = category;
 
-        ModData modData = ModManager.getModData(name);
+        ModData modData = Client.getInstance().modManager.getConfig(name);
         //System.out.println("ModData: " + modData.name + " " + modData.state + " " + modData.keyBind);
         if (modData != null) {
             this.isEnabled = modData.state;
@@ -78,7 +78,7 @@ public class Mod {
 
     private void saveModData() {
         ModData modData = new ModData(isEnabled, keyBind);
-        ModManager.setModData(name, modData);
+        Client.getInstance().modManager.setConfig(name, modData);
     }
 
     public File getFolder() {
@@ -95,10 +95,10 @@ public class Mod {
     }
 
     public String[] loadDataConfig() {
-        return ModConfigManager.getModConfig(this.name);
+        return Client.getInstance().modConfigManager.getConfig(this.name);
     }
 
     public void saveDataConfig(String[] data) {
-        ModConfigManager.saveModConfig(this.name, data);
+        Client.getInstance().modConfigManager.setConfig(this.name, data);
     }
 }
