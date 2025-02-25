@@ -48,7 +48,7 @@ public class Mod {
         return keyBind;
     }
 
-    public void setKeyBind(int keyBind) {
+    public void setKeyBind(int keyBind) { 
         this.keyBind = keyBind;
         saveModData();
     }

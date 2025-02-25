@@ -59,7 +59,6 @@ public class ClickGui extends GuiScreen {
         reset();
 
         backgroundW = 250;
-        int backgroundH = 250;
 
         clickGuiCategoryButton.add(new ClickGuiCategoryButton(centerW - 250, centerH - 85, 120, 25, "Player", 0));
         clickGuiCategoryButton.add(new ClickGuiCategoryButton(centerW - 250, centerH - 55, 120, 25, "World", 1));
@@ -121,8 +120,8 @@ public class ClickGui extends GuiScreen {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        long currentTime = System.currentTimeMillis();
-        float animationDuration = 500.0f; // Animation duration in milliseconds
+        System.currentTimeMillis();
+        // Animation duration in milliseconds
 
 
         GL11.glPushMatrix();

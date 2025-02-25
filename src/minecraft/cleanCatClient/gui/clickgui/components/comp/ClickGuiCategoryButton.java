@@ -16,8 +16,7 @@ public class ClickGuiCategoryButton extends CategoryManager{
 	private boolean isOnThisPage = false;
 	//this is use for the categorymanager toknow which page this is on
 	private int number = 0;
-	CategoryManager categoryManager;
-	
+
 	private final AnimationEngine animation = new AnimationEngine(x, x+w, 500,false);
 	
 	public ClickGuiCategoryButton(int x, int y, int w, int h, String name, int number) {
@@ -77,11 +76,7 @@ public class ClickGuiCategoryButton extends CategoryManager{
 	public String getName() {
 		return name;
 	}
-	public boolean isOnThisPage() {
-		return isOnThisPage;
 
-	}
-	
 	public void setIsOnThisPage(boolean value) {
 		this.isOnThisPage = value;
 		

@@ -14,14 +14,6 @@ public class ColorPicker {
 
     // Define rectangle's position and dimensions as class variables
 
-    public ColorSquare getColorSquare() {
-        return colorSquare;
-    }
-
-    public ColorSlider getColorSlider() {
-        return colorSlider;
-    }
-
 
     public ColorPicker(int x, int y, int width, int height) {
         colorSquare = new ColorSquare(x + 60, y, width - 60, height);
