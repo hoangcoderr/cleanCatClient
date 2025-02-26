@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import cleanCatClient.gui.clickgui.components.comp.SettingsModButton;
+import cleanCatClient.gui.clickgui.components.clickguicomp.SettingsModButton;
 import cleanCatClient.gui.clickgui.settings.ModSettings;
 import cleanCatClient.gui.clickgui.settings.ModSettingsInstance;
 import cleanCatClient.gui.font.FontUtil;
@@ -15,9 +15,9 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
-import cleanCatClient.gui.clickgui.components.comp.CategoryManager;
-import cleanCatClient.gui.clickgui.components.comp.ClickGuiCategoryButton;
-import cleanCatClient.gui.clickgui.components.comp.ModButton;
+import cleanCatClient.gui.clickgui.components.clickguicomp.CategoryManager;
+import cleanCatClient.gui.clickgui.components.clickguicomp.ClickGuiCategoryButton;
+import cleanCatClient.gui.clickgui.components.clickguicomp.ModButton;
 import cleanCatClient.mods.ModInstances;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;

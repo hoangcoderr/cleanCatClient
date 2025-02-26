@@ -1,4 +1,4 @@
-package cleanCatClient.gui.clickgui.components.comp;
+package cleanCatClient.gui.clickgui.components.clickguicomp;
 
 import cleanCatClient.Client;
 import cleanCatClient.gui.clickgui.ClickGui;
