@@ -46,6 +46,7 @@ public class ItemPhysics extends Mod {
         }
         try {
             setSpin(Boolean.parseBoolean(dataConfig[0]));
+            setRandomAngle(Boolean.parseBoolean(dataConfig[1]));
         } catch (Exception e) {
             e.printStackTrace();
         }
