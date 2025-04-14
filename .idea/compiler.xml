@@ -6,10 +6,8 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="1.8.9-maven-project" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="1.8.9-maven-project" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
 </project>

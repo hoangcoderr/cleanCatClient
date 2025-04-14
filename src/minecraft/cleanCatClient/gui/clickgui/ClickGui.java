@@ -31,6 +31,7 @@ public class ClickGui extends GuiScreen {
     public static ArrayList<ModButton> modButtonToRender = new ArrayList<>();
 
     public static ArrayList<SettingsModButton> settingsModButton = new ArrayList<>();
+    public static ResourceLocation res = new ResourceLocation("cleanCatClient/Logo/clientLogo.png");
     ScaledResolution sr;
 
     public int getWidth() {
@@ -129,14 +130,19 @@ public class ClickGui extends GuiScreen {
         GL11.glTranslatef(-centerW, -centerH, 0);
 
         // Draw the GUI elements here
-        drawRect(0, 0, this.width, this.height, new Color(0, 0, 0, 81).getRGB());
+        drawRect(0, 0, this.width, this.height, new Color(0, 0, 0, 120).getRGB());
         super.drawScreen(mouseX, mouseY, partialTicks);
-        FontUtil.getFontRenderer(30).drawStringWithShadow("cleanCat Client", centerW - backgroundW + 10, centerH - 125 + 10, new Color(255, 255, 255, 255).getRGB());
         centerW = sr.getScaledWidth() / 2;
         centerH = sr.getScaledHeight() / 2;
 
-        Gui.drawRoundedRect(centerW - backgroundW, centerH - 125, centerW + backgroundW, centerH + 125, 8, new Color(77, 76, 76, 97).getRGB());
-        Gui.drawRoundedRect(centerW - backgroundW + 480, centerH - 125, centerW + backgroundW, centerH + 125, 8, new Color(24, 23, 23, 192).getRGB());
+        Gui.drawRoundedRect(centerW - backgroundW, centerH - 125, centerW + backgroundW, centerH + 125, 8, new Color(30, 30, 30, 200).getRGB());
+        Gui.drawRoundedRect(centerW - backgroundW + 480, centerH - 125, centerW + backgroundW, centerH + 125, 8, new Color(20, 20, 20, 220).getRGB());
+        
+        // Draw logo after the background
+        Minecraft.getMinecraft().getTextureManager().bindTexture(res);
+        Gui.drawModalRectWithCustomSizedTexture(centerW - backgroundW + 5, centerH - 120, 0, 0, 40, 40, 40, 40);
+        
+        FontUtil.getFontRenderer(30).drawStringWithShadow("cleanCat Client", centerW - backgroundW + 50, centerH - 120 + 10, new Color(255, 255, 255, 255).getRGB());
 
         for (ClickGuiCategoryButton clickGuiCategoryButton : clickGuiCategoryButton) {
             clickGuiCategoryButton.renderButton();

@@ -29,8 +29,8 @@ public class ModButton {
 
     public void render(int mouseX, int mouseY) {
         // Existing outer borders remain the same
-        Color borderColor = isMouseOver(mouseX, mouseY) ? new Color(255, 255, 255, 150) : new Color(255, 255, 255, 50);
-        Color innerBorderColor = isMouseOver(mouseX, mouseY) ? new Color(77, 76, 76, 150) : new Color(77, 76, 76, 97);
+        Color borderColor = isMouseOver(mouseX, mouseY) ? new Color(60, 60, 60, 200) : new Color(40, 40, 40, 150);
+        Color innerBorderColor = isMouseOver(mouseX, mouseY) ? new Color(25, 25, 25, 200) : new Color(20, 20, 20, 150);
 
         Gui.drawRoundedRect(x - 2, y - 2, x + w + 2, y + h + 2, 10, borderColor.getRGB());
         Gui.drawRoundedRect(x, y, x + w, y + h, 8, innerBorderColor.getRGB());
@@ -40,14 +40,14 @@ public class ModButton {
         int toggleY = (y + h) - 18;
         int toggleHeight = 11;
 
-        Color baseColor = mod.isEnabled() ? new Color(131, 255, 92) : new Color(255, 64, 59);
+        Color baseColor = mod.isEnabled() ? new Color(0, 200, 83) : new Color(200, 0, 0);
 
         // Border color matching base color
         Color toggleBorderColor = new Color(
                 baseColor.getRed(),
                 baseColor.getGreen(),
                 baseColor.getBlue(),
-                100
+                150
         );
 
         // Draw border
@@ -77,15 +77,15 @@ public class ModButton {
         // Text is always visible with full opacity, only slightly dimmed on hover
         int textOpacity = isHoveringToggle ? 230 : 255;
         Color textColor = new Color(255, 255, 255, textOpacity);
-        FontUtil.normal.drawStringWithShadow(toggleText, toggleTextX, (int)toggleTextY, getColor() + 100 );
+        FontUtil.normal.drawStringWithShadow(toggleText, toggleTextX, (int)toggleTextY, textColor.getRGB());
 
         // Rest of the existing render code
-            textWidth = FontUtil.normal.getStringWidth(mod.name);
+        textWidth = FontUtil.normal.getStringWidth(mod.name);
         int textHeight = 12;
         double textX = x + (w - textWidth) / 2;
         int textY = y + (h - textHeight) / 2 - 30;
 
-        FontUtil.normal.drawString(mod.name, textX, textY, new Color(243, 236, 236, 255).getRGB());
+        FontUtil.normal.drawString(mod.name, textX, textY, new Color(220, 220, 220, 255).getRGB());
 
         if (isMouseOver(mouseX, mouseY)) {
             drawDescription(mouseX, mouseY, mod.description);

@@ -41,12 +41,12 @@ public class ClickGuiCategoryButton extends CategoryManager{
 		//GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f); // Reset color to white
 
 		if (animation.getAnimationValue() >= x + 1) {
-			Gui.drawRoundedRect(x, y, animation.getAnimationValue(), y + h, 5, new Color(191, 226, 246, 255).getRGB());
+			Gui.drawRoundedRect(x, y, animation.getAnimationValue(), y + h, 5, new Color(45, 45, 45, 255).getRGB());
 			FontUtil.normal.drawString(name, x + w / 2 - Minecraft.getMinecraft().fontRendererObj.getStringWidth(name) / 2,
-					y + h / 2 - Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT / 2, new Color(20, 23, 34, 255).getRGB());
+					y + h / 2 - Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT / 2, new Color(200, 200, 200, 255).getRGB());
 		} else {
 			FontUtil.normal.drawString(name, x + w / 2 - Minecraft.getMinecraft().fontRendererObj.getStringWidth(name) / 2,
-					y + h / 2 - Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT / 2, new Color(20, 23, 34, 255).getRGB());
+					y + h / 2 - Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT / 2, new Color(150, 150, 150, 255).getRGB());
 		}
 
 		if (CategoryManager.currentPage == number) {
