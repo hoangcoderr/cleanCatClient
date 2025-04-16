@@ -13,7 +13,7 @@ import net.minecraft.util.ResourceLocation;
 import java.awt.*;
 
 public class ModSettings extends GuiScreen {
-    protected Mod mod;
+    public Mod mod;
     private ClientButton backButton;
     private ClientButton exitButton;
     private int backgroundW;
@@ -32,8 +32,8 @@ public class ModSettings extends GuiScreen {
         int centerW = sr.getScaledWidth() / 2;
         int centerH = sr.getScaledHeight() / 2;
 
-        backgroundW = Client.INSTANCE.clickGui.getWidth();
-        backgroundH = Client.INSTANCE.clickGui.getHeight();
+        backgroundW = 250;
+        backgroundH = 250;
 
         backButton = new ClientButton(0, centerW - 50, centerH + backgroundH / 2 + 10, 100, 20, "Back");
         this.buttonList.add(backButton);

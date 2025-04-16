@@ -97,8 +97,8 @@ public class ChatShortcutSettings extends ModSettings {
             textField.setCanLoseFocus(true);
             textField.setMaxStringLength(200);
         }
-        backgroundW = Client.INSTANCE.clickGui.getWidth();
-        backgroundH = Client.INSTANCE.clickGui.getHeight();
+        backgroundW = 250;
+        backgroundH = 250;
     }
 
     @Override
