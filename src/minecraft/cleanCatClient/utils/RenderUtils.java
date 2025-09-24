@@ -39,30 +39,44 @@ public class RenderUtils {
     }
 
     private static void drawBoundingBox(net.minecraft.util.AxisAlignedBB boundingBox) {
-        // Draw bottom face
-        GL11.glBegin(GL11.GL_QUADS);
+        // Draw wireframe edges only (no filled faces) to avoid solid top face appearing above the entity
+        GL11.glBegin(GL11.GL_LINES);
+        // Bottom square
         GL11.glVertex3d(boundingBox.minX, boundingBox.minY, boundingBox.minZ);
         GL11.glVertex3d(boundingBox.maxX, boundingBox.minY, boundingBox.minZ);
+
+        GL11.glVertex3d(boundingBox.maxX, boundingBox.minY, boundingBox.minZ);
+        GL11.glVertex3d(boundingBox.maxX, boundingBox.minY, boundingBox.maxZ);
+
         GL11.glVertex3d(boundingBox.maxX, boundingBox.minY, boundingBox.maxZ);
         GL11.glVertex3d(boundingBox.minX, boundingBox.minY, boundingBox.maxZ);
-        GL11.glEnd();
 
-        // Draw top face
-        GL11.glBegin(GL11.GL_QUADS);
+        GL11.glVertex3d(boundingBox.minX, boundingBox.minY, boundingBox.maxZ);
+        GL11.glVertex3d(boundingBox.minX, boundingBox.minY, boundingBox.minZ);
+
+        // Top square
         GL11.glVertex3d(boundingBox.minX, boundingBox.maxY, boundingBox.minZ);
         GL11.glVertex3d(boundingBox.maxX, boundingBox.maxY, boundingBox.minZ);
+
+        GL11.glVertex3d(boundingBox.maxX, boundingBox.maxY, boundingBox.minZ);
+        GL11.glVertex3d(boundingBox.maxX, boundingBox.maxY, boundingBox.maxZ);
+
         GL11.glVertex3d(boundingBox.maxX, boundingBox.maxY, boundingBox.maxZ);
         GL11.glVertex3d(boundingBox.minX, boundingBox.maxY, boundingBox.maxZ);
-        GL11.glEnd();
 
-        // Draw lines connecting all vertices
-        GL11.glBegin(GL11.GL_LINES);
+        GL11.glVertex3d(boundingBox.minX, boundingBox.maxY, boundingBox.maxZ);
+        GL11.glVertex3d(boundingBox.minX, boundingBox.maxY, boundingBox.minZ);
+
+        // Vertical edges
         GL11.glVertex3d(boundingBox.minX, boundingBox.minY, boundingBox.minZ);
         GL11.glVertex3d(boundingBox.minX, boundingBox.maxY, boundingBox.minZ);
+
         GL11.glVertex3d(boundingBox.maxX, boundingBox.minY, boundingBox.minZ);
         GL11.glVertex3d(boundingBox.maxX, boundingBox.maxY, boundingBox.minZ);
+
         GL11.glVertex3d(boundingBox.maxX, boundingBox.minY, boundingBox.maxZ);
         GL11.glVertex3d(boundingBox.maxX, boundingBox.maxY, boundingBox.maxZ);
+
         GL11.glVertex3d(boundingBox.minX, boundingBox.minY, boundingBox.maxZ);
         GL11.glVertex3d(boundingBox.minX, boundingBox.maxY, boundingBox.maxZ);
         GL11.glEnd();

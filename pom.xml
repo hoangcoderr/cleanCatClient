@@ -224,10 +224,13 @@
             <version>1.5.2</version>
         </dependency>
 
+        <!-- JOrbis is sometimes unavailable from public repos. Use a system-scoped local jar in lib/ when building locally. -->
         <dependency>
             <groupId>com.jcraft</groupId>
             <artifactId>jorbis</artifactId>
             <version>0.0.17</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/jorbis-0.0.17.jar</systemPath>
         </dependency>
 
       </dependencies>

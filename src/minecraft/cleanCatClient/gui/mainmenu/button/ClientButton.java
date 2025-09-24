@@ -35,34 +35,34 @@ public class ClientButton extends GuiButton {
 
     // Set up the hand cursor from a .cur file
     private void setupHandCursor() {
-        try {
-            // Load the image (preferably a .png file) that you want to use as the cursor
-            BufferedImage cursorImage = ImageIO.read(new File("E:/Game/minecraft/t.png")); // Replace with the path to your image file
-            int imageWidth = cursorImage.getWidth();
-            int imageHeight = cursorImage.getHeight();
-
-            // Convert the image to IntBuffer and flip it vertically
-            IntBuffer buffer = IntBuffer.allocate(imageWidth * imageHeight);
-            int[] pixels = new int[imageWidth * imageHeight];
-            cursorImage.getRGB(0, 0, imageWidth, imageHeight, pixels, 0, imageWidth);
-
-            // Flip the image vertically
-            for (int y = 0; y < imageHeight; y++) {
-                for (int x = 0; x < imageWidth; x++) {
-                    buffer.put(pixels[(imageHeight - y - 1) * imageWidth + x]);
-                }
-            }
-            buffer.flip();
-
-            // Adjust the hotspot coordinates to fine-tune cursor alignment
-            int hotspotX = 0; // Adjust X coordinate if needed
-            int hotspotY = imageHeight - 1; // Adjust Y coordinate; closer to imageHeight lowers the active point
-
-            // Create the LWJGL cursor with the adjusted hotspot
-            handCursor = new Cursor(imageWidth, imageHeight, hotspotX, hotspotY, 1, buffer, null);
-        } catch (IOException | org.lwjgl.LWJGLException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            // Load the image (preferably a .png file) that you want to use as the cursor
+//            BufferedImage cursorImage = ImageIO.read(new File("E:/Game/minecraft/t.png")); // Replace with the path to your image file
+//            int imageWidth = cursorImage.getWidth();
+//            int imageHeight = cursorImage.getHeight();
+//
+//            // Convert the image to IntBuffer and flip it vertically
+//            IntBuffer buffer = IntBuffer.allocate(imageWidth * imageHeight);
+//            int[] pixels = new int[imageWidth * imageHeight];
+//            cursorImage.getRGB(0, 0, imageWidth, imageHeight, pixels, 0, imageWidth);
+//
+//            // Flip the image vertically
+//            for (int y = 0; y < imageHeight; y++) {
+//                for (int x = 0; x < imageWidth; x++) {
+//                    buffer.put(pixels[(imageHeight - y - 1) * imageWidth + x]);
+//                }
+//            }
+//            buffer.flip();
+//
+//            // Adjust the hotspot coordinates to fine-tune cursor alignment
+//            int hotspotX = 0; // Adjust X coordinate if needed
+//            int hotspotY = imageHeight - 1; // Adjust Y coordinate; closer to imageHeight lowers the active point
+//
+//            // Create the LWJGL cursor with the adjusted hotspot
+//            handCursor = new Cursor(imageWidth, imageHeight, hotspotX, hotspotY, 1, buffer, null);
+//        } catch (IOException | org.lwjgl.LWJGLException e) {
+//            e.printStackTrace();
+//        }
     }
     @Override
     public void drawButton(Minecraft mc, int mouseX, int mouseY) {
