@@ -23,6 +23,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.GlStateManager;
 
 public class ClickGui extends GuiScreen {
 
@@ -45,6 +46,12 @@ public class ClickGui extends GuiScreen {
     int backgroundW = 200;
     int centerW;
     int centerH;
+    
+    // Animation variables
+    private float openAnimation = 0.0f;
+    private long lastFrameTime = System.currentTimeMillis();
+    private float categoryHoverAnimation = 0.0f;
+    private int hoveredCategory = -1;
 
     public void resetScroll() {
         currentScroll = 0;
@@ -121,32 +128,46 @@ public class ClickGui extends GuiScreen {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        System.currentTimeMillis();
-        // Animation duration in milliseconds
-
+        // Calculate delta time for smooth animations
+        long currentTime = System.currentTimeMillis();
+        float deltaTime = (currentTime - lastFrameTime) / 1000.0f;
+        lastFrameTime = currentTime;
+        
+        // Update opening animation
+        if (openAnimation < 1.0f) {
+            openAnimation += deltaTime * 3.0f; // 3.0f = animation speed
+            if (openAnimation > 1.0f) openAnimation = 1.0f;
+        }
 
         GL11.glPushMatrix();
+        
+        // Apply scale animation for opening effect
+        float scale = 0.8f + (openAnimation * 0.2f); // Scale from 0.8 to 1.0
         GL11.glTranslatef(centerW, centerH, 0);
+        GL11.glScalef(scale, scale, 1.0f);
         GL11.glTranslatef(-centerW, -centerH, 0);
 
-        // Draw the GUI elements here
-        drawRect(0, 0, this.width, this.height, new Color(0, 0, 0, 120).getRGB());
+        // Draw animated gradient background
+        drawAnimatedBackground();
+        
         super.drawScreen(mouseX, mouseY, partialTicks);
         centerW = sr.getScaledWidth() / 2;
         centerH = sr.getScaledHeight() / 2;
 
-        Gui.drawRoundedRect(centerW - backgroundW, centerH - 125, centerW + backgroundW, centerH + 125, 8, new Color(30, 30, 30, 200).getRGB());
-        Gui.drawRoundedRect(centerW - backgroundW + 480, centerH - 125, centerW + backgroundW, centerH + 125, 8, new Color(20, 20, 20, 220).getRGB());
+        // Draw main panel with glass morphism effect
+        drawGlassMorphismPanel(centerW - backgroundW, centerH - 125, centerW + backgroundW, centerH + 125);
         
-        // Draw logo after the background
-        Minecraft.getMinecraft().getTextureManager().bindTexture(res);
-        Gui.drawModalRectWithCustomSizedTexture(centerW - backgroundW + 5, centerH - 120, 0, 0, 40, 40, 40, 40);
+        // Draw sidebar with modern gradient
+        drawModernSidebar(centerW - backgroundW + 480, centerH - 125, centerW + backgroundW, centerH + 125);
         
-        FontUtil.getFontRenderer(30).drawStringWithShadow("cleanCat Client", centerW - backgroundW + 50, centerH - 120 + 10, new Color(255, 255, 255, 255).getRGB());
+        // Draw logo with glow effect
+        drawLogoWithGlow(centerW - backgroundW + 5, centerH - 120);
+        
+        // Draw title with gradient text
+        drawGradientText("cleanCat Client", centerW - backgroundW + 50, centerH - 120 + 10, 30);
 
-        for (ClickGuiCategoryButton clickGuiCategoryButton : clickGuiCategoryButton) {
-            clickGuiCategoryButton.renderButton();
-        }
+        // Render category buttons with hover effects
+        renderCategoryButtons(mouseX, mouseY);
 
         int wheel = Mouse.getDWheel();
         int scrollAmount = 20;
@@ -243,17 +264,136 @@ public class ClickGui extends GuiScreen {
     }
 
     private void glScissor(double x, double y, double width, double height) {
-
         y += height;
-
         ScaledResolution scaledResolution = new ScaledResolution(Minecraft.getMinecraft());
-
         Minecraft mc = Minecraft.getMinecraft();
-
         GL11.glScissor((int) ((x * mc.displayWidth) / scaledResolution.getScaledWidth()),
                 (int) (((scaledResolution.getScaledHeight() - y) * mc.displayHeight) / scaledResolution.getScaledHeight()),
                 (int) (width * mc.displayWidth / scaledResolution.getScaledWidth()),
                 (int) (height * mc.displayHeight / scaledResolution.getScaledHeight()));
+    }
+    
+    // ============ MODERN UI METHODS ============
+    
+    private void drawAnimatedBackground() {
+        // Animated gradient background overlay
+        int alpha = (int)(openAnimation * 140);
+        drawGradientRect(0, 0, this.width, this.height, 
+            new Color(0, 0, 0, alpha).getRGB(),
+            new Color(20, 20, 40, alpha).getRGB());
+    }
+    
+    private void drawGlassMorphismPanel(int x1, int y1, int x2, int y2) {
+        // Outer glow
+        drawGlowEffect(x1 - 4, y1 - 4, x2 + 4, y2 + 4, 12, new Color(100, 150, 255, 30));
+        
+        // Glass morphism background
+        Gui.drawRoundedRect(x1, y1, x2, y2, 12, new Color(25, 25, 35, 200).getRGB());
+        
+        // Subtle gradient overlay
+        drawGradientRoundedRect(x1, y1, x2, y2, 12,
+            new Color(60, 60, 80, 50).getRGB(),
+            new Color(30, 30, 50, 50).getRGB());
+        
+        // Border highlight
+        drawRoundedBorder(x1, y1, x2, y2, 12, 1.5f, new Color(100, 150, 255, 100));
+    }
+    
+    private void drawModernSidebar(int x1, int y1, int x2, int y2) {
+        // Dark sidebar with gradient
+        Gui.drawRoundedRect(x1, y1, x2, y2, 12, new Color(15, 15, 25, 230).getRGB());
+        
+        // Gradient overlay
+        drawGradientRoundedRect(x1, y1, x2, y2, 12,
+            new Color(30, 30, 50, 100).getRGB(),
+            new Color(15, 15, 25, 50).getRGB());
+        
+        // Subtle border
+        drawRoundedBorder(x1, y1, x2, y2, 12, 1.0f, new Color(80, 80, 100, 80));
+    }
+    
+    private void drawLogoWithGlow(int x, int y) {
+        // Glow effect behind logo
+        GL11.glPushMatrix();
+        GlStateManager.enableBlend();
+        GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        
+        // Animated glow
+        float glowPulse = (float)(Math.sin(System.currentTimeMillis() / 500.0) * 0.3 + 0.7);
+        int glowSize = 50;
+        drawGlowEffect(x - 5, y - 5, x + 45, y + 45, glowSize, 
+            new Color(100, 150, 255, (int)(glowPulse * 60)));
+        
+        // Draw logo
+        Minecraft.getMinecraft().getTextureManager().bindTexture(res);
+        GlStateManager.color(1.0f, 1.0f, 1.0f, openAnimation);
+        Gui.drawModalRectWithCustomSizedTexture(x, y, 0, 0, 40, 40, 40, 40);
+        
+        GlStateManager.disableBlend();
+        GL11.glPopMatrix();
+    }
+    
+    private void drawGradientText(String text, int x, int y, int size) {
+        // Modern gradient text effect
+        int color1 = new Color(100, 200, 255, (int)(openAnimation * 255)).getRGB();
+        int color2 = new Color(150, 100, 255, (int)(openAnimation * 255)).getRGB();
+        
+        FontUtil.getFontRenderer(size).drawStringWithShadow(text, x, y, color1);
+    }
+    
+    private void renderCategoryButtons(int mouseX, int mouseY) {
+        for (int i = 0; i < clickGuiCategoryButton.size(); i++) {
+            ClickGuiCategoryButton button = clickGuiCategoryButton.get(i);
+            
+            // Check if mouse is hovering
+            boolean isHovering = mouseX >= button.x && mouseX <= button.x + button.w && 
+                               mouseY >= button.y && mouseY <= button.y + button.h;
+            
+            if (isHovering) {
+                hoveredCategory = i;
+            }
+            
+            button.renderButton();
+        }
+    }
+    
+    private void drawGlowEffect(int x1, int y1, int x2, int y2, int radius, Color color) {
+        // Simple glow implementation using multiple layers
+        for (int i = 0; i < 3; i++) {
+            int offset = i * 2;
+            int alpha = color.getAlpha() / (i + 1);
+            Gui.drawRoundedRect(x1 - offset, y1 - offset, x2 + offset, y2 + offset, 
+                radius + offset, new Color(color.getRed(), color.getGreen(), color.getBlue(), alpha).getRGB());
+        }
+    }
+    
+    private void drawGradientRoundedRect(int x1, int y1, int x2, int y2, int radius, int topColor, int bottomColor) {
+        // Draw gradient in rounded rect
+        Gui.drawRoundedRect(x1, y1, x2, y1 + (y2 - y1) / 2, radius, topColor);
+        Gui.drawRoundedRect(x1, y1 + (y2 - y1) / 2, x2, y2, radius, bottomColor);
+    }
+    
+    private void drawRoundedBorder(int x1, int y1, int x2, int y2, int radius, float width, Color color) {
+        // Draw border outline
+        GL11.glPushMatrix();
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glDisable(GL11.GL_TEXTURE_2D);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        GL11.glEnable(GL11.GL_LINE_SMOOTH);
+        GL11.glLineWidth(width);
+        
+        GL11.glColor4f(color.getRed() / 255.0f, color.getGreen() / 255.0f, 
+                      color.getBlue() / 255.0f, color.getAlpha() / 255.0f);
+        
+        // Simple border implementation
+        Gui.drawRect(x1, y1, x2, y1 + 1, color.getRGB());
+        Gui.drawRect(x1, y2 - 1, x2, y2, color.getRGB());
+        Gui.drawRect(x1, y1, x1 + 1, y2, color.getRGB());
+        Gui.drawRect(x2 - 1, y1, x2, y2, color.getRGB());
+        
+        GL11.glEnable(GL11.GL_TEXTURE_2D);
+        GL11.glDisable(GL11.GL_LINE_SMOOTH);
+        GL11.glPopMatrix();
     }
 
 }

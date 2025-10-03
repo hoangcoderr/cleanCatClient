@@ -15,8 +15,8 @@ public class GuiTextField extends Gui {
     private final FontRenderer fontRendererInstance;
     public int xPosition;
     public int yPosition;
-    private final int width;
-    private final int height;
+    public int width;
+    public final int height;
     private String text = "";
     private int maxStringLength = 32;
     private int cursorCounter;

@@ -185,7 +185,7 @@ public class ChatShortcutSettings extends ModSettings {
     }
 
     @Override
-    protected void actionPerformed(ClientButton button) {
+    protected void actionPerformed(ClientButton button) throws IOException {
         if (button.id == saveButton.id) {
             updateShortcuts();
         } else if (button.id == addButton.id) {

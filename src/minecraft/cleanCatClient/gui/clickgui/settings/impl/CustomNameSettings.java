@@ -24,7 +24,7 @@ public class CustomNameSettings extends ModSettings {
     }
 
     @Override
-    protected void actionPerformed(ClientButton button) {
+    protected void actionPerformed(ClientButton button) throws IOException {
         super.actionPerformed(button);
         if (button.id == 1) {
             String customName = this.customNameField.getText();
