@@ -31,6 +31,11 @@ public class HUDConfigScreen extends GuiScreen {
     private Optional<IRenderer> selectedRenderer = Optional.empty();
 
     private int prevX, prevY;
+    private int dragOffsetX, dragOffsetY;
+    
+    // Cache absolute position during drag for smooth movement
+    private boolean isDragging = false;
+    private double cachedAbsoluteX, cachedAbsoluteY;
 
     @Override
     public void initGui() {
@@ -102,6 +107,24 @@ public class HUDConfigScreen extends GuiScreen {
 
         final float zBackup = this.zLevel;
         this.zLevel = 200;
+        
+        // Cache ScaledResolution for performance
+        final ScaledResolution sr = new ScaledResolution(Minecraft.getMinecraft());
+        
+        // Update drag position every frame for smooth movement
+        if (isDragging && selectedRenderer.isPresent()) {
+            IRenderer draggedRenderer = selectedRenderer.get();
+            
+            // Calculate new position
+            this.cachedAbsoluteX = mouseX - dragOffsetX;
+            this.cachedAbsoluteY = mouseY - dragOffsetY;
+            
+            // Apply bounds (clamp to screen)
+            int maxX = Math.max(sr.getScaledWidth() - draggedRenderer.getWidth(), 0);
+            int maxY = Math.max(sr.getScaledHeight() - draggedRenderer.getHeight(), 0);
+            this.cachedAbsoluteX = Math.max(0, Math.min(cachedAbsoluteX, maxX));
+            this.cachedAbsoluteY = Math.max(0, Math.min(cachedAbsoluteY, maxY));
+        }
 
         for (IRenderer renderer : renderers.keySet()) {
             ScreenPosition pos = renderers.get(renderer);
@@ -110,35 +133,33 @@ public class HUDConfigScreen extends GuiScreen {
             int width = renderer.getWidth();
             int height = renderer.getHeight();
 
+            // Use cached position if this renderer is being dragged, otherwise use actual position
+            boolean isBeingDragged = isDragging && selectedRenderer.isPresent() && selectedRenderer.get() == renderer;
+            int x = isBeingDragged ? (int) Math.round(cachedAbsoluteX) : pos.getAbsoluteX();
+            int y = isBeingDragged ? (int) Math.round(cachedAbsoluteY) : pos.getAbsoluteY();
 
-            // Adjusting the size of the Gui.drawRect when dragging
+            // Draw background and border
+            Gui.drawRect(x, y, x + width, y + height, 0x33FFFFFF);
+            this.drawHollowRect(x, y, width, height, 0x88FFFFFF);
 
-
-            Gui.drawRect(pos.getAbsoluteX(), pos.getAbsoluteY(), pos.getAbsoluteX() + width, pos.getAbsoluteY() + height, 0x33FFFFFF);
-            //fontRendererObj.drawString(pos.getAbsoluteX() + " " + pos.getAbsoluteY(), pos.getAbsoluteX(), pos.getAbsoluteY(), -1);
-            this.drawHollowRect(pos.getAbsoluteX(), pos.getAbsoluteY(), width, height, 0x88FFFFFF);
-
-            renderer.renderDummy(pos);
-
-            // Start of smooth dragging
-            int x = pos.getAbsoluteX();
-            int y = pos.getAbsoluteY();
-
-            this.hovered = mouseX >= x && mouseX <= x + renderer.getWidth() && mouseY >= y && mouseY <= y + renderer.getHeight();
-            if (this.hovered) {
-                Gui.drawRect(pos.getAbsoluteX(), pos.getAbsoluteY(), renderer.getWidth() + pos.getAbsoluteX(), renderer.getHeight() + pos.getAbsoluteY(), 0x43000000);
-                if (selectedRenderer.isPresent() && selectedRenderer.get() == renderer && renderers.get(selectedRenderer.get()) == pos) {
-                    pos.setAbsolute(pos.getAbsoluteX() + mouseX - this.prevX, pos.getAbsoluteY() + mouseY - this.prevY);
-
-                    adjustBounds(renderer, pos);
-
-                    this.drawHollowRect(x, y, renderer.getWidth(), renderer.getHeight(), new Color(70, 0, 70, 230).getRGB());
-
-                    this.prevX = mouseX;
-                    this.prevY = mouseY;
-                }
+            // Render the HUD element (temporarily set position for rendering)
+            if (isBeingDragged) {
+                ScreenPosition tempPos = ScreenPosition.fromAbsolute(x, y);
+                renderer.renderDummy(tempPos);
+            } else {
+                renderer.renderDummy(pos);
             }
-            // End of smooth dragging
+
+            // Check hover
+            this.hovered = mouseX >= x && mouseX <= x + width && mouseY >= y && mouseY <= y + height;
+            if (this.hovered) {
+                Gui.drawRect(x, y, x + width, y + height, 0x43000000);
+            }
+            
+            // Highlight if selected
+            if (selectedRenderer.isPresent() && selectedRenderer.get() == renderer) {
+                this.drawHollowRect(x, y, width, height, new Color(70, 0, 70, 230).getRGB());
+            }
         }
 
         this.smX = mouseX;
@@ -168,14 +189,6 @@ public class HUDConfigScreen extends GuiScreen {
     }
 
 
-    private void moveSelectedRenderBy(int offsetX, int offsetY) {
-        IRenderer renderer = selectedRenderer.get();
-        ScreenPosition pos = renderers.get(renderer);
-
-        pos.setAbsolute(pos.getAbsoluteX() + offsetX, pos.getAbsoluteY() + offsetY);
-
-        adjustBounds(renderer, pos);
-    }
 
     @Override
     public void onGuiClosed() {
@@ -206,11 +219,29 @@ public class HUDConfigScreen extends GuiScreen {
         this.prevY = y;
 
         loadMouseOver(x, y);
+        
+        // Initialize drag state
+        if (selectedRenderer.isPresent()) {
+            ScreenPosition pos = renderers.get(selectedRenderer.get());
+            this.cachedAbsoluteX = pos.getAbsoluteX();
+            this.cachedAbsoluteY = pos.getAbsoluteY();
+            this.dragOffsetX = x - (int) Math.round(cachedAbsoluteX);
+            this.dragOffsetY = y - (int) Math.round(cachedAbsoluteY);
+            this.isDragging = true;
+        }
+        
         super.mouseClicked(x, y, button);
     }
 
     @Override
     protected void mouseReleased(int mouseX, int mouseY, int state) {
+        // Commit cached position to actual position when drag ends
+        if (isDragging && selectedRenderer.isPresent()) {
+            ScreenPosition pos = renderers.get(selectedRenderer.get());
+            pos.setAbsolute((int) Math.round(cachedAbsoluteX), (int) Math.round(cachedAbsoluteY));
+        }
+        
+        this.isDragging = false;
         this.selectedRenderer = Optional.empty();
 
         super.mouseReleased(mouseX, mouseY, state);
@@ -219,8 +250,7 @@ public class HUDConfigScreen extends GuiScreen {
 
     @Override
     protected void mouseClickMove(int x, int y, int button, long time) {
-        if (selectedRenderer.isPresent()) moveSelectedRenderBy(x - prevX, y - prevY);
-
+        // Position is now updated in drawScreen() for smoother movement
         this.prevX = x;
         this.prevY = y;
     }

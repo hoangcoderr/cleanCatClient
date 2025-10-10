@@ -79,15 +79,30 @@ public class ClickGui extends GuiScreen {
         int buttonsPerRow = 3;
 
         Map<Integer, Integer> categoryIndices = new HashMap<>();
+        int settingsIndex = 0;
         for (int i = 0; i < ModInstances.getAllMods().size(); i++) {
             Mod mod = ModInstances.getAllMods().get(i);
+            
+            // Skip mods that are rendered as SettingsModButton
+            if (mod == ModInstances.getFullBright() || 
+                mod == ModInstances.getMinimalViewBobbing() ||
+                mod == ModInstances.getLazyChunkLoading() ||
+                mod == ModInstances.getDisableBlockParticles() ||
+                mod == ModInstances.getNoHurtCam() ||
+                mod == ModInstances.getBossBar() ||
+                mod == ModInstances.getTransparentLeaves()) {
+                settingsIndex++;
+                continue;
+            }
+            
             int categoryID = mod.getCategoryId();
 
             int index = categoryIndices.getOrDefault(categoryID, 0);
             System.out.println("Category ID: " + categoryID + " Index: " + index + "Mod name: " + mod.name);
             //   addModButton(categoryID, mod, index, modButtonSize, spaceBetween, buttonsPerRow, new CustomCrossHairSettings());
-            addModButton(categoryID, mod, index, modButtonSize, spaceBetween, buttonsPerRow, ModSettingsInstance.getAllSettings().get(i));
+            addModButton(categoryID, mod, index, modButtonSize, spaceBetween, buttonsPerRow, ModSettingsInstance.getAllSettings().get(settingsIndex));
             categoryIndices.put(categoryID, index + 1);
+            settingsIndex++;
         }
         settingsModButton.clear();
 
@@ -97,6 +112,7 @@ public class ClickGui extends GuiScreen {
         addSettingsModButton(ModInstances.getDisableBlockParticles(), 3, 340, 20, spaceBetween);
         addSettingsModButton(ModInstances.getNoHurtCam(), 4, 340, 20, spaceBetween);
         addSettingsModButton(ModInstances.getBossBar(), 5, 340, 20, spaceBetween);
+        addSettingsModButton(ModInstances.getTransparentLeaves(), 6, 340, 20, spaceBetween);
     }
 
     @Override

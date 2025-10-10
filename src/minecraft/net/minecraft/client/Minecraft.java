@@ -908,7 +908,8 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
             this.prevFrameTime = System.nanoTime();
         }
 
-        this.guiAchievement.updateAchievementWindow();
+        // Disabled achievement popups for better FPS in PvP
+        // this.guiAchievement.updateAchievementWindow();
         this.framebufferMc.unbindFramebuffer();
         GlStateManager.popMatrix();
         GlStateManager.pushMatrix();
@@ -920,13 +921,14 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         this.mcProfiler.startSection("root");
         this.updateDisplay();
         Thread.yield();
-        this.mcProfiler.startSection("stream");
-        this.mcProfiler.startSection("update");
-        this.stream.func_152935_j();
-        this.mcProfiler.endStartSection("submit");
-        this.stream.func_152922_k();
-        this.mcProfiler.endSection();
-        this.mcProfiler.endSection();
+        // Disabled Twitch Stream for better performance in PvP
+        // this.mcProfiler.startSection("stream");
+        // this.mcProfiler.startSection("update");
+        // this.stream.func_152935_j();
+        // this.mcProfiler.endStartSection("submit");
+        // this.stream.func_152922_k();
+        // this.mcProfiler.endSection();
+        // this.mcProfiler.endSection();
         this.checkGLError("Post render");
         ++this.fpsCounter;
         this.isGamePaused = this.isSingleplayer() && this.currentScreen != null && this.currentScreen.doesGuiPauseGame()
