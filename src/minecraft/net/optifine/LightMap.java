@@ -1,5 +1,7 @@
 package net.optifine;
 
+import cleanCatClient.mods.ModInstances;
+import cleanCatClient.mods.impl.FullBright;
 import net.minecraft.src.Config;
 import net.minecraft.world.World;
 
@@ -69,6 +71,10 @@ public class LightMap
                     this.getLightMapColumn(afloat, f2, k + 16 * j, j, this.torchRgbs);
                     float[] afloat1 = new float[3];
 
+                    // Check if FullBright is enabled
+                    FullBright fullBrightMod = ModInstances.getFullBright();
+                    boolean fullBrightEnabled = fullBrightMod != null && fullBrightMod.isEnabled();
+                    
                     for (int l = 0; l < 16; ++l)
                     {
                         for (int i1 = 0; i1 < 16; ++i1)
@@ -77,11 +83,17 @@ public class LightMap
                             {
                                 float f4 = Config.limitTo1(this.sunRgbs[l][j1] + this.torchRgbs[i1][j1]);
 
-                                if (flag)
+                                if (flag && !fullBrightEnabled)
                                 {
                                     float f5 = 1.0F - f4;
                                     f5 = 1.0F - f5 * f5 * f5 * f5;
                                     f4 = f3 * f5 + (1.0F - f3) * f4;
+                                }
+                                
+                                // Apply FullBright - set maximum brightness
+                                if (fullBrightEnabled)
+                                {
+                                    f4 = 1.0F;
                                 }
 
                                 afloat1[j1] = f4;

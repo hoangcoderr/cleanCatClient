@@ -105,4 +105,7 @@ public class ModConstants {
 
     public static final String CPS = "CPS";
     public static final String CPS_DESC = "Show your clicks per second";
+
+    public static final String TRANSPARENT_LEAVES = "Transparent Leaves";
+    public static final String TRANSPARENT_LEAVES_DESC = "See through leaves";
 }

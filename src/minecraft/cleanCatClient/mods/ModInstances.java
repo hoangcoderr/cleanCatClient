@@ -46,6 +46,7 @@ public class ModInstances {
     private static CustomName customName;
     private static ParticlesMultiplier particlesMultiplier;
     private static CPS cps;
+    private static TransparentLeaves transparentLeaves;
 
     public static void register(HUDManager api) {
         cps = new CPS();
@@ -119,6 +120,8 @@ public class ModInstances {
 
         oldAnimation = new OldAnimation();
 
+        transparentLeaves = new TransparentLeaves();
+
         allMods.add(modArmorStatus);
         allMods.add(modBlockOverlay);
         allMods.add(modBossBar);
@@ -145,6 +148,7 @@ public class ModInstances {
         allMods.add(customName);
         allMods.add(particlesMultiplier);
         allMods.add(cps);
+        allMods.add(transparentLeaves);
     }
 
     public static CPS getCps() {
@@ -281,5 +285,9 @@ public class ModInstances {
 
     public static ColorSaturation getColorSaturation() {
         return colorSaturation;
+    }
+
+    public static TransparentLeaves getTransparentLeaves() {
+        return transparentLeaves;
     }
 }

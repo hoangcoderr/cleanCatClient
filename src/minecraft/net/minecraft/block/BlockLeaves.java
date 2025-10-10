@@ -1,5 +1,7 @@
 package net.minecraft.block;
 
+import cleanCatClient.mods.ModInstances;
+import cleanCatClient.mods.impl.TransparentLeaves;
 import java.util.Random;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
@@ -265,6 +267,10 @@ public abstract class BlockLeaves extends BlockLeavesBase
 
     public boolean isOpaqueCube()
     {
+        TransparentLeaves transparentLeaves = ModInstances.getTransparentLeaves();
+        if (transparentLeaves != null && transparentLeaves.isEnabled()) {
+            return false;
+        }
         return !this.fancyGraphics;
     }
 
@@ -277,6 +283,10 @@ public abstract class BlockLeaves extends BlockLeavesBase
 
     public EnumWorldBlockLayer getBlockLayer()
     {
+        TransparentLeaves transparentLeaves = ModInstances.getTransparentLeaves();
+        if (transparentLeaves != null && transparentLeaves.isEnabled()) {
+            return EnumWorldBlockLayer.CUTOUT_MIPPED;
+        }
         return this.isTransparent ? EnumWorldBlockLayer.CUTOUT_MIPPED : EnumWorldBlockLayer.SOLID;
     }
 

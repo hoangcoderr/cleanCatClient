@@ -25,33 +25,33 @@ public class UpdateChecker {
 
     public static boolean isLastestVersion(String playerName) {
 
-        try {
-            String versionUrl = String.format(VERSION_URL_TEMPLATE, playerName);
-            URL url = new URL(versionUrl);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-
-            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            StringBuilder response = new StringBuilder();
-            String line;
-            while ((line = in.readLine()) != null) {
-                response.append(line);
-            }
-            in.close();
-
-            JSONObject jsonResponse = new JSONObject(response.toString());
-            String latestVersion = jsonResponse.getString("version");
-            String updateContent = jsonResponse.getString("update_content");
-
-            // Split the update content by \n and add to updateInfos
-            updateInfos.clear();
-            String[] updates = updateContent.split("\n");
-            Collections.addAll(updateInfos, updates);
-            //isShownUpdate = false;
-            return Client.CLIENT_VERSION.equals(latestVersion);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            String versionUrl = String.format(VERSION_URL_TEMPLATE, playerName);
+//            URL url = new URL(versionUrl);
+//            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+//            connection.setRequestMethod("GET");
+//
+//            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+//            StringBuilder response = new StringBuilder();
+//            String line;
+//            while ((line = in.readLine()) != null) {
+//                response.append(line);
+//            }
+//            in.close();
+//
+//            JSONObject jsonResponse = new JSONObject(response.toString());
+//            String latestVersion = jsonResponse.getString("version");
+//            String updateContent = jsonResponse.getString("update_content");
+//
+//            // Split the update content by \n and add to updateInfos
+//            updateInfos.clear();
+//            String[] updates = updateContent.split("\n");
+//            Collections.addAll(updateInfos, updates);
+//            //isShownUpdate = false;
+//            return Client.CLIENT_VERSION.equals(latestVersion);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
         return true;
     }
 

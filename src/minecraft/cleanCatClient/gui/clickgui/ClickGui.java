@@ -110,16 +110,23 @@ public class ClickGui extends GuiScreen {
     private void addModButton(int categoryID, Mod mod, int index, int size, int spaceBetween, int buttonsPerRow, ModSettings settings) {
         int row = index / buttonsPerRow;
         int col = index % buttonsPerRow;
-        int x = centerW + col * (size + spaceBetween);
-        int y = centerH + row * (size + spaceBetween);
+        
+        // Calculate position relative to content area (right side of GUI)
+        // Content area starts after the sidebar (centerW - backgroundW + 130)
+        int contentStartX = -120; // Relative to center, will be calculated in render
+        int contentStartY = -90;  // Relative to center
+        
+        int x = contentStartX + col * (size + spaceBetween);
+        int y = contentStartY + row * (size + spaceBetween);
 
         modButtonToRender.add(new ModButton(x, y, size, size, mod, categoryID, settings));
     }
 
     // Add this method to the ClickGui class
     private void addSettingsModButton(Mod mod, int index, int width, int height, int spaceBetween) {
-        int y = centerH - 90 + index * (height + spaceBetween);
-        int x = centerW - backgroundW + 130; // Adjust x position to avoid overlapping with category buttons
+        // Store relative positions
+        int x = 130 - backgroundW; // Relative to center
+        int y = -90 + index * (height + spaceBetween);
 
         settingsModButton.add(new SettingsModButton(x, y, width, height, mod));
     }
@@ -187,8 +194,11 @@ public class ClickGui extends GuiScreen {
             if (modButton.id == CategoryManager.currentPage) {
                 GL11.glEnable(GL11.GL_SCISSOR_TEST);
                 this.glScissor(centerW - backgroundW, centerH - 115, centerW + backgroundW, 230);
+                
+                // Set scroll offset before rendering
                 modButton.y = modButton.originalY - currentScroll;
-                modButton.render(mouseX, mouseY); // Pass mouse coordinates here
+                modButton.render(mouseX, mouseY);
+                
                 GL11.glDisable(GL11.GL_SCISSOR_TEST);
             }
         }
@@ -197,8 +207,11 @@ public class ClickGui extends GuiScreen {
             for (SettingsModButton settingsModButton : settingsModButton) {
                 GL11.glEnable(GL11.GL_SCISSOR_TEST);
                 this.glScissor(centerW - backgroundW, centerH - 115, centerW + backgroundW, 230);
-                settingsModButton.y = settingsModButton.originalY - currentScroll; // Adjust y position based on scroll
+                
+                // Set scroll offset before rendering
+                settingsModButton.y = settingsModButton.originalY - currentScroll;
                 settingsModButton.render(mouseX, mouseY);
+                
                 GL11.glDisable(GL11.GL_SCISSOR_TEST);
             }
         }

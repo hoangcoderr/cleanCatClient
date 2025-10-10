@@ -86,10 +86,6 @@ public class SimpleReloadableResourceManager implements IReloadableResourceManag
         for (IResourcePack iresourcepack : resourcesPacksList) {
             this.reloadResourcePack(iresourcepack);
         }
-        //if (ModInstances.getFullBright().isEnabled()) {
-            Minecraft.getMinecraft().gameSettings.gammaSetting = 1000.0F;
-            Minecraft.getMinecraft().gameSettings.saveOptions();
-        //}
         this.notifyReloadListeners();
     }
 

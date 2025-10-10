@@ -3,6 +3,7 @@ package net.minecraft.client.renderer;
 import cleanCatClient.event.impl.Render2D;
 import cleanCatClient.gui.mainmenu.MainMenu;
 import cleanCatClient.mods.ModInstances;
+import cleanCatClient.mods.impl.FullBright;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.gson.JsonSyntaxException;
@@ -972,7 +973,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                         f10 = 1.0F;
                     }
 
-                    float f16 = ModInstances.getFullBright().isEnabled() ? 10 : mc.gameSettings.gammaSetting;
+                    float f16 = mc.gameSettings.gammaSetting;
                     float f17 = 1.0F - f8;
                     float f13 = 1.0F - f9;
                     float f14 = 1.0F - f10;

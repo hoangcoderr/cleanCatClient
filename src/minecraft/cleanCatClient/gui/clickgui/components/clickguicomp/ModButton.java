@@ -5,6 +5,7 @@ import cleanCatClient.gui.font.FontUtil;
 import cleanCatClient.mods.Mod;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import org.lwjgl.opengl.GL11;
 
@@ -18,25 +19,42 @@ public class ModButton {
     public int id;
     public ModSettings modSettings;
     
+    // Store relative position instead of absolute
+    private int relativeX;
+    private int relativeY;
+    
     // Animation variables
     private float hoverAnimation = 0.0f;
     private float toggleAnimation = 0.0f;
     private float scaleAnimation = 1.0f;
     private long lastUpdateTime = System.currentTimeMillis();
 
-    public ModButton(int x, int y, int w, int h, Mod mod, int id, ModSettings modSettings) {
-        this.x = x - 85;
-        this.y = y - 80;
-        this.originalY = this.y;
+    public ModButton(int relX, int relY, int w, int h, Mod mod, int id, ModSettings modSettings) {
+        this.relativeX = relX;
+        this.relativeY = relY;
         this.w = w;
         this.h = h;
         this.mod = mod;
         this.id = id;
         this.modSettings = modSettings;
         this.toggleAnimation = mod.isEnabled() ? 1.0f : 0.0f;
+        
+        // Will be updated in render based on current screen size
+        this.x = 0;
+        this.y = 0;
+        this.originalY = 0;
     }
 
     public void render(int mouseX, int mouseY) {
+        // Update position based on current screen center
+        ScaledResolution sr = new ScaledResolution(Minecraft.getMinecraft());
+        int centerW = sr.getScaledWidth() / 2;
+        int centerH = sr.getScaledHeight() / 2;
+        
+        this.x = centerW + relativeX;
+        this.originalY = centerH + relativeY;
+        // Note: actual y will be set by ClickGui with scroll offset
+        
         // Update animations
         updateAnimations(mouseX, mouseY);
         

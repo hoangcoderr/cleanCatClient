@@ -4,6 +4,7 @@ import cleanCatClient.gui.font.FontUtil;
 import cleanCatClient.mods.Mod;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.ScaledResolution;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
@@ -14,22 +15,39 @@ public class SettingsModButton {
     public int originalY;
     public Mod mod;
     
+    // Store relative position
+    private int relativeX;
+    private int relativeY;
+    
     // Animation variables
     private float hoverAnimation = 0.0f;
     private float toggleAnimation = 0.0f;
     private long lastUpdateTime = System.currentTimeMillis();
 
-    public SettingsModButton(int x, int y, int w, int h, Mod mod) {
-        this.x = x;
-        this.y = y;
-        this.originalY = this.y;
+    public SettingsModButton(int relX, int relY, int w, int h, Mod mod) {
+        this.relativeX = relX;
+        this.relativeY = relY;
         this.w = w;
         this.h = h;
         this.mod = mod;
         this.toggleAnimation = mod.isEnabled() ? 1.0f : 0.0f;
+        
+        // Will be updated in render
+        this.x = 0;
+        this.y = 0;
+        this.originalY = 0;
     }
 
     public void render(int mouseX, int mouseY) {
+        // Update position based on current screen center
+        ScaledResolution sr = new ScaledResolution(Minecraft.getMinecraft());
+        int centerW = sr.getScaledWidth() / 2;
+        int centerH = sr.getScaledHeight() / 2;
+        
+        this.x = centerW + relativeX;
+        this.originalY = centerH + relativeY;
+        // Note: actual y will be set by ClickGui with scroll offset
+        
         // Update animations
         updateAnimations(mouseX, mouseY);
         
