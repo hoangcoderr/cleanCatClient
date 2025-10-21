@@ -26,6 +26,7 @@ public class CosmeticBoolean {
         cosmetics.put(13, new Cosmetic(2, 13, "Wool Hat", true));
         cosmetics.put(14, new Cosmetic(1, 14, "Waving Cape", false));
         cosmetics.put(15, new Cosmetic(1, 15, "Chillin Boy", true));
+        cosmetics.put(16, new Cosmetic(4, 16, "Wolf Pet", false));
     }
 
     public static boolean shouldRenderCosmetic(int type, int id, AbstractClientPlayer player) {

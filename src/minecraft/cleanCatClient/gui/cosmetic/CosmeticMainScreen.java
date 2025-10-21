@@ -2,6 +2,7 @@ package cleanCatClient.gui.cosmetic;
 
 import cleanCatClient.gui.cosmetic.impl.CapeScreen;
 import cleanCatClient.gui.cosmetic.impl.HatScreen;
+import cleanCatClient.gui.cosmetic.impl.PetScreen;
 import cleanCatClient.gui.cosmetic.impl.WingScreen;
 import cleanCatClient.gui.mainmenu.button.ClientButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -26,9 +27,10 @@ public class CosmeticMainScreen extends GuiScreen {
 
     @Override
     public void initGui() {
-        this.buttonList.add(new ClientButton(0, this.width / 2 - 100, this.height / 2 - 50, 200, 20, "Hats"));
-        this.buttonList.add(new ClientButton(1, this.width / 2 - 100, this.height / 2 - 25, 200, 20, "Wings"));
-        this.buttonList.add(new ClientButton(2, this.width / 2 - 100, this.height / 2, 200, 20, "Capes"));
+        this.buttonList.add(new ClientButton(0, this.width / 2 - 100, this.height / 2 - 75, 200, 20, "Hats"));
+        this.buttonList.add(new ClientButton(1, this.width / 2 - 100, this.height / 2 - 50, 200, 20, "Wings"));
+        this.buttonList.add(new ClientButton(2, this.width / 2 - 100, this.height / 2 - 25, 200, 20, "Capes"));
+        this.buttonList.add(new ClientButton(4, this.width / 2 - 100, this.height / 2, 200, 20, "Pets"));
         this.buttonList.add(new ClientButton(3, this.width / 2 - 100, this.height / 2 + 25, 200, 20, "Back"));
     }
 
@@ -43,6 +45,9 @@ public class CosmeticMainScreen extends GuiScreen {
                 break;
             case 2:
                 this.mc.displayGuiScreen(new CapeScreen());
+                break;
+            case 4:
+                this.mc.displayGuiScreen(new PetScreen());
                 break;
             case 3:
                 //  this.mc.displayGuiScreen(null);

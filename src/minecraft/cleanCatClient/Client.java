@@ -1,6 +1,7 @@
 // src/minecraft/cleanCatClient/Client.java
 package cleanCatClient;
 
+import cleanCatClient.cosmetic.impl.cape.realistic.WavyCapeRenderer;
 import cleanCatClient.gui.hud.HUDConfigScreen;
 import cleanCatClient.mods.manager.ModConfigManager;
 import cleanCatClient.mods.manager.ModManager;
@@ -50,6 +51,7 @@ public class Client {
     public ModManager modManager;
     public ModConfigManager modConfigManager;
     public ModPosManager modPosManager;
+    public WavyCapeRenderer wavyCapeRenderer = new WavyCapeRenderer();
 
     public void start() {
         modManager = new ModManager();
