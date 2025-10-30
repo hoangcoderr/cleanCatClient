@@ -21,6 +21,8 @@ public class Main
 {
     public static void main(String[] p_main_0_)
     {
+        System.out.println(System.getProperty("java.home"));
+        System.out.println(System.getProperty("java.version"));
         System.setProperty("java.net.preferIPv4Stack", "true");
         OptionParser optionparser = new OptionParser();
         optionparser.allowsUnrecognizedOptions();

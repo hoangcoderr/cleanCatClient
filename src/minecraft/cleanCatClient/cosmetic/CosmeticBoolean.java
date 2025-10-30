@@ -17,16 +17,16 @@ public class CosmeticBoolean {
         cosmetics.put(4, new Cosmetic(1, 4, "Bad Wolf Cape", false));
         cosmetics.put(5, new Cosmetic(1, 5, "Starry Sunset Cape", false));
         cosmetics.put(6, new Cosmetic(2, 6, "Top Hat", false));
-        cosmetics.put(7, new Cosmetic(3, 7, "Dragon Wing", false));
+        cosmetics.put(7, new Cosmetic(3, 7, "Dragon Wing", true));
         cosmetics.put(8, new Cosmetic(3, 8, "Satan Wing", false));
         cosmetics.put(9, new Cosmetic(3, 9, "Dragon Baby Wing", false));
         cosmetics.put(10, new Cosmetic(1, 10, "Anime Girl Cape", false));
         cosmetics.put(11, new Cosmetic(1, 11, "Jumping Frog Cape", false));
-        cosmetics.put(12, new Cosmetic(3, 12, "Dragon Obsidian Wing", true));
+        cosmetics.put(12, new Cosmetic(3, 12, "Dragon Obsidian Wing", false));
         cosmetics.put(13, new Cosmetic(2, 13, "Wool Hat", true));
         cosmetics.put(14, new Cosmetic(1, 14, "Waving Cape", false));
         cosmetics.put(15, new Cosmetic(1, 15, "Chillin Boy", true));
-        cosmetics.put(16, new Cosmetic(4, 16, "Wolf Pet", false));
+        cosmetics.put(16, new Cosmetic(4, 16, "Wolf Pet", true));
     }
 
     public static boolean shouldRenderCosmetic(int type, int id, AbstractClientPlayer player) {

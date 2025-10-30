@@ -9,37 +9,37 @@ import org.lwjgl.input.Keyboard;
 import java.io.IOException;
 
 public class GuiLoginMicrosoft extends GuiScreen {
-    private GuiTextField username, password;
+    private boolean started;
 
     @Override
     protected void actionPerformed(final ClientButton button) {
         if (button.id == 0) {
-            if(this.username.getText().equals("")) {
-                this.mc.displayGuiScreen(new GuiLoginMicrosoft());
-            } else {
-                SessionChanger.getInstance().setUserMicrosoft(this.username.getText(), this.password.getText());
-            }
-
+            if (started) return;
+            started = true;
+            SessionChanger.getInstance().setUserMicrosoft(false); // mặc định: auto-login, KHÔNG xoá cookies
+        } else if (button.id == 1) {
+            if (started) return;
+            started = true;
+            SessionChanger.getInstance().setUserMicrosoft(true); // ép clear cookies, bắt nhập lại acc
         }
     }
 
     @Override
     public void drawScreen(final int x2, final int y2, final float z2) {
         final ScaledResolution sr = new ScaledResolution(this.mc);
-        this.username.drawTextBox();
-        this.password.drawTextBox();
         Gui gui = new Gui();
-        gui.drawCenteredString(this.mc.fontRendererObj, "Email & Password", this.width / 2, sr.getScaledHeight() / 2 - 65, -1);
+        gui.drawCenteredString(this.mc.fontRendererObj, "Sign in with Microsoft", this.width / 2, sr.getScaledHeight() / 2 - 65, -1);
+        gui.drawCenteredString(this.mc.fontRendererObj, started ? "Waiting for login..." : "A window will open to sign in", this.width / 2, sr.getScaledHeight() / 2 - 50, -1);
         super.drawScreen(x2, y2, z2);
     }
 
     @Override
     public void initGui() {
-        final ScaledResolution sr = new ScaledResolution(this.mc);
         this.buttonList.clear();
+        // Nút đăng nhập auto (giữ session)
         this.buttonList.add(new ClientButton(0, this.width / 2 - 50 - 10, this.height / 2, 120, 20, I18n.format("Login Microsoft")));
-        (this.username = new GuiTextField(100, this.fontRendererObj, this.width / 2 - 50 - 10, sr.getScaledHeight() / 2 - 50, 120, 20)).setFocused(true);
-        (this.password = new GuiTextField(100, this.fontRendererObj, this.width / 2 - 50 - 10, sr.getScaledHeight() / 2 - 25, 120, 20)).setFocused(false);
+        // Nút đăng nhập = tài khoản khác (clear cookies trước)
+        this.buttonList.add(new ClientButton(1, this.width / 2 - 50 - 10, this.height / 2 + 30, 120, 20, "Chọn tài khoản khác"));
         Keyboard.enableRepeatEvents(true);
     }
 
@@ -52,19 +52,9 @@ public class GuiLoginMicrosoft extends GuiScreen {
         catch (IOException e) {
             e.printStackTrace();
         }
-        if (character == '\t' && !this.username.isFocused()) {
-            this.username.setFocused(true);
-            this.password.setFocused(false);
-        }
-        if (character == '\t' && !this.password.isFocused()) {
-            this.password.setFocused(true);
-            this.username.setFocused(false);
-        }
         if (character == '\r') {
             this.actionPerformed(this.buttonList.get(0));
         }
-        this.username.textboxKeyTyped(character, key);
-        this.password.textboxKeyTyped(character, key);
     }
 
     @Override
@@ -75,8 +65,6 @@ public class GuiLoginMicrosoft extends GuiScreen {
         catch (IOException e) {
             e.printStackTrace();
         }
-        this.username.mouseClicked(x2, y2, button);
-        this.password.mouseClicked(x2, y2, button);
     }
 
     @Override
@@ -87,7 +75,6 @@ public class GuiLoginMicrosoft extends GuiScreen {
 
     @Override
     public void updateScreen() {
-        this.username.updateCursorCounter();
-        this.password.updateCursorCounter();
+        // no inputs
     }
 }

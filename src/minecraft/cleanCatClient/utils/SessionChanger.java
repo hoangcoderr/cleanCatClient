@@ -54,16 +54,23 @@ public class SessionChanger {
 
     }
 
-    public void setUserMicrosoft(String email, String password) {
-
+    /**
+     * Đăng nhập Microsoft, cho phép chọn có xoá cookies hay không.
+     * Nếu clearCookies=true => bắt buộc nhập lại tài khoản.
+     * Nếu false (default) => auto-login nếu còn session.
+     */
+    public void setUserMicrosoft(boolean clearCookies) {
         MicrosoftAuthenticator authenticator = new MicrosoftAuthenticator();
         try {
-            MicrosoftAuthResult acc = authenticator.loginWithWebview();
+            MicrosoftAuthResult acc = authenticator.loginWithWebview(clearCookies);
             Minecraft.getMinecraft().session = new Session(acc.getProfile().getName(), acc.getProfile().getId(), acc.getAccessToken(), "legacy");
-
         } catch (MicrosoftAuthenticationException e) {
             System.out.println("Error: " + e.getMessage());
         }
+    }
+    // Giữ lại bản cũ để tương thích, mặc định không clear cookies
+    public void setUserMicrosoft(String email, String password) {
+        setUserMicrosoft(false);
     }
 
     //Sets the session.

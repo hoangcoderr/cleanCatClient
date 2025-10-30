@@ -141,28 +141,46 @@ public class MicrosoftAuthenticator {
     }
 
     /**
+     * Logs in a player using a webview to display Microsoft login page, có thể chọn có clear cookies hay không.
+     * Hiện tại tuỳ chọn clearCookies không dùng được vì JavaFX không hỗ trợ xóa cookies session riêng.
+     */
+    public MicrosoftAuthResult loginWithWebview(boolean clearCookies) throws MicrosoftAuthenticationException {
+        try {
+            return loginWithAsyncWebview().get();
+        } catch (InterruptedException | ExecutionException e) {
+            throw new MicrosoftAuthenticationException(e);
+        }
+    }
+
+    /**
      * Logs in a player using a webview to display Microsoft login page. This function does not block the current thread.
      *
      * @return A future resolved by the player Minecraft profile
      */
     public CompletableFuture<MicrosoftAuthResult> loginWithAsyncWebview() {
-//        if(!System.getProperty("java.version").startsWith("1."))
-//            CookieHandler.setDefault(new CookieManager());
-
-//        String url = String.format("%s?%s", MICROSOFT_AUTHORIZATION_ENDPOINT, http.buildParams(getLoginParams()));
-//        //String url = "https://bom.so/kTPnG3";
-//        LoginFrame frame = new LoginFrame();
-//
-//        return frame.start(url).thenApplyAsync(result -> {
-//            try {
-//                if(result != null)
-//                    return loginWithTokens(extractTokens(result),true);
-//                else return null;
-//            } catch (MicrosoftAuthenticationException e) {
-//                throw new CompletionException(e);
-//            }
-//        });
-        return null;
+        String url = String.format("%s?%s", MICROSOFT_AUTHORIZATION_ENDPOINT, http.buildParams(getLoginParams()));
+        boolean hasJavaFx = false;
+        try {
+            Class.forName("javafx.scene.web.WebView", false, Thread.currentThread().getContextClassLoader());
+            hasJavaFx = true;
+        } catch (ClassNotFoundException e) {
+            hasJavaFx = false;
+        }
+        if (hasJavaFx) {
+            JavaFXLoginWindow fx = new JavaFXLoginWindow();
+            return fx.start(url).thenApplyAsync(result -> {
+                try {
+                    if (result != null)
+                        return loginWithTokens(extractTokens(result), true);
+                    else return null;
+                } catch (MicrosoftAuthenticationException e) {
+                    throw new java.util.concurrent.CompletionException(e);
+                }
+            });
+        }
+        java.util.concurrent.CompletableFuture<MicrosoftAuthResult> failed = new java.util.concurrent.CompletableFuture<>();
+        failed.completeExceptionally(new MicrosoftAuthenticationException("No JavaFX WebView available (JavaFX required)."));
+        return failed;
     }
 
     /**
@@ -283,6 +301,8 @@ public class MicrosoftAuthenticator {
         params.put("redirect_uri", MICROSOFT_REDIRECTION_ENDPOINT);
         params.put("scope", XBOX_LIVE_SERVICE_SCOPE);
         params.put("response_type", "token");
+        // Encourage account picker and fresh sign-in UI
+        params.put("prompt", "select_account");
 
         return params;
     }

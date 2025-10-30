@@ -74,7 +74,7 @@ public class CosmeticDragonWings extends CosmeticBase {
                 GL11.glTranslated(0D, 0.125D, 0D);
             }
 
-            float[] colors = {0.0F, 0.0F, 0.0F};
+            float[] colors = {0.2F, 0.10F, 0.0F};
             GL11.glColor3f(colors[0], colors[1], colors[2]);
             Minecraft.getMinecraft().getTextureManager().bindTexture(TEXTURE);
             for (int j = 0; j < 2; ++j) {
